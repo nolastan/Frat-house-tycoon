@@ -65,7 +65,11 @@ namespace PaintTest
 
 			
 			Rectangle rc = boundingRect;
-			rc.Inflate(-1,-1);
+			rc.X--;
+            rc.Y--;
+            rc.Inflate(-1, -1);
+            rc.Width++;
+            rc.Height++;
 
             //Font font = new Font("Arial", 8);
             //StringFormat sf = new StringFormat();

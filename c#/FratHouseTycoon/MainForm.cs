@@ -28,19 +28,43 @@ namespace PaintTest
         private Button button1;
 		private	DrawObject drawObj1;
         private DrawObject drawObj2;
+        LinearGradientBrush panel1BGbrush;
+        LinearGradientBrush partyBGbrush;
+        private Rectangle partyRect;
+        Font font;
+        StringFormat sf;
 
 		public MainForm()
-		{	
-			memGraphics = new DBGraphics();
+		{
+            memGraphics = new DBGraphics();
 			drawObj1	= new DrawObject(10, 10, 20, 20);
             drawObj2    = new DrawObject(35, 10, 20, 20);
-
+            
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
 
             Application.EnableVisualStyles();
+
+            panel1BGbrush = new LinearGradientBrush(panel1.ClientRectangle,
+                                                    Color.AliceBlue,
+                                                    Color.Silver,
+                                                    LinearGradientMode.Vertical);
+            
+            Point centerPoint = new Point((int)Math.Truncate((double)(panel1.Width) / (double)2),
+                                          (int)Math.Truncate((double)(panel1.Height - 80) / (double)2));
+            partyRect = new Rectangle(0, 80, centerPoint.X, centerPoint.Y);
+
+            partyBGbrush = new LinearGradientBrush(partyRect,
+                                                   Color.SteelBlue,
+                                                   Color.Tan,
+                                                   LinearGradientMode.Vertical);
+
+            font = new Font("Arial", 14, FontStyle.Underline);
+            sf = new StringFormat();
+            sf.LineAlignment = StringAlignment.Center;
+            sf.Alignment = StringAlignment.Center;             
 
 		}
 
@@ -150,17 +174,29 @@ namespace PaintTest
         {
             if (memGraphics.CanDoubleBuffer())
             {
-                // Fill in Background (for effieciency only the area that has been clipped)
-                memGraphics.g.FillRectangle(new SolidBrush(SystemColors.Window), e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width, e.ClipRectangle.Height);
+                // Fill in Background (for effieciency only the area that has been clipped)                
+                memGraphics.g.FillRectangle(panel1BGbrush, 
+                                            e.ClipRectangle.X, 
+                                            e.ClipRectangle.Y, 
+                                            e.ClipRectangle.Width, 
+                                            e.ClipRectangle.Height);
 
+                // Draw the Party quadrant
+                memGraphics.g.FillRectangle(partyBGbrush,
+                                            partyRect.X,
+                                            partyRect.Y,
+                                            partyRect.Width,
+                                            partyRect.Height);
+                memGraphics.g.DrawString("Party", font, new SolidBrush(Color.Black), partyRect, sf);
 
+                // Draw the divider line at the top
                 memGraphics.g.DrawLine(new Pen(SystemColors.Highlight), new Point(0, 80), new Point(panel1.Width, 80));
 
                 // Draw the objects
                 drawObj1.Draw(memGraphics.g);
-                drawObj2.Draw(memGraphics.g);
+                drawObj2.Draw(memGraphics.g);        
+        
 
-                
 
                 // Render to the form
                 memGraphics.Render(e.Graphics);
