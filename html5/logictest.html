@@ -1,0 +1,83 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="logic.js"></script>
+<script>
+var frat;
+var membersLeft;
+$(function(){
+	frat = new Frat();
+	var turn = new Turn();
+	membersLeft = frat.members;	
+	turn.run(frat);
+	update();
+	
+	$("#party-plus").click(plus);
+	$("#party-minus").click(minus);
+	$("#cs-plus").click(plus);
+	$("#cs-minus").click(minus);
+	$("#rush-plus").click(plus);
+	$("#rush-minus").click(minus);
+	$("#study-plus").click(plus);
+	$("#study-minus").click(minus);
+	$("#make-play").click(makePlay);
+});
+
+function makePlay() {
+	turn = new MardiGrasTurn();
+	turn.run(frat);
+	update();
+}
+
+function plus() {
+	if (membersLeft > 0) {
+		var index = $(this).attr("data-index");
+		frat.play[index] = frat.play[index] + 1;
+		membersLeft -= 1;
+		update();
+	}
+}
+
+function minus() {
+	var index = $(this).attr("data-index");
+	if (frat.play[index] > 0) {
+		frat.play[index] = frat.play[index] - 1;
+		membersLeft += 1;
+		update();
+	}
+}
+
+function update() {
+	$("#cash").html(frat.cash);
+	$("#members").html(frat.members);
+	$("#rep").html(frat.rep);
+	$("#members-left").html(membersLeft);
+	$("#members-party").html(frat.play[0]);
+	$("#members-cs").html(frat.play[1]);
+	$("#members-rush").html(frat.play[2]);
+	$("#members-study").html(frat.play[3]);
+}
+
+</script>
+</head>
+<body>
+<p> Cash: <span id="cash"></span></p>
+<p> Members: <span id="members"></span></p>
+<p> Reputation: <span id="rep"></span></p>
+<br>
+<br>
+<p> Members to assign: <span id="members-left"></span><p>
+<p>Party! <span id="members-party">0</span></p>
+<input type="button" id="party-plus" value="+" data-index="0"></input><input type="button" id="party-minus" value="-" data-index="0"></input>
+<p>Community Service! <span id="members-cs">0</span></p>
+<input type="button" id="cs-plus" value="+" data-index="1"></input><input type="button" id="cs-minus" value="-" data-index="1"></input>
+<p>Rush <span id="members-rush">0</span></p>
+<input type="button" id="rush-plus" value="+" data-index="2"></input><input type="button" id="rush-minus" value="-" data-index="2"></input>
+<p> Study <span id="members-study">0</span></p>
+<input type="button" id="study-plus" value="+" data-index="3"></input><input type="button" id="study-minus" value="-" data-index="3"></input>
+<input type="button" id="make-play" value="Play!" />
+<div class="log" >
+</div>
+</body>
+</html>
