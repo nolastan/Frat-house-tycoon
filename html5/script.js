@@ -1,11 +1,41 @@
+
+// Variable to handle game parameters
 var speed = 3;
 var screenWidth;
 var screenHeight;
-
 var ctx;
 
+// Create images
 var personImg = new Image();
 var houseImg = new Image();
+
+// Create sounds
+  // @TODO
+
+//Wait for window to be ready to start
+$(window).ready(function() {
+	init();
+	$('button#sim').click(function(){
+	  runSim(10);
+	})
+});
+
+function init() {
+	loadImages();
+	initSettings();
+}
+
+function prepareSim(){
+  
+}
+
+function runSim(rep){
+  ctx.clearRect(0, 0, screenWidth, screenHeight);
+  drawHouse();
+ 	for(i = 0; i < rep; i++){
+   	ctx.drawImage(person.image, house.x+i*40, house.y, 50, 70); 
+ 	}
+}
 
 function GameObject()
 {
@@ -18,8 +48,7 @@ function GameObject()
 //Subclass game object for person
 function Person() {};
 Person.prototype = new GameObject();
-
-var person = new Person();
+var person = new House();
 
 //Subclass game object for house
 function House() {};
@@ -27,43 +56,13 @@ House.prototype = new GameObject();
 
 var house = new House();
 
-//Wait for window to be ready to start
-$(window).ready(function() {
-	init();
-});
-
-function init() {
-	loadImages();
-	initSettings();
-	startLevel();
-}
-
-function startLevel() {
-	gameLoop();
-	
-}
-
 //Place the images and such
 function initSettings() {
-	ctx = document.getElementById('myDrawing').getContext('2d');
-	
-	context = ctx;
-	context.strokeStyle = "#000000";
-	context.fillStyle = "#FFFF00";
-	context.beginPath();
-	context.arc(100,100,50,0,Math.PI*2,true);
-	context.closePath();
-	context.stroke();
-	context.fill();
-	
-	houseImg.onload = function() { ctx.drawImage(house.image, house.x, house.y);};
+	ctx = document.getElementById('canvas').getContext('2d');
+
 	//Calulate screen height and width
 	screenWidth = parseInt($("#canvas").attr("width"));
 	screenHeight = parseInt($("#canvas").attr("height"));
-	
-	//center mushroom on the horizontal axis
-	house.x = 20;
-	house.y = 20;
 	
 }
 //Load images here
@@ -76,11 +75,6 @@ function loadImages() {
 }
 
 function drawHouse() {
-	ctx.drawImage(house.image, house.x, house.y);
-}
-
-function gameLoop() {
-	ctx.clearRect(0, 0, screenWidth, screenHeight);
- 	ctx.drawImage(person.image, house.x, house.y);
- 	ctx.save();
+  console.log($("#canvas").attr("width"));
+	ctx.drawImage(house.image, screenWidth/4, 0, screenWidth/2, screenHeight/2);
 }
