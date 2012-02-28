@@ -1,0 +1,8 @@
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\bin\Debug\SpriteCanvas.dll
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\bin\Debug\SpriteCanvas.pdb
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\obj\Debug\ResolveAssemblyReference.cache
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\obj\Debug\SpriteCanvas.Canvas.resources
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\obj\Debug\GenerateResource.read.1.tlog
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\obj\Debug\GenerateResource.write.1.tlog
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\obj\Debug\SpriteCanvas.dll
+D:\Denny_Files\School\CSE450A\sprites\SpriteCanvas\obj\Debug\SpriteCanvas.pdb
