@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010 Express for Windows Phone
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimatedSpriteWindows", "AnimatedSpriteWindows\AnimatedSpriteWindows\AnimatedSpriteWindows.csproj", "{9B4F5B39-893A-45CE-B7F1-93768FC13C83}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "AnimatedSpriteWindowsContent", "AnimatedSpriteWindows\AnimatedSpriteWindowsContent\AnimatedSpriteWindowsContent.contentproj", "{9F3E0340-5AF0-4AED-BEF2-FD8014D08667}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B4F5B39-893A-45CE-B7F1-93768FC13C83}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9B4F5B39-893A-45CE-B7F1-93768FC13C83}.Debug|x86.ActiveCfg = Debug|x86
+		{9B4F5B39-893A-45CE-B7F1-93768FC13C83}.Debug|x86.Build.0 = Debug|x86
+		{9B4F5B39-893A-45CE-B7F1-93768FC13C83}.Release|Any CPU.ActiveCfg = Release|x86
+		{9B4F5B39-893A-45CE-B7F1-93768FC13C83}.Release|x86.ActiveCfg = Release|x86
+		{9B4F5B39-893A-45CE-B7F1-93768FC13C83}.Release|x86.Build.0 = Release|x86
+		{9F3E0340-5AF0-4AED-BEF2-FD8014D08667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F3E0340-5AF0-4AED-BEF2-FD8014D08667}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F3E0340-5AF0-4AED-BEF2-FD8014D08667}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F3E0340-5AF0-4AED-BEF2-FD8014D08667}.Release|x86.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
