@@ -4,7 +4,7 @@ $(document).ready(function(){
   $("#sim").click(function(){
     simulate(10);
   });
-  
+      
   var canvas = document.getElementById("canvas");  
   if (canvas.getContext) {  
     var ctx = canvas.getContext("2d");  
@@ -13,6 +13,20 @@ $(document).ready(function(){
   function simulate(rep){
     var sim = new simulation(rep);
     sim.run();
+    
+    $("#normal").click(function(){
+      sim.gameTime.speed = 3;
+    });
+
+    $("#fast").click(function(){
+      sim.gameTime.speed = 9;
+    });
+
+    $("#skip").click(function(){
+      console.log("not implemented");
+    });
+
+    
   }
 
   function simulation(rep){
@@ -23,11 +37,13 @@ $(document).ready(function(){
     var intervalsPerDay = 100;
     var sim; // this simulation loop
     var rep;
-    var gameTime;
+    var gameTime = new GameTime();
+    this.gameTime = gameTime;
     var partygoers = new Array();
     var CANVAS_HEIGHT = $('canvas').attr('height');
     var CANVAS_WIDTH = $('canvas').attr('width');
     var partyGoerCount = 0;
+
 
     // objects
      function GameTime(){
@@ -45,9 +61,9 @@ $(document).ready(function(){
           alert("sim over");
         }
         // As speed increases, update time more often
-        if(this.frame % ( FPS / this.speed ) == 0){
+        if(this.frame % Math.round( FPS / this.speed ) == 0){
           this.current++;
-          step();
+          step();          
         }
         this.frame++;
       }
@@ -106,8 +122,6 @@ $(document).ready(function(){
 
     this.run = function(){
       console.log("Simulating with rep: " + rep);
-
-      gameTime = new GameTime();
 
       // loop steps (run simulation)
       sim = setInterval(function() {
