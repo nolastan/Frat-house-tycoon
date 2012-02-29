@@ -3,81 +3,117 @@ $(document).ready(function(){
   // Action call
   $("#sim").click(function(){
     simulate(10);
-  })
-
-  // setup the canvas
-  var CANVAS_WIDTH = 480;
-  var CANVAS_HEIGHT = 500;
-  var canvasElement = $("<canvas width='" + CANVAS_WIDTH + 
-                        "' height='" + CANVAS_HEIGHT + "'></canvas>");
-  var canvas = canvasElement.get(0).getContext("2d");
-  canvasElement.appendTo('body');
+  });
   
-  // game variables
-  var partygoers = new Array();
-  var timeInDay = 300;
-  var partygoerLife = 75;
-  
-  // objects
-  function Person(){
-  }
-  function House(){
-    var img = new Image();
-    img.src = "sprites/imgres.jpg";
-  }
-  Partygoer.prototype = new Person();
-  function Partygoer(){
-    this.draw = function(x, y){
-      drawPerson(canvas, x, y, 1, "blue")
-    }
-  }
-  Rushee.prototype = new Person();
-  function Rushee(){
-    this.name = "bob";
-    this.draw = function(x, y){
-      drawPerson(canvas, x, y, 1, "red")
-    }
-  }
-  Philanthropist.prototype = new Person();
-  function Philanthropist(){
-    this.draw = function(x, y){
-      drawPerson(canvas, x, y, 1, "green")
-    }
+  var canvas = document.getElementById("canvas");  
+  if (canvas.getContext) {  
+    var ctx = canvas.getContext("2d");  
   }
   
-  // Simulate!
   function simulate(rep){
-    
-    console.log("Simulating with rep: +" + rep)
-    
-    var intervalLength = timeInDay / rep;
-    var interval = 0;
-    
-    rushee = new Rushee();
-    rushee.draw(10,10);
+    var sim = new simulation(rep);
+    sim.run();
+  }
 
-    
-    
-    // var FPS = 30;
-    // setInterval(function() {
-    //   
-    //   if(interval > timeInDay){
-    //     stop();
-    //   }
-    //   
-    //   // ---- Update ---- \\
-    // 
-    //   // ---- Draw ---- \\
-    //   canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    // 
-    //   // draw new frame
-    //   drawPerson(canvas, 10, 10, 4)
-    //   
-    //   interval++;
-    //   
-    // }, 1000/FPS);
-  }  
+  function simulation(rep){
 
+    // game variables
+    var timeInDay = 60;
+    var FPS = 30;
+    var intervalsPerDay = 100;
+    var sim; // this simulation loop
+    var rep;
+    var gameTime;
+    var partygoers = new Array();
+    var CANVAS_HEIGHT = $('canvas').attr('height');
+    var CANVAS_WIDTH = $('canvas').attr('width');
+    var partyGoerCount = 0;
+
+    // objects
+     function GameTime(){
+       /* Keeps track of time, independent of FPS
+          and supporting a variable speed. By default,
+          ranges 0-100 */
+      this.current = 0;
+      this.speed = 3;
+      this.max = 100;
+      this.frame = 0;
+      this.update = function(){
+        // end simulation if time is up
+        if(this.current >= this.max){
+          clearInterval(sim);
+          alert("sim over");
+        }
+        // As speed increases, update time more often
+        if(this.frame % ( FPS / this.speed ) == 0){
+          this.current++;
+          step();
+        }
+        this.frame++;
+      }
+    }
+
+    function Person(){
+      this.color = "black"
+      this.x = 0;
+      this.y = 0;
+      this.timeOnScreen = 0;
+      this.lengthOfStay = 10;
+      this.draw = function(x, y){
+        if(this.timeOnScreen < this.lengthOfStay){
+          this.x++;
+          drawPerson(ctx, this.x, this.y, 1, this.color)
+          this.timeOnScreen++;        
+        }
+      }
+    }
+
+    function House(){
+      var img = new Image();
+      img.src = "sprites/imgres.jpg";
+    }
+
+    Partygoer.prototype = new Person();
+    function Partygoer(){
+      this.color = "blue";
+    }
+
+    Rushee.prototype = new Person();
+    function Rushee(){
+      this.color = "red";
+    }
+
+    Philanthropist.prototype = new Person();
+    function Philanthropist(){
+      this.color = "green"
+    }
+
+    // Each step
+    function step(){
+      ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+      
+      // ~2x as many partygoers as rep gained
+      if(Math.floor(Math.random()*101) < rep / gameTime.max * 100 *2){
+        partygoers.push(new Partygoer());
+      }
+      
+      for(i = 0; i < partygoers.length; i++){
+        partygoers[i].x = i*30;
+        partygoers[i].y = 10;
+        partygoers[i].draw();
+      }
+    }
+
+    this.run = function(){
+      console.log("Simulating with rep: " + rep);
+
+      gameTime = new GameTime();
+
+      // loop steps (run simulation)
+      sim = setInterval(function() {
+        gameTime.update();
+      }, 1000/FPS);
+    }
+  }
 });
-
 

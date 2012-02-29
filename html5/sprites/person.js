@@ -1,5 +1,6 @@
 function drawPerson(ctx, x, y, scale, color) {
-ctx.save();
+  ctx.save();
+  // apply variables
   ctx.fillStyle = color;
   ctx.scale(scale,scale);
   ctx.translate(x,y);
@@ -43,5 +44,6 @@ ctx.save();
   // ctx.stroke();
   ctx.restore();
   
-ctx.restore();
+  ctx.restore();
 };
+
