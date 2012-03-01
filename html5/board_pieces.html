@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+            
+            canvas {
+                border: 1px solid #9C9898;
+            }
+        </style>
+        <script src="kinetic-v3.js">
+        </script>
+        <script>
+		
+		    //********************************************************************************************			
+            // Globals
+			//********************************************************************************************
+		    const INIT_NUM_BROTHERS = 5;
+		    var numBrothers = INIT_NUM_BROTHERS;
+		    var temp = 0;
+			var broRectAray = new Array(INIT_NUM_BROTHERS);
+			var partyRect;
+			var partyCount;
+			
+			//********************************************************************************************			
+ 			
+		    function GetPartyCount()
+			{
+			    partyCount = 0;
+				for (var n = 0; n < INIT_NUM_BROTHERS; n++) 
+				{
+				    if (broRectAray[n].x                              >  partyRect.x                     &&
+				       (broRectAray[n].x + broRectAray[n].width - 1)  < (partyRect.x + partyRect.width)  &&
+					    broRectAray[n].y + 1                          >  partyRect.y                     &&
+					   (broRectAray[n].y + broRectAray[n].height - 1) < (partyRect.y + partyRect.height))
+				    {
+				      partyCount = partyCount + 1;
+				    }				
+				}			
+				
+				document.getElementById("partyCnt").innerHTML=partyCount;
+			}		
+
+            //********************************************************************************************			
+ 
+			window.onload = function()
+			{
+				var stage        = new Kinetic.Stage("container", 550, 550);
+				var boardLayer   = new Kinetic.Layer();
+				var piecesLayer  = new Kinetic.Layer();
+				var messageLayer = new Kinetic.Layer();				
+
+				// Make the board layer
+                partyRect = new Kinetic.Rect({
+					x: 0,
+					y: 50,
+					width: stage.width / 2,
+					height: (stage.height - 50) / 2,
+					//fill: "#00D2FF",
+					stroke: "black",
+					strokeWidth: 2
+				});				
+				boardLayer.add(partyRect);			
+				stage.add(boardLayer);								
+
+				// Draw the "Party" text inside of the Party Rect
+				stage.add(messageLayer);
+				var context = messageLayer.getContext();
+				context.font = "bold 18pt Calibri";
+				context.fillStyle = "black";
+				context.textAlign = "center";
+				context.fillText("Party", partyRect.width / 2, 50 + (partyRect.height / 2));
+	 
+	            // Make the pieces layer
+	            for (var n = 0; n < INIT_NUM_BROTHERS; n++) 
+				{
+					// anonymous function to induce scope
+					(function()
+					{
+					    var i = n;
+						broRectAray[i] = new Kinetic.Rect({
+							x: i * 24 + 10,
+                            y: 10,
+							width: 20,
+							height: 20,
+							fill: "#00D2FF",
+							stroke: "black",
+							strokeWidth: 1,
+							draggable: true
+						});
+			 
+						piecesLayer.add(broRectAray[i]);			
+						
+					})();                    					
+				}
+				stage.add(piecesLayer);
+			};
+        </script>
+    </head>
+    <body onmousedown="return false;">
+	    
+        <button type="button" onclick="GetPartyCount()">Party Count</button>
+		<p id="partyCnt">0</p>
+		
+        <div id="container">
+			<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>			
+		</div>	     		
+		
+	</body>
+</html>
