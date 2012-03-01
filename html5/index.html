@@ -3,15 +3,28 @@
    <script src="jquery-1.7.1.min.js"></script>
    <script src="sprites/person.js"></script>
    <script src="simulation.js"></script> 
+   <link rel="stylesheet" href="css/reset.css" />
+   <link rel="stylesheet" href="css/style.css" />
  </head>  
- <body>  
-   <button id="sim">Sim</button>
-   <button id="plan">Plan</button>
-   <button id="normal">1x</button>
-   <button id="fast">2x</button>
-   <button id="skip">>></button>
+ <body>
+ <header><h1>Frat House Tycoon</h1></header>
+ <div id="status">
+ 	<ul id="controls">
+ 		<li><button id="sim">Sim</button></li>
+		<li><button id="plan">Plan</button></li>
+		<li><button id="normal">1x</button></li>
+		<li><button id="fast">2x</button></li>
+		<li><button id="skip">>></button></li>
+ 	</ul>
+ 	<ul id="stats">
+		<li id="rep"><label>Reputation</label><span class="val">0</span></li>
+		<li id="money"><label>Money</label><span class="val">0</span></li>
+		<li id="brothers"><label>Brothers</label><span class="val">0</span> / <span id="bed_val">0</span></li>
+ 	</ul>
+ </div>
+
    <br />
-   <canvas id="canvas" width="800" height="500"></canvas>  
+   <canvas id="canvas"></canvas>  
  </body>  
 </html>
 

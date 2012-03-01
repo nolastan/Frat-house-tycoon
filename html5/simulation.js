@@ -1,4 +1,19 @@
 $(document).ready(function(){
+	
+	var CANVAS_HEIGHT;
+	var CANVAS_WIDTH;
+  
+	$(window).resize(function(){
+		updateScreenSize();
+	});
+	updateScreenSize();
+	function updateScreenSize(){
+		CANVAS_WIDTH = $(window).width();
+		CANVAS_HEIGHT = $(window).height() - 100;
+		$("#canvas").attr('width', CANVAS_WIDTH);
+		$("#canvas").attr('height', CANVAS_HEIGHT);
+	}
+  
   
   // Action call
   $("#sim").click(function(){
@@ -38,10 +53,9 @@ $(document).ready(function(){
     var sim; // this simulation loop
     var rep;
     var gameTime = new GameTime();
+    var house = new House();
     this.gameTime = gameTime;
     var partygoers = new Array();
-    var CANVAS_HEIGHT = $('canvas').attr('height');
-    var CANVAS_WIDTH = $('canvas').attr('width');
     var partyGoerCount = 0;
 
 
@@ -85,8 +99,19 @@ $(document).ready(function(){
     }
 
     function House(){
-      var img = new Image();
-      img.src = "sprites/imgres.jpg";
+        // body
+		this.draw = function(){
+			ctx.save();
+			
+			ctx.strokeRect(10,10,CANVAS_WIDTH/2,CANVAS_HEIGHT/2)
+/*
+  			ctx.save();
+			ctx.restore();
+*/
+			ctx.restore();
+			ctx.restore();
+        }
+
     }
 
     Partygoer.prototype = new Person();
@@ -107,6 +132,7 @@ $(document).ready(function(){
     // Each step
     function step(){
       ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+      house.draw();
       
       // ~2x as many partygoers as rep gained
       if(Math.floor(Math.random()*101) < rep / gameTime.max * 100 *2){
