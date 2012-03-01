@@ -13,11 +13,18 @@ $(document).ready(function(){
 		$("#canvas").attr('width', CANVAS_WIDTH);
 		$("#canvas").attr('height', CANVAS_HEIGHT);
 	}
+	
+	$("#normal").addClass('disabled');
+	$("#fast").addClass('disabled');
+	$("#skip").addClass('disabled');
   
   
   // Action call
   $("#sim").click(function(){
-    simulate(10);
+    simulate(100);
+    $(this).addClass("disabled");
+		$("#fast").removeClass('disabled');
+		$("#skip").removeClass('disabled');
   });
       
   var canvas = document.getElementById("canvas");  
@@ -30,11 +37,15 @@ $(document).ready(function(){
     sim.run();
     
     $("#normal").click(function(){
-      sim.gameTime.speed = 3;
+      sim.gameTime.speed = 1;
+      $(this).addClass("disabled");
+      $("#fast").removeClass("disabled");
     });
 
     $("#fast").click(function(){
-      sim.gameTime.speed = 9;
+      sim.gameTime.speed = 3;
+      $(this).addClass("disabled");
+      $("#normal").removeClass("disabled");
     });
 
     $("#skip").click(function(){
@@ -53,8 +64,8 @@ $(document).ready(function(){
     var sim; // this simulation loop
     var rep;
     var gameTime = new GameTime();
-    var house = new House();
     this.gameTime = gameTime;
+    var house = new House();
     var partygoers = new Array();
     var partyGoerCount = 0;
 
@@ -65,14 +76,14 @@ $(document).ready(function(){
           and supporting a variable speed. By default,
           ranges 0-100 */
       this.current = 0;
-      this.speed = 3;
+      this.speed = 1;
       this.max = 100;
       this.frame = 0;
       this.update = function(){
         // end simulation if time is up
         if(this.current >= this.max){
           clearInterval(sim);
-          alert("sim over");
+          endSim();
         }
         // As speed increases, update time more often
         if(this.frame % Math.round( FPS / this.speed ) == 0){
@@ -85,16 +96,43 @@ $(document).ready(function(){
 
     function Person(){
       this.color = "black"
-      this.x = 0;
-      this.y = 0;
+      this.x;
+      this.y;
+      this.goToX = 10;
+      this.goToY = 30;
       this.timeOnScreen = 0;
-      this.lengthOfStay = 10;
+      this.lengthOfStay = 30;
       this.draw = function(x, y){
+      	// called each frame
         if(this.timeOnScreen < this.lengthOfStay){
-          this.x++;
           drawPerson(ctx, this.x, this.y, 1, this.color)
-          this.timeOnScreen++;        
         }
+      }
+      this.move = function(){
+      	// called each frame
+      	if(this.x > this.goToX) this.x -= gameTime.speed;
+      	if(this.x < this.goToX) this.x += gameTime.speed;
+      	if(this.y > this.goToY) this.y -= gameTime.speed;
+      	if(this.y < this.goToY) this.y += gameTime.speed;
+      }
+      this.step = function(){
+      	// called each step
+      	if(this.timeOnScreen == this.lengthOfStay){
+      		console.log("Goodbye!");
+      	}
+      	if(this.timeOnScreen == 0){
+      		console.log("Hello!");
+      		if(Math.round(Math.random()) == 0){
+	      		this.y = Math.floor(Math.random()*CANVAS_HEIGHT);
+	      		console.log(this.y);
+	      		this.x = CANVAS_WIDTH;
+      		}else{
+	      		this.x = Math.floor(Math.random()*CANVAS_HEIGHT);
+	      		console.log(this.x);
+	      		this.y = CANVAS_HEIGHT;
+      		}      	
+      	}
+    		this.timeOnScreen++;
       }
     }
 
@@ -103,7 +141,6 @@ $(document).ready(function(){
 		this.draw = function(){
 			ctx.save();
 			
-			ctx.strokeRect(10,10,CANVAS_WIDTH/2,CANVAS_HEIGHT/2)
 /*
   			ctx.save();
 			ctx.restore();
@@ -128,22 +165,30 @@ $(document).ready(function(){
     function Philanthropist(){
       this.color = "green"
     }
+    
+    function endSim(){
+	    console.log("sim over");
+	    $("#sim").removeClass('disabled');
+	    $("#normal").addClass('disabled');
+	    $("#fast").addClass('disabled');
+	    $("#skip").addClass('disabled');
+    }
 
     // Each step
     function step(){
-      ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-      house.draw();
+
       
-      // ~2x as many partygoers as rep gained
-      if(Math.floor(Math.random()*101) < rep / gameTime.max * 100 *2){
+      // ~1x as many partygoers as rep gained
+      if(Math.floor(Math.random()*101) < rep / gameTime.max * 100 *1){
         partygoers.push(new Partygoer());
       }
       
       for(i = 0; i < partygoers.length; i++){
-        partygoers[i].x = i*30;
-        partygoers[i].y = 10;
-        partygoers[i].draw();
-      }
+        partygoers[i].step();
+	    }
+	    
+	    console.log(gameTime.current);
+      
     }
 
     this.run = function(){
@@ -151,6 +196,13 @@ $(document).ready(function(){
 
       // loop steps (run simulation)
       sim = setInterval(function() {
+	      ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+	      house.draw();
+				ctx.strokeRect(10,10,CANVAS_WIDTH/2,CANVAS_HEIGHT/2)
+	      for(i = 0; i < partygoers.length; i++){
+	        partygoers[i].move();
+	        partygoers[i].draw();
+	      }
         gameTime.update();
       }, 1000/FPS);
     }
