@@ -1,14 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-    	<script src="jquery-1.7.1.min.js"></script>
-    	<script src="script.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>New Web Project</title>
-    </head>
-    <body>
-        <canvas id="myDrawing" width="480" height="320" >Oh dear, your browser dosen't support HTML5! Tell you what, why don't you upgrade to a decent browser - you won't regret it!
-        </canvas>
-    </body>
+<html>  
+ <head>  
+   <script src="jquery-1.7.1.min.js"></script>
+   <script src="sprites/person.js"></script>
+   <script src="simulation.js"></script> 
+   <link rel="stylesheet" href="css/reset.css" />
+   <link rel="stylesheet" href="css/style.css" />
+ </head>  
+ <body>
+ <header><h1>Frat House Tycoon</h1></header>
+ <div id="status">
+ 	<ul id="controls">
+ 		<li><button id="sim">Sim</button></li>
+		<li><button id="plan">Plan</button></li>
+		<li><button id="normal">1x</button></li>
+		<li><button id="fast">2x</button></li>
+		<li><button id="skip">>></button></li>
+ 	</ul>
+ 	<ul id="stats">
+		<li id="rep"><label>Reputation</label><span class="val">0</span></li>
+		<li id="money"><label>Money</label><span class="val">0</span></li>
+		<li id="brothers"><label>Brothers</label><span class="val">0</span> / <span id="bed_val">0</span></li>
+ 	</ul>
+ </div>
+
+   <br />
+   <canvas id="canvas"></canvas>  
+ </body>  
 </html>
+
