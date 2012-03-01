@@ -20,18 +20,18 @@
             // Globals
 			//********************************************************************************************
 		    const INIT_NUM_BROTHERS = 5;
-		    var numBrothers = INIT_NUM_BROTHERS;
-		    var temp = 0;
-			var broRectAray = new Array(INIT_NUM_BROTHERS);
-			var partyRect;
-			var partyCount;
+		    var   numBrothers       = INIT_NUM_BROTHERS;
+			var   broRectAray;
+			var   partyRect;
+			var   stage;
+			var   piecesLayer;
 			
 			//********************************************************************************************			
  			
 		    function GetPartyCount()
 			{
 			    partyCount = 0;
-				for (var n = 0; n < INIT_NUM_BROTHERS; n++) 
+				for (var n = 0; n < numBrothers; n++) 
 				{
 				    if (broRectAray[n].x                              >  partyRect.x                     &&
 				       (broRectAray[n].x + broRectAray[n].width - 1)  < (partyRect.x + partyRect.width)  &&
@@ -43,15 +43,68 @@
 				}			
 				
 				document.getElementById("partyCnt").innerHTML=partyCount;
-			}		
-
-            //********************************************************************************************			
+			}
+			
+			//********************************************************************************************			
+ 			
+		    function RemovePieces()
+			{
+			    for (var n = 0; n < numBrothers; n++) 
+				{
+				   piecesLayer.remove(broRectAray[n]);				
+				}		
+				
+				piecesLayer.draw();
+			}
+			
+			//********************************************************************************************			
+ 			
+		    function IncrementPieceCount()
+			{
+			    RemovePieces();
+			    numBrothers = numBrothers + 1;			    
+				DrawPieces();
+			}
+            
+			//********************************************************************************************			
+ 			
+		    function DrawPieces()
+			{
+			    broRectAray = new Array(numBrothers);
+				
+			     // Make the pieces layer
+	            for (var n = 0; n < numBrothers; n++) 
+				{
+					// anonymous function to induce scope
+					(function()
+					{
+					    var i = n;
+						broRectAray[i] = new Kinetic.Rect({
+							x: i * 24 + 10,
+                            y: 10,
+							width: 20,
+							height: 20,
+							fill: "#00D2FF",
+							stroke: "black",
+							strokeWidth: 1,
+							draggable: true
+						});
+			 
+						piecesLayer.add(broRectAray[i]);			
+						
+					})();                    					
+				}
+				stage.add(piecesLayer);
+			
+			}
+			
+			//********************************************************************************************	
  
 			window.onload = function()
 			{
-				var stage        = new Kinetic.Stage("container", 550, 550);
+				stage = new Kinetic.Stage("container", 550, 550);
 				var boardLayer   = new Kinetic.Layer();
-				var piecesLayer  = new Kinetic.Layer();
+				piecesLayer      = new Kinetic.Layer();
 				var messageLayer = new Kinetic.Layer();				
 
 				// Make the board layer
@@ -74,40 +127,25 @@
 				context.fillStyle = "black";
 				context.textAlign = "center";
 				context.fillText("Party", partyRect.width / 2, 50 + (partyRect.height / 2));
-	 
-	            // Make the pieces layer
-	            for (var n = 0; n < INIT_NUM_BROTHERS; n++) 
-				{
-					// anonymous function to induce scope
-					(function()
-					{
-					    var i = n;
-						broRectAray[i] = new Kinetic.Rect({
-							x: i * 24 + 10,
-                            y: 10,
-							width: 20,
-							height: 20,
-							fill: "#00D2FF",
-							stroke: "black",
-							strokeWidth: 1,
-							draggable: true
-						});
-			 
-						piecesLayer.add(broRectAray[i]);			
-						
-					})();                    					
-				}
-				stage.add(piecesLayer);
+				
+				DrawPieces();	 
+	           
 			};
         </script>
     </head>
     <body onmousedown="return false;">
 	    
-        <button type="button" onclick="GetPartyCount()">Party Count</button>
-		<p id="partyCnt">0</p>
+        <p>
+		   <button type="button" onclick="GetPartyCount()">Get Party Count</button>		
+		   <span id="partyCnt">0</span>
+		</p>		
+				   
+		<button type="button" onclick="RemovePieces()">Remove Pieces</button>		
+
+		<button type="button" onclick="IncrementPieceCount()">Increment Piece Count</button>		
 		
-        <div id="container">
-			<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>			
+		<div id="container">
+		<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>			
 		</div>	     		
 		
 	</body>
