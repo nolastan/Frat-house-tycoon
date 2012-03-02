@@ -141,13 +141,12 @@ $(document).ready(function(){
       
       this.move = function(){
       	// called each frame
-      	if(this.x > this.goToX) this.x -= gameTime.speed;
-      	if(this.x < this.goToX) this.x += gameTime.speed;
-      	if(this.y > this.goToY) this.y -= gameTime.speed;
-      	if(this.y < this.goToY) this.y += gameTime.speed;
-      	if(this.x == this.goToX && this.Y == this.goToY){
-      		console.log('there');
-      		this.goToX = Math.floor(Math.random()*house.width);
+      	if(this.x > this.goToX) this.x--;
+      	if(this.x < this.goToX) this.x++;
+      	if(this.y > this.goToY) this.y--;
+      	if(this.y < this.goToY) this.y++;
+      	if(this.x == this.goToX){
+      		this.goToX = Math.floor(Math.random()*house.width); 
       		this.goToY = Math.floor(Math.random()*house.height);     		
       	}
       }
@@ -155,6 +154,7 @@ $(document).ready(function(){
       	// called each step
       	if(this.timeOnScreen == this.lengthOfStay){
       		console.log("Goodbye!");
+      		people.pop(this);
       	}
     		this.timeOnScreen++;
       }
@@ -164,7 +164,20 @@ $(document).ready(function(){
       this.width = CANVAS_WIDTH/2;
       this.height = CANVAS_HEIGHT/2;
 			this.draw = function(){
+		  var ctx = document.getElementById('canvas').getContext('2d');
+		
+		  // create new image object to use as pattern
+		  var img = new Image();
+		  img.src = 'images/grass.png';
+		  img.onload = function(){
+		    // create pattern
+		    var ptrn = ctx.createPattern(img,'repeat');
+		    ctx.fillStyle = ptrn;
+		    ctx.fillRect(0,0,150,150);
+		
+		  }
 				ctx.strokeRect(10,10,this.width,this.height);	
+				
 	    }
     }
 
@@ -223,7 +236,6 @@ $(document).ready(function(){
         people[i].step();
 	    }
 	    
-	    console.log(gameTime.current);
       
     }
 
@@ -233,8 +245,10 @@ $(document).ready(function(){
 	      ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 	      house.draw();
 	      for(i = 0; i < people.length; i++){
-	        people[i].move();
-	        people[i].draw();
+	        for(j = 0; j < gameTime.speed; j++){
+		        people[i].move();
+	        }
+		    people[i].draw();	        
 	      }
         gameTime.update();
       }, 1000/FPS);
