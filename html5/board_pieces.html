@@ -19,19 +19,35 @@
 		    //********************************************************************************************			
             // Globals
 			//********************************************************************************************
-		    const INIT_NUM_BROTHERS = 5;
+		    var   INIT_NUM_BROTHERS = 5;
 		    var   numBrothers       = INIT_NUM_BROTHERS;
 			var   broRectAray;
-			var   partyRect;
+			var   partyRect, studyRect, csRect, rushRect;
 			var   stage;
 			var   piecesLayer;
+			var	  frat;
 			
 			//********************************************************************************************			
  			
-		    function GetPartyCount()
+			// to-do
+			function getNumOfBros() {
+				numBrothers = 5;
+			}
+			
+			// to-do
+			function simulate() {
+				
+			}
+			
+			//********************************************************************************************			
+			
+		    function GetCount()
 			{
 			    partyCount = 0;
-				for (var n = 0; n < numBrothers; n++) 
+				csCount = 0;
+				rushCount = 0;
+				studyCount = 0;
+				for (var n = 0; n < numBrothers; n++)
 				{
 				    if (broRectAray[n].x                              >  partyRect.x                     &&
 				       (broRectAray[n].x + broRectAray[n].width - 1)  < (partyRect.x + partyRect.width)  &&
@@ -39,10 +55,33 @@
 					   (broRectAray[n].y + broRectAray[n].height - 1) < (partyRect.y + partyRect.height))
 				    {
 				      partyCount = partyCount + 1;
-				    }				
+				    }
+					else if (broRectAray[n].x                              >  csRect.x                     &&
+				       (broRectAray[n].x + broRectAray[n].width - 1)  < (csRect.x + csRect.width)  &&
+					    broRectAray[n].y + 1                          >  csRect.y                     &&
+					   (broRectAray[n].y + broRectAray[n].height - 1) < (csRect.y + csRect.height))
+				    {
+				      csCount = csCount + 1;
+				    }
+					else if (broRectAray[n].x                              >  rushRect.x                     &&
+				       (broRectAray[n].x + broRectAray[n].width - 1)  < (rushRect.x + rushRect.width)  &&
+					    broRectAray[n].y + 1                          >  rushRect.y                     &&
+					   (broRectAray[n].y + broRectAray[n].height - 1) < (rushRect.y + rushRect.height))
+				    {
+				      rushCount = rushCount + 1;
+				    }
+					else if (broRectAray[n].x                              >  studyRect.x                     &&
+				       (broRectAray[n].x + broRectAray[n].width - 1)  < (studyRect.x + studyRect.width)  &&
+					    broRectAray[n].y + 1                          >  studyRect.y                     &&
+					   (broRectAray[n].y + broRectAray[n].height - 1) < (studyRect.y + studyRect.height))
+				    {
+				      studyCount = studyCount + 1;
+				    }
 				}			
-				
-				document.getElementById("partyCnt").innerHTML=partyCount;
+				document.getElementById("partyCount").innerHTML=partyCount;
+				document.getElementById("csCount").innerHTML=csCount;
+				document.getElementById("rushCount").innerHTML=rushCount;
+				document.getElementById("studyCount").innerHTML=studyCount;
 			}
 			
 			//********************************************************************************************			
@@ -102,7 +141,7 @@
  
 			window.onload = function()
 			{
-				stage = new Kinetic.Stage("container", 550, 550);
+				stage = new Kinetic.Stage("container", 600, 650);
 				var boardLayer   = new Kinetic.Layer();
 				piecesLayer      = new Kinetic.Layer();
 				var messageLayer = new Kinetic.Layer();				
@@ -112,13 +151,47 @@
 					x: 0,
 					y: 50,
 					width: stage.width / 2,
-					height: (stage.height - 50) / 2,
+					height: (stage.height-50) / 2,
 					//fill: "#00D2FF",
 					stroke: "black",
 					strokeWidth: 2
 				});				
-				boardLayer.add(partyRect);			
-				stage.add(boardLayer);								
+				boardLayer.add(partyRect);
+				
+				csRect = new Kinetic.Rect({
+					x: 300,
+					y: 50,
+					width: stage.width / 2,
+					height: (stage.height-50) / 2,
+					//fill: "#00D2FF",
+					stroke: "black",
+					strokeWidth: 2
+				});				
+				boardLayer.add(csRect);	
+				
+				rushRect = new Kinetic.Rect({
+					x: 0,
+					y: 350,
+					width: stage.width / 2,
+					height: (stage.height-50) / 2,
+					//fill: "#00D2FF",
+					stroke: "black",
+					strokeWidth: 2
+				});				
+				boardLayer.add(rushRect);	
+				
+				studyRect = new Kinetic.Rect({
+					x: 300,
+					y: 350,
+					width: stage.width / 2,
+					height: (stage.height-50) / 2,
+					//fill: "#00D2FF",
+					stroke: "black",
+					strokeWidth: 2
+				});				
+				boardLayer.add(studyRect);	
+				
+				stage.add(boardLayer);	
 
 				// Draw the "Party" text inside of the Party Rect
 				stage.add(messageLayer);
@@ -127,7 +200,9 @@
 				context.fillStyle = "black";
 				context.textAlign = "center";
 				context.fillText("Party", partyRect.width / 2, 50 + (partyRect.height / 2));
-				
+				context.fillText("Community Services", 300+partyRect.width / 2, 50 + (partyRect.height / 2));
+				context.fillText("Rush", partyRect.width / 2, 50 + (300+partyRect.height / 2));
+				context.fillText("Study", 300+partyRect.width / 2, 50 + (300+partyRect.height / 2));
 				DrawPieces();	 
 	           
 			};
@@ -136,13 +211,18 @@
     <body onmousedown="return false;">
 	    
         <p>
-		   <button type="button" onclick="GetPartyCount()">Get Party Count</button>		
-		   <span id="partyCnt">0</span>
+		   <button type="button" onclick="GetCount()">Get Count</button> 	
+		   Party: <span id="partyCount">0</span>
+		   Community Service: <span id="csCount">0</span>
+		   Rush: <span id="rushCount">0</span>
+		   Study: <span id="studyCount">0</span>
 		</p>		
 				   
 		<button type="button" onclick="RemovePieces()">Remove Pieces</button>		
 
-		<button type="button" onclick="IncrementPieceCount()">Increment Piece Count</button>		
+		<button type="button" onclick="IncrementPieceCount()">Increment Piece Count</button>	
+		
+		<br><button type="button" onclick="simulate()">Simulate!</button>	
 		
 		<div id="container">
 		<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>			
