@@ -74,7 +74,7 @@ function Frat() {
 	this.name = "Sigma Phi Nothing";
 	this.rep = 100;
 	this.cash = 100;
-	this.members = 20;
+	this.members = 10;
 	this.play = [0, 0, 0, 0];
 }
 

@@ -1,7 +1,7 @@
 var TurnTemplateInfo = {
     descript: "Standard Week",
     party:  {
-          rewards:   [[0, 0, 0]],
+          rewards:   [[0, 0, -3]],
           msgs: ["No parties!"],
           cutoffs: [0]
     },

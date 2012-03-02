@@ -14,6 +14,10 @@
         </style>
         <script src="kinetic-v3.js">
         </script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="events.js"></script>
+		<script src="logic.js"></script>
         <script>
 		
 		    //********************************************************************************************			
@@ -25,17 +29,28 @@
 			var   partyRect, studyRect, csRect, rushRect;
 			var   stage;
 			var   piecesLayer;
-			var	  frat;
+			var	  frat = new Frat();
 			
 			//********************************************************************************************			
  			
 			// to-do
 			function getNumOfBros() {
-				numBrothers = 5;
+				return frat.members;
 			}
 			
 			// to-do
 			function simulate() {
+				turn = new Turn();
+				GetCount();
+				turn.run(frat);
+				
+				update();
+			}
+			
+			function update() {
+				RemovePieces();
+				numBrothers = getNumOfBros();
+				DrawPieces();
 				
 			}
 			
@@ -82,6 +97,8 @@
 				document.getElementById("csCount").innerHTML=csCount;
 				document.getElementById("rushCount").innerHTML=rushCount;
 				document.getElementById("studyCount").innerHTML=studyCount;
+				
+				frat.play = [partyCount, csCount, rushCount, studyCount];
 			}
 			
 			//********************************************************************************************			
@@ -137,10 +154,9 @@
 			
 			}
 			
-			//********************************************************************************************	
- 
-			window.onload = function()
+			function drawBoard() 
 			{
+				numBrothers = getNumOfBros();
 				stage = new Kinetic.Stage("container", 600, 650);
 				var boardLayer   = new Kinetic.Layer();
 				piecesLayer      = new Kinetic.Layer();
@@ -203,8 +219,19 @@
 				context.fillText("Community Services", 300+partyRect.width / 2, 50 + (partyRect.height / 2));
 				context.fillText("Rush", partyRect.width / 2, 50 + (300+partyRect.height / 2));
 				context.fillText("Study", 300+partyRect.width / 2, 50 + (300+partyRect.height / 2));
-				DrawPieces();	 
+				DrawPieces();
+				
+		
+			}
+			
+			//********************************************************************************************	
+ 	
+			window.onload = function()
+			{
+				drawBoard();
 	           
+	
+				
 			};
         </script>
     </head>
@@ -227,6 +254,7 @@
 		<div id="container">
 		<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>			
 		</div>	     		
-		
+		<div class="log" >
+		</div>
 	</body>
 </html>
