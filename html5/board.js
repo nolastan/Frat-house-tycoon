@@ -18,7 +18,7 @@ function getNumOfBros() {
 }
 
 // to-do
-function simulate() {
+function simulate2() {
 	turn = new Turn();
 	GetCount();
 	turn.run(frat);
