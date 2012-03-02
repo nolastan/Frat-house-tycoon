@@ -3,7 +3,19 @@
    <script src="jquery-1.7.1.min.js"></script>
    <script src="util.js"></script> 
    <script src="sprites/person.js"></script>
-   <script src="simulation.js"></script> 
+   <script src="simulation.js"></script>
+   <script src="kinetic-v3.js">
+   </script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="events.js"></script>
+	<script src="logic.js"></script>
+   <script src ="board.js"></script>
+	<script>
+	
+	
+	
+	</script>
    <link rel="stylesheet" href="css/reset.css" />
    <link rel="stylesheet" href="css/style.css" />
  </head>  
@@ -16,6 +28,7 @@
 		<li><button id="normal">Normal</button></li>
 		<li><button id="fast">Fast</button></li>
 		<li><button id="skip">Skip</button></li>
+		<li><button id="toggle">Toggle</button></li>
  	</ul>
  	<ul id="stats">
 		<li id="rep"><label>Reputation</label><span class="val">0</span></li>
@@ -25,7 +38,11 @@
  </div>
 
    <br />
-   <canvas id="canvas"></canvas>  
+   <canvas id="canvas"></canvas>
+	<div id="container">
+		<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>
+	</div>
+	<div id="log"></div>
  </body>  
 </html>
 
