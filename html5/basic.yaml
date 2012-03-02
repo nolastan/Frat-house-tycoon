@@ -1,7 +1,0 @@
-MardiGras:
-  party:
-    threshold: !!map
-      1: [-2, 0, 0]
-      2: three
-    comments: !!seq
-      - "Missed out on a good party night"

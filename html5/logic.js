@@ -1,10 +1,10 @@
 
 //Class for storing the effect of a turn
-function Effect(values, play) {
+function Effect(values, msg) {
 	this.rep = values[0];
 	this.cash = values[1];
 	this.members = values[2];
-	this.play = play;
+	this.msg = msg;
 }
 
 Effect.prototype.apply = function(frat){
@@ -14,35 +14,34 @@ Effect.prototype.apply = function(frat){
 }
 
 Effect.prototype.string = function(){
-	return "Rep: " + this.rep + "Cash :" + this.cash + " Members: " + this.members;
+	return "Result: " +this.msg + "\t\t Rep: " + this.rep + " Cash : " + this.cash + " Members: " + this.members;
 }
 
 //Class for determining what reward a play gets
-function Threshold(low, med, effects) {
-	this.low = low;
-	this.med = med;
+function Threshold(cutoffs, effects, msgs) {
+	this.cutoffs = cutoffs;
 	this.effects = effects;
+	this.msgs = msgs;
 }
 
 //This checks the play against the threshold and returns
 //the appropriate effect
 Threshold.prototype.getEffect = function(play) {
-		if (play <= this.low) {
-			return new Effect(this.effects[0], play);
-		} else if (play <= this.med) {
-			return new Effect(this.effects[1], play);
-		} else {
-			return new Effect(this.effects[2], play);
-		}
-	}
+    var i = 0;
+    for (i = this.cutoffs.length - 1; i <= 0; i--) {
+        if (play >= this.cutoffs[i]) {
+            return new Effect(this.effects[i], this.msgs[i]);
+        }
+    }
+}
 //Super class for turns
-function Turn() {
-	this.title = "Normal Week";
-	partyEffects = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-	this.partyThresh = new Threshold(0, 5, partyEffects);
-	this.csThresh = this.partyThresh;
-	this.rushThresh = this.partyThresh;
-	this.studyThresh = this.partyThresh;
+function Turn(infoIn) {
+    var info = infoIn || TurnTemplateInfo;
+	this.title = info.descript;
+	this.partyThresh = new Threshold(info.party.cutoffs, info.party.rewards, info.party.msgs);
+	this.csThresh = new Threshold(info.cs.cutoffs, info.cs.rewards, info.cs.msgs);
+	this.rushThresh = new Threshold(info.rush.cutoffs, info.rush.rewards, info.rush.msgs);
+	this.studyThresh = new Threshold(info.study.cutoffs, info.study.rewards, info.study.msgs);
 }
 
 Turn.prototype.getThresholds = function() {
@@ -52,35 +51,23 @@ Turn.prototype.getThresholds = function() {
 Turn.prototype.run = function(frat) {
 	play = frat.play
 	var i = 0;
+	var effect;
+	log("running...");
 	thresholds = this.getThresholds();
+	log("Running " + this.title);
 	for (i = 0; i < thresholds.length; i++) {
 		curThresh = thresholds[i];
 		effect = curThresh.getEffect(play[i]);
-		log(this.title + "-->" + effect.string());
+		log(effect.string());
 		//simulate here
 		
 		effect.apply(frat);
 	}
 }
 
-function MardiGrasTurn() {}
+var MardGrasTurn = new Turn(MardiGrasInfo);
+var GLOTurn = new Turn(GLOCrackDownInfo);
 
-MardiGrasTurn.prototype = new Turn();
-
-MardiGrasTurn.prototype.title = "Mardi Gras!";
-MardiGrasTurn.prototype.partyThresh = new Threshold(0, 5, [[-5, 0, 0], [2, 0, 0], [3, 0, 0]]);
-MardiGrasTurn.prototype.csThresh = new Threshold(0, 2, [[-1, -50, 0], [0, 0, 0], [2, 0, 0]]);
-MardiGrasTurn.prototype.rushThresh = new Threshold(0, 5, [[0, 0, 0], [0, 0, 1], [0, 0, 3]]);
-MardiGrasTurn.prototype.studyThresh = new Threshold(0, 5, [[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
-
-function GLOCrackDown() {}
-GLOCrackDown.prototype = new Turn();
-
-GLOCrackDown.prototype.title = "GLO Crackdown";
-GLOCrackDown.prototype.partyThresh = new Threshold(0, 5, [[5, 0, 0], [0, 0, -3], [-6, 0, 0]]);
-MardiGrasTurn.prototype.csThresh = new Threshold(0, 3, [[0, 0, 0], [0, 0, 0], [3, 0, 0]]);
-MardiGrasTurn.prototype.rushThresh = new Threshold(0, 2, [[-1, 0, 0], [-2, 0, 1], [2, 0, 2]]);
-MardiGrasTurn.prototype.studyThresh = new Threshold(1, 5, [[-1, 0, 0], [0, 0, 0], [0, 0, 0]]);
 
 
 function Frat() {
@@ -97,4 +84,6 @@ Frat.prototype.display = function() {
 function log(msg) {
 	$(".log").append(msg + "<br>");
 }
+
+
 

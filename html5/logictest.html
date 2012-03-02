@@ -2,6 +2,7 @@
 <head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="events.js"></script>
 <script src="logic.js"></script>
 <script>
 var frat;
@@ -10,8 +11,8 @@ $(function(){
 	frat = new Frat();
 	var turn = new Turn();
 	membersLeft = frat.members;	
-	turn.run(frat);
 	update();
+	turn.run(frat);
 	
 	$("#party-plus").click(plus);
 	$("#party-minus").click(minus);
@@ -60,6 +61,8 @@ function update() {
 }
 
 </script>
+
+
 </head>
 <body>
 <p> Cash: <span id="cash"></span></p>
