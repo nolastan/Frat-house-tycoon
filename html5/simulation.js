@@ -1,39 +1,26 @@
 $(document).ready(function(){
+
+	/** -----------------
 	
+	Initiate Screen
+	
+	----------------- **/
+	
+	/** declare variables **/
 	var CANVAS_HEIGHT;
 	var CANVAS_WIDTH;
-  
-	$(window).resize(function(){
-		updateScreenSize();
-	});
-	updateScreenSize();
+  var canvas = document.getElementById("canvas");  
+  var ctx = canvas.getContext("2d");
+	
+	/** define functions **/
 	function updateScreenSize(){
 		CANVAS_WIDTH = $(window).width();
 		CANVAS_HEIGHT = $(window).height() - 100;
 		$("#canvas").attr('width', CANVAS_WIDTH);
 		$("#canvas").attr('height', CANVAS_HEIGHT);
 	}
-	
-	$("#normal").addClass('disabled');
-	$("#fast").addClass('disabled');
-	$("#skip").addClass('disabled');
-  
-  
-  // Action call
-  $("#sim").click(function(){
-    simulate(100);
-    $(this).addClass("disabled");
-		$("#fast").removeClass('disabled');
-		$("#skip").removeClass('disabled');
-  });
-      
-  var canvas = document.getElementById("canvas");  
-  if (canvas.getContext) {  
-    var ctx = canvas.getContext("2d");  
-  }
-  
-  function simulate(rep){
-    var sim = new simulation(rep);
+	function simulate(party, philanthropy, rush){
+    var sim = new simulation(party, philanthropy, rush);
     sim.run();
     
     $("#normal").click(function(){
@@ -54,19 +41,50 @@ $(document).ready(function(){
 
     
   }
+	
+	/** call functions **/
+	updateScreenSize();
+	
+	/** elements beyond the canvas **/
+	$(window).resize(function(){
+		updateScreenSize();
+	});
+	
+	$("#normal").addClass('disabled');
+	$("#fast").addClass('disabled');
+	$("#skip").addClass('disabled');
+	
+	// Action call
+  $("#sim").click(function(){
+    simulate(10, 10, 10);
+    $(this).addClass("disabled");
+		$("#fast").removeClass('disabled');
+		$("#skip").removeClass('disabled');
+  });
+		
 
-  function simulation(rep){
+  
+	/** -----------------
+	
+	BEGIN SIMULATION OBJECT
+	
+	----------------- **/
+
+
+  function simulation(party, philanthropy, rush){
 
     // game variables
     var timeInDay = 60;
     var FPS = 30;
     var intervalsPerDay = 100;
-    var sim; // this simulation loop
-    var rep;
+    var sim; //  simulation loop
+    var party;
+    var philanthropy
+    var rush;
     var gameTime = new GameTime();
-    this.gameTime = gameTime;
+    this.gameTime = gameTime; // having scoping issues
     var house = new House();
-    var partygoers = new Array();
+    var people = new Array();
     var partyGoerCount = 0;
 
 
@@ -102,67 +120,71 @@ $(document).ready(function(){
       this.goToY = 30;
       this.timeOnScreen = 0;
       this.lengthOfStay = 30;
+      
+      this.construct = function(){
+      	console.log("hello");
+				if(Math.round(Math.random()) == 0){
+					this.y = Math.floor(Math.random()*CANVAS_HEIGHT);
+					this.x = CANVAS_WIDTH;
+				}else{
+					this.x = Math.floor(Math.random()*CANVAS_HEIGHT);
+					this.y = CANVAS_HEIGHT;
+				}    
+      }
+      
       this.draw = function(x, y){
       	// called each frame
         if(this.timeOnScreen < this.lengthOfStay){
           drawPerson(ctx, this.x, this.y, 1, this.color)
         }
       }
+      
       this.move = function(){
       	// called each frame
       	if(this.x > this.goToX) this.x -= gameTime.speed;
       	if(this.x < this.goToX) this.x += gameTime.speed;
       	if(this.y > this.goToY) this.y -= gameTime.speed;
       	if(this.y < this.goToY) this.y += gameTime.speed;
+      	if(this.x == this.goToX && this.Y == this.goToY){
+      		console.log('there');
+      		this.goToX = Math.floor(Math.random()*house.width);
+      		this.goToY = Math.floor(Math.random()*house.height);     		
+      	}
       }
       this.step = function(){
       	// called each step
       	if(this.timeOnScreen == this.lengthOfStay){
       		console.log("Goodbye!");
       	}
-      	if(this.timeOnScreen == 0){
-      		console.log("Hello!");
-      		if(Math.round(Math.random()) == 0){
-	      		this.y = Math.floor(Math.random()*CANVAS_HEIGHT);
-	      		console.log(this.y);
-	      		this.x = CANVAS_WIDTH;
-      		}else{
-	      		this.x = Math.floor(Math.random()*CANVAS_HEIGHT);
-	      		console.log(this.x);
-	      		this.y = CANVAS_HEIGHT;
-      		}      	
-      	}
     		this.timeOnScreen++;
       }
     }
 
     function House(){
-        // body
-		this.draw = function(){
-			ctx.save();
-			
-/*
-  			ctx.save();
-			ctx.restore();
-*/
-			ctx.restore();
-			ctx.restore();
-        }
-
+      this.width = CANVAS_WIDTH/2;
+      this.height = CANVAS_HEIGHT/2;
+			this.draw = function(){
+				ctx.strokeRect(10,10,this.width,this.height);	
+	    }
     }
 
     Partygoer.prototype = new Person();
+    Partygoer.prototype.constructor = Partygoer;
+    Partygoer.superclass = Person.prototype;
     function Partygoer(){
+    	this.construct();
       this.color = "blue";
     }
 
     Rushee.prototype = new Person();
     function Rushee(){
+    	this.construct();
       this.color = "red";
     }
 
     Philanthropist.prototype = new Person();
     function Philanthropist(){
+    	this.construct();
       this.color = "green"
     }
     
@@ -173,18 +195,32 @@ $(document).ready(function(){
 	    $("#fast").addClass('disabled');
 	    $("#skip").addClass('disabled');
     }
+    
 
     // Each step
     function step(){
 
       
-      // ~1x as many partygoers as rep gained
-      if(Math.floor(Math.random()*101) < rep / gameTime.max * 100 *1){
-        partygoers.push(new Partygoer());
+      // Generate people
+      if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *1){
+        people.push(new Partygoer());
+
       }
       
-      for(i = 0; i < partygoers.length; i++){
-        partygoers[i].step();
+      // Generate rushees
+      if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *1){
+      	people.push(new Rushee());
+
+      }
+      
+      // Generate philanthropists
+      if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *1){
+        people.push(new Philanthropist());
+      }
+        
+      
+      for(i = 0; i < people.length; i++){
+        people[i].step();
 	    }
 	    
 	    console.log(gameTime.current);
@@ -192,16 +228,13 @@ $(document).ready(function(){
     }
 
     this.run = function(){
-      console.log("Simulating with rep: " + rep);
-
       // loop steps (run simulation)
       sim = setInterval(function() {
 	      ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 	      house.draw();
-				ctx.strokeRect(10,10,CANVAS_WIDTH/2,CANVAS_HEIGHT/2)
-	      for(i = 0; i < partygoers.length; i++){
-	        partygoers[i].move();
-	        partygoers[i].draw();
+	      for(i = 0; i < people.length; i++){
+	        people[i].move();
+	        people[i].draw();
 	      }
         gameTime.update();
       }, 1000/FPS);
