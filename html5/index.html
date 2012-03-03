@@ -11,11 +11,6 @@
 	<script src="events.js"></script>
 	<script src="logic.js"></script>
    <script src ="board.js"></script>
-	<script>
-	
-	
-	
-	</script>
    <link rel="stylesheet" href="css/reset.css" />
    <link rel="stylesheet" href="css/style.css" />
  </head>  
@@ -36,9 +31,10 @@
 		<li id="brothers"><label>Brothers</label><span class="val">0</span> / <span id="bed_val">0</span></li>
  	</ul>
  </div>
-
-   <br />
-   <canvas id="canvas"></canvas>
+   <div id="simulation">
+	   <canvas id="canvas"></canvas>
+	   <canvas id="background"></canvas>
+   </div>
 	<div id="container">
 		<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>
 	</div>
