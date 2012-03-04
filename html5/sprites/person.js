@@ -2,8 +2,8 @@ function drawPerson(ctx, x, y, scale, color) {
   ctx.save();
   // apply variables
   ctx.fillStyle = color;
-  ctx.scale(scale,scale);
   ctx.translate(x,y);
+  ctx.scale(scale/7,scale/7);
   ctx.save();
   
   // head

@@ -109,3 +109,12 @@ header h1{
 }
 
 
+/* Canvas stuff */
+#background{
+	position:absolute;
+	z-index:0;
+}
+#canvas{
+	position: absolute;
+	z-index: 10;
+}
