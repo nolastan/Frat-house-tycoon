@@ -81,6 +81,11 @@ function Frat() {
 Frat.prototype.display = function() {
 	log(this.name + "- Cash: " + this.cash + " Rep: " + this.rep + " Members:" + this.members);
 }
+
+Frat.prototype.GetNumOfBros = function() {
+	return frat.members;
+}
+
 function log(msg) {
 	$(".log").append(msg + "<br>");
 }

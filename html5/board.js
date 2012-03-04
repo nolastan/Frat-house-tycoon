@@ -12,25 +12,17 @@ var	  frat = new Frat();
 
 //********************************************************************************************			
 
-// to-do
-function getNumOfBros() {
-	return frat.members;
-}
-
-// to-do
 function simulate2() {
 	turn = new Turn();
 	GetCount();
-	turn.run(frat);
-	
+	turn.run(frat);	
 	update();
 }
 
 function update() {
 	RemovePieces();
-	numBrothers = getNumOfBros();
-	DrawPieces();
-	
+	numBrothers = frat.GetNumOfBros();
+	DrawPieces();	
 }
 
 //********************************************************************************************			
