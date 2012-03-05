@@ -26,12 +26,11 @@
 		<li><button id="normal">Normal</button></li>
 		<li><button id="fast">Fast</button></li>
 		<li><button id="skip">Skip</button></li>
-		<li><button id="toggle">Toggle</button></li>
  	</ul>
  	<ul id="stats">
-		<li id="rep"><label>Reputation</label><span class="val">0</span></li>
-		<li id="money"><label>Money</label><span class="val">0</span></li>
-		<li id="brothers"><label>Brothers</label><span class="val">0</span> / <span id="bed_val">0</span></li>
+		<li id="rep"><label>Reputation</label><span class="val" id="repCount">0</span></li>
+		<li id="money"><label>Money</label><span class="val" id="moneyCount">0</span></li>
+		<li id="brothers"><label>Brothers</label><span class="val" id="brothersCount">0</span> / <span id="bed_val">0</span></li>
  	</ul>
  </div>
    <div id="simulation">
@@ -41,6 +40,13 @@
 	<div id="container">
 		<canvas id="board" style="position: absolute; display: none;"></canvas>
 	</div>
+	<p style='display:none'>
+		   <button type="button" onclick="GetCount()">Get Count</button> 	
+		   Party: <span id="partyCount">0</span>
+		   Community Service: <span id="csCount">0</span>
+		   Rush: <span id="rushCount">0</span>
+		   Study: <span id="studyCount">0</span>
+		</p>
  </body>  
 </html>
 

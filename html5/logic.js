@@ -11,6 +11,9 @@ Effect.prototype.apply = function(frat){
 	frat.members = frat.members + this.members;
 	frat.rep = frat.rep + this.rep;
 	frat.cash = frat.cash + this.cash;
+	document.getElementById("brothersCount").innerHTML = frat.members;
+	document.getElementById("moneyCount").innerHTML = frat.cash;
+	document.getElementById("repCount").innerHTML = frat.rep;
 }
 
 Effect.prototype.string = function(){

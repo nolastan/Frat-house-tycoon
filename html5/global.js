@@ -12,21 +12,10 @@ function updateScreenSize(){
 	$("#canvas, #background").attr('height', CANVAS_HEIGHT);
 }
 
-function toggleBoard() {
-    $("#container").toggle();
-    $("#canvas").toggle();
-    
-}
-
 $(document).ready(function(){
     drawBoard();
-    $("#container").toggle();
-	/** -----------------
-	
-	Initiate Screen
-	
-	----------------- **/
-	$("#toggle").click(toggleBoard);
+    $("#simulation").hide();
+
 	/** declare variables **/
   canvas = document.getElementById("canvas");  
   ctx = canvas.getContext("2d");
@@ -51,9 +40,12 @@ $(document).ready(function(){
 	
 	// Action call
   $("#sim").click(function(){
-    simulate(10, 10, 10);
+    simulate2();
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
 		$("#skip").removeClass('disabled');
   });
+  
+
+  
 });
