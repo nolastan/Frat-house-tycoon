@@ -147,7 +147,7 @@ function drawBoard()
 	console.log("height"+CANVAS_HEIGHT);
 	console.log("width"+CANVAS_WIDTH);
 	
-	stage = new Kinetic.Stage("container", CANVAS_WIDTH, CANVAS_HEIGHT-100);
+	stage = new Kinetic.Stage("container", CANVAS_WIDTH*0.98, CANVAS_HEIGHT-100);
 	var boardLayer   = new Kinetic.Layer();
 	piecesLayer      = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();				
