@@ -12,11 +12,6 @@ var	  frat = new Frat();
 
 var CANVAS_HEIGHT, CANVAS_WIDTH;
 
-function updateScreenSize(){
-	CANVAS_WIDTH = $(window).width();
-	CANVAS_HEIGHT = $(window).height();
-}
-
 
 
 //********************************************************************************************			
