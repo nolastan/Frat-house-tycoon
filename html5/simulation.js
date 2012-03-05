@@ -1,5 +1,5 @@
-function simulate(party, philanthropy, rush){
-  var sim = new simulation(party, philanthropy, rush);
+function simulate(party, philanthropy, rush, results){
+  var sim = new simulation(party, philanthropy, rush, results);
   sim.run();
   document.getElementById('container').style.display = "none";
   document.getElementById('simulation').style.display = "block";
@@ -29,9 +29,7 @@ function simulate(party, philanthropy, rush){
 	
 	----------------- **/
 
-function simulation(party, philanthropy, rush){
-
-
+function simulation(party, philanthropy, rush, results){
 
   // game variables
   var FPS = 30;
@@ -40,6 +38,7 @@ function simulation(party, philanthropy, rush){
   var party;
   var philanthropy
   var rush;
+  var result;
   var gameTime = new GameTime();
   this.gameTime = gameTime; // having scoping issues
   var house = new House();
@@ -247,6 +246,7 @@ function simulation(party, philanthropy, rush){
   this.end = function(){
   		clearInterval(sim);
       console.log("sim over");
+      alert(results);
       document.getElementById('sim').className = '';
       document.getElementById('normal').className = 'disabled';
       document.getElementById('fast').className = 'disabled';

@@ -58,14 +58,15 @@ Turn.prototype.run = function(frat) {
 	console.log("running...");
 	thresholds = this.getThresholds();
 	console.log("Running " + this.title);
+	var results = Array();
 	for (i = 0; i < thresholds.length; i++) {
 		curThresh = thresholds[i];
 		effect = curThresh.getEffect(play[i]);
-		console.log(effect.string());
+		results[i] = effect.string();
 		//simulate here
 		effect.apply(frat);
 	}
-	simulate(play[0], play[1], play[2]);
+	simulate(play[0], play[1], play[2], results);
 }
 
 var MardGrasTurn = new Turn(MardiGrasInfo);
