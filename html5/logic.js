@@ -52,13 +52,13 @@ Turn.prototype.run = function(frat) {
 	play = frat.play
 	var i = 0;
 	var effect;
-	log("running...");
+	console.log("running...");
 	thresholds = this.getThresholds();
-	log("Running " + this.title);
+	console.log("Running " + this.title);
 	for (i = 0; i < thresholds.length; i++) {
 		curThresh = thresholds[i];
 		effect = curThresh.getEffect(play[i]);
-		log(effect.string());
+		console.log(effect.string());
 		//simulate here
 		
 		effect.apply(frat);
@@ -79,10 +79,7 @@ function Frat() {
 }
 
 Frat.prototype.display = function() {
-	log(this.name + "- Cash: " + this.cash + " Rep: " + this.rep + " Members:" + this.members);
-}
-function log(msg) {
-	$(".log").append(msg + "<br>");
+	console.log(this.name + "- Cash: " + this.cash + " Rep: " + this.rep + " Members:" + this.members);
 }
 
 
