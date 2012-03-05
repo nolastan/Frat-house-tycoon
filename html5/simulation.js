@@ -1,6 +1,5 @@
 function simulate(party, philanthropy, rush, results){
   var sim = new simulation(party, philanthropy, rush, results);
-  sim.run();
   document.getElementById('container').style.display = "none";
   document.getElementById('simulation').style.display = "block";
   
@@ -17,9 +16,12 @@ function simulate(party, philanthropy, rush, results){
   });
 
   $("#skip").click(function(){
-    sim.end();
+  	if(sim.isRunning){
+    	sim.end();
+  	}
   });
 
+  sim.run();
   
 }
   
@@ -31,7 +33,9 @@ function simulate(party, philanthropy, rush, results){
 
 function simulation(party, philanthropy, rush, results){
 
+
   // game variables
+  this.isRunning = true;
   var FPS = 30;
   var intervalsPerDay = 100;
   var sim; //  simulation loop
@@ -45,7 +49,7 @@ function simulation(party, philanthropy, rush, results){
   var sidewalk = new Sidewalk();
   var people = new Array();
   var partyGoerCount = 0;
-
+  
 	// resizing{
 	$(window).resize(function(){
 		house.draw();
@@ -246,6 +250,7 @@ function simulation(party, philanthropy, rush, results){
   this.end = function(){
   		clearInterval(sim);
       console.log("sim over");
+      this.isRunning = false;
       alert(results);
       document.getElementById('sim').className = '';
       document.getElementById('normal').className = 'disabled';
@@ -256,6 +261,7 @@ function simulation(party, philanthropy, rush, results){
   }
 
   this.run = function(){
+  console.log("sim starting");
     // loop steps (run simulation)
       house.draw();
       sidewalk.draw();
