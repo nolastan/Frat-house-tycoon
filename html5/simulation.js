@@ -50,6 +50,10 @@ function simulation(party, philanthropy, rush, results){
   var people = new Array();
   var partyGoerCount = 0;
   
+  
+  // public access to private functions
+  this.end = function(){endSim();}
+  
 	// resizing{
 	$(window).resize(function(){
 		house.draw();
@@ -68,7 +72,7 @@ function simulation(party, philanthropy, rush, results){
     this.update = function(){
       // end simulation if time is up
       if(this.current >= this.max){
-        end();
+        endSim();
       }
       // As speed increases, update time more often
       if(this.frame % Math.round( FPS / this.speed ) == 0){
@@ -246,9 +250,8 @@ function simulation(party, philanthropy, rush, results){
 
 
   }
-
-  this.end = function(){
-  		clearInterval(sim);
+	function endSim(){
+	  	clearInterval(sim);
       console.log("sim over");
       this.isRunning = false;
       alert(results);
@@ -258,7 +261,7 @@ function simulation(party, philanthropy, rush, results){
       document.getElementById('skip').className = 'disabled';
       document.getElementById('container').style.display = "block";
   		document.getElementById('simulation').style.display = "none";
-  }
+	}
 
   this.run = function(){
   console.log("sim starting");
