@@ -63,9 +63,9 @@ Turn.prototype.run = function(frat) {
 		effect = curThresh.getEffect(play[i]);
 		console.log(effect.string());
 		//simulate here
-		
 		effect.apply(frat);
 	}
+	simulate(play[0], play[1], play[2]);
 }
 
 var MardGrasTurn = new Turn(MardiGrasInfo);
@@ -78,7 +78,7 @@ function Frat() {
 	this.rep = 100;
 	this.cash = 100;
 	this.members = 10;
-	this.play = [0, 0, 0, 0];
+	this.play = [0, 0, 0, 0]; // partyCount, csCount, rushCount, studyCount
 }
 
 Frat.prototype.display = function() {

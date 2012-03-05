@@ -1,6 +1,8 @@
 function simulate(party, philanthropy, rush){
   var sim = new simulation(party, philanthropy, rush);
   sim.run();
+  document.getElementById('container').style.display = "none";
+  document.getElementById('simulation').style.display = "block";
   
   $("#normal").click(function(){
     sim.gameTime.speed = 1;
@@ -15,7 +17,7 @@ function simulate(party, philanthropy, rush){
   });
 
   $("#skip").click(function(){
-    console.log("not implemented");
+    sim.end();
   });
 
   
@@ -32,7 +34,6 @@ function simulation(party, philanthropy, rush){
 
 
   // game variables
-  var timeInDay = 60;
   var FPS = 30;
   var intervalsPerDay = 100;
   var sim; //  simulation loop
@@ -64,8 +65,7 @@ function simulation(party, philanthropy, rush){
     this.update = function(){
       // end simulation if time is up
       if(this.current >= this.max){
-        clearInterval(sim);
-        endSim();
+        end();
       }
       // As speed increases, update time more often
       if(this.frame % Math.round( FPS / this.speed ) == 0){
@@ -87,16 +87,14 @@ function simulation(party, philanthropy, rush){
   	  var img = new Image();
   	  img.src = 'images/grass.png';
 			img.onload = function(){
-		    var ptrn = bg.createPattern(img,'repeat');
-		    bg.fillStyle = ptrn;
+		    bg.fillStyle = bg.createPattern(img,'repeat');
 		    bg.fillRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
 	    }
 	    // draw house
   	  var wood = new Image();
   	  wood.src = 'images/wood.png';
 			wood.onload = function(){
-		    var woodPattern = bg.createPattern(wood,'repeat');
-		    bg.fillStyle = woodPattern;
+		    bg.fillStyle = bg.createPattern(wood,'repeat');
 				bg.fillRect(x,y,width,height);	
 			}
   	}
@@ -137,8 +135,7 @@ function simulation(party, philanthropy, rush){
   	  var img = new Image();
   	  img.src = 'images/concrete.png';
 			img.onload = function(){
-		    var ptrn = bg.createPattern(img,'repeat');
-		    bg.fillStyle = ptrn;
+		    bg.fillStyle = bg.createPattern(img,'repeat');
 		    bg.fillRect(0,y,CANVAS_WIDTH, height);
 	    }
   	}
@@ -218,15 +215,6 @@ function simulation(party, philanthropy, rush){
     this.color = "green"
   }
 
-  function endSim(){
-      console.log("sim over");
-      $("#sim").removeClass('disabled');
-      $("#normal").addClass('disabled');
-      $("#fast").addClass('disabled');
-      $("#skip").addClass('disabled');
-  }
-
-
   // Each step
   function step(){
 
@@ -254,6 +242,17 @@ function simulation(party, philanthropy, rush){
       }
 
 
+  }
+
+  this.end = function(){
+  		clearInterval(sim);
+      console.log("sim over");
+      document.getElementById('sim').className = '';
+      document.getElementById('normal').className = 'disabled';
+      document.getElementById('fast').className = 'disabled';
+      document.getElementById('skip').className = 'disabled';
+      document.getElementById('container').style.display = "block";
+  		document.getElementById('simulation').style.display = "none";
   }
 
   this.run = function(){
