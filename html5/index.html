@@ -1,34 +1,36 @@
 <html>  
  <head>  
-   <script src="jquery-1.7.1.min.js"></script>
-   <script src="util.js"></script> 
-   <script src="sprites/person.js"></script> 
-   <script src="simulation.js"></script>
-   <script src="kinetic-v3.js">
-   </script>
-
+	<!-- Libraries -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   	<script src="libraries/kinetic-v3.js"></script>
+
+	<!-- Sprites -->
+   	<script src="sprites/person.js"></script> 
+
+	<!-- Scripts -->
 	<script src="events.js"></script>
 	<script src="logic.js"></script>
-   <script src ="board.js"></script>
-   <link rel="stylesheet" href="css/reset.css" />
-   <link rel="stylesheet" href="css/style.css" />
+   	<script src="board.js"></script>
+   	<script src="simulation.js"></script>
+   	<script src="global.js"></script> 
+
+	<!-- CSS -->
+   	<link rel="stylesheet" href="css/reset.css" />
+   	<link rel="stylesheet" href="css/style.css" />
  </head>  
  <body>
  <header><h1>Frat House Tycoon</h1></header>
  <div id="status">
  	<ul id="controls">
  		<li><button id="sim">Run</button></li>
-<!-- 		<li><button id="plan">Plan</button></li> -->
 		<li><button id="normal">Normal</button></li>
 		<li><button id="fast">Fast</button></li>
 		<li><button id="skip">Skip</button></li>
-		<li><button id="toggle">Toggle</button></li>
  	</ul>
  	<ul id="stats">
-		<li id="rep"><label>Reputation</label><span class="val">0</span></li>
-		<li id="money"><label>Money</label><span class="val">0</span></li>
-		<li id="brothers"><label>Brothers</label><span class="val">0</span> / <span id="bed_val">0</span></li>
+		<li id="rep"><label>Reputation</label><span class="val" id="repCount">0</span></li>
+		<li id="money"><label>Money</label><span class="val" id="moneyCount">0</span></li>
+		<li id="brothers"><label>Brothers</label><span class="val" id="brothersCount">0</span> / <span id="bed_val">0</span></li>
  	</ul>
  </div>
    <div id="simulation">
@@ -36,9 +38,15 @@
 	   <canvas id="background"></canvas>
    </div>
 	<div id="container">
-		<canvas id="myCanvas" height="550" width="550" style="position: absolute; display: none;"></canvas>
+		<canvas id="board" style="position: absolute; display: none;"></canvas>
 	</div>
-	<div id="log"></div>
+	<p style='display:none'>
+		   <button type="button" onclick="GetCount()">Get Count</button> 	
+		   Party: <span id="partyCount">0</span>
+		   Community Service: <span id="csCount">0</span>
+		   Rush: <span id="rushCount">0</span>
+		   Study: <span id="studyCount">0</span>
+		</p>
  </body>  
 </html>
 

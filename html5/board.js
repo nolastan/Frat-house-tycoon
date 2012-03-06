@@ -10,19 +10,28 @@ var   stage;
 var   piecesLayer;
 var	  frat = new Frat();
 
+var CANVAS_HEIGHT, CANVAS_WIDTH;
+
+
+
 //********************************************************************************************			
+
+function getNumOfBros() {
+	return frat.members;
+}
 
 function simulate2() {
 	turn = new Turn();
 	GetCount();
-	turn.run(frat);	
+	turn.run(frat);
+	
 	update();
 }
 
 function update() {
 	RemovePieces();
-	numBrothers = frat.GetNumOfBros();
-	DrawPieces();	
+	numBrothers = getNumOfBros();
+	DrawPieces();
 }
 
 //********************************************************************************************			
@@ -128,17 +137,22 @@ function DrawPieces()
 function drawBoard() 
 {
 	numBrothers = getNumOfBros();
-	stage = new Kinetic.Stage("container", 600, 650);
+	updateScreenSize();
+	
+	console.log("height"+CANVAS_HEIGHT);
+	console.log("width"+CANVAS_WIDTH);
+	
+	stage = new Kinetic.Stage("container", CANVAS_WIDTH*0.98, CANVAS_HEIGHT-100);
 	var boardLayer   = new Kinetic.Layer();
 	piecesLayer      = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();				
 
-	// Make the board layer
+	// Make the board layers
     partyRect = new Kinetic.Rect({
-		x: 0,
-		y: 50,
-		width: stage.width / 2,
-		height: (stage.height-50) / 2,
+		x: stage.width*0.1,
+		y: stage.height*0.1,
+		width: stage.width*0.4,
+		height: stage.height*0.4,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -146,10 +160,10 @@ function drawBoard()
 	boardLayer.add(partyRect);
 	
 	csRect = new Kinetic.Rect({
-		x: 300,
-		y: 50,
-		width: stage.width / 2,
-		height: (stage.height-50) / 2,
+		x: stage.width*0.5,
+		y: stage.height*0.1,
+		width: stage.width*0.4,
+		height: stage.height*0.4,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -157,10 +171,10 @@ function drawBoard()
 	boardLayer.add(csRect);	
 	
 	rushRect = new Kinetic.Rect({
-		x: 0,
-		y: 350,
-		width: stage.width / 2,
-		height: (stage.height-50) / 2,
+		x: stage.width*0.1,
+		y: stage.height*0.5,
+		width: stage.width*0.4,
+		height: stage.height*0.4,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -168,16 +182,16 @@ function drawBoard()
 	boardLayer.add(rushRect);	
 	
 	studyRect = new Kinetic.Rect({
-		x: 300,
-		y: 350,
-		width: stage.width / 2,
-		height: (stage.height-50) / 2,
+		x: stage.width*0.5,
+		y: stage.height*0.5,
+		width: stage.width*0.4,
+		height: stage.height*0.4,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
 	});				
 	boardLayer.add(studyRect);	
-	
+
 	stage.add(boardLayer);	
 
 	// Draw the "Party" text inside of the Party Rect
@@ -186,11 +200,13 @@ function drawBoard()
 	context.font = "bold 18pt Calibri";
 	context.fillStyle = "black";
 	context.textAlign = "center";
-	context.fillText("Party", partyRect.width / 2, 50 + (partyRect.height / 2));
-	context.fillText("Community Services", 300+partyRect.width / 2, 50 + (partyRect.height / 2));
-	context.fillText("Rush", partyRect.width / 2, 50 + (300+partyRect.height / 2));
-	context.fillText("Study", 300+partyRect.width / 2, 50 + (300+partyRect.height / 2));
+	context.fillText("Party", stage.width*0.3, stage.height*0.3);
+	context.fillText("Community Services", stage.width*0.7, stage.height*0.3);
+	context.fillText("Rush", stage.width*0.3, stage.height*0.7);
+	context.fillText("Study", stage.width*0.7, stage.height*0.7);
 	DrawPieces();
 	
-
+	document.getElementById("brothersCount").innerHTML = frat.members;
+	document.getElementById("moneyCount").innerHTML = frat.cash;
+	document.getElementById("repCount").innerHTML = frat.rep;
 }

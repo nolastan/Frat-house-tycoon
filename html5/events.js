@@ -106,3 +106,8 @@ var  GLOCrackDownInfo = {
           cutoffs: [0, 2]
     }
 };
+
+//**********************************************************************
+var events = [];
+events[0] = MardiGrasInfo;
+events[1] = GLOCrackDownInfo

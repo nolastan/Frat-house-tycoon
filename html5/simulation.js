@@ -1,26 +1,7 @@
-var CANVAS_HEIGHT, CANVAS_WIDTH, canvas, ctx, SCALE;
-var CANVAS_SCALE_X = 3;
-var CANVAS_SCALE_Y = 2;
-
-function updateScreenSize(){
-	SCALE = Math.min($(window).width()/CANVAS_SCALE_X, ($(window).height()-90)/CANVAS_SCALE_Y);
-	CANVAS_WIDTH = CANVAS_SCALE_X * SCALE;
-	CANVAS_HEIGHT = CANVAS_SCALE_Y * SCALE;
-	UNIT = Math.round(SCALE / 100);
-	console.log(SCALE);
-	$("#canvas, #background").attr('width', CANVAS_WIDTH);
-	$("#canvas, #background").attr('height', CANVAS_HEIGHT);
-}
-
-function toggleBoard() {
-    $("#container").toggle();
-    $("#canvas").toggle();
-    
-}
-
-function simulate(party, philanthropy, rush){
-  var sim = new simulation(party, philanthropy, rush);
-  sim.run();
+function simulate(party, philanthropy, rush, results){
+  var sim = new simulation(party, philanthropy, rush, results);
+  document.getElementById('container').style.display = "none";
+  document.getElementById('simulation').style.display = "block";
   
   $("#normal").click(function(){
     sim.gameTime.speed = 1;
@@ -35,52 +16,14 @@ function simulate(party, philanthropy, rush){
   });
 
   $("#skip").click(function(){
-    console.log("not implemented");
+  	if(sim.isRunning){
+    	sim.end();
+  	}
   });
 
+  sim.run();
   
 }
-
-$(document).ready(function(){
-    drawBoard();
-    $("#container").toggle();
-	/** -----------------
-	
-	Initiate Screen
-	
-	----------------- **/
-	$("#toggle").click(toggleBoard);
-	/** declare variables **/
-  canvas = document.getElementById("canvas");  
-  ctx = canvas.getContext("2d");
-
-  bg = document.getElementById("background").getContext("2d");
-  	
-	/** define functions **/
-
-
-	
-	/** call functions **/
-	updateScreenSize();
-	
-	/** elements beyond the canvas **/
-	$(window).resize(function(){
-		updateScreenSize();
-	});
-	
-	$("#normal").addClass('disabled');
-	$("#fast").addClass('disabled');
-	$("#skip").addClass('disabled');
-	
-	// Action call
-  $("#sim").click(function(){
-    simulate(10, 10, 10);
-    $(this).addClass("disabled");
-		$("#fast").removeClass('disabled');
-		$("#skip").removeClass('disabled');
-  });
-});
-
   
 	/** -----------------
 	
@@ -88,25 +31,29 @@ $(document).ready(function(){
 	
 	----------------- **/
 
-function simulation(party, philanthropy, rush){
-
+function simulation(party, philanthropy, rush, results){
 
 
   // game variables
-  var timeInDay = 60;
+  this.isRunning = true;
   var FPS = 30;
   var intervalsPerDay = 100;
   var sim; //  simulation loop
   var party;
   var philanthropy
   var rush;
+  var result;
   var gameTime = new GameTime();
   this.gameTime = gameTime; // having scoping issues
   var house = new House();
   var sidewalk = new Sidewalk();
   var people = new Array();
   var partyGoerCount = 0;
-
+  
+  
+  // public access to private functions
+  this.end = function(){endSim();}
+  
 	// resizing{
 	$(window).resize(function(){
 		house.draw();
@@ -125,7 +72,6 @@ function simulation(party, philanthropy, rush){
     this.update = function(){
       // end simulation if time is up
       if(this.current >= this.max){
-        clearInterval(sim);
         endSim();
       }
       // As speed increases, update time more often
@@ -148,16 +94,14 @@ function simulation(party, philanthropy, rush){
   	  var img = new Image();
   	  img.src = 'images/grass.png';
 			img.onload = function(){
-		    var ptrn = bg.createPattern(img,'repeat');
-		    bg.fillStyle = ptrn;
+		    bg.fillStyle = bg.createPattern(img,'repeat');
 		    bg.fillRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
 	    }
 	    // draw house
   	  var wood = new Image();
   	  wood.src = 'images/wood.png';
 			wood.onload = function(){
-		    var woodPattern = bg.createPattern(wood,'repeat');
-		    bg.fillStyle = woodPattern;
+		    bg.fillStyle = bg.createPattern(wood,'repeat');
 				bg.fillRect(x,y,width,height);	
 			}
   	}
@@ -198,8 +142,7 @@ function simulation(party, philanthropy, rush){
   	  var img = new Image();
   	  img.src = 'images/concrete.png';
 			img.onload = function(){
-		    var ptrn = bg.createPattern(img,'repeat');
-		    bg.fillStyle = ptrn;
+		    bg.fillStyle = bg.createPattern(img,'repeat');
 		    bg.fillRect(0,y,CANVAS_WIDTH, height);
 	    }
   	}
@@ -279,15 +222,6 @@ function simulation(party, philanthropy, rush){
     this.color = "green"
   }
 
-  function endSim(){
-      console.log("sim over");
-      $("#sim").removeClass('disabled');
-      $("#normal").addClass('disabled');
-      $("#fast").addClass('disabled');
-      $("#skip").addClass('disabled');
-  }
-
-
   // Each step
   function step(){
 
@@ -316,8 +250,21 @@ function simulation(party, philanthropy, rush){
 
 
   }
+	function endSim(){
+	  	clearInterval(sim);
+      console.log("sim over");
+      this.isRunning = false;
+      alert(results);
+      document.getElementById('sim').className = '';
+      document.getElementById('normal').className = 'disabled';
+      document.getElementById('fast').className = 'disabled';
+      document.getElementById('skip').className = 'disabled';
+      document.getElementById('container').style.display = "block";
+  		document.getElementById('simulation').style.display = "none";
+	}
 
   this.run = function(){
+  console.log("sim starting");
     // loop steps (run simulation)
       house.draw();
       sidewalk.draw();
