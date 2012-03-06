@@ -31,15 +31,15 @@ function Threshold(cutoffs, effects, msgs) {
 //the appropriate effect
 Threshold.prototype.getEffect = function(play) {
     var i = 0;
-    for (i = this.cutoffs.length - 1; i <= 0; i--) {
+    for (i = this.cutoffs.length - 1; i >= 0; i--) {
         if (play >= this.cutoffs[i]) {
             return new Effect(this.effects[i], this.msgs[i]);
         }
     }
 }
 //Super class for turns
-function Turn(infoIn) {
-    var info = infoIn || TurnTemplateInfo;
+function Turn() {
+    var info = events[Math.floor(Math.random()*events.length)];
 	this.title = info.descript;
 	this.partyThresh = new Threshold(info.party.cutoffs, info.party.rewards, info.party.msgs);
 	this.csThresh = new Threshold(info.cs.cutoffs, info.cs.rewards, info.cs.msgs);
