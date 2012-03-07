@@ -17,8 +17,6 @@ Effect.prototype.string = function(){
 	return "Result: " +this.msg + "\t\t Rep: " + this.rep + " Cash : " + this.cash + " Members: " + this.members;
 }
 
-var effectzz = new Effect([0, 0, 0], "YOu lose");
-
 //Class for determining what reward a play gets
 var threshold = function(spec) {
 	var that = {};
@@ -68,7 +66,7 @@ Turn.prototype.run = function(frat) {
 	}
 	console.log(results, play);
 	
-	simulate(play[0], play[1], play[2], results);
+
 }
 
 
@@ -78,10 +76,35 @@ var frat = function() {
 	that.rep = 100;
 	that.cash = 100;
 	that.members = 10;
-	that.play = [0, 0, 0, 0]; // partyCount, csCount, rushCount, studyCount
+	//this.play = [0, 0,0,0];
+	var play = { party:0,
+								cs: 0,
+								rush: 0,
+								study: 0};
 	
 	that.display = function() {
 		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members);
+	}
+	
+	that.set_play = function(input) {
+		if($.isArray(input)) {
+			play.party = input[0] || 0;
+			play.cs = input[1] || 0;
+			play.rush = input[2] || 0;
+			play.study = input[3] ||0;
+		} else {
+			play.party = input.party || 0;
+			play.cs = input.cs || 0;
+			play.rush = input.rush || 0;
+			play.study = input.study ||0;
+		}
+	}
+	
+	that.get_play = function() {
+		return { party:play.party,
+						 cs:play.cs,
+						 rush:play.rush,
+						 study:play.study};
 	}
 	return that;
 }
