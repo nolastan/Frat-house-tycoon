@@ -13,7 +13,7 @@ var   piecesLayer;
 
 this.simulate = function() {
 	turn = new Turn();
-	this.getCount();
+	this.update_play();
 	turn.run(game.frat);
 	
 	this.update();
@@ -24,6 +24,7 @@ this.update = function() {
 	document.getElementById("brothersCount").innerHTML = game.frat.members;
 	document.getElementById("moneyCount").innerHTML = game.frat.cash;
 	document.getElementById("repCount").innerHTML = game.frat.rep;
+	document.getElementById("nextTurn").innerHTML = game.events[game.events.length-1].descript;
 	this.removePieces();
 	this.drawPieces();
 }
@@ -31,7 +32,7 @@ this.update = function() {
 //********************************************************************************************			
 
 
-this.getCount = function()
+this.update_play = function()
 {
 	numBrothers = game.frat.members;
     partyCount = 0;
@@ -70,7 +71,7 @@ this.getCount = function()
 	    }
 	}	
 	
-	game.frat.play = [partyCount, csCount, rushCount, studyCount];
+	game.frat.set_play([partyCount, csCount, rushCount, studyCount]);
 }
 
 //********************************************************************************************			

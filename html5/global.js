@@ -25,6 +25,7 @@ $(document).ready(function(){
 	game.frat = frat();
 	/** define functions **/
   game.board = new Board();
+	game.events = events;
 
 	
 	/** call functions **/
@@ -43,7 +44,9 @@ $(document).ready(function(){
 	
 	// Action call
   $("#sim").click(function(){
-    game.board.simulate();
+    game.board.update_play();
+		var turn = new Turn();
+		simulate(game.frat.get_play(), turn.run(game.frat));
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
 		$("#skip").removeClass('disabled');

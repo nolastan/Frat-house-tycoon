@@ -40,9 +40,9 @@ var threshold = function(spec) {
 function Turn(info) {
   var info = info || events[Math.floor(Math.random()*events.length)];
 	this.title = info.descript;
-	this.thresholds = {};
-	for (sector in info.sectors) {
-		this.thresholds[sector] = threshold(info.sectors[sector]);
+	this.categories = {};
+	for (category in info.categories) {
+		this.categories[category] = threshold(info.categories[category]);
 	}
 }
 
@@ -51,22 +51,19 @@ Turn.prototype.getThresholds = function() {
 }
 
 Turn.prototype.run = function(frat) {
-	play = frat.play
+	play = frat.get_play();
 	var i = 0;
 	var effect;
 	console.log("Running " + this.title);
-	var results = Array();
-	for (var threshold in this.thresholds) {
-		curThresh = this.thresholds[threshold];
-		effect = curThresh.get_effect(play[i]);
-		results[i] = effect.string();
-		//simulate here
+	var results = {};
+	for (var cat in this.categories) {
+		curThresh = this.categories[cat];
+		effect = curThresh.get_effect(play[cat]);
 		effect.apply(frat);
+		results[cat] = effect;
 		i++;
 	}
-	console.log(results, play);
-	
-
+	return results;
 }
 
 
@@ -108,6 +105,5 @@ var frat = function() {
 	}
 	return that;
 }
-
 
 

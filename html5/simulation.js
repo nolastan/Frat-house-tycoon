@@ -13,7 +13,7 @@ function simulate(party, philanthropy, rush, results){
 	
 	----------------- **/
 
-function simulation(party, philanthropy, rush, results){
+function simulation(play, results){
 
 
   // game variables
@@ -21,9 +21,9 @@ function simulation(party, philanthropy, rush, results){
   var FPS = 30;
   var intervalsPerDay = 100;
   var sim; //  simulation loop
-  var party;
-  var philanthropy
-  var rush;
+  var party = play.party;
+  var philanthropy = play.cs;
+  var rush = play.rush;
   var result;
   var gameTime = new GameTime();
   this.gameTime = gameTime; // having scoping issues
@@ -236,7 +236,12 @@ function simulation(party, philanthropy, rush, results){
 	  	clearInterval(sim);
       console.log("sim over");
       isRunning = false;
-      alert(results);
+			var msg = "";
+			console.log(results);
+			for (cat in results) {
+				msg = msg + cat + " " + results[cat].string();
+			}
+      alert(msg);
       document.getElementById('sim').className = '';
       document.getElementById('normal').className = 'disabled';
       document.getElementById('fast').className = 'disabled';
