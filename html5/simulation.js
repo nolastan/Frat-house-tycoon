@@ -16,8 +16,10 @@ function simulate(party, philanthropy, rush, results){
   });
 
   $("#skip").click(function(){
+  	console.log("here");
   	if(sim.isRunning){
     	sim.end();
+    	destroy(sim);
   	}
   });
 
