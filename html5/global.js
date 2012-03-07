@@ -1,7 +1,9 @@
 var CANVAS_HEIGHT, CANVAS_WIDTH, canvas, ctx, SCALE;
 var CANVAS_SCALE_X = 3;
 var CANVAS_SCALE_Y = 2;
-
+var game = {};
+//variable for Simulation Graphics global variables
+var sg = {};
 function updateScreenSize(){
 	SCALE = Math.min($(window).width()/CANVAS_SCALE_X, ($(window).height()-90)/CANVAS_SCALE_Y);
 	CANVAS_WIDTH = CANVAS_SCALE_X * SCALE;
@@ -13,21 +15,22 @@ function updateScreenSize(){
 }
 
 $(document).ready(function(){
-    drawBoard();
-    $("#simulation").hide();
+
 
 	/** declare variables **/
-  canvas = document.getElementById("canvas");  
-  ctx = canvas.getContext("2d");
-
-  bg = document.getElementById("background").getContext("2d");
-  	
+	sg.canvas = document.getElementById("canvas");  
+  sg.ctx = sg.canvas.getContext("2d");
+  sg.bg = document.getElementById("background").getContext("2d");
+  
+	game.frat = frat();
 	/** define functions **/
-	
+  game.board = new Board();
 
 	
 	/** call functions **/
 	updateScreenSize();
+	game.board.drawBoard().update();
+	$("#simulation").hide();
 	
 	/** elements beyond the canvas **/
 	$(window).resize(function(){
@@ -40,17 +43,29 @@ $(document).ready(function(){
 	
 	// Action call
   $("#sim").click(function(){
-    simulate2();
+    game.board.simulate();
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
 		$("#skip").removeClass('disabled');
   });
 	
+	$("#normal").click(function(){
+    game.sim.gameTime.speed = 1;
+    $(this).addClass("disabled");
+    $("#fast").removeClass("disabled");
+  });
+
+  $("#fast").click(function(){
+    game.sim.gameTime.speed = 3;
+    $(this).addClass("disabled");
+    $("#normal").removeClass("disabled");
+  });
+
+	
 	$("#skip").click(function(){
   	console.log("here");
-  	if(sim.isRunning()){
-    	sim.end();
-    	destroy(sim);
+  	if(game.sim.isRunning()){
+    	game.sim.end();
   	}
   });
   

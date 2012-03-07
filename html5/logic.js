@@ -11,40 +11,41 @@ Effect.prototype.apply = function(frat){
 	frat.members = frat.members + this.members;
 	frat.rep = frat.rep + this.rep;
 	frat.cash = frat.cash + this.cash;
-	document.getElementById("brothersCount").innerHTML = frat.members;
-	document.getElementById("moneyCount").innerHTML = frat.cash;
-	document.getElementById("repCount").innerHTML = frat.rep;
 }
 
 Effect.prototype.string = function(){
 	return "Result: " +this.msg + "\t\t Rep: " + this.rep + " Cash : " + this.cash + " Members: " + this.members;
 }
 
+var effectzz = new Effect([0, 0, 0], "YOu lose");
+
 //Class for determining what reward a play gets
-function Threshold(cutoffs, effects, msgs) {
-	this.cutoffs = cutoffs;
-	this.effects = effects;
-	this.msgs = msgs;
+var threshold = function(spec) {
+	var that = {};
+	
+	that.get_effect = function(num) {
+	  console.log(num);
+		var i = 0;
+    for (i = spec.cutoffs.length - 1; i >= 0; i--) {
+			if (num >= spec.cutoffs[i]) {
+					return new Effect(spec.rewards[i], spec.msgs[i]);
+			}
+    }
+	}
+	return that;
 }
 
 //This checks the play against the threshold and returns
 //the appropriate effect
-Threshold.prototype.getEffect = function(play) {
-    var i = 0;
-    for (i = this.cutoffs.length - 1; i >= 0; i--) {
-        if (play >= this.cutoffs[i]) {
-            return new Effect(this.effects[i], this.msgs[i]);
-        }
-    }
-}
+
 //Super class for turns
-function Turn() {
-    var info = events[Math.floor(Math.random()*events.length)];
+function Turn(info) {
+  var info = info || events[Math.floor(Math.random()*events.length)];
 	this.title = info.descript;
-	this.partyThresh = new Threshold(info.party.cutoffs, info.party.rewards, info.party.msgs);
-	this.csThresh = new Threshold(info.cs.cutoffs, info.cs.rewards, info.cs.msgs);
-	this.rushThresh = new Threshold(info.rush.cutoffs, info.rush.rewards, info.rush.msgs);
-	this.studyThresh = new Threshold(info.study.cutoffs, info.study.rewards, info.study.msgs);
+	this.thresholds = {};
+	for (sector in info.sectors) {
+		this.thresholds[sector] = threshold(info.sectors[sector]);
+	}
 }
 
 Turn.prototype.getThresholds = function() {
@@ -55,35 +56,34 @@ Turn.prototype.run = function(frat) {
 	play = frat.play
 	var i = 0;
 	var effect;
-	console.log("running...");
-	thresholds = this.getThresholds();
 	console.log("Running " + this.title);
 	var results = Array();
-	for (i = 0; i < thresholds.length; i++) {
-		curThresh = thresholds[i];
-		effect = curThresh.getEffect(play[i]);
+	for (var threshold in this.thresholds) {
+		curThresh = this.thresholds[threshold];
+		effect = curThresh.get_effect(play[i]);
 		results[i] = effect.string();
 		//simulate here
 		effect.apply(frat);
+		i++;
 	}
+	console.log(results, play);
+	
 	simulate(play[0], play[1], play[2], results);
 }
 
-var MardGrasTurn = new Turn(MardiGrasInfo);
-var GLOTurn = new Turn(GLOCrackDownInfo);
 
-
-
-function Frat() {
-	this.name = "Sigma Phi Nothing";
-	this.rep = 100;
-	this.cash = 100;
-	this.members = 10;
-	this.play = [0, 0, 0, 0]; // partyCount, csCount, rushCount, studyCount
-}
-
-Frat.prototype.display = function() {
-	console.log(this.name + "- Cash: " + this.cash + " Rep: " + this.rep + " Members:" + this.members);
+var frat = function() {
+	var that = {};
+	that.name = "Sigma Phi Nothing";
+	that.rep = 100;
+	that.cash = 100;
+	that.members = 10;
+	that.play = [0, 0, 0, 0]; // partyCount, csCount, rushCount, studyCount
+	
+	that.display = function() {
+		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members);
+	}
+	return that;
 }
 
 

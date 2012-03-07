@@ -2,42 +2,38 @@
 //********************************************************************************************			
 // Globals
 //********************************************************************************************
-var   INIT_NUM_BROTHERS = 5;
-var   numBrothers       = INIT_NUM_BROTHERS;
+var Board = function() {
+
 var   broRectAray;
 var   partyRect, studyRect, csRect, rushRect;
 var   stage;
 var   piecesLayer;
-var	  frat = new Frat();
-
-var CANVAS_HEIGHT, CANVAS_WIDTH;
-
-
 
 //********************************************************************************************			
 
-function getNumOfBros() {
-	return frat.members;
-}
-
-function simulate2() {
+this.simulate = function() {
 	turn = new Turn();
-	GetCount();
-	turn.run(frat);
+	this.getCount();
+	turn.run(game.frat);
 	
-	update();
+	this.update();
 }
 
-function update() {
-	RemovePieces();
-	numBrothers = getNumOfBros();
-	DrawPieces();
+this.update = function() {
+		
+	document.getElementById("brothersCount").innerHTML = game.frat.members;
+	document.getElementById("moneyCount").innerHTML = game.frat.cash;
+	document.getElementById("repCount").innerHTML = game.frat.rep;
+	this.removePieces();
+	this.drawPieces();
 }
 
 //********************************************************************************************			
 
-function GetCount()
+
+this.getCount = function()
 {
+	numBrothers = game.frat.members;
     partyCount = 0;
 	csCount = 0;
 	rushCount = 0;
@@ -72,20 +68,16 @@ function GetCount()
 	    {
 	      studyCount = studyCount + 1;
 	    }
-	}			
-	document.getElementById("partyCount").innerHTML=partyCount;
-	document.getElementById("csCount").innerHTML=csCount;
-	document.getElementById("rushCount").innerHTML=rushCount;
-	document.getElementById("studyCount").innerHTML=studyCount;
+	}	
 	
-	frat.play = [partyCount, csCount, rushCount, studyCount];
+	game.frat.play = [partyCount, csCount, rushCount, studyCount];
 }
 
 //********************************************************************************************			
 
-function RemovePieces()
+this.removePieces = function()
 {
-    for (var n = 0; n < numBrothers; n++) 
+    for (var n = 0; n < broRectAray.length; n++) 
 	{
 	   piecesLayer.remove(broRectAray[n]);				
 	}		
@@ -95,17 +87,17 @@ function RemovePieces()
 
 //********************************************************************************************			
 
-function IncrementPieceCount()
+this.incrementPieceCount = function()
 {
-    RemovePieces();
-    numBrothers = numBrothers + 1;			    
-	DrawPieces();
+    this.removePieces();		    
+	  this.drawPieces();
 }
 
 //********************************************************************************************			
 
-function DrawPieces()
+this.drawPieces = function()
 {
+		numBrothers = game.frat.members;
     broRectAray = new Array(numBrothers);
 	
      // Make the pieces layer
@@ -134,9 +126,9 @@ function DrawPieces()
 
 }
 
-function drawBoard() 
+this.drawBoard = function() 
 {
-	numBrothers = getNumOfBros();
+	numBrothers = game.frat.members;
 	updateScreenSize();
 	
 	console.log("height"+CANVAS_HEIGHT);
@@ -204,9 +196,7 @@ function drawBoard()
 	context.fillText("Community Services", stage.width*0.7, stage.height*0.3);
 	context.fillText("Rush", stage.width*0.3, stage.height*0.7);
 	context.fillText("Study", stage.width*0.7, stage.height*0.7);
-	DrawPieces();
-	
-	document.getElementById("brothersCount").innerHTML = frat.members;
-	document.getElementById("moneyCount").innerHTML = frat.cash;
-	document.getElementById("repCount").innerHTML = frat.rep;
+	this.drawPieces();
+	return this;
+}
 }

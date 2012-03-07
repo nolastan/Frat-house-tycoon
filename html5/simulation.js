@@ -1,23 +1,9 @@
 function simulate(party, philanthropy, rush, results){
-  sim = new simulation(party, philanthropy, rush, results);
+  game.sim = new simulation(party, philanthropy, rush, results);
   document.getElementById('container').style.display = "none";
   document.getElementById('simulation').style.display = "block";
-  
-  $("#normal").click(function(){
-    sim.gameTime.speed = 1;
-    $(this).addClass("disabled");
-    $("#fast").removeClass("disabled");
-  });
 
-  $("#fast").click(function(){
-    sim.gameTime.speed = 3;
-    $(this).addClass("disabled");
-    $("#normal").removeClass("disabled");
-  });
-
-
-
-  sim.run();
+  game.sim.run();
   
 }
   
@@ -90,15 +76,15 @@ function simulation(party, philanthropy, rush, results){
   	  var img = new Image();
   	  img.src = 'images/grass.png';
 			img.onload = function(){
-		    bg.fillStyle = bg.createPattern(img,'repeat');
-		    bg.fillRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
+		    sg.bg.fillStyle = sg.bg.createPattern(img,'repeat');
+		    sg.bg.fillRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
 	    }
 	    // draw house
   	  var wood = new Image();
   	  wood.src = 'images/wood.png';
 			wood.onload = function(){
-		    bg.fillStyle = bg.createPattern(wood,'repeat');
-				bg.fillRect(x,y,width,height);	
+		    sg.bg.fillStyle = sg.bg.createPattern(wood,'repeat');
+				sg.bg.fillRect(x,y,width,height);	
 			}
   	}
   	
@@ -138,8 +124,8 @@ function simulation(party, philanthropy, rush, results){
   	  var img = new Image();
   	  img.src = 'images/concrete.png';
 			img.onload = function(){
-		    bg.fillStyle = bg.createPattern(img,'repeat');
-		    bg.fillRect(0,y,CANVAS_WIDTH, height);
+		    sg.bg.fillStyle = sg.bg.createPattern(img,'repeat');
+		    sg.bg.fillRect(0,y,CANVAS_WIDTH, height);
 	    }
   	}
   }
@@ -170,7 +156,7 @@ function simulation(party, philanthropy, rush, results){
     this.draw = function(x, y){
     	// called each frame
       if(this.timeOnScreen < this.lengthOfStay){
-        drawPerson(ctx, this.x, this.y, UNIT, this.color)
+        drawPerson(sg.ctx, this.x, this.y, UNIT, this.color)
 				// shouldn't be hard-coded
         height = UNIT/7*100;
         width = UNIT/7*30;
@@ -265,7 +251,7 @@ function simulation(party, philanthropy, rush, results){
       house.draw();
       sidewalk.draw();
       sim = setInterval(function() {
-        ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+        sg.ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
         for(i = 0; i < people.length; i++){
           for(j = 0; j < gameTime.speed; j++){
 	          for(k = 0; k < UNIT; k++){	  	    
