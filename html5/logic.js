@@ -66,18 +66,19 @@ Turn.prototype.run = function(frat) {
 	return results;
 }
 
-
+//Function for creating a frat object
 var frat = function() {
 	var that = {};
 	that.name = "Sigma Phi Nothing";
 	that.rep = 100;
 	that.cash = 100;
 	that.members = 10;
-	//this.play = [0, 0,0,0];
+  //Private play object to store allocation of brothers
 	var play = { party:0,
 								cs: 0,
 								rush: 0,
 								study: 0};
+	
 	
 	that.display = function() {
 		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members);
@@ -105,5 +106,6 @@ var frat = function() {
 	}
 	return that;
 }
+
 
 

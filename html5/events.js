@@ -117,9 +117,3 @@ var  gloCrackDownInfo = {
 var events = [];
 events[0] = mardiGrasInfo;
 events[1] = gloCrackDownInfo;
-events.getNext = function () {
-	if (this.length ==1) {
-		this.push(new Turn());
-	}
-	return this.pop();
-}

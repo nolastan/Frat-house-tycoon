@@ -242,6 +242,7 @@ function simulation(play, results){
 				msg = msg + cat + " " + results[cat].string();
 			}
       alert(msg);
+			game.board.update();
       document.getElementById('sim').className = '';
       document.getElementById('normal').className = 'disabled';
       document.getElementById('fast').className = 'disabled';

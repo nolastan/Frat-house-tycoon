@@ -25,7 +25,14 @@ $(document).ready(function(){
 	game.frat = frat();
 	/** define functions **/
   game.board = new Board();
-	game.events = events;
+	game.turns = [new Turn(mardiGrasInfo), new Turn(gloCrackDownInfo)];
+	game.turns.getNext = function () {
+		var nextTurn = this.pop();
+		if (this.length ==0) {
+			this.push(new Turn());
+		}
+		return nextTurn;
+	}
 
 	
 	/** call functions **/
@@ -45,7 +52,7 @@ $(document).ready(function(){
 	// Action call
   $("#sim").click(function(){
     game.board.update_play();
-		var turn = new Turn();
+		var turn = game.turns.getNext();
 		simulate(game.frat.get_play(), turn.run(game.frat));
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');

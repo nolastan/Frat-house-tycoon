@@ -24,7 +24,7 @@ this.update = function() {
 	document.getElementById("brothersCount").innerHTML = game.frat.members;
 	document.getElementById("moneyCount").innerHTML = game.frat.cash;
 	document.getElementById("repCount").innerHTML = game.frat.rep;
-	document.getElementById("nextTurn").innerHTML = game.events[game.events.length-1].descript;
+	document.getElementById("nextTurn").innerHTML = game.turns[game.turns.length-1].title;
 	this.removePieces();
 	this.drawPieces();
 }
