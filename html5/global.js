@@ -23,7 +23,7 @@ $(document).ready(function(){
   bg = document.getElementById("background").getContext("2d");
   	
 	/** define functions **/
-
+	
 
 	
 	/** call functions **/
@@ -44,6 +44,14 @@ $(document).ready(function(){
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
 		$("#skip").removeClass('disabled');
+  });
+	
+	$("#skip").click(function(){
+  	console.log("here");
+  	if(sim.isRunning()){
+    	sim.end();
+    	destroy(sim);
+  	}
   });
   
 

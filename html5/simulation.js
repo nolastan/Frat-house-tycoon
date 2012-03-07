@@ -1,5 +1,5 @@
 function simulate(party, philanthropy, rush, results){
-  var sim = new simulation(party, philanthropy, rush, results);
+  sim = new simulation(party, philanthropy, rush, results);
   document.getElementById('container').style.display = "none";
   document.getElementById('simulation').style.display = "block";
   
@@ -15,13 +15,7 @@ function simulate(party, philanthropy, rush, results){
     $("#normal").removeClass("disabled");
   });
 
-  $("#skip").click(function(){
-  	console.log("here");
-  	if(sim.isRunning){
-    	sim.end();
-    	destroy(sim);
-  	}
-  });
+
 
   sim.run();
   
@@ -37,7 +31,7 @@ function simulation(party, philanthropy, rush, results){
 
 
   // game variables
-  this.isRunning = true;
+  var isRunning = true;
   var FPS = 30;
   var intervalsPerDay = 100;
   var sim; //  simulation loop
@@ -54,8 +48,8 @@ function simulation(party, philanthropy, rush, results){
   
   
   // public access to private functions
-  this.end = function(){endSim();}
-  
+  this.end = function() { endSim();}
+  this.isRunning = function() { return isRunning; }
 	// resizing{
 	$(window).resize(function(){
 		house.draw();
@@ -255,7 +249,7 @@ function simulation(party, philanthropy, rush, results){
 	function endSim(){
 	  	clearInterval(sim);
       console.log("sim over");
-      this.isRunning = false;
+      isRunning = false;
       alert(results);
       document.getElementById('sim').className = '';
       document.getElementById('normal').className = 'disabled';
