@@ -209,19 +209,19 @@ function simulation(play, results){
 
 
     // Generate people
-    if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *1){
+    if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *10){
       people.push(new Partygoer());
 
     }
 
     // Generate rushees
-    if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *1){
+    if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *10){
     	people.push(new Rushee());
 
     }
 
     // Generate philanthropists
-    if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *1){
+    if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *10){
       people.push(new Philanthropist());
     }
 
