@@ -123,6 +123,10 @@ header h1{
 #results{
 	margin: 10px;
 }
+#results h2{
+	font-size: 300%;
+	font-weight:bold;
+}
 #results p{
 	margin: 1em 0;
 	font-size: 200%;

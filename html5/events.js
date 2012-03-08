@@ -56,7 +56,7 @@ var finalsWeekInfo = {
 			  rewards:  [[ 0,   0,  0],
 						 [ 0,   0,  2],
 						 [-3,   0 , 0]],
-			  msgs: ["It’s okay, rushees were studying too",
+			  msgs: ["It's okay, rushees were studying too",
 			         "Tutored potential members",
 					 "Bugged rushees trying to study"],
 			  cutoffs: [0, 1, 6]

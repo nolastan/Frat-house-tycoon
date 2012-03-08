@@ -56,6 +56,8 @@ $(document).ready(function(){
     game.board.update_play();
 		var turn = game.turns.getNext();
 		simulate(game.frat.get_play(), turn.run(game.frat));
+			document.getElementById("currentTurn").innerHTML = turn.title + " results";
+
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
 		$("#skip").removeClass('disabled');
