@@ -253,7 +253,6 @@ function simulation(play, results){
 
   this.run = function(){
   console.log("sim starting");
-	document.getElementById("currentTurn").innerHTML = game.turns[game.turns.length-1].title;
 
     // loop steps (run simulation)
       house.draw();
