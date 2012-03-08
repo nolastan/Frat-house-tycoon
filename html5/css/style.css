@@ -118,3 +118,12 @@ header h1{
 	position: absolute;
 	z-index: 10;
 }
+
+/* Results */
+#results{
+	margin: 10px;
+}
+#results p{
+	margin: 1em 0;
+	font-size: 200%;
+}

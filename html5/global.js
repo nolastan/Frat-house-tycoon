@@ -41,7 +41,7 @@ $(document).ready(function(){
 	updateScreenSize();
 	game.board.drawBoard().update();
 	$("#simulation").hide();
-	
+	$("#results").hide()
 	/** elements beyond the canvas **/
 	$(window).resize(function(){
 		updateScreenSize();
@@ -79,6 +79,13 @@ $(document).ready(function(){
   	if(game.sim.isRunning()){
     	game.sim.end();
   	}
+  });
+  
+  $("#showBoard").click(function(){
+  	$("#container").show();
+  	$("#results").hide();
+  document.getElementById('sim').className = '';
+
   });
   
 
