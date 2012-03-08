@@ -2,6 +2,7 @@ var templateInfo = {
     descript: "Standard Week",
 	categories: {
 		party:  {
+		      // rewards:  rep, money, members 
 			  rewards:   [[0, 0, -3]],
 			  msgs: ["No parties!"],
 			  cutoffs: [0]
@@ -23,6 +24,53 @@ var templateInfo = {
 			  rewards:  [[0, 0, 0]],
 			  msgs: ["No studying."],
 			  cutoffs: [0]
+		}
+	}
+};
+
+var finalsWeekInfo = {
+    descript: "Finals Week",
+	categories: {
+		party:  {
+		   // rewards:    rep, money, members
+			  rewards:  [[ 0,   0,  0],
+						 [ 1,   0,  0],
+						 [ 0, -30 ,-3]],
+			  msgs: ["People needed to study",
+					 "Everyone needs a study break",
+					 "Noise complaint from neighbors trying to study"],
+			  cutoffs: [0, 1, 4]
+		},
+
+		cs:  {
+		   // rewards:    rep, money, members
+			  rewards:  [[0, 0, 0],
+			             [0, 0, 3]],
+			  msgs: ["Too busy studying",
+			         "Sold pizza in the library and donated proceeds to education"],
+			  cutoffs: [0, 4]
+		},
+
+		rush:  {
+		   // rewards:    rep, money, members
+			  rewards:  [[ 0,   0,  0],
+						 [ 0,   0,  2],
+						 [-3,   0 , 0]],
+			  msgs: ["It’s okay, rushees were studying too",
+			         "Tutored potential members",
+					 "Bugged rushees trying to study"],
+			  cutoffs: [0, 1, 6]
+		},
+
+		study:  {
+		   // rewards:    rep, money, members
+			  rewards:  [[-2,   0,  0],
+						 [ 2,   0,  0],
+						 [ 4,   0 , 0]],
+			  msgs: ["Did poorly on exams",
+			         "Passed!",
+					 "Aced it!"],
+			  cutoffs: [0, 1, 5]
 		}
 	}
 };
@@ -117,3 +165,4 @@ var  gloCrackDownInfo = {
 var events = [];
 events[0] = mardiGrasInfo;
 events[1] = gloCrackDownInfo;
+events[2] = finalsWeekInfo;

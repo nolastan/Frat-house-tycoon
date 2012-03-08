@@ -19,13 +19,15 @@ $(document).ready(function(){
 
 	/** declare variables **/
 	sg.canvas = document.getElementById("canvas");  
-  sg.ctx = sg.canvas.getContext("2d");
-  sg.bg = document.getElementById("background").getContext("2d");
+    sg.ctx = sg.canvas.getContext("2d");
+    sg.bg = document.getElementById("background").getContext("2d");
   
 	game.frat = frat();
 	/** define functions **/
-  game.board = new Board();
-	game.turns = [new Turn(mardiGrasInfo), new Turn(gloCrackDownInfo)];
+    game.board = new Board();
+	game.turns = [new Turn(mardiGrasInfo), 
+	              new Turn(gloCrackDownInfo),
+	              new Turn(finalsWeekInfo)];
 	game.turns.getNext = function () {
 		var nextTurn = this.pop();
 		if (this.length ==0) {
