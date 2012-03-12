@@ -1,6 +1,7 @@
-function simulate(party, philanthropy, rush, results){
-  game.sim = new simulation(party, philanthropy, rush, results);
+function simulate(play, results){
+  game.sim = new simulation(play, results);
   document.getElementById('container').style.display = "none";
+  document.getElementById('results').style.display = "none";
   document.getElementById('simulation').style.display = "block";
 
   game.sim.run();
@@ -209,19 +210,19 @@ function simulation(play, results){
 
 
     // Generate people
-    if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *1){
+    if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *10){
       people.push(new Partygoer());
 
     }
 
     // Generate rushees
-    if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *1){
+    if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *10){
     	people.push(new Rushee());
 
     }
 
     // Generate philanthropists
-    if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *1){
+    if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *10){
       people.push(new Philanthropist());
     }
 
@@ -236,23 +237,23 @@ function simulation(play, results){
 	  	clearInterval(sim);
       console.log("sim over");
       isRunning = false;
-			var msg = "";
-			console.log(results);
-			for (cat in results) {
-				msg = msg + cat + " " + results[cat].string();
-			}
-      alert(msg);
-			game.board.update();
-      document.getElementById('sim').className = '';
+	var msg = "";
+	console.log(results);
+	document.getElementById("philanthropyMessage").innerHTML = results['cs'].string();
+	document.getElementById("rushMessage").innerHTML = results['rush'].string();
+	document.getElementById("partyMessage").innerHTML = results['party'].string();
+	document.getElementById("studyMessage").innerHTML = results['study'].string();
+	  game.board.update();
       document.getElementById('normal').className = 'disabled';
       document.getElementById('fast').className = 'disabled';
       document.getElementById('skip').className = 'disabled';
-      document.getElementById('container').style.display = "block";
+      document.getElementById('results').style.display = "block";
   		document.getElementById('simulation').style.display = "none";
 	}
 
   this.run = function(){
   console.log("sim starting");
+
     // loop steps (run simulation)
       house.draw();
       sidewalk.draw();

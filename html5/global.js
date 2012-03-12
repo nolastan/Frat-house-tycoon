@@ -41,7 +41,7 @@ $(document).ready(function(){
 	updateScreenSize();
 	game.board.drawBoard().update();
 	$("#simulation").hide();
-	
+	$("#results").hide()
 	/** elements beyond the canvas **/
 	$(window).resize(function(){
 		updateScreenSize();
@@ -56,6 +56,8 @@ $(document).ready(function(){
     game.board.update_play();
 		var turn = game.turns.getNext();
 		simulate(game.frat.get_play(), turn.run(game.frat));
+			document.getElementById("currentTurn").innerHTML = turn.title + " results";
+
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
 		$("#skip").removeClass('disabled');
@@ -79,6 +81,13 @@ $(document).ready(function(){
   	if(game.sim.isRunning()){
     	game.sim.end();
   	}
+  });
+  
+  $("#showBoard").click(function(){
+  	$("#container").show();
+  	$("#results").hide();
+  document.getElementById('sim').className = '';
+
   });
   
 

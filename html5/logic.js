@@ -14,7 +14,7 @@ Effect.prototype.apply = function(frat){
 }
 
 Effect.prototype.string = function(){
-	return "Result: " +this.msg + "\t\t Rep: " + this.rep + " Cash : " + this.cash + " Members: " + this.members;
+	return this.msg + "&nbsp;&nbsp;&nbsp;&nbsp;Rep: " + this.rep + " Cash : " + this.cash + " Members: " + this.members;
 }
 
 //Class for determining what reward a play gets
