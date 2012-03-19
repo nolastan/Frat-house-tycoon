@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Tangle document</title>
+
+    <!-- Tangle -->
+    <script type="text/javascript" src="Tangle.js"></script>
+
+    <!-- TangleKit (optional) -->
+    <link rel="stylesheet" href="TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="TangleKit/TangleKit.js"></script>
+	<script type="text/javascript" src="../html5/logic.js"></script>
+
+    <!-- example -->
+    <script type="text/javascript">
+		var tangle;
+        function setUpTangle () {
+
+            var element = document.getElementById("example");
+
+            tangle = new Tangle(element, {
+                initialize: function () {
+					this.rep = 150;
+					this.rushers = 5;
+					this.rush_score = 7;
+					this.rep_weight = 40;
+					this.score_divider = 10;
+					this.rusher_weight = 100 - this.rep_weight;
+					this.basesd = 2;
+					this.skillsd = 2;
+					this.skills = [0, 0, 0, 0];
+					
+                },
+                update: function () {
+					this.rusher_weight = 100 - this.rep_weight;
+					this.score = this.rep*this.rep_weight/100 + this.rush_score*this.rushers*this.rusher_weight/100;
+					this.skills = cumul_skills(this.score, this.score_divider, this.basesd, this.skillsd);
+					this.party = this.skills[0];
+					this.phil = this.skills[1];
+					this.rush = this.skills[2];
+					this.study = this.skills[3];
+					this.example = gen_skills(this.score, this.score_divider, this.basesd, this.skillsd);
+					this.party2 = this.example[0];
+					this.phil2 = this.example[1];
+					this.rush2 = this.example[2];
+					this.study2 = this.example[3];
+					this.avg = calc_mean(this.skills);
+                }
+            });
+        }
+		
+		function gen_skills(score, scorediv, basesd, skillsd) {
+			//Takes in a score and generates 4 attributes based on it
+			//First get the mean for the attribute
+			var base = (score/scorediv) + basesd*rnd_snd();
+			var skills = [];
+			for (i = 0; i < 4; i++) {
+				var skillval = base + skillsd*rnd_snd();
+				skillval = Math.round(skillval);
+				if (skillval < 1.5) {
+					skillval = 1;
+				}
+				skills.push(skillval);
+			}
+			return skills;
+		}
+		
+		function cumul_skills(score, scorediv, basesd, skillsd, samples) {
+			var runs = samples || 1000;
+			var cumul = [0, 0, 0, 0];
+			
+			for (var i = 0; i < runs; i++) {
+				var skills = gen_skills(score, scorediv, basesd, skillsd);
+				for (var k = 0; k < 4; k++) {
+					cumul[k] += skills[k]/runs;
+				}
+			}
+			return cumul;
+		}
+		
+		
+		
+		function rnd_snd() {
+			return (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1);
+		}
+		
+		function make_sample(count) {
+			var i = 0;
+			var sample = [];
+			for (i; i < count; i++) {
+				sample.push(rnd_snd());
+			}
+			return sample;
+		}
+		
+		function calc_mean(sample) {
+			var summ = 0;
+			var i;
+			for (i = 0; i < sample.length;  i++) {
+				summ += sample[i];
+			}
+			return summ / sample.length;
+		}
+		
+		function calc_stdev(sample) {
+			var mean = calc_mean(sample);
+			var variance = 0;
+			var diff;
+			for (i = 0; i < sample.length;  i++) {
+				diff = (sample[i] - mean);
+				variance += diff*diff;
+			}
+			variance = variance / sample.length;
+			return Math.pow(variance, 0.5);
+		}
+		
+		function go() {
+			
+		}
+
+    </script>
+</head>
+
+<body onload="setUpTangle();">
+
+    <p>This is a simple reactive document.</p>
+
+    <div id="example">
+	<table>
+		<tr>
+			<th>Rep</th>
+			<th>Rushers</th>
+			<th>Rush Score</th>
+			<th>Rep Wgt</th>
+			<th>Rush Wgt</th>
+			<th>Score Divider</th>
+			<th>Base SD</th>
+			<th>Skill SD</th>
+		</tr>
+		<tr>
+			<td><p><span data-var="rep" class="TKAdjustableNumber" data-min="2" data-max="1000"> </span></p></td>
+			<td><p><span data-var="rushers" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+			<td><p><span data-var="rush_score" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+			<td><p><span data-var="rep_weight" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+			<td><p><span data-var="rusher_weight" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+			<td><p><span data-var="score_divider" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+			<td><p><span data-var="basesd" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+			<td><p><span data-var="skillsd" class="TKAdjustableNumber" data-max="1000"></span></p></td>
+		</tr>
+	</table>
+	<br><br>
+	<hr>
+	<table>
+		<tr>
+			<th>Party</th>
+			<th>Comm. Service</th>
+			<th>Rush</th>
+			<th>Study</th>
+		</tr>
+		<tr>
+			<td><p><span data-var="party" data-format="%.2f"></span><p></td>
+			<td><p><span data-var="phil" data-format="%.2f"></span><p></td>
+			<td><p><span data-var="rush" data-format="%.2f"></span><p></td>
+			<td><p><span data-var="study" data-format="%.2f"></span><p></td>
+		</tr>
+		<tr>
+			<td><p><span data-var="party2" data-format="%.2f"></span><p></td>
+			<td><p><span data-var="phil2" data-format="%.2f"></span><p></td>
+			<td><p><span data-var="rush2" data-format="%.2f"></span><p></td>
+			<td><p><span data-var="study2" data-format="%.2f"></span><p></td>
+		</tr>
+	</table>
+    <span data-var="avg" data-format="%.2f"></span>
+	</div>
+</body>
+</html>
