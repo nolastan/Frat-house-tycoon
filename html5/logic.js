@@ -74,46 +74,99 @@ var create_frat = function(spec, members) {
 	that.rep = spec.rep || 100;
 	that.cash = spec.cash || 100;
 	that.members = members || [];
+	
+	//**This needs to be changed, play should have arrays of brothers
   //Private play object to store allocation of brothers
-	var play = { party:0,
-								cs: 0,
-								rush: 0,
-								study: 0};
+	var play = { party: [],
+								cs: [],
+								rush: [],
+								study: []};
 	
 	
+	//Basic display funciton
 	that.display = function() {
 		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members);
 	}
 	
 	
 	that.get_play = function() {
-		return { party:play.party,
-						 cs:play.cs,
-						 rush:play.rush,
-						 study:play.study};
+		return play;
 	}
 	
-	that.get_skilltotals = function() {
-		totals = {party: 0, cs: 0, rush: 0, study:0};
+	that.getSkillTotals = function() {
+		var totals = {party: 0, cs: 0, rush: 0, study:0};
 		for (var i = 0; i < this.members.length; i++) {
-			member = members[i];
+			var member = this.members[i];
 			totals.party += member.skills.party;
 			totals.cs += member.skills.cs;
-			total.rush += member.skills.rush;
-			total.study += member.skills.study;
+			totals.rush += member.skills.rush;
+			totals.study += member.skills.study;
 		}
 		return totals;
 	}
+	
+	that.getSkillAvgs = function() {
+		var avgs = {};
+		var totals = this.getSkillTotals();
+		
+		avgs.party = totals.party/members.length;
+		avgs.cs = totals.cs/members.length;
+		avgs.rush = totals.rush/members.length;
+		avg.study = totals.study/members.length;
+		return avgs;
+	}
+	
+	var getMemberById = function(id) {
+		for (var i = 0; i < this.members.length; i++) {
+			var member = this.members[i];
+			if (member.id == id) {
+				return member;
+			}
+		}
+		return -1;
+	}
+	
+	that.getMemberById = getMemberById;
 	return that;
 }
 
-var create_member = function(skills) {
-	that = {};
-	that.skills = skills;
+var create_member = (function() {
+	var count = 0;
+	var rep_weight = 0.6;
+	var skills_weight = 0.4;
+	var base_acceptance = 0.5;
+	var rep_divider = 50;
+
 	
-	
-	return that;
-}
+	return function(skills) {
+		var that = {};
+		var age = 0;
+		that.skills = skills;
+		that.id = count++;
+		that.getAge = function () {
+			return age;
+		}
+		
+		that.incrementAge = function() { 
+			age = age + 1;
+			return this;
+		}
+		
+		var avgSkill = function() {
+			var sum = skills.party + skills.cs + skills.rush + skills.study;
+			return sum/4;
+		}
+		
+		
+		that.chanceWillJoin = function(frat) {
+			//First we get the component based solely on rep
+			var repscore = frat.rep / rep_divider;
+			var repprob = 1 - (1/(1 + Math.pow(3, -avgSkill() + repscore)));
+			return repprob;
+		}
+		return that;
+	}
+})();
 
 
 
