@@ -18,7 +18,7 @@ Effect.prototype.string = function(){
 }
 
 //Class for determining what reward a play gets
-var threshold = function(spec) {
+var create_threshold = function(spec) {
 	var that = {};
 	
 	that.get_effect = function(num) {
@@ -38,11 +38,12 @@ var threshold = function(spec) {
 
 //Super class for turns
 function Turn(info) {
-  var info = info || events[Math.floor(Math.random()*events.length)];
+	var info = info || events[Math.floor(Math.random()*events.length)];
 	this.title = info.descript;
 	this.categories = {};
+	
 	for (category in info.categories) {
-		this.categories[category] = threshold(info.categories[category]);
+		this.categories[category] = create_threshold(info.categories[category]);
 	}
 }
 
@@ -67,12 +68,12 @@ Turn.prototype.run = function(frat) {
 }
 
 //Function for creating a frat object
-var frat = function() {
+var create_frat = function(spec, members) {
 	var that = {};
-	that.name = "Sigma Phi Nothing";
-	that.rep = 100;
-	that.cash = 100;
-	that.members = 10;
+	that.name = spec.name || "Sigma Phi Nothing";
+	that.rep = spec.rep || 100;
+	that.cash = spec.cash || 100;
+	that.members = members || [];
   //Private play object to store allocation of brothers
 	var play = { party:0,
 								cs: 0,
@@ -84,19 +85,6 @@ var frat = function() {
 		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members);
 	}
 	
-	that.set_play = function(input) {
-		if($.isArray(input)) {
-			play.party = input[0] || 0;
-			play.cs = input[1] || 0;
-			play.rush = input[2] || 0;
-			play.study = input[3] ||0;
-		} else {
-			play.party = input.party || 0;
-			play.cs = input.cs || 0;
-			play.rush = input.rush || 0;
-			play.study = input.study ||0;
-		}
-	}
 	
 	that.get_play = function() {
 		return { party:play.party,
@@ -104,6 +92,26 @@ var frat = function() {
 						 rush:play.rush,
 						 study:play.study};
 	}
+	
+	that.get_skilltotals = function() {
+		totals = {party: 0, cs: 0, rush: 0, study:0};
+		for (var i = 0; i < this.members.length; i++) {
+			member = members[i];
+			totals.party += member.skills.party;
+			totals.cs += member.skills.cs;
+			total.rush += member.skills.rush;
+			total.study += member.skills.study;
+		}
+		return totals;
+	}
+	return that;
+}
+
+var create_member = function(skills) {
+	that = {};
+	that.skills = skills;
+	
+	
 	return that;
 }
 
