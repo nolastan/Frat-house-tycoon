@@ -70,6 +70,7 @@ Turn.prototype.run = function(frat) {
 //Function for creating a frat object
 var create_frat = function(spec, members) {
 	var that = {};
+	spec = spec || {};
 	that.name = spec.name || "Sigma Phi Nothing";
 	that.rep = spec.rep || 100;
 	that.cash = spec.cash || 100;
@@ -130,6 +131,33 @@ var create_frat = function(spec, members) {
 	return that;
 }
 
+var create_skills = function(spec) {
+	spec = spec || {};
+	var that = {};
+	
+	//Allow spec to be either object or array
+	that.party = spec.party || spec[0] || 0;
+	that.cs = spec.cs || spec[1] || 0;
+	that.rush = spec.rush || spec[2] || 0;
+	that.study = spec.study || spec[3] || 0;
+	
+	var get = function(index) {
+		switch(index) {
+			case 0: return that.party;
+			case 1: return that.cs;
+			case 3: return that.rush;
+			case 4: return that.study;
+		}
+	}
+	
+	that.get = get;
+
+	that.getNormalized = function() {
+		
+	}
+	
+}
+
 var create_member = (function() {
 	var count = 0;
 	var rep_weight = 0.6;
@@ -173,8 +201,8 @@ var create_member = (function() {
 			//First we get the sum of the frat avg scores, and this members skills
 			var categories = ["party", "cs", "rush", "study"];
 			var fratAvgs = frat.getSkillAvgs();
-			var fsum = 0, msum = 0, cat;
-			for (int i = 0; i < categories.length; i++) {
+			//var fsum = 0, msum = 0, cat = "";
+			for (var i = 0; i < categories.length; i++) {
 				cat = categories[i];
 				fsum += fratAvgs[cat];
 				msum += skills[cat];
@@ -182,7 +210,7 @@ var create_member = (function() {
 			
 			//Then we normalize the values and square their differences
 			var diff = 0, fnorm, mnorm;
-			for (int i = 0; i < categories.length; i++) {
+			for (var i = 0; i < categories.length; i++) {
 				cat = categories[i];
 				fnorm = fratAvgs[cat]/fsum;
 				mnorm = skills[cat]/msum;
