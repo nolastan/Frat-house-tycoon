@@ -161,8 +161,38 @@ var create_member = (function() {
 		that.chanceWillJoin = function(frat) {
 			//First we get the component based solely on rep
 			var repscore = frat.rep / rep_divider;
-			var repprob = 1 - (1/(1 + Math.pow(3, -avgSkill() + repscore)));
-			return repprob;
+			
+			//This is a logistic decay graph which has the probability of joining
+			//be 75% if the skill average is the same as the rep divided by the repdivider
+			// i.e. 200 rep / 50 = 4, so if this guy's avg skill is 4, he will join 75% of the
+			// time
+			var repprob = 1 - (1/(1 + Math.pow(3, -avgSkill() + repscore + 1)));
+			
+			//Next we get the component based on how similar their interests are
+			
+			//First we get the sum of the frat avg scores, and this members skills
+			var categories = ["party", "cs", "rush", "study"];
+			var fratAvgs = frat.getSkillAvgs();
+			var fsum = 0, msum = 0, cat;
+			for (int i = 0; i < categories.length; i++) {
+				cat = categories[i];
+				fsum += fratAvgs[cat];
+				msum += skills[cat];
+			}
+			
+			//Then we normalize the values and square their differences
+			var diff = 0, fnorm, mnorm;
+			for (int i = 0; i < categories.length; i++) {
+				cat = categories[i];
+				fnorm = fratAvgs[cat]/fsum;
+				mnorm = skills[cat]/msum;
+				diff += Math.pow(fnorm - mnorm, 2);
+			}
+			
+			//Finally we put this in an exponential decay function
+			var skillprob = Math.pow(3, -50*diff);
+			
+			return repprob*rep_weight + skillprob*skill_weight;
 		}
 		return that;
 	}
