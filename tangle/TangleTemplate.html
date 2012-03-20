@@ -34,6 +34,9 @@
 					this.skillsd = 2;
 					this.skills = [0, 0, 0, 0];
 					
+					this.prob = 0;
+					this.avskill = 0;
+					
                 },
                 update: function () {
 					this.rusher_weight = 100 - this.rep_weight;
@@ -49,6 +52,10 @@
 					this.rush2 = this.example[2];
 					this.study2 = this.example[3];
 					this.avg = calc_mean(this.skills);
+					
+					this.prob = 1 - (1/(1 + Math.pow(3, -this.avskill +1 + this.rep/50)));
+					
+					this.diff = check_interests(this.skills, this.example);
                 }
             });
         }
@@ -67,6 +74,20 @@
 				skills.push(skillval);
 			}
 			return skills;
+		}
+		
+		function check_interests(avg, sample) {
+			var asum = 0, ssum = 0, diff = 0;
+			for (var i = 0; i < avg.length; i++) {
+				asum += avg[i];
+				ssum += sample[i];
+			}
+			for (var i = 0; i < avg.length; i++) {
+				var anorm = avg[i]/asum;
+				var snorm = sample[i]/ssum;
+				diff += (anorm - snorm)*(anorm - snorm);
+			}
+			return diff;
 		}
 		
 		function cumul_skills(score, scorediv, basesd, skillsd, samples) {
@@ -174,7 +195,10 @@
 			<td><p><span data-var="study2" data-format="%.2f"></span><p></td>
 		</tr>
 	</table>
-    <span data-var="avg" data-format="%.2f"></span>
+    <span data-var="diff" data-format="%.5f"></span>
+	
+	<p>Average Skill: <span data-var="avskill" class="TKAdjustableNumber" data-max="1000"></span></p>
+	<p>Prob of joining: <span data-var="prob" data-format="%.2f"></span></p>
 	</div>
 </body>
 </html>
