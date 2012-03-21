@@ -35,14 +35,15 @@
 					this.basesd = 2;
 					this.skillsd = 2;
 					this.skills = [0, 0, 0, 0];
-					
+					this.score = 0;
 					this.prob = 0;
 					this.avskill = 0;
-					
-					this.member = create_member(this.skills);
-					
+					this.frat = create_frat({rep:this.rep});
+					this.frat.addMember(create_member()).addMember(create_member());
+					this.member = create_member();
                 },
                 update: function () {
+					
 					this.rusher_weight = 100 - this.rep_weight;
 					this.score = this.rep*this.rep_weight/100 + this.rush_score*this.rushers*this.rusher_weight/100;
 					this.skills = cumul_skills(this.score, this.score_divider, this.basesd, this.skillsd);
@@ -50,22 +51,28 @@
 					this.phil = this.skills[1];
 					this.rush = this.skills[2];
 					this.study = this.skills[3];
-					this.example = gen_skills(this.score, this.score_divider, this.basesd, this.skillsd);
-					this.party2 = this.example[0];
-					this.phil2 = this.example[1];
-					this.rush2 = this.example[2];
-					this.study2 = this.example[3];
-					this.avg = calc_mean(this.skills);
 					
-					this.prob = 1 - (1/(1 + Math.pow(3, -this.avskill +1 + this.rep/50)));
+					this.member = create_member({score:this.score});
+					this.name = this.member.name;
 					
-					this.diff = check_interests(this.skills, this.example);
-					this.member = create_member(this.skills);
 					
-					this.namez = this.member.name;
+					this.party2 = this.member.skills.party;
+					this.phil2 = this.member.skills.cs;
+					this.rush2 = this.member.skills.rush;
+					this.study2 = this.member.skills.study;
+					this.avg = this.member.skills.getAvg();
+					
+					this.prob = this.member.chanceWillJoin(this.frat);
+
+					
                 }
             });
         }
+		
+		function make_many_members(score) {
+			
+		
+		}
 		
 		function gen_skills(score, scorediv, basesd, skillsd) {
 			//Takes in a score and generates 4 attributes based on it
@@ -206,7 +213,7 @@
 	
 	<p>Average Skill: <span data-var="avskill" class="TKAdjustableNumber" data-max="1000"></span></p>
 	<p>Prob of joining: <span data-var="prob" data-format="%.2f"></span></p>
-	<p>Name: <span data-var="namez" ></span></p>
+	<p>Name: <span data-var="name" ></span></p>
 	</div>
 </body>
 </html>
