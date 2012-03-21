@@ -22,7 +22,7 @@ $(document).ready(function(){
     sg.ctx = sg.canvas.getContext("2d");
     sg.bg = document.getElementById("background").getContext("2d");
   
-	game.frat = frat();
+	game.frat = create_frat();
 	/** define functions **/
     game.board = new Board();
 	game.turns = [new Turn(mardiGrasInfo), 
