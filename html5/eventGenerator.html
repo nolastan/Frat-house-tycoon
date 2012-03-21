@@ -2,8 +2,22 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="events.js"></script>
 <script>
+var newEvent = {};
 $(function() {
+	$("#run").click( function() {
+		newEvent.descript = $("#descript").attr("value");
+		console.log(newEvent);
+		
+		$("#result").html(JSON.stringify(newEvent));
+		var msg = [];
+		$("#party .reward").each( function(index) {
+			msg.push(eval( $(this).attr("value")));
+		});
+		console.log(msg);
+	});
+	
 	
 
 });
@@ -11,6 +25,21 @@ $(function() {
 </script>
 </head>
 <body>
+<form>
+<input type="text" id="descript" value="New Event" />
+<input type="button" id="run" value="Generate" />
+<div id="party">
+<h3>Rewards</h3>
+<p>Should be like this: [[*rep base*, *rep multiplier*], [*cash base*, *cash multiplier*], [*rush base*, *rush multiplier*]]<p>
+Reward1<input type="text" class="reward" value="[[0, 0], [0, 0], [0, 0]]" /><br>
+Reward2<input type="text" class="reward" value="[[0, 0]]" /><br>
+Reward3<input type="text" class="reward" value="[[0, 0]]" /><br>
+</div>
+
+</form>
+
+<p id="result">
+</p>
 
 
 
