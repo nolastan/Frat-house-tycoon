@@ -13,7 +13,9 @@
     <script type="text/javascript" src="TangleKit/sprintf.js"></script>
     <script type="text/javascript" src="TangleKit/BVTouchable.js"></script>
     <script type="text/javascript" src="TangleKit/TangleKit.js"></script>
+	<script type="text/javascript" src="../html5/names.js"></script>
 	<script type="text/javascript" src="../html5/logic.js"></script>
+	
 
     <!-- example -->
     <script type="text/javascript">
@@ -37,6 +39,8 @@
 					this.prob = 0;
 					this.avskill = 0;
 					
+					this.member = create_member(this.skills);
+					
                 },
                 update: function () {
 					this.rusher_weight = 100 - this.rep_weight;
@@ -56,6 +60,9 @@
 					this.prob = 1 - (1/(1 + Math.pow(3, -this.avskill +1 + this.rep/50)));
 					
 					this.diff = check_interests(this.skills, this.example);
+					this.member = create_member(this.skills);
+					
+					this.namez = this.member.name;
                 }
             });
         }
@@ -199,6 +206,7 @@
 	
 	<p>Average Skill: <span data-var="avskill" class="TKAdjustableNumber" data-max="1000"></span></p>
 	<p>Prob of joining: <span data-var="prob" data-format="%.2f"></span></p>
+	<p>Name: <span data-var="namez" ></span></p>
 	</div>
 </body>
 </html>
