@@ -43,7 +43,7 @@ var create_threshold = function(spec) {
 				return create_effect(spec.rewards[i], spec.msgs[i], score);
 			}
 		}
-		return 0;
+		return create_effect({}, "Nothing happened", score);
 	}
 
 	return that;
@@ -54,6 +54,7 @@ var create_threshold = function(spec) {
 
 //Super class for turns
 function Turn(info) {
+	var rushCount = 9;
 	var info = info || events[Math.floor(Math.random()*events.length)];
 	this.title = info.descript;
 	this.categories = {};
@@ -71,15 +72,30 @@ Turn.prototype.run = function(frat) {
 	play = frat.get_play();
 	var i = 0;
 	var effect;
+	var rushCount = 9;
+	var repMult = 0.6;
+	var scoreMult = 0.4;
+	
 	console.log("Running " + this.title);
 	var results = {};
+	var rushScore = 0;
 	for (var cat in this.categories) {
 		curThresh = this.categories[cat];
 		effect = curThresh.get_effect(play[cat]);
+		rushScore += effect.rush;
 		effect.apply(frat);
 		results[cat] = effect;
 		i++;
 	}
+	//Need to do something with the rush score here.
+	results.rushees = [];
+	
+	overallRushScore = repMult*frat.rep + scoreMult*rushScore;
+	for (var i = 0; i < rushCount; i++) {
+		results.rushees.push(create_member(overAllRushScore));
+	}
+	
+	
 	return results;
 }
 
