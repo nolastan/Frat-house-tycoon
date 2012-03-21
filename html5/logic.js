@@ -1,35 +1,38 @@
 
 //Class for storing the effect of a turn
-function Effect(values, msg) {
-	this.rep = values[0];
-	this.cash = values[1];
-	this.members = values[2];
-	this.msg = msg;
+function create_effect(values, msg, score) {
+	var that = {};
+	that.cash = values.cash.base + score*values.cash.mult;
+	that.rep = values.rep.base + score*values.cash.mult;
+	that.rush = values.rush.base + score*values.rush.mult;
+	
+	that.apply = function(frat) {
+		frat.cash += that.cash;
+		frat.rep += that.rep;
+	}
+	
+	that.string = function() {
+		return msg + "&nbsp;&nbsp;&nbsp;&nbsp;Rep: " + this.rep + " Cash : " + this.cash + " Rush: " + this.rush;
+	}
+	
+	return that;
 }
 
-Effect.prototype.apply = function(frat){
-	frat.members = frat.members + this.members;
-	frat.rep = frat.rep + this.rep;
-	frat.cash = frat.cash + this.cash;
-}
-
-Effect.prototype.string = function(){
-	return this.msg + "&nbsp;&nbsp;&nbsp;&nbsp;Rep: " + this.rep + " Cash : " + this.cash + " Members: " + this.members;
-}
 
 //Class for determining what reward a play gets
 var create_threshold = function(spec) {
 	var that = {};
 	
-	that.get_effect = function(num) {
-	  console.log(num);
+	that.get_effect = function(score) {
 		var i = 0;
-    for (i = spec.cutoffs.length - 1; i >= 0; i--) {
-			if (num >= spec.cutoffs[i]) {
-					return new Effect(spec.rewards[i], spec.msgs[i]);
+		for (i = spec.cutoffs.length - 1; i >= 0; i--) {
+			if (score >= spec.cutoffs[i]) {
+				return create_effect(spec.rewards[i], spec.msgs[i], score);
 			}
-    }
+		}
+		return 0;
 	}
+
 	return that;
 }
 
@@ -189,6 +192,10 @@ var create_frat = function(spec, members) {
 			this.members.push(newMember);
 		}
 		return this;
+	}
+	
+	that.numBrothers = function() {
+		return that.members.length;
 	}
 	
 	return that;

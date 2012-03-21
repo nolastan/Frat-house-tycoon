@@ -23,6 +23,8 @@ $(document).ready(function(){
     sg.bg = document.getElementById("background").getContext("2d");
   
 	game.frat = create_frat();
+	
+	game.frat.addMember(create_member()).addMember(create_member());
 	/** define functions **/
     game.board = new Board();
 	game.turns = [new Turn(mardiGrasInfo), 
