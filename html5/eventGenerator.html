@@ -3,16 +3,48 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="events.js"></script>
-<script type="text/javascript" src="libraries/form2object.js"></script>
+<script type="text/javascript" src="libraries/form2js.js"></script>
 <script type="text/javascript" src="libraries/json2.js"></script>
 <script type="text/javascript">
+var activeDiv = "#party";
 $(function() {
+	$("#rush, #cs, #study").hide();
+	
+	$("a.party").click( function(e) {
+		e.preventDefault();
+		makeActive("#party");
+	});
+	
+	$("a.cs").click( function(e) {
+		e.preventDefault();
+		makeActive("#cs");
+	});
+	
+	$("a.rush").click( function(e) {
+		e.preventDefault();
+		makeActive("#rush");
+	});
+	
+	$("a.study").click( function(e) {
+		e.preventDefault();
+		makeActive("#study");
+	});
 });
+
+function makeActive(id) {
+	if (activeDiv !== id) {
+		$(activeDiv).slideUp();
+		$(id).slideDown();
+		activeDiv = id;
+	}
+
+}
+
 function test()
 
 {
 
-	var formData = form2object('testForm', '.', true,
+	var formData = form2js('testForm', '.', true,
 
 			function(node)
 
@@ -31,7 +63,6 @@ function test()
 
 
 	document.getElementById('testArea').innerHTML = JSON.stringify(formData, null, '\t');
-
 }
 
 </script>
@@ -39,10 +70,11 @@ function test()
 </head>
 <body>
 <form id="testForm" action="javascript:test()" >
-<input type="text" id="descript" name="descript" value="New Event" />
+Event Description<input type="text" id="descript" name="descript" value="New Event" />
 <input type="submit" id="run" value="Generate" />
+<p><a class="party">Party</a> <a class="cs">Community Service</a> <a class="rush">Rush</a> <a class="study">Study</a> </p>
 <div id="party">
-<h3>Party</h3>
+<h1>Party</h1>
 <h4> Rewards</h4>
 <table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
 	<tr>
@@ -52,22 +84,22 @@ function test()
 	</tr>
 	<tr>
 		<td>Rep</td>
-		<td><input type="text" value="0" name="categories.party.rewards.low.rep.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.low.rep.mult" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0].rep.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0].rep.mult" /></td>
 	</tr>
 	<tr>
 		<td>Cash</td>
-		<td><input type="text" value="0" name="categories.party.rewards.low.cash.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.low.cash.mult" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0].cash.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0].cash.mult" /></td>
 	</tr>
 	<tr>
 		<td>Rush</td>
-		<td><input type="text" value="0" name="categories.party.rewards.low.rush.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.low.rush.mult" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0].rush.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0].rush.mult" /></td>
 	</tr>
 </table>
 
-<table class="med" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
 	<tr>
 		<td>MED</td>
 		<td>Base</td>
@@ -75,54 +107,311 @@ function test()
 	</tr>
 	<tr>
 		<td>Rep</td>
-		<td><input type="text" value="0" name="categories.party.rewards[0][0].base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards[0][1].mult" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[1].rep.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[1].rep.mult" /></td>
 	</tr>
 	<tr>
 		<td>Cash</td>
-		<td><input type="text" value="0" name="categories.party.rewards.med.cash.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.med.cash.mult" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[1].cash.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[1].cash.mult" /></td>
 	</tr>
 	<tr>
 		<td>Rush</td>
-		<td><input type="text" value="0" name="categories.party.rewards.med.rush.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.med.rush.mult" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[1].rush.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[1].rush.mult" /></td>
 	</tr>
 </table>
 
-<table class="hi" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
 	<tr>
-		<td>HI</td>
+		<td>HIGH</td>
 		<td>Base</td>
 		<td>Multiplier</td>
 	</tr>
 	<tr>
 		<td>Rep</td>
-		<td><input type="text" value="0" name="categories.party.rewards.hi.rep.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.hi.rep.mult" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[2].rep.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[2].rep.mult" /></td>
 	</tr>
 	<tr>
 		<td>Cash</td>
-		<td><input type="text" value="0" name="categories.party.rewards.hi.cash.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.hi.cash.mult" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[2].cash.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[2].cash.mult" /></td>
 	</tr>
 	<tr>
 		<td>Rush</td>
-		<td><input type="text" value="0" name="categories.party.rewards.hi.rush.base" /></td>
-		<td><input type="text" value="0" name="categories.party.rewards.hi.rush.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[2].rush.base" /></td>
+		<td><input type="text" value="" name="categories.party.rewards[2].rush.mult" /></td>
 	</tr>
 </table>
-<div class="messages">
 <h4>Messages</h4>
-Low: <input type="text" value="0" name="categories.party.msgs.low" /><br>
-Med: <input type="text" value="0" name="categories.party.msgs.med" />
+Low: <input type="text" value="0" name="categories.party.msgs[0]" /><br>
+Med: <input type="text" value="0" name="categories.party.msgs[1]" /><br>
+Med: <input type="text" value="0" name="categories.party.msgs[2]" /><br>
+<h4>CutOffs</h4>
+Low: <input type="text" value="0" name="categories.party.cutoffs[0]" /><br>
+Med: <input type="text" value="0" name="categories.party.cutoffs[1]" /><br>
+Med: <input type="text" value="0" name="categories.party.cutoffs[2]" /><br>
 
 
+<br>
 </div>
+<div id="cs">
+<h1>Community Service</h1>
+<h4> Rewards</h4>
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>LOW</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.cs.rewards[0].rep.base" /></td>
+		<td><input type="text" value="0" name="categories.cs.rewards[0].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.cs.rewards[0].cash.base" /></td>
+		<td><input type="text" value="0" name="categories.cs.rewards[0].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="0" name="categories.cs.rewards[0].rush.base" /></td>
+		<td><input type="text" value="0" name="categories.cs.rewards[0].rush.mult" /></td>
+	</tr>
+</table>
+
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>MED</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.cs.rewards[1].rep.base" /></td>
+		<td><input type="text" value="0" name="categories.cs.rewards[1].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.cs.rewards[1].cash.base" /></td>
+		<td><input type="text" value="0" name="categories.cs.rewards[1].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="0" name="categories.cs.rewards[1].rush.base" /></td>
+		<td><input type="text" value="0" name="categories.cs.rewards[1].rush.mult" /></td>
+	</tr>
+</table>
+
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>HIGH</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="" name="categories.cs.rewards[2].rep.base" /></td>
+		<td><input type="text" value="" name="categories.cs.rewards[2].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="" name="categories.cs.rewards[2].cash.base" /></td>
+		<td><input type="text" value="" name="categories.cs.rewards[2].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="" name="categories.cs.rewards[2].rush.base" /></td>
+		<td><input type="text" value="" name="categories.cs.rewards[2].rush.mult" /></td>
+	</tr>
+</table>
+<h4>Messages</h4>
+Low: <input type="text" value="0" name="categories.cs.msgs[0]" /><br>
+Med: <input type="text" value="0" name="categories.cs.msgs[1]" /><br>
+Med: <input type="text" value="0" name="categories.cs.msgs[2]" /><br>
+<h4>CutOffs</h4>
+Low: <input type="text" value="0" name="categories.cs.cutoffs[0]" /><br>
+Med: <input type="text" value="0" name="categories.cs.cutoffs[1]" /><br>
+Med: <input type="text" value="0" name="categories.cs.cutoffs[2]" /><br>
+
+
 <br>
 </div>
 
+<div id="rush">
+<h1>Rush</h1>
+<h4> Rewards</h4>
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>LOW</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.rush.rewards[0].rep.base" /></td>
+		<td><input type="text" value="0" name="categories.rush.rewards[0].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.rush.rewards[0].cash.base" /></td>
+		<td><input type="text" value="0" name="categories.rush.rewards[0].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="0" name="categories.rush.rewards[0].rush.base" /></td>
+		<td><input type="text" value="0" name="categories.rush.rewards[0].rush.mult" /></td>
+	</tr>
+</table>
+
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>MED</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="" name="categories.rush.rewards[1].rep.base" /></td>
+		<td><input type="text" value="" name="categories.rush.rewards[1].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="" name="categories.rush.rewards[1].cash.base" /></td>
+		<td><input type="text" value="" name="categories.rush.rewards[1].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="" name="categories.rush.rewards[1].rush.base" /></td>
+		<td><input type="text" value="" name="categories.rush.rewards[1].rush.mult" /></td>
+	</tr>
+</table>
+
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>HIGH</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="" name="categories.rush.rewards[2].rep.base" /></td>
+		<td><input type="text" value="" name="categories.rush.rewards[2].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="" name="categories.rush.rewards[2].cash.base" /></td>
+		<td><input type="text" value="" name="categories.rush.rewards[2].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="" name="categories.rush.rewards[2].rush.base" /></td>
+		<td><input type="text" value="" name="categories.rush.rewards[2].rush.mult" /></td>
+	</tr>
+</table>
+<h4>Messages</h4>
+Low: <input type="text" value="" name="categories.rush.msgs[0]" /><br>
+Med: <input type="text" value="" name="categories.rush.msgs[1]" /><br>
+Med: <input type="text" value="" name="categories.rush.msgs[2]" /><br>
+<h4>CutOffs</h4>
+Low: <input type="text" value="0" name="categories.rush.cutoffs[0]" /><br>
+Med: <input type="text" value="" name="categories.rush.cutoffs[1]" /><br>
+Med: <input type="text" value="" name="categories.rush.cutoffs[2]" /><br>
+
+
+<br>
+</div>
+
+<div id="study">
+<h1>Study</h1>
+<h4> Rewards</h4>
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>LOW</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.study.rewards[0].rep.base" /></td>
+		<td><input type="text" value="0" name="categories.study.rewards[0].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.study.rewards[0].cash.base" /></td>
+		<td><input type="text" value="0" name="categories.study.rewards[0].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>study</td>
+		<td><input type="text" value="0" name="categories.study.rewards[0].study.base" /></td>
+		<td><input type="text" value="0" name="categories.study.rewards[0].study.mult" /></td>
+	</tr>
+</table>
+
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>MED</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="" name="categories.study.rewards[1].rep.base" /></td>
+		<td><input type="text" value="" name="categories.study.rewards[1].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="" name="categories.study.rewards[1].cash.base" /></td>
+		<td><input type="text" value="" name="categories.study.rewards[1].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>study</td>
+		<td><input type="text" value="" name="categories.study.rewards[1].study.base" /></td>
+		<td><input type="text" value="" name="categories.study.rewards[1].study.mult" /></td>
+	</tr>
+</table>
+
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>HIGH</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="" name="categories.study.rewards[2].rep.base" /></td>
+		<td><input type="text" value="" name="categories.study.rewards[2].rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="" name="categories.study.rewards[2].cash.base" /></td>
+		<td><input type="text" value="" name="categories.study.rewards[2].cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>study</td>
+		<td><input type="text" value="" name="categories.study.rewards[2].study.base" /></td>
+		<td><input type="text" value="" name="categories.study.rewards[2].study.mult" /></td>
+	</tr>
+</table>
+<h4>Messages</h4>
+Low: <input type="text" value="" name="categories.study.msgs[0]" /><br>
+Med: <input type="text" value="" name="categories.study.msgs[1]" /><br>
+Med: <input type="text" value="" name="categories.study.msgs[2]" /><br>
+<h4>CutOffs</h4>
+Low: <input type="text" value="0" name="categories.study.cutoffs[0]" /><br>
+Med: <input type="text" value="" name="categories.study.cutoffs[1]" /><br>
+Med: <input type="text" value="" name="categories.study.cutoffs[2]" /><br>
+
+
+<br>
+</div>
+
+<input type="submit" id="run" value="Generate" />
 </form>
+
+
 
 <pre><code id="testArea">
 
