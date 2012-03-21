@@ -86,11 +86,11 @@ var create_frat = function(spec, members) {
 	
 	//Basic display funciton
 	that.display = function() {
-		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members);
+		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members.length);
 	}
 	
 	
-	that.get_play = function() {
+	that.getPlayValues = function() {	
 		return play;
 	}
 	
@@ -113,8 +113,9 @@ var create_frat = function(spec, members) {
 		avgs.party = totals.party/members.length;
 		avgs.cs = totals.cs/members.length;
 		avgs.rush = totals.rush/members.length;
-		avg.study = totals.study/members.length;
-		return avgs;
+		avgs.study = totals.study/members.length;
+		
+		return create_skills(avgs);
 	}
 	
 	var getMemberById = function(id) {
@@ -128,34 +129,57 @@ var create_frat = function(spec, members) {
 	}
 	
 	that.getMemberById = getMemberById;
+	
+	that.addMember = function (newMember) {
+		if (!this.getMemberById(newMember.id)) {
+			this.members.push(newMember);
+		}
+		return this;
+	}
+	
 	return that;
 }
 
 var create_skills = function(spec) {
 	spec = spec || {};
 	var that = {};
-	
+	var party, cs, rush, study;
+	var categories = ["party", "cs", "rush", "study"];
 	//Allow spec to be either object or array
 	that.party = spec.party || spec[0] || 0;
 	that.cs = spec.cs || spec[1] || 0;
 	that.rush = spec.rush || spec[2] || 0;
 	that.study = spec.study || spec[3] || 0;
-	
-	var get = function(index) {
-		switch(index) {
-			case 0: return that.party;
-			case 1: return that.cs;
-			case 3: return that.rush;
-			case 4: return that.study;
-		}
-	}
-	
-	that.get = get;
+
 
 	that.getNormalized = function() {
-		
+		var total = this.party + this.cs + this.rush + this.study;
+		var result = {party:this.party/total, cs:this.cs/total, rush:this.rush/total, study:this.study/total};
+		return result;
 	}
 	
+	that.getAvg = function() {
+		return (this.party + this.cs + this.rush + this.study)/4;
+	}
+	
+	
+	that.getDifference = function(other) {
+		//Returns the difference between the normalized values of two skill levels
+		var norm, othernorm, diff, cat;
+		norm = this.getNormalized();
+		othernorm = other.getNormalized();
+		diff = 0;
+		
+		//Add up the squares of the differences of each of the values
+		for (var i = 0; i < 4; i++) {
+			cat = categories[i];
+			diff += Math.pow(norm[cat] - othernorm[cat], 2);		
+		}
+		
+		return diff;
+	}
+	
+	return that;
 }
 
 var create_member = (function() {
@@ -169,7 +193,13 @@ var create_member = (function() {
 	return function(skills) {
 		var that = {};
 		var age = 0;
-		that.skills = skills;
+		
+		if (skills.hasOwnProperty("getDifference")) {
+			that.skills = skills;
+		} else {
+			that.skills = create_skills(skills);
+		}
+		
 		that.id = count++;
 		that.getAge = function () {
 			return age;
@@ -194,28 +224,14 @@ var create_member = (function() {
 			//be 75% if the skill average is the same as the rep divided by the repdivider
 			// i.e. 200 rep / 50 = 4, so if this guy's avg skill is 4, he will join 75% of the
 			// time
-			var repprob = 1 - (1/(1 + Math.pow(3, -avgSkill() + repscore + 1)));
+			var repprob = 1 - (1/(1 + Math.pow(3, -this.skills.getAvg() + repscore + 1)));
 			
 			//Next we get the component based on how similar their interests are
 			
-			//First we get the sum of the frat avg scores, and this members skills
+			//First we get the sum of the frat avg scores
 			var categories = ["party", "cs", "rush", "study"];
 			var fratAvgs = frat.getSkillAvgs();
-			//var fsum = 0, msum = 0, cat = "";
-			for (var i = 0; i < categories.length; i++) {
-				cat = categories[i];
-				fsum += fratAvgs[cat];
-				msum += skills[cat];
-			}
-			
-			//Then we normalize the values and square their differences
-			var diff = 0, fnorm, mnorm;
-			for (var i = 0; i < categories.length; i++) {
-				cat = categories[i];
-				fnorm = fratAvgs[cat]/fsum;
-				mnorm = skills[cat]/msum;
-				diff += Math.pow(fnorm - mnorm, 2);
-			}
+			var diff = this.skills.getDifference(fratAvgs);
 			
 			//Finally we put this in an exponential decay function
 			var skillprob = Math.pow(3, -50*diff);
