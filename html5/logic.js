@@ -168,53 +168,95 @@ var create_frat = function(spec, members) {
 	return that;
 }
 
-var create_skills = function(spec) {
-	spec = spec || {};
-	var that = {};
-	var party, cs, rush, study;
-	var categories = ["party", "cs", "rush", "study"];
-	//Allow spec to be either object or array
-	that.party = spec.party || spec[0] || 0;
-	that.cs = spec.cs || spec[1] || 0;
-	that.rush = spec.rush || spec[2] || 0;
-	that.study = spec.study || spec[3] || 0;
+var create_skills = (function() {
+	//Variables for determining distribution of randomly
+	//generated skills
+	var scorediv = 12;
+	var basesd = 2;
+	var skillsd = 2;
 
 
-	that.getNormalized = function() {
-		var total = this.party + this.cs + this.rush + this.study;
-		var result = {party:this.party/total, cs:this.cs/total, rush:this.rush/total, study:this.study/total};
-		return result;
-	}
-	
-	that.getAvg = function() {
-		return (this.party + this.cs + this.rush + this.study)/4;
-	}
-	
-	
-	that.getDifference = function(other) {
-		//Returns the difference between the normalized values of two skill levels
-		var norm, othernorm, diff, cat;
-		norm = this.getNormalized();
-		othernorm = other.getNormalized();
-		diff = 0;
+	function gen_rand_skills(score) {
+		//Takes in a score and generates 4 attributes based on it
 		
-		//Add up the squares of the differences of each of the values
-		for (var i = 0; i < 4; i++) {
-			cat = categories[i];
-			diff += Math.pow(norm[cat] - othernorm[cat], 2);		
+		//First get the mean for the attribute
+		var base = (score/scorediv) + basesd*rnd_snd();
+		var skills = [];
+		for (i = 0; i < 4; i++) {
+			var skillval = base + skillsd*rnd_snd();
+			skillval = Math.round(skillval);
+			if (skillval < 1.5) {
+				skillval = 1;
+			}
+			skills.push(skillval);
+		}
+		return skills;
+	}
+	
+	function rnd_snd() {
+		return (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1);
+	}
+	
+
+	return function(score, spec) {
+		var that = {};
+		var party, cs, rush, study;
+		var categories = ["party", "cs", "rush", "study"];
+		score = score || 100;
+		//if no spec is passed, in create skills based on score
+		if (typeof(spec) === "undefined") {
+			spec = gen_rand_skills(score);
+		}
+		that.party = spec.party || spec[0] || 0;
+		that.cs = spec.cs || spec[1] || 0;
+		that.rush = spec.rush || spec[2] || 0;
+		that.study = spec.study || spec[3] || 0;
+
+		
+		
+
+
+		that.getNormalized = function() {
+			var total = this.party + this.cs + this.rush + this.study;
+			var result = {party:this.party/total, cs:this.cs/total, rush:this.rush/total, study:this.study/total};
+			return result;
 		}
 		
-		return diff;
-	}
-	
-	return that;
-}
+		that.getAvg = function() {
+			return (this.party + this.cs + this.rush + this.study)/4;
+		}
+		
+		
+		that.getDifference = function(other) {
+			//Returns the difference between the normalized values of two skill levels
+			var norm, othernorm, diff, cat;
+			norm = this.getNormalized();
+			othernorm = other.getNormalized();
+			diff = 0;
+			
+			//Add up the squares of the differences of each of the values
+			for (var i = 0; i < 4; i++) {
+				cat = categories[i];
+				diff += Math.pow(norm[cat] - othernorm[cat], 2);		
+			}
+			
+			return diff;
+		}
+		
+		return that;
+	};
+})();
 
 var create_member = (function() {
+	//count for determining id
 	var count = 0;
+	
+	//Variables for helping determine joining probability
+	//How much the frat's rep weighs in join prob
 	var rep_weight = 0.6;
+	//How much the similarity in skills weighs in join prob.
 	var skills_weight = 0.4;
-	var base_acceptance = 0.5;
+	//How to mod the rep to determine it's influence
 	var rep_divider = 50;
 
 	
