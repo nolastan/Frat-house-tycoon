@@ -3,43 +3,131 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="events.js"></script>
-<script>
-var newEvent = {};
+<script type="text/javascript" src="libraries/form2object.js"></script>
+<script type="text/javascript" src="libraries/json2.js"></script>
+<script type="text/javascript">
 $(function() {
-	$("#run").click( function() {
-		newEvent.descript = $("#descript").attr("value");
-		console.log(newEvent);
-		
-		$("#result").html(JSON.stringify(newEvent));
-		var msg = [];
-		$("#party .reward").each( function(index) {
-			msg.push(eval( $(this).attr("value")));
-		});
-		console.log(msg);
-	});
-	
-	
-
 });
+function test()
+
+{
+
+	var formData = form2object('testForm', '.', true,
+
+			function(node)
+
+			{
+
+				if (node.id && node.id.match(/callbackTest/))
+
+				{
+
+					return { name: node.id, value: node.innerHTML };
+
+				}
+
+			});
+
+
+
+	document.getElementById('testArea').innerHTML = JSON.stringify(formData, null, '\t');
+
+}
 
 </script>
+
 </head>
 <body>
-<form>
-<input type="text" id="descript" value="New Event" />
-<input type="button" id="run" value="Generate" />
+<form id="testForm" action="javascript:test()" >
+<input type="text" id="descript" name="descript" value="New Event" />
+<input type="submit" id="run" value="Generate" />
 <div id="party">
-<h3>Rewards</h3>
-<p>Should be like this: [[*rep base*, *rep multiplier*], [*cash base*, *cash multiplier*], [*rush base*, *rush multiplier*]]<p>
-Reward1<input type="text" class="reward" value="[[0, 0], [0, 0], [0, 0]]" /><br>
-Reward2<input type="text" class="reward" value="[[0, 0]]" /><br>
-Reward3<input type="text" class="reward" value="[[0, 0]]" /><br>
+<h3>Party</h3>
+<h4> Rewards</h4>
+<table class="low" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>LOW</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.party.rewards.low.rep.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.low.rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.party.rewards.low.cash.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.low.cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="0" name="categories.party.rewards.low.rush.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.low.rush.mult" /></td>
+	</tr>
+</table>
+
+<table class="med" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>MED</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.party.rewards[0][0].base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards[0][1].mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.party.rewards.med.cash.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.med.cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="0" name="categories.party.rewards.med.rush.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.med.rush.mult" /></td>
+	</tr>
+</table>
+
+<table class="hi" border="1" bordercolor="#FFCC00" style="background-color:#FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>HI</td>
+		<td>Base</td>
+		<td>Multiplier</td>
+	</tr>
+	<tr>
+		<td>Rep</td>
+		<td><input type="text" value="0" name="categories.party.rewards.hi.rep.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.hi.rep.mult" /></td>
+	</tr>
+	<tr>
+		<td>Cash</td>
+		<td><input type="text" value="0" name="categories.party.rewards.hi.cash.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.hi.cash.mult" /></td>
+	</tr>
+	<tr>
+		<td>Rush</td>
+		<td><input type="text" value="0" name="categories.party.rewards.hi.rush.base" /></td>
+		<td><input type="text" value="0" name="categories.party.rewards.hi.rush.base" /></td>
+	</tr>
+</table>
+<div class="messages">
+<h4>Messages</h4>
+Low: <input type="text" value="0" name="categories.party.msgs.low" /><br>
+Med: <input type="text" value="0" name="categories.party.msgs.med" />
+
+
+</div>
+<br>
 </div>
 
 </form>
 
-<p id="result">
-</p>
+<pre><code id="testArea">
+
+</code></pre>
+
 
 
 
