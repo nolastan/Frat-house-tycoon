@@ -2,9 +2,22 @@
 //Class for storing the effect of a turn
 function create_effect(values, msg, score) {
 	var that = {};
-	that.cash = values.cash.base + score*values.cash.mult;
-	that.rep = values.rep.base + score*values.cash.mult;
-	that.rush = values.rush.base + score*values.rush.mult;
+	
+	if (values.cash) {
+		that.cash = values.cash.base + score*values.cash.mult;
+	}
+	if (values.rep) {
+		that.rep = values.rep.base + score*values.rep.mult;
+	}
+	
+	if (values.rush) {
+		that.rush = values.rush.base + score*values.rush.mult;
+	}
+	
+	that.cash = that.cash || 0;
+	that.rep = that.rep || 0;
+	that.rush = that.rush || 0;
+	
 	
 	that.apply = function(frat) {
 		frat.cash += that.cash;
