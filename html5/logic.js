@@ -218,10 +218,13 @@ var create_member = (function() {
 	var rep_divider = 50;
 
 	
-	return function(skills) {
+	return function(skills, name) {
 		var that = {};
 		var age = 0;
 		
+		that.firstname = name.first || firstnames[Math.floor(Math.random()*firstnames.length)];
+		that.lastname = name.last || lastnames[Math.floor(Math.random()*lastnames.length)];
+		that.name = firstname + " " + lastname;
 		if (skills.hasOwnProperty("getDifference")) {
 			that.skills = skills;
 		} else {
