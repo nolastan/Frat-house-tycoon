@@ -222,9 +222,10 @@ var create_member = (function() {
 		var that = {};
 		var age = 0;
 		
+		var name = name || {};
 		that.firstname = name.first || firstnames[Math.floor(Math.random()*firstnames.length)];
 		that.lastname = name.last || lastnames[Math.floor(Math.random()*lastnames.length)];
-		that.name = firstname + " " + lastname;
+		that.name = that.firstname + " " + that.lastname;
 		if (skills.hasOwnProperty("getDifference")) {
 			that.skills = skills;
 		} else {
