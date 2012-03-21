@@ -75,6 +75,7 @@ var create_frat = function(spec, members) {
 	that.rep = spec.rep || 100;
 	that.cash = spec.cash || 100;
 	that.members = members || [];
+	var categories = ["party", "cs", "rush" , "study"];
 	
 	//**This needs to be changed, play should have arrays of brothers
   //Private play object to store allocation of brothers
@@ -91,7 +92,34 @@ var create_frat = function(spec, members) {
 	
 	
 	that.getPlayValues = function() {	
-		return play;
+		//Calculates the play values by adding up the skills of each member in the
+		//category
+		
+		var thisVal, cat, curMem;
+		var playVals = {party:0, cs:0, rush:0, study:0};
+		
+		//Go through each category
+		for (var i = 0; i < categories.length; i++) {
+			thisVal = 0;
+			cat = categories[i];
+			
+			//Get the members in that category
+			memArray = playCat[cat];
+			
+			//Add up their skill values
+			for (var k = 0; k < memArray.length; k++) {
+				curMem = getMemberById(memArray[k]);
+				
+				thisVal += curMem.skills[cat];
+			}
+			playVals[cat] = thisVal;
+		}
+		
+		return playVals;
+	}
+	
+	that.setPlay = function(newPlay) {
+		play = newPlay;
 	}
 	
 	that.getSkillTotals = function() {
