@@ -67,7 +67,34 @@ Turn.prototype.run = function(frat) {
 	return results;
 }
 
-//Function for creating a frat object
+/*
+======================================================================================
+Frat Class
+
+
+Properties --
+	name: name of fraternity
+	rep: amount of rep
+	cash: amount of cash
+	members: array of members objects
+
+Methods --
+	display: logs the fraternities name, cash, and number of members
+
+	getPlayValues: returns the play values for each category by adding up the skills of all
+		the members who are included in that play
+
+	getSkillAvgs: returns a skills object of the average skills of the fraternity. 
+		You can call getNormalized on this to see the relative interests of the frat
+	
+	getMemberById: takes in an id and returns the member if it is present and false
+		otherwise.
+		
+	addMember: takes a member object and adds it to the members if it's not already present
+
+
+=======================================================================================
+*/
 var create_frat = function(spec, members) {
 	var that = {};
 	spec = spec || {};
@@ -138,12 +165,11 @@ var create_frat = function(spec, members) {
 		var avgs = {};
 		var totals = this.getSkillTotals();
 		
-		avgs.party = totals.party/members.length;
-		avgs.cs = totals.cs/members.length;
-		avgs.rush = totals.rush/members.length;
-		avgs.study = totals.study/members.length;
-		
-		return create_skills(avgs);
+		avgs.party = totals.party/this.members.length;
+		avgs.cs = totals.cs/this.members.length;
+		avgs.rush = totals.rush/this.members.length;
+		avgs.study = totals.study/this.members.length;
+		return create_skills(0, avgs);
 	}
 	
 	var getMemberById = function(id) {
@@ -153,7 +179,7 @@ var create_frat = function(spec, members) {
 				return member;
 			}
 		}
-		return -1;
+		return false;
 	}
 	
 	that.getMemberById = getMemberById;
@@ -167,6 +193,24 @@ var create_frat = function(spec, members) {
 	
 	return that;
 }
+
+/*
+======================================================================================
+Skills Class
+
+
+Properties --
+party, cs, rush, study - values corresponding to skill values
+
+Methods --
+getNormalized: returns an object of normalized skills, so each adds to one to determine
+	relative interests
+getAvg: returns the average of the all the categories of skills
+
+
+=======================================================================================
+*/
+
 
 var create_skills = (function() {
 	//Variables for determining distribution of randomly
@@ -200,21 +244,19 @@ var create_skills = (function() {
 
 	return function(score, spec) {
 		var that = {};
-		var party, cs, rush, study;
 		var categories = ["party", "cs", "rush", "study"];
-		score = score || 100;
-		//if no spec is passed, in create skills based on score
-		if (typeof(spec) === "undefined") {
+		
+		
+		//if a spec isnt passed in, create skills based on score
+		if (typeof spec === 'undefined') {
+			score = score || 0;
 			spec = gen_rand_skills(score);
-		}
+		} 
+		
 		that.party = spec.party || spec[0] || 0;
 		that.cs = spec.cs || spec[1] || 0;
 		that.rush = spec.rush || spec[2] || 0;
 		that.study = spec.study || spec[3] || 0;
-
-		
-		
-
 
 		that.getNormalized = function() {
 			var total = this.party + this.cs + this.rush + this.study;
@@ -230,7 +272,8 @@ var create_skills = (function() {
 		that.getDifference = function(other) {
 			//Returns the difference between the normalized values of two skill levels
 			var norm, othernorm, diff, cat;
-			norm = this.getNormalized();
+			norm = that.getNormalized();
+			//console.log("repprob: " + this);*******
 			othernorm = other.getNormalized();
 			diff = 0;
 			
@@ -247,6 +290,36 @@ var create_skills = (function() {
 	};
 })();
 
+
+/*
+======================================================================================
+Member Class
+
+Construction --
+Creating a member takes in a "specification" object.  This can contain a score and a name object and
+a skills object.
+
+The score will determine how good of skills this member will have.
+The name object determines the members name
+The skills object can predefine skills if you want to prevent random generation.
+
+
+Properties --
+id: Unique identifier for this member
+skills: object containing this members skills, i.e. party, cs (community service), rush, study
+firstname: member's first name
+lastname: member's last name
+name: first and last name as one string
+
+Methods -- 
+getAge: Returns how many turns this member has been around
+incrementAge: Increases this members age by 1
+chanceWillJoin: Returns the probability this person will join the given fraternity
+	(based on rep and skills)
+
+=======================================================================================
+*/
+
 var create_member = (function() {
 	//count for determining id
 	var count = 0;
@@ -255,26 +328,28 @@ var create_member = (function() {
 	//How much the frat's rep weighs in join prob
 	var rep_weight = 0.6;
 	//How much the similarity in skills weighs in join prob.
-	var skills_weight = 0.4;
+	var skill_weight = 0.4;
 	//How to mod the rep to determine it's influence
 	var rep_divider = 50;
 
 	
-	return function(skills, name) {
+	return function(spec) {
 		var that = {};
 		var age = 0;
+		spec = spec || {};
 		
-		var name = name || {};
+		var score = spec.score || 100;
+		
+		that.skills = create_skills(score, spec.skills);
+		//Get name from spec or randomly generate
+		var name = spec.name || {};
 		that.firstname = name.first || firstnames[Math.floor(Math.random()*firstnames.length)];
 		that.lastname = name.last || lastnames[Math.floor(Math.random()*lastnames.length)];
 		that.name = that.firstname + " " + that.lastname;
-		if (skills.hasOwnProperty("getDifference")) {
-			that.skills = skills;
-		} else {
-			that.skills = create_skills(skills);
-		}
 		
 		that.id = count++;
+		
+		
 		that.getAge = function () {
 			return age;
 		}
@@ -305,8 +380,8 @@ var create_member = (function() {
 			//First we get the sum of the frat avg scores
 			var categories = ["party", "cs", "rush", "study"];
 			var fratAvgs = frat.getSkillAvgs();
+			mylog("fa", fratAvgs);
 			var diff = this.skills.getDifference(fratAvgs);
-			
 			//Finally we put this in an exponential decay function
 			var skillprob = Math.pow(3, -50*diff);
 			
@@ -316,5 +391,10 @@ var create_member = (function() {
 	}
 })();
 
+
+function mylog(msg, object) {
+	console.log(msg);
+	console.log(object);
+}
 
 
