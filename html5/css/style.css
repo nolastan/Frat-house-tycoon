@@ -12,6 +12,9 @@ black: #2B2623;
 body{
 	font-family: 'PT Sans Narrow', sans-serif;
 }
+strong{
+	font-weight:bold;
+}
 button, button.disabled:hover{
 	cursor: pointer;
 	border: 1px solid #aaa;
@@ -123,11 +126,23 @@ header h1{
 #results{
 	margin: 10px;
 }
-#results h2{
+h2{
 	font-size: 300%;
 	font-weight:bold;
 }
 #results p{
 	margin: 1em 0;
 	font-size: 200%;
+}
+
+/* Bid Meeting  */
+#bidScreen ul{
+	list-style: none;
+}
+#bidScreen li{
+	float:left;
+	margin: 10px;
+}
+#bidScreen button{
+	clear:both;
 }

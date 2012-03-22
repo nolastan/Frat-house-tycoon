@@ -69,7 +69,7 @@ $(document).ready(function(){
     game.board.update_play();
 		var turn = game.turns.getNext();
 		simulate(game.frat.getPlayValues(), turn.run(game.frat));
-			document.getElementById("currentTurn").innerHTML = turn.title + " results";
+		document.getElementById("currentTurn").innerHTML = turn.title + " results";
 
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
@@ -91,18 +91,15 @@ $(document).ready(function(){
 	
 	$("#skip").click(function(){
   	console.log("here");
-  	if(game.sim.isRunning()){
-    	game.sim.end();
-  	}
+   	game.sim.end();
   });
   
-  $("#showBoard").click(function(){
-  	$("#container").show();
+  $("#showBidMeeting").click(function(){
+	bidScreen.show();
   	$("#results").hide();
   document.getElementById('sim').className = '';
 
   });
-  
 
   
 });
