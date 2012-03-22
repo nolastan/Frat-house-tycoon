@@ -39,6 +39,8 @@ this.update_play = function()
 	csCount = 0;
 	rushCount = 0;
 	studyCount = 0;
+	
+	var newPlay = { party:[], cs:[], rush:[], study:[]};
 	for (var n = 0; n < numBrothers; n++)
 	{
 	    if (broRectAray[n].x                              >  partyRect.x                     &&
@@ -46,32 +48,32 @@ this.update_play = function()
 		    broRectAray[n].y + 1                          >  partyRect.y                     &&
 		   (broRectAray[n].y + broRectAray[n].height - 1) < (partyRect.y + partyRect.height))
 	    {
-	      partyCount = partyCount + 1;
+	      newPlay.party.push( broRectAray[n].member.id);
 	    }
 		else if (broRectAray[n].x                              >  csRect.x                     &&
 	       (broRectAray[n].x + broRectAray[n].width - 1)  < (csRect.x + csRect.width)  &&
 		    broRectAray[n].y + 1                          >  csRect.y                     &&
 		   (broRectAray[n].y + broRectAray[n].height - 1) < (csRect.y + csRect.height))
 	    {
-	      csCount = csCount + 1;
+	      newPlay.cs.push( broRectAray[n].member.id);
 	    }
 		else if (broRectAray[n].x                              >  rushRect.x                     &&
 	       (broRectAray[n].x + broRectAray[n].width - 1)  < (rushRect.x + rushRect.width)  &&
 		    broRectAray[n].y + 1                          >  rushRect.y                     &&
 		   (broRectAray[n].y + broRectAray[n].height - 1) < (rushRect.y + rushRect.height))
 	    {
-	      rushCount = rushCount + 1;
+	      newPlay.rush.push( broRectAray[n].member.id);
 	    }
 		else if (broRectAray[n].x                              >  studyRect.x                     &&
 	       (broRectAray[n].x + broRectAray[n].width - 1)  < (studyRect.x + studyRect.width)  &&
 		    broRectAray[n].y + 1                          >  studyRect.y                     &&
 		   (broRectAray[n].y + broRectAray[n].height - 1) < (studyRect.y + studyRect.height))
 	    {
-	      studyCount = studyCount + 1;
+	     newPlay.study.push( broRectAray[n].member.id);
 	    }
 	}	
 	//THIS IS TEMPORARY, REMOVE WHEN WE CAN GET THE ACTUAL ID'S
-	var newPlay = { party:[], cs:[], rush:[], study:[]};
+	/*
 	var i = 0;
 	for (i; i < partyCount; i++) {
 		newPlay.party.push(i);
@@ -85,10 +87,10 @@ this.update_play = function()
 	for (i; i < numBrothers; i++) {
 		newPlay.study.push(i);
 	}
+*/	
 	
-	
-	
-	
+	console.log(newPlay);
+	console.log(members.id)
 	//End temporary stuff
 	game.frat.setPlay(newPlay);
 }
@@ -117,17 +119,17 @@ this.incrementPieceCount = function()
 
 this.drawPieces = function()
 {
-		numBrothers = game.frat.numBrothers();
-    broRectAray = new Array(numBrothers);
+	members = game.frat.members;
+    broRectAray = new Array(members.length);
 	
      // Make the pieces layer
-    for (var n = 0; n < numBrothers; n++) 
+    for (var n = 0; n < members.length; n++) 
 	{
 		// anonymous function to induce scope
 		(function()
 		{
 		    var i = n;
-			broRectAray[i] = new Kinetic.Rect({
+			var newRect = new Kinetic.Rect({
 				x: i * 24 + 10,
                 y: 10,
 				width: 20,
@@ -137,7 +139,11 @@ this.drawPieces = function()
 				strokeWidth: 1,
 				draggable: true
 			});
- 
+			newRect.on("dragend", function() {
+				console.log("end");
+			});
+			newRect.member = members[i];
+			broRectAray[i] = newRect;
 			piecesLayer.add(broRectAray[i]);			
 			
 		})();                    					

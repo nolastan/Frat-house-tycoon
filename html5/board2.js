@@ -16,8 +16,11 @@ this.addPiece = function (new_member)
    var piece = new PlayingPiece(stage, new_member);  
    piece.drawPiece(first_piece_x, first_piece_y);
    piecesArray.push(piece);
-   
-}   
+} 
+
+this.getPiecesArray = function() {
+	return piecesArray;
+}
 
 //********************************************************************************************	
 
@@ -95,5 +98,11 @@ this.drawBoard = function()
 	context.fillText("Rush", rushRect.x + rushRect.width / 2, rushRect.y + rushRect.height / 2);
 	context.fillText("Study", studyRect.x + studyRect.width / 2, studyRect.y + studyRect.height / 2);
 
+}
+
+
+this.inRect = function(piece, rect) {
+	//Can check if piece is in certain rect in this function
+	 return true;
 }
 }

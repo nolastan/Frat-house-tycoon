@@ -2,7 +2,10 @@ var PlayingPiece = function(stage, member)
 {
 	this.stage = stage;
 	this.member = member;
-
+	this.getPos = function() {
+		return [this.group.x, this.boxHeader.y];
+	}
+	
 	this.drawPiece = function (xPos, yPos)
 	{
 		var shapesLayer = new Kinetic.Layer();
@@ -10,7 +13,7 @@ var PlayingPiece = function(stage, member)
 			draggable: true
 		});                
 			
-		var boxHeader = new Kinetic.Rect({
+		this.boxHeader = new Kinetic.Rect({
 			x: xPos,
 			y: yPos,
 			width: 90,
@@ -20,31 +23,33 @@ var PlayingPiece = function(stage, member)
 			strokeWidth: 1
 		});
 		
+		//this.boxHeader = boxHeader;
+		
 		var headerText = new Kinetic.Text(
 		{
-			x: boxHeader.x + 2,
-			y: boxHeader.y + 2,
-			text: "Brian",
+			x: this.boxHeader.x + 2,
+			y: this.boxHeader.y + 2,
+			text: member.name,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
 		});
 		
 		var boxMain = new Kinetic.Rect({
-			x: boxHeader.x,
-			y: boxHeader.y + boxHeader.height,
-			width: boxHeader.width,
+			x: this.boxHeader.x,
+			y: this.boxHeader.y + this.boxHeader.height,
+			width: this.boxHeader.width,
 			height: 50,					
 			fill: "#99FFFF",
 			stroke: "black",
 			strokeWidth: 1
 		});
-		
+		this.boxMain = boxMain;
 		var mainText1 = new Kinetic.Text(
 		{
 			x: boxMain.x + 2,
 			y: boxMain.y + 2,
-			text: "Party Skill: 2.0",
+			text: "Party Skill: " + member.skills.party,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
@@ -54,7 +59,7 @@ var PlayingPiece = function(stage, member)
 		{
 			x: mainText1.x,
 			y: mainText1.y + 12,
-			text: "Rush Skill: 3.1",
+			text: "Rush Skill:" + member.skills.rush,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
@@ -64,7 +69,7 @@ var PlayingPiece = function(stage, member)
 		{
 			x: mainText2.x,
 			y: mainText2.y + 12,
-			text: "CS Skill: 2.2",
+			text: "CS Skill:" + member.skills.cs,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
@@ -74,34 +79,34 @@ var PlayingPiece = function(stage, member)
 		{
 			x: mainText3.x,
 			y: mainText3.y + 12,
-			text: "Study Skill: 3.7",
+			text: "Study Skill:" + member.skills.study,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
 		});
 		
-		boxHeader.on("mouseover", function(){
+		this.boxHeader.on("mouseover", function(){
 			document.body.style.cursor = "pointer";
 		});
-		boxHeader.on("mouseout", function(){
+		this.boxHeader.on("mouseout", function(){
 			document.body.style.cursor = "default";
 		});
 		
-		boxMain.on("mouseover", function(){
+		this.boxMain.on("mouseover", function(){
 			document.body.style.cursor = "pointer";
 		});
-		boxMain.on("mouseout", function(){
+		this.boxMain.on("mouseout", function(){
 			document.body.style.cursor = "default";
 		});
 		
-		group.add(boxHeader);
+		group.add(this.boxHeader);
 		group.add(headerText);
-		group.add(boxMain);
+		group.add(this.boxMain);
 		group.add(mainText1);   
 		group.add(mainText2); 
 		group.add(mainText3);   
 		group.add(mainText4);  				
-		
+		this.group = group;
 		
 		shapesLayer.add(group);
 		stage.add(shapesLayer);

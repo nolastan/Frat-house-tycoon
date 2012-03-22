@@ -11,6 +11,7 @@
                 border: 1px solid #9C9898;
             }
         </style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.8.2.js"></script>
 		<script src="board2.js"></script>
 		<script src="playing_piece.js"></script>
@@ -19,13 +20,14 @@
             window.onload = function(){
 			    var member1 = 
 				{
+					name: "Paul Carleton",
 					id: 1,
 					skills: 
 					{
 					   party: 2.0,
 					   cs: 3.0,
 					   rush: 2.5,
-					   study: 2.3
+					   study: 2.8
 					}
 				}
 			
@@ -33,11 +35,15 @@
 				board.drawBoard();
 				board.addPiece(member1);
 				
+				setInterval(function() {
+					console.log(board.getPiecesArray()[0].getPos());
+				}, 1000);
             };
         </script>
     </head>
     <body onmousedown="return false;">
         <div id="container">
         </div>
+		<input type="button" id="addMem" value="Add Piece"></input>
     </body>
 </html>
