@@ -233,9 +233,9 @@ function simulation(play, results){
   }
 	function endSim(){
 	  	clearInterval(sim);
+		drawBidScreen(results);
       console.log("sim over");
 	var msg = "";
-	console.log(results);
 	document.getElementById("philanthropyMessage").innerHTML = results['cs'].string();
 	document.getElementById("rushMessage").innerHTML = results['rush'].string();
 	document.getElementById("partyMessage").innerHTML = results['party'].string();
