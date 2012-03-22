@@ -1,118 +1,348 @@
-var templateInfo = {
-    descript: "Standard Week",
-	categories: {
-		party:  {
-		      // rewards:  rep, money, members 
-			  rewards:   [[0, 0, -3]],
-			  msgs: ["No parties!"],
-			  cutoffs: [0]
+var standardWeekInfo = {
+	"descript": "Standard Week",
+	"categories": {
+		"party": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "5",
+						"mult": "2"
+					}
+				}
+			],
+			"msgs": [
+				"No party?",
+				"Had some people over."
+			],
+			"cutoffs": [
+				"0",
+				"5"
+			]
 		},
-
-		cs:  {
-			  rewards:  [[0, 0, 0]],
-			  msgs: ["No community service"],
-			  cutoffs: [0]
+		"cs": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-5",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "5",
+						"mult": "2"
+					}
+				}
+			],
+			"msgs": [
+				"Don't you care about the community?",
+				"Good work."
+			],
+			"cutoffs": [
+				"0",
+				"5"
+			]
 		},
-
-		rush:  {
-			  rewards:  [[0, 0, 0]],
-			  msgs: ["No rush."],
-			  cutoffs: [0]
+		"rush": {
+			"rewards": [
+				{
+					"rush": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rush": {
+						"base": "4",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"No presence on campus.",
+				"Got your name out there."
+			],
+			"cutoffs": [
+				"0",
+				"5"
+			]
 		},
-
-		study:  {
-			  rewards:  [[0, 0, 0]],
-			  msgs: ["No studying."],
-			  cutoffs: [0]
+		"study": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-10",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "2"
+					}
+				}
+			],
+			"msgs": [
+				"Academics should be a priority",
+				"Middle of the pack."
+			],
+			"cutoffs": [
+				"0",
+				"5"
+			]
 		}
 	}
 };
 
 var finalsWeekInfo = {
-    descript: "Finals Week",
-	categories: {
-		party:  {
-		   // rewards:    rep, money, members
-			  rewards:  [[ 0,   0,  0],
-						 [ 1,   0,  0],
-						 [ 0, -30 ,-3]],
-			  msgs: ["People needed to study",
-					 "Everyone needs a study break",
-					 "Noise complaint from neighbors trying to study"],
-			  cutoffs: [0, 1, 4]
+	"descript": "Finals Week",
+	"categories": {
+		"party": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				},
+				{
+					"rep": {
+						"base": "-3",
+						"mult": "-1"
+					},
+					"cash": {
+						"base": "-30",
+						"mult": "0"
+					}
+				}
+			],
+			"msgs": [
+				"People needed to study anyway.",
+				"Everyone needs a study break.",
+				"Noise complaint from neighbors trying to study."
+			],
+			"cutoffs": [
+				"0",
+				"7",
+				"15"
+			]
 		},
-
-		cs:  {
-		   // rewards:    rep, money, members
-			  rewards:  [[0, 0, 0],
-			             [0, 0, 3]],
-			  msgs: ["Too busy studying",
-			         "Sold pizza in the library and donated proceeds to education"],
-			  cutoffs: [0, 4]
+		"cs": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "5",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"Too busy studying.",
+				"Sold pizza in the library and donated proceeds to education."
+			],
+			"cutoffs": [
+				"0",
+				"7"
+			]
 		},
-
-		rush:  {
-		   // rewards:    rep, money, members
-			  rewards:  [[ 0,   0,  0],
-						 [ 0,   0,  2],
-						 [-3,   0 , 0]],
-			  msgs: ["It's okay, rushees were studying too",
-			         "Tutored potential members",
-					 "Bugged rushees trying to study"],
-			  cutoffs: [0, 1, 6]
+		"rush": {
+			"rewards": [
+				{
+					"rush": {
+						"base": "5",
+						"mult": "1"
+					}
+				},
+				{
+					"rush": {
+						"base": "-20",
+						"mult": "-2"
+					}
+				}
+			],
+			"msgs": [
+				"It's okay, rushees were studying too.",
+				"Tutored potential members.",
+				"Bugged rushees trying to study."
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"9"
+			]
 		},
-
-		study:  {
-		   // rewards:    rep, money, members
-			  rewards:  [[-2,   0,  0],
-						 [ 2,   0,  0],
-						 [ 4,   0 , 0]],
-			  msgs: ["Did poorly on exams",
-			         "Passed!",
-					 "Aced it!"],
-			  cutoffs: [0, 1, 5]
+		"study": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-10",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "5",
+						"mult": "2"
+					}
+				},
+				{
+					"rep": {
+						"base": "10",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"Did poorly on exams.",
+				"Passed!",
+				"Aced it!"
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"10"
+			]
 		}
 	}
 };
 
 
 var mardiGrasInfo = {
-    descript: "Mardi Gras!",
-	categories: {
-		party:  {
-			  rewards:   [[-3, 0, 0],
-						 [-2, 0, 0],
-						 [ 5, 0 ,0]],
-			  msgs: ["Missed out on a big party night",
-					"Throw me some beads!",
-					"Purple, Gold and Green everywhere!"],
-			  cutoffs: [0, 1, 6]
+	"descript": "Mardi Gras",
+	"categories": {
+		"party": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-5",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "10",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "8",
+						"mult": "2"
+					}
+				}
+			],
+			"msgs": [
+				"Missed out on a big party night.",
+				"Throw me some beads!",
+				"Purple, Gold and Green everywhere!"
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"9"
+			]
 		},
-
-		cs:  {
-			  rewards:  [[-1, -50, 0],
-						[0, 0, 0],
-						[2, 0, 0]],
-			  msgs: ["Had to pay for bead removal",
-					"Your bead selling fundraiser broke even",
-					"Donated extra beads to charity.  Good thinking!"],
-			  cutoffs: [0, 1, 3]
+		"cs": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-5",
+						"mult": "0"
+					},
+					"cash": {
+						"base": "-50",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				},
+				{
+					"rep": {
+						"base": "10",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"Had to pay for bead removal.",
+				"Your bead selling fundraiser broke even",
+				"Donated extra beads to charity.  Good thinking!"
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"10"
+			]
 		},
-
-		rush:  {
-			  rewards:  [[0, 0, 0],
-						[0, 0, 1],
-						[0, 0, 3]],
-			  msgs: ["Missed out on a rush opportunity",
-					"Threw a great rush event at the bowling alley!",
-					"Road tripped to New Orleans with Rushees!"],
-			  cutoffs: [0, 1, 6]
+		"rush": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rush": {
+						"base": "0",
+						"mult": "3"
+					}
+				},
+				{
+					"rush": {
+						"base": "10",
+						"mult": "3"
+					}
+				}
+			],
+			"msgs": [
+				"Missed out on a rush opportunity",
+				"Threw a great rush event at the bowling alley!",
+				"Road tripped to New Orleans with Rushees!"
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"10"
+			]
 		},
-
-		study:  {
-			  rewards:  [[0, 0, 0]],
-			  msgs: ["Parades were too loud to study"],
-			  cutoffs: [0]
+		"study": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0"
+					}
+				}
+			],
+			"msgs": [
+				"Parades made it too loud to study."
+			],
+			"cutoffs": [
+				"0"
+			]
 		}
 	}
 };
@@ -164,5 +394,5 @@ var  gloCrackDownInfo = {
 //**********************************************************************
 var events = [];
 events[0] = mardiGrasInfo;
-events[1] = gloCrackDownInfo;
+events[1] = standardWeekInfo;
 events[2] = finalsWeekInfo;
