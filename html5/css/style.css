@@ -140,6 +140,9 @@ h2{
 	list-style: none;
 }
 #bidScreen li{
-float:left;
-margin-left: 10px;
+	float:left;
+	margin: 10px;
+}
+#bidScreen button{
+	clear:both;
 }
