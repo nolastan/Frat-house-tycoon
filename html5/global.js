@@ -23,6 +23,8 @@ $(document).ready(function(){
     sg.bg = document.getElementById("background").getContext("2d");
   
 	game.frat = create_frat();
+	
+	game.frat.addMember(create_member()).addMember(create_member());
 	/** define functions **/
     game.board = new Board();
 	game.turns = [new Turn(mardiGrasInfo), 
@@ -55,7 +57,7 @@ $(document).ready(function(){
   $("#sim").click(function(){
     game.board.update_play();
 		var turn = game.turns.getNext();
-		simulate(game.frat.get_play(), turn.run(game.frat));
+		simulate(game.frat.getPlayValues(), turn.run(game.frat));
 			document.getElementById("currentTurn").innerHTML = turn.title + " results";
 
     $(this).addClass("disabled");

@@ -21,7 +21,7 @@ this.simulate = function() {
 
 this.update = function() {
 		
-	document.getElementById("brothersCount").innerHTML = game.frat.members;
+	document.getElementById("brothersCount").innerHTML = game.frat.numBrothers();
 	document.getElementById("moneyCount").innerHTML = game.frat.cash;
 	document.getElementById("repCount").innerHTML = game.frat.rep;
 	document.getElementById("nextTurn").innerHTML = game.turns[game.turns.length-1].title;
@@ -34,7 +34,7 @@ this.update = function() {
 
 this.update_play = function()
 {
-	numBrothers = game.frat.members;
+	numBrothers = game.frat.numBrothers();
     partyCount = 0;
 	csCount = 0;
 	rushCount = 0;
@@ -70,8 +70,27 @@ this.update_play = function()
 	      studyCount = studyCount + 1;
 	    }
 	}	
+	//THIS IS TEMPORARY, REMOVE WHEN WE CAN GET THE ACTUAL ID'S
+	var newPlay = { party:[], cs:[], rush:[], study:[]};
+	var i = 0;
+	for (i; i < partyCount; i++) {
+		newPlay.party.push(i);
+	}
+	for (i; i < csCount + partyCount; i++) {
+		newPlay.cs.push(i);
+	}
+	for (i; i < rushCount + csCount + partyCount; i++) {
+		newPlay.rush.push(i);
+	}
+	for (i; i < numBrothers; i++) {
+		newPlay.study.push(i);
+	}
 	
-	game.frat.set_play([partyCount, csCount, rushCount, studyCount]);
+	
+	
+	
+	//End temporary stuff
+	game.frat.setPlay(newPlay);
 }
 
 //********************************************************************************************			
@@ -98,7 +117,7 @@ this.incrementPieceCount = function()
 
 this.drawPieces = function()
 {
-		numBrothers = game.frat.members;
+		numBrothers = game.frat.numBrothers();
     broRectAray = new Array(numBrothers);
 	
      // Make the pieces layer
