@@ -139,10 +139,11 @@ this.drawPieces = function()
 				strokeWidth: 1,
 				draggable: true
 			});
-			newRect.on("dragend", function() {
-				console.log("end");
-			});
 			newRect.member = members[i];
+			newRect.on("dragend", function() {
+				game.checkstats(this.member);
+			});
+			
 			broRectAray[i] = newRect;
 			piecesLayer.add(broRectAray[i]);			
 			

@@ -23,8 +23,19 @@ $(document).ready(function(){
     sg.bg = document.getElementById("background").getContext("2d");
   
 	game.frat = create_frat();
+
+	for (var i = 0; i < 10; i++) {
 	
-	game.frat.addMember(create_member()).addMember(create_member());
+		game.frat.addMember(create_member());
+	}
+	
+	game.checkstats = function(member) {
+		$("#memname").html(member.name);
+		$("#memparty").html(member.skills.party);
+		$("#memcs").html(member.skills.cs);
+		$("#memrush").html(member.skills.rush);
+		$("#memstudy").html(member.skills.study);
+	}
 	/** define functions **/
     game.board = new Board();
 	game.turns = [new Turn(mardiGrasInfo), 
