@@ -18,7 +18,6 @@ function simulation(play, results){
 
 
   // game variables
-  var isRunning = true;
   var FPS = 30;
   var intervalsPerDay = 100;
   var sim; //  simulation loop
@@ -36,7 +35,6 @@ function simulation(play, results){
   
   // public access to private functions
   this.end = function() { endSim();}
-  this.isRunning = function() { return isRunning; }
 	// resizing{
 	$(window).resize(function(){
 		house.draw();
@@ -236,7 +234,6 @@ function simulation(play, results){
 	function endSim(){
 	  	clearInterval(sim);
       console.log("sim over");
-      isRunning = false;
 	var msg = "";
 	console.log(results);
 	document.getElementById("philanthropyMessage").innerHTML = results['cs'].string();
