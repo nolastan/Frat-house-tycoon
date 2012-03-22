@@ -4,14 +4,14 @@ function create_effect(values, msg, score) {
 	var that = {};
 	
 	if (values.cash) {
-		that.cash = values.cash.base + score*values.cash.mult;
+		that.cash = parseInt(values.cash.base) + score*parseInt(values.cash.mult);
 	}
 	if (values.rep) {
-		that.rep = values.rep.base + score*values.rep.mult;
+		that.rep = parseInt(values.rep.base) + score*parseInt(values.rep.mult);
 	}
 	
 	if (values.rush) {
-		that.rush = values.rush.base + score*values.rush.mult;
+		that.rush = parseInt(values.rush.base) + score*parseInt(values.rush.mult);
 	}
 	
 	that.cash = that.cash || 0;
@@ -39,7 +39,7 @@ var create_threshold = function(spec) {
 	that.get_effect = function(score) {
 		var i = 0;
 		for (i = spec.cutoffs.length - 1; i >= 0; i--) {
-			if (score >= spec.cutoffs[i]) {
+			if (score >= parseInt(spec.cutoffs[i])) {
 				return create_effect(spec.rewards[i], spec.msgs[i], score);
 			}
 		}
@@ -69,7 +69,7 @@ Turn.prototype.getThresholds = function() {
 }
 
 Turn.prototype.run = function(frat) {
-	play = frat.get_play();
+	play = frat.getPlayValues();
 	var i = 0;
 	var effect;
 	var rushCount = 9;
@@ -90,9 +90,9 @@ Turn.prototype.run = function(frat) {
 	//Need to do something with the rush score here.
 	results.rushees = [];
 	
-	overallRushScore = repMult*frat.rep + scoreMult*rushScore;
+	var overallRushScore = repMult*frat.rep + scoreMult*rushScore;
 	for (var i = 0; i < rushCount; i++) {
-		results.rushees.push(create_member(overAllRushScore));
+		results.rushees.push(create_member(overallRushScore));
 	}
 	
 	
@@ -163,11 +163,11 @@ var create_frat = function(spec, members) {
 			cat = categories[i];
 			
 			//Get the members in that category
-			memArray = playCat[cat];
+			memberArray = play[cat];
 			
 			//Add up their skill values
-			for (var k = 0; k < memArray.length; k++) {
-				curMem = getMemberById(memArray[k]);
+			for (var k = 0; k < memberArray.length; k++) {
+				curMem = getMemberById(memberArray[k]);
 				
 				thisVal += curMem.skills[cat];
 			}
@@ -205,8 +205,8 @@ var create_frat = function(spec, members) {
 	}
 	
 	var getMemberById = function(id) {
-		for (var i = 0; i < this.members.length; i++) {
-			var member = this.members[i];
+		for (var i = 0; i < that.members.length; i++) {
+			var member = that.members[i];
 			if (member.id == id) {
 				return member;
 			}
