@@ -160,7 +160,7 @@ this.drawBoard = function()
 	console.log("height"+sg.height);
 	console.log("width"+sg.width);
 	
-	stage = new Kinetic.Stage("container", sg.width*0.98, sg.height-100);
+	stage = new Kinetic.Stage("planScreen", sg.width*0.98, sg.height-100);
 	var boardLayer   = new Kinetic.Layer();
 	piecesLayer      = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();				

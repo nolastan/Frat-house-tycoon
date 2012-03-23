@@ -1,7 +1,7 @@
 function drawPlanningScreen(){
 	game.board.drawBoard().update();
 	$("#bidScreen").hide();
-	$("#container").show();
+	$("#planScreen").show();
 	$("#simulation").hide();
 	$("#results").hide()
 	$("#normal").hide();
