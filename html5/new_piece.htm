@@ -35,20 +35,15 @@
 			
 			    board = new Board();
 				board.DrawBoard();
-				board.AddPiece(member1);
+				board.AddPiece(member1);			
 				
-				setInterval(function() {
-					console.log(board.getPiecesArray()[0].getPos());
-				}, 1000);
             };
         </script>
     </head>
     <body onmousedown="return false;">
-		<button id="test" onclick="console.log(board.IsPieceInsidePartyRect(member1))">Test</button>
+		<button id="test" onclick="console.log(board.MembersInsideStudyRect())">Test</button>
+		<input type="button" id="addMem" value="Add Piece"></input>
         <div id="container">
         </div>
-
-		<input type="button" id="addMem" value="Add Piece"></input>
-
     </body>
 </html>

@@ -19,26 +19,54 @@ this.AddPiece = function (new_member)
 
 //********************************************************************************************
 
-this.getPiecesArray = function() {
+this.getPiecesArray = function() 
+{
 	return piecesArray;
+}
+
+//********************************************************************************************
+	
+this.MembersInsidePartyRect = function() 
+{
+   return MembersInsideRect(partyRect);
+}
+
+//********************************************************************************************
+	
+this.MembersInsideRushRect = function() 
+{
+   return MembersInsideRect(rushRect);
+}
+
+//********************************************************************************************
+	
+this.MembersInsideCsRect = function() 
+{
+   return MembersInsideRect(csRect);
+}
+
+//********************************************************************************************
+	
+this.MembersInsideStudyRect = function() 
+{
+   return MembersInsideRect(studyRect);
 }
 
 //********************************************************************************************	
 
-this.IsPieceInsidePartyRect = function (member)
+var MembersInsideRect = function (rect)
 {
-   var returnVal = false;
+   var memberIDArray = new Array();
    
    for(var i=0; i<piecesArray.length; i++)
    {
-	   var value = piecesArray[i];
-	   if(member.id == value.member.id)
+	   if(IsPieceInsideRect(piecesArray[i], rect))
 	   {
-	      returnVal = IsPieceInsideRect(value, partyRect);
-	   }
+		  memberIDArray.push(piecesArray[i].member.id);
+	   }	   
    }
    
-   return returnVal;
+   return memberIDArray;
 }
 
 //********************************************************************************************	
@@ -136,9 +164,4 @@ this.DrawBoard = function()
 
 }
 
-
-this.inRect = function(piece, rect) {
-	//Can check if piece is in certain rect in this function
-	 return true;
-}
 }
