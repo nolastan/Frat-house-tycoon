@@ -16,20 +16,13 @@ function simulate(play, results){
 
 function simulation(play, results){
 
-
   // game variables
-  var FPS = 30;
-  var intervalsPerDay = 100;
-  var sim; //  simulation loop
   var party = play.party;
   var philanthropy = play.cs;
   var rush = play.rush;
-  var result;
   var gameTime = new GameTime();
   this.gameTime = gameTime; // having scoping issues
-  var people = new Array();
-  var partyGoerCount = 0;
-  
+  var people = new Array();  
   
   // public access to private functions
   this.end = function() { endSim();}
@@ -41,7 +34,7 @@ function simulation(play, results){
 
   // objects
    function GameTime(){
-     /* Keeps track of time, independent of FPS
+     /* Keeps track of time, independent of sg.fps
         and supporting a variable speed. By default,
         ranges 0-100 */
     this.current = 0;
@@ -54,7 +47,7 @@ function simulation(play, results){
         endSim();
       }
       // As speed increases, update time more often
-      if(this.frame % Math.round( FPS / this.speed ) == 0){
+      if(this.frame % Math.round( sg.fps / this.speed ) == 0){
         this.current++;
         step();          
       }
@@ -144,7 +137,7 @@ function simulation(play, results){
   	    people[i].draw();	        
         }
       gameTime.update();
-    }, 1000/FPS);
+    }, 1000/sg.fps);
   }
 }
 

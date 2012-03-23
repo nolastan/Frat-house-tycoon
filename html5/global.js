@@ -11,25 +11,28 @@ function updateScreenSize(){
 
 $(document).ready(function(){
 
-	/** declare variables **/
+	/** Initialize Simulation Graphics **/
 	sg.canvas = document.getElementById("canvas");  
     sg.ctx = sg.canvas.getContext("2d");
     sg.bg = document.getElementById("background").getContext("2d");
+    
+    // Constants:
     sg.scale_x = 3;
     sg.scale_y = 2;
-  
+    sg.fps = 30;
   	updateScreenSize();
 
+	/** Initialize Game Objects **/
 	game.frat = create_frat();
 	game.house = new House();
 	game.sidewalk = new Sidewalk();
 	game.sidewalk.update(); // @TODO: How to call this in constructor??
 	
-	for (var i = 0; i < 10; i++) {
-	
+	for (var i = 0; i < 10; i++) {	
 		game.frat.addMember(create_member());
 	}
 	
+	/* TEMPORARY */
 	game.checkstats = function(member) {
 		$("#memname").html(member.name);
 		$("#memparty").html(member.skills.party);
