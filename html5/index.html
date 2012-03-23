@@ -7,6 +7,9 @@
 	<!-- Sprites -->
    	<script src="sprites/person.js"></script> 
 
+	<!-- Views -->
+   	<script src="views/bids.js"></script> 
+
 	<!-- Scripts -->
 	<script src="events.js"></script>
 	<script src="names.js"></script>
@@ -41,6 +44,15 @@
 	<div id="container">
 		<canvas id="board" style="position: absolute; display: none;"></canvas>
 		<h3  style="position:absolute; top:80%;">Next Turn: <span id="nextTurn"></span></h3>
+		<div  style="position:absolute; top:83%;">
+		<p>Member Name: <span id="memname"></span></p>
+		<p>Skills</p>
+		<p>Party: <span id="memparty"></span></p>
+		<p>Community Service: <span id="memcs"></span></p>
+		<p>Rush: <span id="memrush"></span></p>
+		<p>Study: <span id="memstudy"></span></p>
+
+		</div>
 	</div>
 	<div id="results">
 		<h2 id='currentTurn'></h2>
@@ -48,6 +60,10 @@
 		<p><strong>Philanthropy: </strong><span id="philanthropyMessage"></span></p>
 		<p><strong>Study: </strong><span id="studyMessage"></span></p>
 		<p><strong>Rush: </strong><span id="rushMessage"></span></p>
+		<button id="showBidMeeting">OK</button>
+	</div>
+	<div id="bidScreen">
+		<h2>Bid Meeting</h2>
 		<button id="showBoard">OK</button>
 	</div>
 	<p style='display:none'>

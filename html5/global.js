@@ -23,8 +23,19 @@ $(document).ready(function(){
     sg.bg = document.getElementById("background").getContext("2d");
   
 	game.frat = create_frat();
+
+	for (var i = 0; i < 10; i++) {
 	
-	game.frat.addMember(create_member()).addMember(create_member());
+		game.frat.addMember(create_member());
+	}
+	
+	game.checkstats = function(member) {
+		$("#memname").html(member.name);
+		$("#memparty").html(member.skills.party);
+		$("#memcs").html(member.skills.cs);
+		$("#memrush").html(member.skills.rush);
+		$("#memstudy").html(member.skills.study);
+	}
 	/** define functions **/
     game.board = new Board();
 	game.turns = [new Turn(mardiGrasInfo), 
@@ -58,7 +69,7 @@ $(document).ready(function(){
     game.board.update_play();
 		var turn = game.turns.getNext();
 		simulate(game.frat.getPlayValues(), turn.run(game.frat));
-			document.getElementById("currentTurn").innerHTML = turn.title + " results";
+		document.getElementById("currentTurn").innerHTML = turn.title + " results";
 
     $(this).addClass("disabled");
 		$("#fast").removeClass('disabled');
@@ -80,18 +91,15 @@ $(document).ready(function(){
 	
 	$("#skip").click(function(){
   	console.log("here");
-  	if(game.sim.isRunning()){
-    	game.sim.end();
-  	}
+   	game.sim.end();
   });
   
-  $("#showBoard").click(function(){
-  	$("#container").show();
+  $("#showBidMeeting").click(function(){
+	bidScreen.show();
   	$("#results").hide();
   document.getElementById('sim').className = '';
 
   });
-  
 
   
 });
