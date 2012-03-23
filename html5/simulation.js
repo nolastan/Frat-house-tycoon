@@ -1,18 +1,10 @@
 function simulate(play, results){
+  $("#container").hide();
+  $("#results").hide();
+  $("#simulation").show();
   game.sim = new simulation(play, results);
-  document.getElementById('container').style.display = "none";
-  document.getElementById('results').style.display = "none";
-  document.getElementById('simulation').style.display = "block";
-
   game.sim.run();
-  
 }
-  
-	/** -----------------
-	
-	BEGIN SIMULATION OBJECT
-	
-	----------------- **/
 
 function simulation(play, results){
 
