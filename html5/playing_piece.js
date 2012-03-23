@@ -2,7 +2,6 @@ var PlayingPiece = function(stage, member)
 {
 	this.stage = stage;
 	this.member = member;
-<<<<<<< HEAD
 	var boxHeader;
 	var boxMain;
 	
@@ -27,12 +26,11 @@ var PlayingPiece = function(stage, member)
 	   return boxMain.y + boxMain.height;
 	}
 
-=======
+
 	this.getPos = function() {
 		return [this.group.x, this.boxHeader.y];
 	}
 	
->>>>>>> origin/dummy
 	this.drawPiece = function (xPos, yPos)
 	{
 		var shapesLayer = new Kinetic.Layer();
@@ -40,11 +38,10 @@ var PlayingPiece = function(stage, member)
 			draggable: true
 		});                
 			
-<<<<<<< HEAD
+
 		boxHeader = new Kinetic.Rect({
-=======
+
 		this.boxHeader = new Kinetic.Rect({
->>>>>>> origin/dummy
 			x: xPos,
 			y: yPos,
 			width: 90,
@@ -66,23 +63,17 @@ var PlayingPiece = function(stage, member)
 			textFill: "black"                    
 		});
 		
-<<<<<<< HEAD
-		boxMain = new Kinetic.Rect({
-			x: boxHeader.x,
-			y: boxHeader.y + boxHeader.height,
-			width: boxHeader.width,
-=======
-		var boxMain = new Kinetic.Rect({
+
+		this.boxMain = new Kinetic.Rect({
 			x: this.boxHeader.x,
 			y: this.boxHeader.y + this.boxHeader.height,
 			width: this.boxHeader.width,
->>>>>>> origin/dummy
 			height: 50,					
 			fill: "#99FFFF",
 			stroke: "black",
 			strokeWidth: 1
 		});
-		this.boxMain = boxMain;
+
 		var mainText1 = new Kinetic.Text(
 		{
 			x: boxMain.x + 2,
