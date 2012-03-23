@@ -1,4 +1,3 @@
-
 //********************************************************************************************			
 // Globals
 //********************************************************************************************
@@ -15,17 +14,14 @@ this.AddPiece = function (new_member)
 {
    var piece = new PlayingPiece(stage, new_member);  
    piece.drawPiece(first_piece_x, first_piece_y);
-<<<<<<< HEAD
    piecesArray.push(piece);   
 }   
-=======
-   piecesArray.push(piece);
-} 
+
 
 this.getPiecesArray = function() {
 	return piecesArray;
 }
->>>>>>> origin/dummy
+
 
 //********************************************************************************************	
 
