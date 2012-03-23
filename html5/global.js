@@ -11,6 +11,7 @@ function updateScreenSize(){
 
 $(document).ready(function(){
 
+
 	/** Initialize Simulation Graphics **/
 	sg.canvas = document.getElementById("canvas");  
     sg.ctx = sg.canvas.getContext("2d");
@@ -54,55 +55,10 @@ $(document).ready(function(){
 	}
 
 	
-	/** call functions **/
-	game.board.drawBoard().update();
-	$("#simulation").hide();
-	$("#results").hide()
 	/** elements beyond the canvas **/
 	$(window).resize(function(){
 		updateScreenSize();
 	});
-	
-	$("#normal").addClass('disabled');
-	$("#fast").addClass('disabled');
-	$("#skip").addClass('disabled');
-	
-	// Action call
-  $("#sim").click(function(){
-    game.board.update_play();
-		var turn = game.turns.getNext();
-		simulate(game.frat.getPlayValues(), turn.run(game.frat));
-		document.getElementById("currentTurn").innerHTML = turn.title + " results";
-
-    $(this).addClass("disabled");
-		$("#fast").removeClass('disabled');
-		$("#skip").removeClass('disabled');
-  });
-	
-	$("#normal").click(function(){
-    game.sim.gameTime.speed = 1;
-    $(this).addClass("disabled");
-    $("#fast").removeClass("disabled");
-  });
-
-  $("#fast").click(function(){
-    game.sim.gameTime.speed = 3;
-    $(this).addClass("disabled");
-    $("#normal").removeClass("disabled");
-  });
-
-	
-	$("#skip").click(function(){
-  	console.log("here");
-   	game.sim.end();
-  });
-  
-  $("#showBidMeeting").click(function(){
-	bidScreen.show();
-  	$("#results").hide();
-  document.getElementById('sim').className = '';
-
-  });
 
   
 });

@@ -8,7 +8,10 @@
    	<script src="sprites/person.js"></script> 
 
 	<!-- Views -->
-   	<script src="views/bids.js"></script> 
+   	<script src="views/bids_view.js"></script> 
+   	<script src="views/simulation_view.js"></script> 
+   	<script src="views/results_view.js"></script> 
+   	<script src="views/plan_view.js"></script> 
 
 	<!-- Scripts -->
 	<script src="events.js"></script>
@@ -17,6 +20,7 @@
    	<script src="board.js"></script>
    	<script src="simulation.js"></script>
    	<script src="global.js"></script> 
+	<script src="controller.js"></script>
    	
    	<!-- Models -->
    	<script src="models/House.js"></script> 
@@ -66,7 +70,7 @@
 		<p><strong>Philanthropy: </strong><span id="philanthropyMessage"></span></p>
 		<p><strong>Study: </strong><span id="studyMessage"></span></p>
 		<p><strong>Rush: </strong><span id="rushMessage"></span></p>
-		<button id="showBidMeeting">OK</button>
+		<button class="continue">OK</button>
 	</div>
 	<div id="bidScreen">
 		<h2>Bid Meeting</h2>

@@ -51,3 +51,18 @@ function PersonViz(){
   		this.timeOnScreen++;
     }
 }
+
+function Partygoer(){
+	this.construct();
+	this.color = "blue";
+}
+
+function Rushee(){
+	this.construct();
+	this.color = "red";
+}
+
+function Philanthropist(){
+	this.construct();
+	this.color = "green"
+}

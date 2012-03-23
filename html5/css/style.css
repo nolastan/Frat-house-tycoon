@@ -40,6 +40,11 @@ button.disabled, button.disabled:hover{
 	background: #ddd;
 	color: #888;
 }
+button.active, button.active:hover{
+	cursor: default;
+	background: blue;
+	color: white;
+}
 header{
 	width:100%;
 	line-height: 2.5em;

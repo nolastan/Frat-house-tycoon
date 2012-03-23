@@ -1,14 +1,11 @@
-function simulate(play, results){
-  $("#container").hide();
-  $("#results").hide();
-  $("#simulation").show();
-  game.sim = new simulation(play, results);
-  game.sim.run();
-}
-
 function simulation(play, results){
+  
+  // @TODO how to make these global?
+  Partygoer.prototype = new PersonViz();
+  Rushee.prototype = new PersonViz();
+  Philanthropist.prototype = new PersonViz();
 
-  // game variables
+  /* game variables */
   var party = play.party;
   var philanthropy = play.cs;
   var rush = play.rush;
@@ -16,7 +13,7 @@ function simulation(play, results){
   this.gameTime = gameTime; // having scoping issues
   var people = new Array();  
   
-  // public access to private functions
+  /* public access to private functions */
   this.end = function() { endSim();}
 	// resizing{
 	$(window).resize(function(){
@@ -24,7 +21,7 @@ function simulation(play, results){
 		console.log('redrawing house');
 	});
 
-  // objects
+  /* objects */
    function GameTime(){
      /* Keeps track of time, independent of sg.fps
         and supporting a variable speed. By default,
@@ -46,26 +43,7 @@ function simulation(play, results){
       this.frame++;
     }
   }
-  
-  Partygoer.prototype = new PersonViz();
-  Partygoer.prototype.constructor = Partygoer;
-  Partygoer.superclass = PersonViz.prototype;
-  function Partygoer(){
-  	this.construct();
-    this.color = "blue";
-  }
 
-  Rushee.prototype = new PersonViz();
-  function Rushee(){
-  	this.construct();
-    this.color = "red";
-  }
-
-  Philanthropist.prototype = new PersonViz();
-  function Philanthropist(){
-  	this.construct();
-    this.color = "green"
-  }
 
   // Each step
   function step(){
@@ -91,25 +69,17 @@ function simulation(play, results){
 
     for(i = 0; i < people.length; i++){
       people[i].step();
-      }
+    }
 
 
   }
+  // @TODO move these functions into controller and views
 	function endSim(){
-	  	clearInterval(sim);
 		drawBidScreen(results);
-      console.log("sim over");
-	var msg = "";
-	document.getElementById("philanthropyMessage").innerHTML = results['cs'].string();
-	document.getElementById("rushMessage").innerHTML = results['rush'].string();
-	document.getElementById("partyMessage").innerHTML = results['party'].string();
-	document.getElementById("studyMessage").innerHTML = results['study'].string();
-	  game.board.update();
-      document.getElementById('normal').className = 'disabled';
-      document.getElementById('fast').className = 'disabled';
-      document.getElementById('skip').className = 'disabled';
-      document.getElementById('results').style.display = "block";
-  		document.getElementById('simulation').style.display = "none";
+		game.board.update();
+		
+		drawResultsScreen();
+	  	clearInterval(sim);
 	}
 
   this.run = function(){
