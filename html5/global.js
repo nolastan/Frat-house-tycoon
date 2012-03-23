@@ -1,29 +1,30 @@
-var CANVAS_HEIGHT, CANVAS_WIDTH, canvas, ctx, SCALE;
-var CANVAS_SCALE_X = 3;
-var CANVAS_SCALE_Y = 2;
 var game = {};
-//variable for Simulation Graphics global variables
-var sg = {};
+var sg = {}; //Simulation Graphics
 function updateScreenSize(){
-	SCALE = Math.min($(window).width()/CANVAS_SCALE_X, ($(window).height()-90)/CANVAS_SCALE_Y);
-	CANVAS_WIDTH = CANVAS_SCALE_X * SCALE;
-	CANVAS_HEIGHT = CANVAS_SCALE_Y * SCALE;
-	UNIT = Math.round(SCALE / 100);
-	console.log(SCALE);
-	$("#canvas, #background").attr('width', CANVAS_WIDTH);
-	$("#canvas, #background").attr('height', CANVAS_HEIGHT);
+	sg.scale = Math.min($(window).width()/sg.scale_x, ($(window).height()-90)/sg.scale_y);
+	sg.width = sg.scale_x * sg.scale;
+	sg.height = sg.scale_y * sg.scale;
+	game.UNIT = Math.round(sg.scale / 100);
+	$("#canvas, #background").attr('width', sg.width);
+	$("#canvas, #background").attr('height', sg.height);
 }
 
 $(document).ready(function(){
-
 
 	/** declare variables **/
 	sg.canvas = document.getElementById("canvas");  
     sg.ctx = sg.canvas.getContext("2d");
     sg.bg = document.getElementById("background").getContext("2d");
+    sg.scale_x = 3;
+    sg.scale_y = 2;
   
-	game.frat = create_frat();
+  	updateScreenSize();
 
+	game.frat = create_frat();
+	game.house = new House();
+	game.sidewalk = new Sidewalk();
+	game.sidewalk.update(); // @TODO: How to call this in constructor??
+	
 	for (var i = 0; i < 10; i++) {
 	
 		game.frat.addMember(create_member());
@@ -51,7 +52,6 @@ $(document).ready(function(){
 
 	
 	/** call functions **/
-	updateScreenSize();
 	game.board.drawBoard().update();
 	$("#simulation").hide();
 	$("#results").hide()

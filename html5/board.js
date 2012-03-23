@@ -89,7 +89,6 @@ this.update_play = function()
 	}
 */	
 	
-	console.log(newPlay);
 	console.log(members.id)
 	//End temporary stuff
 	game.frat.setPlay(newPlay);
@@ -158,10 +157,10 @@ this.drawBoard = function()
 	numBrothers = game.frat.members;
 	updateScreenSize();
 	
-	console.log("height"+CANVAS_HEIGHT);
-	console.log("width"+CANVAS_WIDTH);
+	console.log("height"+sg.height);
+	console.log("width"+sg.width);
 	
-	stage = new Kinetic.Stage("container", CANVAS_WIDTH*0.98, CANVAS_HEIGHT-100);
+	stage = new Kinetic.Stage("container", sg.width*0.98, sg.height-100);
 	var boardLayer   = new Kinetic.Layer();
 	piecesLayer      = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();				

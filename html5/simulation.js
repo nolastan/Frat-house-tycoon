@@ -27,8 +27,6 @@ function simulation(play, results){
   var result;
   var gameTime = new GameTime();
   this.gameTime = gameTime; // having scoping issues
-  var house = new House();
-  var sidewalk = new Sidewalk();
   var people = new Array();
   var partyGoerCount = 0;
   
@@ -37,7 +35,7 @@ function simulation(play, results){
   this.end = function() { endSim();}
 	// resizing{
 	$(window).resize(function(){
-		house.draw();
+		game.house.draw();
 		console.log('redrawing house');
 	});
 
@@ -63,141 +61,22 @@ function simulation(play, results){
       this.frame++;
     }
   }
-
-
-  function House(){  
   
-  	var height, width, x, y;
-  
-		this.draw = function(){
-  		this.update(); 
-	    // draw grass
-  	  var img = new Image();
-  	  img.src = 'images/grass.png';
-			img.onload = function(){
-		    sg.bg.fillStyle = sg.bg.createPattern(img,'repeat');
-		    sg.bg.fillRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
-	    }
-	    // draw house
-  	  var wood = new Image();
-  	  wood.src = 'images/wood.png';
-			wood.onload = function(){
-		    sg.bg.fillStyle = sg.bg.createPattern(wood,'repeat');
-				sg.bg.fillRect(x,y,width,height);	
-			}
-  	}
-  	
-  	this.update = function(){
-  		height = 100 * UNIT;
-			width = 100 * UNIT;
-			x = 75 * UNIT;
-			y = 10;
-  	}
-  	
-  	this.update(); 
-  	
-  	// getters
-    this.getX = function(){return x;}
-    this.getY = function(){return y;}
-    this.getHeight = function(){return height;}
-    this.getWidth = function(){return width;}
-    this.getDoorX = function(){return width/2 + x;}
-    this.getDoorY = function(){return height + y;}
-    
-  }
-  
-  function Sidewalk(){
-  	var y;
-  	var height;
-  	
-    this.getY = function(){return y;}
-    this.getHeight = function(){return height;}
-  	
-  	this.update = function(){
-  		height = 20 * UNIT;
-  		y = CANVAS_HEIGHT - (10 * UNIT + height);
-  	}
-  	this.update();
-  	this.draw = function(){
-  		// draw pavement
-  	  var img = new Image();
-  	  img.src = 'images/concrete.png';
-			img.onload = function(){
-		    sg.bg.fillStyle = sg.bg.createPattern(img,'repeat');
-		    sg.bg.fillRect(0,y,CANVAS_WIDTH, height);
-	    }
-  	}
-  }
-  
-  function Person(){
-		// shouldn't be hard-coded
-    var height = UNIT/7*100;
-    var width = UNIT/7*30;
-  
-    this.color = "black"
-    this.x;
-    this.y;
-    this.goToY;
-    this.goToX = house.getDoorX();
-    this.timeOnScreen = 0;
-    this.lengthOfStay = 30;
-
-    this.construct = function(){
-  		if(Math.round(Math.random()) == 0){
-  			this.x = -Math.round(width);
-  		}else{
-  			this.x = Math.round(CANVAS_WIDTH + width);
-  		}    
-  		this.y = Math.round(sidewalk.getY() + Math.floor(Math.random()*sidewalk.getHeight() - height));
-	    this.goToY = this.y;
-    }
-
-    this.draw = function(x, y){
-    	// called each frame
-      if(this.timeOnScreen < this.lengthOfStay){
-        drawPerson(sg.ctx, this.x, this.y, UNIT, this.color)
-				// shouldn't be hard-coded
-        height = UNIT/7*100;
-        width = UNIT/7*30;
-      }
-    }
-
-    this.move = function(){
-    	// called each frame
-    	if(this.x > this.goToX) this.x--
-    	if(this.x < this.goToX) this.x++;
-    	if(this.y > this.goToY) this.y--;
-    	if(this.y < this.goToY) this.y++;
-    	if(this.x == this.goToX && this.y == this.goToY){
-    		this.goToX = Math.floor(Math.random()*(house.getWidth()-width) + house.getX()); 
-    		this.goToY = Math.floor(Math.random()*(house.getHeight()-height) + house.getY());  
-    	}
-    }
-    this.step = function(){
-    	// called each step
-    	if(this.timeOnScreen == this.lengthOfStay){
-    		console.log("Goodbye!");
-    		people.pop(this);
-    	}
-  		this.timeOnScreen++;
-    }
-  }
-  
-  Partygoer.prototype = new Person();
+  Partygoer.prototype = new PersonViz();
   Partygoer.prototype.constructor = Partygoer;
-  Partygoer.superclass = Person.prototype;
+  Partygoer.superclass = PersonViz.prototype;
   function Partygoer(){
   	this.construct();
     this.color = "blue";
   }
 
-  Rushee.prototype = new Person();
+  Rushee.prototype = new PersonViz();
   function Rushee(){
   	this.construct();
     this.color = "red";
   }
 
-  Philanthropist.prototype = new Person();
+  Philanthropist.prototype = new PersonViz();
   function Philanthropist(){
   	this.construct();
     this.color = "green"
@@ -252,13 +131,13 @@ function simulation(play, results){
   console.log("sim starting");
 
     // loop steps (run simulation)
-      house.draw();
-      sidewalk.draw();
+      game.house.draw();
+      game.sidewalk.draw();
       sim = setInterval(function() {
-        sg.ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+        sg.ctx.clearRect(0,0,sg.width,sg.height);
         for(i = 0; i < people.length; i++){
           for(j = 0; j < gameTime.speed; j++){
-	          for(k = 0; k < UNIT; k++){	  	    
+	          for(k = 0; k < game.UNIT; k++){	  	    
 		  	        people[i].move();
 	  	        }
           }

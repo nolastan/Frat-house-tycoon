@@ -39,7 +39,7 @@ function drawPerson(ctx, x, y, scale, color) {
   ctx.lineTo(8.481,29.27);
   ctx.lineTo(8.472,95.426);
   ctx.closePath();
-
+  
   ctx.fill();
   // ctx.stroke();
   ctx.restore();
