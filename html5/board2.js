@@ -12,8 +12,11 @@ var   first_piece_x, first_piece_y;
 
 this.AddPiece = function (new_member)
 {
-   var piece = new PlayingPiece(stage, new_member);  
-   piece.drawPiece(first_piece_x, first_piece_y);
+   var x_inc, y_inc;
+   var piece = new PlayingPiece(stage, new_member); 
+   
+   y_inc =  piecesArray.length * (piece.height() + 10);  
+   piece.drawPiece(first_piece_x, first_piece_y + y_inc);
    piecesArray.push(piece);   
 }   
 

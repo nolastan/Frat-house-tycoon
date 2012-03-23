@@ -5,31 +5,56 @@ var PlayingPiece = function(stage, member)
 	var xPosStart;
 	var yPosStart;
 	
+	//********************************************************************************************
+
+	this.height = function ()
+	{
+	   return 60;
+	}
+	
+	//********************************************************************************************
+
+	this.width = function ()
+	{
+	   return this.boxHeader.width;
+	}
+	
+	//********************************************************************************************
+
 	this.xLeftPos = function ()
 	{
 	   return this.group.x + xPosStart;	   
 	}
+	
+	//********************************************************************************************
 	
 	this.xRightPos = function ()
 	{	   
 	   return this.group.x + xPosStart + this.boxHeader.width;
 	}
 	
+	//********************************************************************************************
+	
 	this.yTopPos = function ()
 	{
 	   return this.group.y + yPosStart;
 	}
 	
+	//********************************************************************************************
+
 	this.yBottomPos = function ()
 	{
 	   return this.group.y + yPosStart + this.boxMain.height;
 	}
 
+	//********************************************************************************************
 
 	this.getPos = function() {
 		return [this.group.x, this.group.y];
 	}
 	
+	//********************************************************************************************
+
 	this.drawPiece = function (xPosIn, yPosIn)
 	{
 	    xPosStart = xPosIn;

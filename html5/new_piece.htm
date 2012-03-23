@@ -18,9 +18,8 @@
         
         <script>
 		    var board;
-			var member1;
             window.onload = function(){
-			    member1 = 
+			    var member1 = 
 				{
 					name: "Paul Carleton",
 					id: 1,
@@ -32,10 +31,24 @@
 					   study: 2.8
 					}
 				}
+				
+				var member2 = 
+				{
+					name: "Stan",
+					id: 2,
+					skills: 
+					{
+					   party: 2.0,
+					   cs: 3.0,
+					   rush: 2.5,
+					   study: 2.8
+					}
+				}
 			
 			    board = new Board();
 				board.DrawBoard();
-				board.AddPiece(member1);			
+				board.AddPiece(member1);
+                board.AddPiece(member2);				
 				
             };
         </script>
