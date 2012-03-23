@@ -2,6 +2,29 @@ var PlayingPiece = function(stage, member)
 {
 	this.stage = stage;
 	this.member = member;
+	var boxHeader;
+	var boxMain;
+	
+	this.xLeftPos = function ()
+	{
+	   //return boxHeader.x;
+	   return 10;
+	}
+	
+	this.xRightPos = function ()
+	{
+	   return boxHeader.x + boxHeader.width;
+	}
+	
+	this.yTopPos = function ()
+	{
+	   return boxHeader.y;
+	}
+	
+	this.yBottomPos = function ()
+	{
+	   return boxMain.y + boxMain.height;
+	}
 
 	this.drawPiece = function (xPos, yPos)
 	{
@@ -10,7 +33,7 @@ var PlayingPiece = function(stage, member)
 			draggable: true
 		});                
 			
-		var boxHeader = new Kinetic.Rect({
+		boxHeader = new Kinetic.Rect({
 			x: xPos,
 			y: yPos,
 			width: 90,
@@ -30,7 +53,7 @@ var PlayingPiece = function(stage, member)
 			textFill: "black"                    
 		});
 		
-		var boxMain = new Kinetic.Rect({
+		boxMain = new Kinetic.Rect({
 			x: boxHeader.x,
 			y: boxHeader.y + boxHeader.height,
 			width: boxHeader.width,

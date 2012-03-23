@@ -11,17 +11,52 @@ var   first_piece_x, first_piece_y;
 
 //********************************************************************************************
 
-this.addPiece = function (new_member)
+this.AddPiece = function (new_member)
 {
    var piece = new PlayingPiece(stage, new_member);  
    piece.drawPiece(first_piece_x, first_piece_y);
-   piecesArray.push(piece);
-   
+   piecesArray.push(piece);   
 }   
 
 //********************************************************************************************	
 
-this.drawBoard = function() 
+this.IsPieceInsidePartyRect = function (member)
+{
+   var returnVal = false;
+   
+   for(var i=0; i<piecesArray.length; i++)
+   {
+	   var value = piecesArray[i];
+	   if(member.id == value.member.id)
+	   {
+	      returnVal = IsPieceInsideRect(value, csRect);
+	   }
+   }
+   
+   return returnVal;
+}
+
+//********************************************************************************************	
+
+var IsPieceInsideRect = function (piece, quadrant)
+{
+   var returnVal = false;
+   console.log("piece.xLeftPos: " + piece.xLeftPos);
+   console.log("quadrant.x: " + quadrant.x);
+   if (piece.xLeftPos        >  quadrant.x                    &&
+	  (piece.xRightPos - 1)  < (quadrant.x + quadrant.width)  &&
+       piece.yTopPos + 1     >  quadrant.y                    &&
+	  (piece.yBottomPos - 1) < (quadrant.y + quadrant.height))
+   {
+	  returnVal = true;
+   }
+   
+   return returnVal;
+}
+
+//********************************************************************************************	
+
+this.DrawBoard = function() 
 {
 	//numBrothers = game.frat.members;
 	//updateScreenSize();
