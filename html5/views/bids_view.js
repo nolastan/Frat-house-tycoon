@@ -11,12 +11,17 @@ function drawBidScreen(results){
 	html += '<ul class="rushees">';
 	for(i = 0; i < results.rushees.length; i++){
 		var rushee = results.rushees[i];
-		html += '<li id="rushee_' + i + '">';
-		html += "rushee #" + i + "<br/>";
-		html += "<strong>Rush</strong> " + rushee.skills.rush + "<br />";
-		html += "<strong>Party</strong> " + rushee.skills.party + "<br />";
-		html += "<strong>CS</strong> " + rushee.skills.cs + "<br />";
-		html += "<strong>Study</strong> " + rushee.skills.study + "<br />";
+		
+		if(rushee.chanceWillJoin(game.frat) > .8) 
+		
+		html += '<li id="rushee_' +rushee.id + '">';
+		html += '<p class="name">' + rushee.name + '</p>';
+		html += '<ul class="skills">';
+		html += '<li class="rush"><label>R</label><div class="bar"><div class="fill" style="width:' + rushee.skills.rush + '%"></div></div></li>';
+		html += '<li class="party"><label>P</label><div class="bar"><div class="fill" style="width:' + rushee.skills.party + '%"></div></div></li>';
+		html += '<li class="cs"><label>S</label><div class="bar"><div class="fill" style="width:' + rushee.skills.cs + '%"></div></div></li>';
+		html += '<li class="study"><label>A</label><div class="bar"><div class="fill" style="width:' + rushee.skills.study + '%"></div></div></li>';
+		html += '</ul>';
 		html += "<p style='font-size:200%'>" + Math.round(rushee.chanceWillJoin(game.frat) * 100) + "%</p>";
 		html += "</li>";
 	}
@@ -24,7 +29,7 @@ function drawBidScreen(results){
 	html += '<button class="continue">OK</button>';
 	
 	bidScreen.html(html);
-	
+		
 	$("#bidScreen .continue").click(plan);  
 	
 	// @TODO change to jQuery

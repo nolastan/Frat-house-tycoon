@@ -383,8 +383,12 @@ var create_member = (function() {
 		that.lastname = name.last || lastnames[Math.floor(Math.random()*lastnames.length)];
 		that.name = that.firstname + " " + that.lastname;
 		
+		that.hair_color = hair_color || hair_color[Math.floor(Math.random()*hair_color.length)];
+		that.eye_color = eye_color || eye_color[Math.floor(Math.random()*eye_color.length)];
+		that.hair_style = hair_style || hair_style[Math.floor(Math.random()*hair_style.length)];
+		that.skin_color = skin_color || skin_color[Math.floor(Math.random()*skin_color.length)];
+
 		that.id = count++;
-		
 		
 		that.getAge = function () {
 			return age;
@@ -423,6 +427,15 @@ var create_member = (function() {
 			
 			return repprob*rep_weight + skillprob*skill_weight;
 		}
+		
+		that.facial_expression = function(){
+			if(that.chanceWillJoin > 80) return 5;
+			else if(that.chanceWillJoin > 60) return 4;
+			else if(that.chanceWillJoin > 40) return 3;
+			else if(that.chanceWillJoin > 20) return 2;
+			else return 1;
+		}
+		
 		return that;
 	}
 })();

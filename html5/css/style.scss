@@ -1,0 +1,222 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+
+$red: #9E352C;
+$yellow: #E6E8A9;
+$green: #93C28C;
+$blue: #2E5A5C;
+$black: #2B2623;
+
+$rush_color: $red;
+$party_color: $yellow;
+$study_color: $green;
+$cs_color: $blue;
+
+body{
+	font-family: 'PT Sans Narrow', sans-serif;
+}
+strong{
+	font-weight:bold;
+}
+button, button.disabled:hover{
+	cursor: pointer;
+	border: 1px solid #aaa;
+	background: #eee;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee', endColorstr='#ddd');
+	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd));
+	background: -moz-linear-gradient(top,  #eee,  #ddd);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	height: 3em;
+	padding: 0 1em;
+	margin-top:.7em;
+}
+button:hover{
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee');
+	background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#eee));
+	background: -moz-linear-gradient(top,  #ddd,  #eee);
+
+}
+button.disabled, button.disabled:hover{
+	cursor:default;
+	background: #ddd;
+	color: #888;
+}
+button.active, button.active:hover{
+	cursor: default;
+	background: blue;
+	color: white;
+}
+header{
+	width:100%;
+	line-height: 2.5em;
+	background-color: #2B2623;
+	color: #f0f0f0;
+}
+header h1{
+	font-size: 1.5em;
+	margin: 0 .5ex;
+}
+#status{
+	height: 3em;
+	width:100%;
+	background-color: #E6E8A9;
+	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+	ul{
+		height: 3em;
+		display:block;
+		float:left;
+		li{
+			display:inline-block;
+		}
+	}
+	#controls{
+		width: 50%;
+	}
+	#controls li{
+		margin-left: .5em;
+	}
+	#stats{
+		width: 50%;
+	}
+	#stats li{
+		width: 32%;
+	/* 	height: 3em; */
+		float:right;
+		border-left: 1px solid #666;
+		font-size: 1.7em;
+		line-height: 1.3em;
+		text-align:center;
+		color: #fff;
+		max-width:150px;
+	}
+	#stats li label{
+		display:block;
+		width:96%;
+		padding-left:5%;
+		background-color: #fff;
+		opacity: .4;
+		font-size: .5em;
+		line-height: 1em;
+		font-weight:bold;
+		text-align:left;
+		color: #000;
+	}
+	#stats .val{
+	/* 	font-size: 2em; */
+	}
+	#stats li#rep{
+		background-color: #93C28C;
+	}
+	#stats li#money{
+		background-color: #2E5A5C;
+	}
+	#stats li#brothers{
+		background-color: #9E352C;
+	}
+}
+
+
+
+/* Canvas stuff */
+#background{
+	position:absolute;
+	z-index:0;
+}
+#canvas{
+	position: absolute;
+	z-index: 10;
+}
+
+/* Results */
+#results{
+	margin: 10px;
+}
+h2{
+	font-size: 300%;
+	font-weight:bold;
+}
+#results p{
+	margin: 1em 0;
+	font-size: 200%;
+}
+
+/* Bid Meeting  */
+#bidScreen{
+	ul.rushees{
+		margin-left: 10px;
+	}
+	.name{
+		font-size: 150%;
+		font-weight:bold;
+		padding-top: .5em;
+	}
+	ul.skills li{
+		clear:both;
+		margin: 10px 0;
+	}
+	label{
+		font-size: 1.5em;	
+		float:left;
+		width: 1.2em;
+	}
+	.bar{
+		float:left;
+		width: 150px;
+		border-width: 1px;
+		border-style: solid;
+	}
+	.fill{
+		height: 1.5em;
+	}
+	.rush{
+		.bar{
+			border-color: darken($rush_color, 20%);
+			background-color: lighten($rush_color, 30%);
+		}
+		.fill{
+			background-color: $rush_color;
+		}
+		label{
+			color: darken($rush_color, 20%);
+		}
+	}
+	.party{
+		.bar{
+			border-color: darken($rush_color, 20%);
+			background-color: lighten($party_color, 30%);
+		}
+		.fill{
+			background-color: $party_color;
+		}
+		label{
+			color: darken($party_color, 20%);
+		}
+	}
+	.cs{
+		.bar{
+			border-color: darken($rush_color, 20%);
+			background-color: lighten($cs_color, 30%);
+		}
+		.fill{
+			background-color: $cs_color;
+		}
+		label{
+			color: darken($cs_color, 20%);
+		}
+	}
+	.study{
+		.bar{
+			border-color: darken($rush_color, 20%);
+			background-color: lighten($study_color, 30%);
+		}
+		.fill{
+			background-color: $study_color;
+		}
+		label{
+			color: darken($study_color, 20%);
+		}
+	}
+}
