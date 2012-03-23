@@ -1,15 +1,15 @@
 $(document).ready(function(){
 
-	initializeGame();
+	initializeScreen();
 
 });
 
-function initializeGame(){
+function initializeScreen(){
 	drawPlanningScreen();
 }
 
 function plan(){
-	
+	console.log("load plan screen");
 	
 	drawPlanningScreen();
 };

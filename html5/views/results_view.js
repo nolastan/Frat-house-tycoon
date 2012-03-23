@@ -1,5 +1,8 @@
 function drawResultsScreen(){
-
+	$("#normal").hide();
+	$("#fast").hide();
+	$("#skip").hide();
+	$("#play").hide();
 }
 
 $(document).ready(function(){

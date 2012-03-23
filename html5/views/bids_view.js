@@ -2,7 +2,6 @@ var bidScreen;
 
 $(document).ready(function(){
 	bidScreen = $("#bidScreen");
-	bidScreen.hide();
   
 });
 
@@ -22,9 +21,11 @@ function drawBidScreen(results){
 		html += "</li>";
 	}
 	html += '</ul>';
-	html += '<button id="showBoard">OK</button>';
+	html += '<button class="continue">OK</button>';
 	
 	bidScreen.html(html);
+	
+	$("#bidScreen .continue").click(plan);  
 	
 	// @TODO change to jQuery
 	document.getElementById("philanthropyMessage").innerHTML = results['cs'].string();
@@ -38,10 +39,6 @@ function drawBidScreen(results){
 	document.getElementById('simulation').style.display = "none";
 
 	
-	$("#bidScreen #showBoard").click(function(){
-		console.log('show board');
-		bidScreen.hide();
-		$("#container").show();
-  });  
+
 }
 
