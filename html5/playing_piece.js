@@ -2,48 +2,48 @@ var PlayingPiece = function(stage, member)
 {
 	this.stage = stage;
 	this.member = member;
-	var boxHeader;
-	var boxMain;
+	var xPosStart;
+	var yPosStart;
 	
 	this.xLeftPos = function ()
 	{
-	   //return boxHeader.x;
-	   return 10;
+	   return this.group.x + xPosStart;	   
 	}
 	
 	this.xRightPos = function ()
-	{
-	   return boxHeader.x + boxHeader.width;
+	{	   
+	   return this.group.x + xPosStart + this.boxHeader.width;
 	}
 	
 	this.yTopPos = function ()
 	{
-	   return boxHeader.y;
+	   return this.group.y + yPosStart;
 	}
 	
 	this.yBottomPos = function ()
 	{
-	   return boxMain.y + boxMain.height;
+	   return this.group.y + yPosStart + this.boxMain.height;
 	}
 
 
 	this.getPos = function() {
-		return [this.group.x, this.boxHeader.y];
+		return [this.group.x, this.group.y];
 	}
 	
-	this.drawPiece = function (xPos, yPos)
+	this.drawPiece = function (xPosIn, yPosIn)
 	{
+	    xPosStart = xPosIn;
+		yPosStart = yPosIn;
+		
 		var shapesLayer = new Kinetic.Layer();
 		var group = new Kinetic.Group({
 			draggable: true
 		});                
 			
 
-		boxHeader = new Kinetic.Rect({
-
-		this.boxHeader = new Kinetic.Rect({
-			x: xPos,
-			y: yPos,
+		var boxHeader = new Kinetic.Rect({
+			x: xPosStart,
+			y: yPosStart,
 			width: 90,
 			height: 15,					
 			fill: "#00CCFF",
@@ -55,8 +55,8 @@ var PlayingPiece = function(stage, member)
 		
 		var headerText = new Kinetic.Text(
 		{
-			x: this.boxHeader.x + 2,
-			y: this.boxHeader.y + 2,
+			x: boxHeader.x + 2,
+			y: boxHeader.y + 2,
 			text: member.name,
 			fontSize: 10,
 			fontFamily: "Calibri",
@@ -64,10 +64,10 @@ var PlayingPiece = function(stage, member)
 		});
 		
 
-		this.boxMain = new Kinetic.Rect({
-			x: this.boxHeader.x,
-			y: this.boxHeader.y + this.boxHeader.height,
-			width: this.boxHeader.width,
+		var boxMain = new Kinetic.Rect({
+			x: boxHeader.x,
+			y: boxHeader.y + boxHeader.height,
+			width: boxHeader.width,
 			height: 50,					
 			fill: "#99FFFF",
 			stroke: "black",
@@ -114,28 +114,17 @@ var PlayingPiece = function(stage, member)
 			textFill: "black"                    
 		});
 		
-		this.boxHeader.on("mouseover", function(){
-			document.body.style.cursor = "pointer";
-		});
-		this.boxHeader.on("mouseout", function(){
-			document.body.style.cursor = "default";
-		});
 		
-		this.boxMain.on("mouseover", function(){
-			document.body.style.cursor = "pointer";
-		});
-		this.boxMain.on("mouseout", function(){
-			document.body.style.cursor = "default";
-		});
-		
-		group.add(this.boxHeader);
+		group.add(boxHeader);
 		group.add(headerText);
-		group.add(this.boxMain);
+		group.add(boxMain);
 		group.add(mainText1);   
 		group.add(mainText2); 
 		group.add(mainText3);   
 		group.add(mainText4);  				
 		this.group = group;
+		this.boxHeader = boxHeader;
+		this.boxMain = boxMain;
 		
 		shapesLayer.add(group);
 		stage.add(shapesLayer);

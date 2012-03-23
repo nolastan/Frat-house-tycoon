@@ -17,11 +17,11 @@ this.AddPiece = function (new_member)
    piecesArray.push(piece);   
 }   
 
+//********************************************************************************************
 
 this.getPiecesArray = function() {
 	return piecesArray;
 }
-
 
 //********************************************************************************************	
 
@@ -34,7 +34,7 @@ this.IsPieceInsidePartyRect = function (member)
 	   var value = piecesArray[i];
 	   if(member.id == value.member.id)
 	   {
-	      returnVal = IsPieceInsideRect(value, csRect);
+	      returnVal = IsPieceInsideRect(value, partyRect);
 	   }
    }
    
@@ -46,12 +46,11 @@ this.IsPieceInsidePartyRect = function (member)
 var IsPieceInsideRect = function (piece, quadrant)
 {
    var returnVal = false;
-   console.log("piece.xLeftPos: " + piece.xLeftPos);
-   console.log("quadrant.x: " + quadrant.x);
-   if (piece.xLeftPos        >  quadrant.x                    &&
-	  (piece.xRightPos - 1)  < (quadrant.x + quadrant.width)  &&
-       piece.yTopPos + 1     >  quadrant.y                    &&
-	  (piece.yBottomPos - 1) < (quadrant.y + quadrant.height))
+   
+   if (piece.xLeftPos()        >  quadrant.x                    &&
+	  (piece.xRightPos() - 1)  < (quadrant.x + quadrant.width)  &&
+       piece.yTopPos() + 1     >  quadrant.y                    &&
+	  (piece.yBottomPos() - 1) < (quadrant.y + quadrant.height))
    {
 	  returnVal = true;
    }
