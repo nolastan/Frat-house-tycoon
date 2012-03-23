@@ -16,7 +16,7 @@ var PlayingPiece = function(stage, member)
 
 	this.width = function ()
 	{
-	   return this.boxHeader.width;
+	   return 90;
 	}
 	
 	//********************************************************************************************

@@ -10,13 +10,33 @@ var   first_piece_x, first_piece_y;
 
 //********************************************************************************************
 
-this.AddPiece = function (new_member)
+this.DrawPieces = function ()
 {
-   var x_inc, y_inc;
-   var piece = new PlayingPiece(stage, new_member); 
-   
-   y_inc =  piecesArray.length * (piece.height() + 10);  
-   piece.drawPiece(first_piece_x, first_piece_y + y_inc);
+   var x_inc = 0;
+   var y_inc = 0;
+   var columnCnt = 0;   
+   var rowCnt = 0;
+   const maxRowInCol = 5;
+    
+   for(var i=0; i<piecesArray.length; i++)
+   {
+       y_inc =  rowCnt * (piecesArray[i].height() + 10); 
+	   x_inc =  columnCnt * (piecesArray[i].width() + 10);
+       piecesArray[i].drawPiece(first_piece_x + x_inc, first_piece_y + y_inc);
+	   rowCnt++;
+	   if(rowCnt == maxRowInCol)
+	   {
+	      rowCnt = 0;
+		  columnCnt++; 
+	   }
+   }
+}
+
+//********************************************************************************************
+
+this.AddPiece = function (new_member)
+{   
+   var piece = new PlayingPiece(stage, new_member);    
    piecesArray.push(piece);   
 }   
 
