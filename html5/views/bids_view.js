@@ -9,8 +9,8 @@ function drawBidScreen(results){
 	var html = "";
 	html += "<h2>Bid Meeting!</h2>";
 	html += '<ul class="rushees">';
-	for(i = 0; i < results.rushees.length; i++){
-		var rushee = results.rushees[i];
+	for(i = 0; i < game.frat.rushees.length; i++){
+		var rushee = game.frat.rushees[i];
 		
 		if(rushee.chanceWillJoin(game.frat) > .8) 
 		
