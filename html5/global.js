@@ -29,6 +29,10 @@ $(document).ready(function(){
 	game.sidewalk = new Sidewalk();
 	game.sidewalk.update(); // @TODO: How to call this in constructor??
 	
+	game.turnNum = 1;
+	//How often you get to extend bids
+	game.bidFrequency = 5;
+	
 	for (var i = 0; i < 10; i++) {	
 		game.frat.addMember(create_member());
 	}
@@ -46,7 +50,14 @@ $(document).ready(function(){
 	game.turns = [new Turn(mardiGrasInfo), 
 	              new Turn(gloCrackDownInfo),
 	              new Turn(finalsWeekInfo)];
+	              
+	game.turns.rushTurn = new Turn(rushWeekendInfo);
+	
 	game.turns.getNext = function () {
+	    
+	    if (game.turnNum % game.bidFrequency == 0) {
+	        return this.rushTurn;
+	    }
 		var nextTurn = this.pop();
 		if (this.length ==0) {
 			this.push(new Turn());

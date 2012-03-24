@@ -29,6 +29,7 @@ function results(){
 	game.board.update();
 	
 	drawResultsScreen();
+	game.frat.update();
 };
 
 function bidMeeting(){

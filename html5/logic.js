@@ -11,7 +11,7 @@ function create_effect(values, msg, score) {
 	}
 	
 	if (values.rush) {
-		that.rush = parseInt(values.rush.base) + score*parseInt(values.rush.mult);
+		that.rush = Math.round(parseInt(values.rush.base) + score*parseInt(values.rush.mult));
 	}
 	
 	that.cash = that.cash || 0;
@@ -22,6 +22,10 @@ function create_effect(values, msg, score) {
 	that.apply = function(frat) {
 		frat.cash += that.cash;
 		frat.rep += that.rep;
+		
+		for (var i = 0; i < that.rush; i++) {
+		    frat.rushees.push(create_member(frat.rep));
+		}
 	}
 	
 	that.string = function() {
@@ -72,7 +76,7 @@ Turn.prototype.run = function(frat) {
 	play = frat.getPlayValues();
 	var i = 0;
 	var effect;
-	var rushCount = 9;
+	var rushCount;
 	var repMult = 0.6;
 	var scoreMult = 0.4;
 	
@@ -82,17 +86,10 @@ Turn.prototype.run = function(frat) {
 	for (var cat in this.categories) {
 		curThresh = this.categories[cat];
 		effect = curThresh.get_effect(play[cat]);
-		rushScore += effect.rush;
+		rushCount += effect.rush;
 		effect.apply(frat);
 		results[cat] = effect;
 		i++;
-	}
-	//Need to do something with the rush score here.
-	results.rushees = [];
-	
-	var overallRushScore = repMult*frat.rep + scoreMult*rushScore;
-	for (var i = 0; i < rushCount; i++) {
-		results.rushees.push(create_member(overallRushScore));
 	}
 	
 	
@@ -128,13 +125,17 @@ Methods --
 =======================================================================================
 */
 var create_frat = function(spec, members) {
+    var categories = ["party", "cs", "rush" , "study"];
+    var maxAge = 10;
+    
 	var that = {};
 	spec = spec || {};
 	that.name = spec.name || "Sigma Phi Nothing";
 	that.rep = spec.rep || 100;
 	that.cash = spec.cash || 100;
 	that.members = members || [];
-	var categories = ["party", "cs", "rush" , "study"];
+	that.rushees = [];
+
 	
 	//**This needs to be changed, play should have arrays of brothers
   //Private play object to store allocation of brothers
@@ -177,6 +178,55 @@ var create_frat = function(spec, members) {
 		return playVals;
 	}
 	
+	//Put all turn by turn changes to apply in here
+	that.update = function() {
+	    
+        increaseSkills();
+        getDues();
+        updateAges();
+	    
+	}
+	
+	
+	//Increases the skills of what a member is doing
+	//Right now it's a flat increase, but we may want to change that later
+    var increaseSkills = function() {
+        var category, curMem, catMems, increase;
+	    increase = 2;
+	    for (var i = 0; i < categories.length; i++) {
+	        category  = categories[i];
+	        catMems = play[category];
+	        
+	        for (var k = 0; k < catMems.length; k++) {
+	            curMem = getMemberById(catMems[k]);
+	            
+	            curMem.skills[category] += increase;
+	        }
+	    }
+    }
+    
+    //Get dues every week from members
+    var getDues = function(amount) {
+        amount = amount || 5;
+        that.cash += amount*members.length;
+    }
+    
+    var updateAges = function() {
+        var curMem;
+        for (var i = 0; i < that.members.length; i++) {
+            curMem = that.members[i];
+            
+            curMem.incrementAge();
+            
+            //If the member is too old, graduate
+            if (curMem.getAge() > maxAge) {
+                that.members.splice(i, 1);
+                console.log(curMem.name + " graduated");
+            }
+        }
+        
+    }
+	
 	that.setPlay = function(newPlay) {
 		play = newPlay;
 	}
@@ -192,6 +242,8 @@ var create_frat = function(spec, members) {
 		}
 		return totals;
 	}
+	
+
 	
 	that.getSkillAvgs = function() {
 		var avgs = {};
@@ -213,6 +265,7 @@ var create_frat = function(spec, members) {
 		}
 		return false;
 	}
+	
 	
 	that.getMemberById = getMemberById;
 	
@@ -254,6 +307,8 @@ var create_skills = (function() {
 	var scorediv = 12;
 	var basesd = 2;
 	var skillsd = 2;
+	var maxSkillVal = 100;
+	var minSkillVal = 2;
 
 
 	function gen_rand_skills(score) {
@@ -265,8 +320,11 @@ var create_skills = (function() {
 		for (i = 0; i < 4; i++) {
 			var skillval = base + skillsd*rnd_snd();
 			skillval = Math.round(skillval);
-			if (skillval < 1.5) {
-				skillval = 1;
+			if (skillval < minSkillVal) {
+				skillval = minSkillVal;
+			}
+			if (skillval > maxSkillVal) {
+			    skillval = maxSkillVal;
 			}
 			skills.push(skillval);
 		}
