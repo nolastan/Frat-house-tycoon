@@ -14,7 +14,7 @@ function drawBidScreen(results){
 		
 		if(rushee.chanceWillJoin(game.frat) > .8) 
 		
-		html += '<li id="rushee_' +rushee.id + '">';
+		html += '<li class="rushee" id="rushee_' +rushee.id + '">';
 		html += '<p class="name">' + rushee.name + '</p>';
 		html += '<ul class="skills">';
 		html += '<li class="rush"><label>R</label><div class="bar"><div class="fill" style="width:' + rushee.skills.rush + '%"></div></div></li>';
