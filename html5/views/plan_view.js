@@ -1,5 +1,11 @@
 function drawPlanningScreen(){
-	game.board.drawBoard().update();
+	game.board.DrawBoard();
+	game.board.update();
+
+	game.board.DrawPieces();
+	game.nextTurn = game.turns.getNext();
+
+
 	$("#bidScreen").hide();
 	$("#planScreen").show();
 	$("#simulation").hide();
@@ -8,6 +14,7 @@ function drawPlanningScreen(){
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#run").show();
+	$("#nextTurn").html(game.nextTurn.title);
  
 }
 

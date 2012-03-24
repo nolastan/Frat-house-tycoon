@@ -4,6 +4,7 @@ var PlayingPiece = function(stage, member)
 	this.member = member;
 	var xPosStart;
 	var yPosStart;
+	var group, shapesLayer;
 	
 	//********************************************************************************************
 
@@ -60,8 +61,8 @@ var PlayingPiece = function(stage, member)
 	    xPosStart = xPosIn;
 		yPosStart = yPosIn;
 		
-		var shapesLayer = new Kinetic.Layer();
-		var group = new Kinetic.Group({
+		shapesLayer = new Kinetic.Layer();
+		group = new Kinetic.Group({
 			draggable: true
 		});                
 			
@@ -78,8 +79,7 @@ var PlayingPiece = function(stage, member)
 		
 		//this.boxHeader = boxHeader;
 		
-		var headerText = new Kinetic.Text(
-		{
+		var headerText = new Kinetic.Text({
 			x: boxHeader.x + 2,
 			y: boxHeader.y + 2,
 			text: member.name,
@@ -139,7 +139,6 @@ var PlayingPiece = function(stage, member)
 			textFill: "black"                    
 		});
 		
-		
 		group.add(boxHeader);
 		group.add(headerText);
 		group.add(boxMain);
@@ -154,4 +153,13 @@ var PlayingPiece = function(stage, member)
 		shapesLayer.add(group);
 		stage.add(shapesLayer);
 	}
+	
+	var rem = function() {
+		if (shapesLayer) {
+			shapesLayer.remove(group);
+			shapesLayer.draw();
+		}
+	}
+	
+	this.remove = rem;
 }

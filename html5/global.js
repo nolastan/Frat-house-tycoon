@@ -37,16 +37,8 @@ $(document).ready(function(){
 		game.frat.addMember(create_member());
 	}
 	
-	/* TEMPORARY */
-	game.checkstats = function(member) {
-		$("#memname").html(member.name);
-		$("#memparty").html(member.skills.party);
-		$("#memcs").html(member.skills.cs);
-		$("#memrush").html(member.skills.rush);
-		$("#memstudy").html(member.skills.study);
-	}
 	/** define functions **/
-    game.board = new Board();
+    game.board = new Board(game.frat);
 	game.turns = [new Turn(mardiGrasInfo), 
 	              new Turn(gloCrackDownInfo),
 	              new Turn(finalsWeekInfo)];

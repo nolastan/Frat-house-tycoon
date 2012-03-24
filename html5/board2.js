@@ -1,14 +1,26 @@
 //********************************************************************************************			
 // Globals
 //********************************************************************************************
-var Board = function() {
+var Board = function(frat) {
 
 var   partyRect, studyRect, csRect, rushRect;
 var   stage;
 var   piecesArray = new Array();
 var   first_piece_x, first_piece_y;
 
+
 //********************************************************************************************
+this.update = function() {
+	for (var i = 0; i < piecesArray.length; i++) {
+		piecesArray[i].remove();
+		delete piecesArray[i];
+	}
+	piecesArray = [];
+	for (var i = 0; i < frat.members.length; i++) {
+		this.AddPiece(frat.members[i]);
+	}
+}
+
 
 this.DrawPieces = function ()
 {
@@ -38,6 +50,15 @@ this.AddPiece = function (new_member)
 {   
    var piece = new PlayingPiece(stage, new_member);    
    piecesArray.push(piece);   
+}
+
+this.update_play = function() {
+	var play = {};
+	play.party = this.MembersInsidePartyRect();
+	play.rush = this.MembersInsideRushRect();
+	play.cs = this.MembersInsideCsRect();
+	play.study = this.MembersInsideStudyRect();
+	frat.setPlay(play);
 }   
 
 //********************************************************************************************
@@ -184,7 +205,7 @@ this.DrawBoard = function()
 	context.fillText("Community Services", csRect.x + csRect.width / 2, csRect.y + csRect.height / 2);
 	context.fillText("Rush", rushRect.x + rushRect.width / 2, rushRect.y + rushRect.height / 2);
 	context.fillText("Study", studyRect.x + studyRect.width / 2, studyRect.y + studyRect.height / 2);
-
+	return this;
 }
 
 }

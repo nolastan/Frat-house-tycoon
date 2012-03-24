@@ -6,6 +6,7 @@ $(document).ready(function(){
 
 function initializeScreen(){
 	drawPlanningScreen();
+	updateStatsBar()
 }
 
 function plan(){
@@ -16,15 +17,16 @@ function plan(){
 
 function simulate(){
    	game.board.update_play();
-	var turn = game.turns.getNext();
-	game.sim = new simulation(game.frat.getPlayValues(), turn.run(game.frat));
+	var turn = game.nextTurn;
+	game.results = turn.run(game.frat);
+	game.sim = new Simulation(game.frat.getPlayValues(), game.results);
 	game.sim.run();
-
+	updateStatsBar()
 	drawSimulationScreen(turn);
 };
 
 function results(){
-	drawBidScreen(results);
+	drawBidScreen(game.results);
 	var msg = "";
 	game.board.update();
 	
@@ -36,7 +38,14 @@ function bidMeeting(){
 	
 	
 	drawBidScreen();
+	updateStatsBar()
 };
+
+function updateStatsBar() {
+	$("#repCount").html(game.frat.rep);
+	$("#cashCount").html(game.frat.cash);
+	$("#brothersCount").html(game.frat.members.length);
+}
 
 
 

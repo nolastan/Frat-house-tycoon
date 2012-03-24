@@ -167,14 +167,20 @@ var finalsWeekInfo = {
 			"rewards": [
 				{
 					"rush": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rush": {
 						"base": "5",
 						"mult": "1"
 					}
 				},
 				{
 					"rush": {
-						"base": "-20",
-						"mult": "-2"
+						"base": "0",
+						"mult": "-0.5"
 					}
 				}
 			],

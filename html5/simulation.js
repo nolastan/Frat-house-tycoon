@@ -1,4 +1,4 @@
-function simulation(play, results){
+var Simulation = function(play, results){
   
   // @TODO how to make these global?
   Partygoer.prototype = new PersonViz();
@@ -75,10 +75,6 @@ function simulation(play, results){
   }
   // @TODO move these functions into controller and views
 	function endSim(){
-		drawBidScreen(results);
-		game.board.update();
-		
-		drawResultsScreen();
 	  	clearInterval(sim);
 	}
 

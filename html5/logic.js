@@ -2,7 +2,7 @@
 //Class for storing the effect of a turn
 function create_effect(values, msg, score) {
 	var that = {};
-	
+	values = values || {};
 	if (values.cash) {
 		that.cash = parseInt(values.cash.base) + score*parseInt(values.cash.mult);
 	}
@@ -120,6 +120,8 @@ Methods --
 		otherwise.
 		
 	addMember: takes a member object and adds it to the members if it's not already present
+	
+	setPlay: Sets this frats play to the specified object;
 
 
 =======================================================================================
@@ -180,7 +182,7 @@ var create_frat = function(spec, members) {
 	
 	//Put all turn by turn changes to apply in here
 	that.update = function() {
-	    
+	    console.log("UPDATED");
         increaseSkills();
         getDues();
         updateAges();
@@ -198,9 +200,12 @@ var create_frat = function(spec, members) {
 	        catMems = play[category];
 	        
 	        for (var k = 0; k < catMems.length; k++) {
+				
 	            curMem = getMemberById(catMems[k]);
-	            
+				console.log("here");
+	            console.log(curMem);
 	            curMem.skills[category] += increase;
+				console.log(curMem);
 	        }
 	    }
     }
@@ -208,7 +213,7 @@ var create_frat = function(spec, members) {
     //Get dues every week from members
     var getDues = function(amount) {
         amount = amount || 5;
-        that.cash += amount*members.length;
+        that.cash += amount*that.members.length;
     }
     
     var updateAges = function() {

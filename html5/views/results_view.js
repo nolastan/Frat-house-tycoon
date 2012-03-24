@@ -3,6 +3,9 @@ function drawResultsScreen(){
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#play").hide();
+	
+
+	
 }
 
 $(document).ready(function(){
