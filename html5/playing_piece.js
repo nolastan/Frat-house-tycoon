@@ -103,7 +103,7 @@ var PlayingPiece = function(stage, member)
 		{
 			x: boxMain.x + 2,
 			y: boxMain.y + 2,
-			text: "Party Skill: " + member.skills.party,
+			text: "Party:" + member.skills.party,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
@@ -113,7 +113,7 @@ var PlayingPiece = function(stage, member)
 		{
 			x: mainText1.x,
 			y: mainText1.y + 12,
-			text: "Rush Skill:" + member.skills.rush,
+			text: "Rush:" + member.skills.rush,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
@@ -123,7 +123,7 @@ var PlayingPiece = function(stage, member)
 		{
 			x: mainText2.x,
 			y: mainText2.y + 12,
-			text: "CS Skill:" + member.skills.cs,
+			text: "Service:" + member.skills.cs,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    
@@ -133,7 +133,7 @@ var PlayingPiece = function(stage, member)
 		{
 			x: mainText3.x,
 			y: mainText3.y + 12,
-			text: "Study Skill:" + member.skills.study,
+			text: "Study:" + member.skills.study,
 			fontSize: 10,
 			fontFamily: "Calibri",
 			textFill: "black"                    

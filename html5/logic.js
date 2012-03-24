@@ -194,7 +194,8 @@ var create_frat = function(spec, members) {
 	//Right now it's a flat increase, but we may want to change that later
     var increaseSkills = function() {
         var category, curMem, catMems, increase;
-	    increase = 2;
+	    increase = 4;
+		decrease = 1;
 	    for (var i = 0; i < categories.length; i++) {
 	        category  = categories[i];
 	        catMems = play[category];
@@ -202,10 +203,7 @@ var create_frat = function(spec, members) {
 	        for (var k = 0; k < catMems.length; k++) {
 				
 	            curMem = getMemberById(catMems[k]);
-				console.log("here");
-	            console.log(curMem);
-	            curMem.skills[category] += increase;
-				console.log(curMem);
+	            curMem.skills.improve(category);
 	        }
 	    }
     }
@@ -365,6 +363,24 @@ var create_skills = (function() {
 		
 		that.getAvg = function() {
 			return (this.party + this.cs + this.rush + this.study)/4;
+		}
+		
+		that.improve = function(category, increase, decrease) {
+			increase = increase || 4;
+			decrease = decrease || 1;
+			var cat;
+			for (var i = 0; i < categories.length; i++) {
+				cat = categories[i];
+				if (cat == category) {
+					that[cat] += increase;
+					if (that[cat] >= maxSkillVal) that[cat] = maxSkillVal;
+				} else {
+					that[cat] -= decrease;
+					if (that[cat] <= minSkillVal) that[cat] = minSkillVal;
+				}	
+			}
+			
+			
 		}
 		
 		

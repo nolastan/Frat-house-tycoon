@@ -44,16 +44,18 @@ $(document).ready(function(){
 	              new Turn(finalsWeekInfo)];
 	              
 	game.turns.rushTurn = new Turn(rushWeekendInfo);
+	game.turns.turnNum = 1;
 	
 	game.turns.getNext = function () {
 	    
-	    if (game.turnNum % game.bidFrequency == 0) {
+	    if (game.turns.turnNum % game.bidFrequency == 0) {
 	        return this.rushTurn;
 	    }
 		var nextTurn = this.pop();
 		if (this.length ==0) {
 			this.push(new Turn());
 		}
+		this.turnNum++;
 		return nextTurn;
 	}
 

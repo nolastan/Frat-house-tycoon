@@ -11,7 +11,7 @@ function initializeScreen(){
 
 function plan(){
 	console.log("load plan screen");
-	
+	console.log(game.turns.turnNum);
 	drawPlanningScreen();
 };
 
