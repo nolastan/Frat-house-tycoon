@@ -391,6 +391,130 @@ var  gloCrackDownInfo = {
 	}
 };
 
+var rushWeekendInfo = {
+	"descript": "Rush Weekend",
+	"categories": {
+		"party": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-20",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "15",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					},
+					"rush": {
+						"base": "0",
+						"mult": "0.5"
+					}
+				}
+			],
+			"msgs": [
+				"Rushees wondered why you weren't having a party.",
+				"It's a party. Everyone's having a good time.",
+				"Rushees had a great time."
+			],
+			"cutoffs": [
+				"0",
+				"8",
+				"15"
+			]
+		},
+		"cs": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"You couldn't think of anything to do?",
+				"Rushees were impressed by your philanthropy event.",
+				"Sold some sweet rush week shirts."
+			],
+			"cutoffs": [
+				"0",
+				"6",
+				"12"
+			]
+		},
+		"rush": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0.5"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0.75"
+					}
+				}
+			],
+			"msgs": [
+				"Rushing hard, or hardly rushing?",
+				"Had a good turnout to your events."
+			],
+			"cutoffs": [
+				"0",
+				"8"
+			]
+		},
+		"study": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-10",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "15",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "10",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"You should probably study if you want to stick around.",
+				"Got your work done.",
+				"Work hard, play hard."
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"7"
+			]
+		}
+	}
+};
+
 //**********************************************************************
 var events = [];
 events[0] = mardiGrasInfo;
