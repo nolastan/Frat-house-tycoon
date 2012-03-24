@@ -139,13 +139,18 @@ var PlayingPiece = function(stage, member)
 			textFill: "black"                    
 		});
 		
+
+		
 		group.add(boxHeader);
 		group.add(headerText);
 		group.add(boxMain);
 		group.add(mainText1);   
 		group.add(mainText2); 
 		group.add(mainText3);   
-		group.add(mainText4);  				
+		group.add(mainText4);  	
+		group.on("mouseover", function() {
+			shapesLayer.moveToTop();
+		});		
 		this.group = group;
 		this.boxHeader = boxHeader;
 		this.boxMain = boxMain;
