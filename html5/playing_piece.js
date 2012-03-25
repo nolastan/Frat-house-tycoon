@@ -5,6 +5,7 @@ var PlayingPiece = function(stage, member)
 	var xPosStart;
 	var yPosStart;
 	var group, shapesLayer;
+	const PIECE_WIDTH = 110;
 	
 	//********************************************************************************************
 
@@ -17,7 +18,7 @@ var PlayingPiece = function(stage, member)
 
 	this.width = function ()
 	{
-	   return 90;
+	   return PIECE_WIDTH;
 	}
 	
 	//********************************************************************************************
@@ -70,7 +71,7 @@ var PlayingPiece = function(stage, member)
 		var boxHeader = new Kinetic.Rect({
 			x: xPosStart,
 			y: yPosStart,
-			width: 90,
+			width: PIECE_WIDTH,
 			height: 15,					
 			fill: "#00CCFF",
 			stroke: "black",

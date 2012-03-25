@@ -7,14 +7,19 @@ var   partyRect, studyRect, csRect, rushRect;
 var   stage;
 var   piecesArray = new Array();
 var   first_piece_x, first_piece_y;
-
+const RECT_SCALE_FACTOR = 0.30;
+const STAGE_WIDTH_SCALE_FACTOR = 1.6;
+const STAGE_HEIGHT_SCALE_FACTOR = 1.4;
 
 //********************************************************************************************
 this.update = function() {
+	
+	/*
 	for (var i = 0; i < piecesArray.length; i++) {
 		piecesArray[i].remove();
 		delete piecesArray[i];
 	}
+	*/
 	piecesArray = [];
 	for (var i = 0; i < frat.members.length; i++) {
 		this.AddPiece(frat.members[i]);
@@ -28,7 +33,7 @@ this.DrawPieces = function ()
    var y_inc = 0;
    var columnCnt = 0;   
    var rowCnt = 0;
-   const maxRowInCol = 5;
+   const maxRowInCol = 6;
     
    for(var i=0; i<piecesArray.length; i++)
    {
@@ -133,14 +138,20 @@ var IsPieceInsideRect = function (piece, quadrant)
 //********************************************************************************************	
 
 this.DrawBoard = function() 
-{
-	//numBrothers = game.frat.members;
+{	
+	if(stage)
+	{
+	   stage.clear();
+	}
+	
 	updateScreenSize();
 	
 	console.log("height"+sg.height);
     console.log("width"+sg.width);
 	
-	stage = new Kinetic.Stage("board", sg.width*1.25, sg.height);
+	stage = new Kinetic.Stage("board", 
+	                          sg.width * STAGE_WIDTH_SCALE_FACTOR, 
+	                          sg.height * STAGE_HEIGHT_SCALE_FACTOR);
 	//stage = new Kinetic.Stage("board", 1000, 500);
 	var boardLayer   = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();				
@@ -149,8 +160,8 @@ this.DrawBoard = function()
     partyRect = new Kinetic.Rect({
 		x: 10,
 		y: 10,
-		width: stage.width*0.35,
-		height: stage.height*0.35,
+		width: stage.width * RECT_SCALE_FACTOR,
+		height: stage.height * RECT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -160,8 +171,8 @@ this.DrawBoard = function()
 	csRect = new Kinetic.Rect({
 		x: partyRect.x + partyRect.width,
 		y: 10,
-		width: stage.width*0.35,
-		height: stage.height*0.35,
+		width: stage.width * RECT_SCALE_FACTOR,
+		height: stage.height * RECT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -174,8 +185,8 @@ this.DrawBoard = function()
 	rushRect = new Kinetic.Rect({
 		x: 10,
 		y: partyRect.y + partyRect.height,
-		width: stage.width*0.35,
-		height: stage.height*0.35,
+		width: stage.width * RECT_SCALE_FACTOR,
+		height: stage.height * RECT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -185,8 +196,8 @@ this.DrawBoard = function()
 	studyRect = new Kinetic.Rect({
 		x: partyRect.x + partyRect.width,
 		y: partyRect.y + partyRect.height,
-		width: stage.width*0.35,
-		height: stage.height*0.35,
+		width: stage.width * RECT_SCALE_FACTOR,
+		height: stage.height * RECT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
