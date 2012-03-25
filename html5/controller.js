@@ -28,7 +28,6 @@ function simulate(){
 function results(){
 	drawBidScreen(game.results);
 	var msg = "";
-	game.board.update();
 	
 	drawResultsScreen();
 	game.frat.update();
