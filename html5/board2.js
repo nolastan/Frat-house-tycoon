@@ -135,13 +135,13 @@ var IsPieceInsideRect = function (piece, quadrant)
 this.DrawBoard = function() 
 {
 	//numBrothers = game.frat.members;
-	//updateScreenSize();
+	updateScreenSize();
 	
-	//console.log("height"+sg.height);
-	//console.log("width"+sg.width);
+	console.log("height"+sg.height);
+    console.log("width"+sg.width);
 	
-	//stage = new Kinetic.Stage("planScreen", sg.width*0.98, sg.height-100);
-	stage = new Kinetic.Stage("board", 1000, 500);
+	stage = new Kinetic.Stage("board", sg.width*1.25, sg.height);
+	//stage = new Kinetic.Stage("board", 1000, 500);
 	var boardLayer   = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();				
 
