@@ -91,7 +91,6 @@ var create_member = (function() {
 			//First we get the sum of the frat avg scores
 			var categories = ["party", "cs", "rush", "study"];
 			var fratAvgs = frat.getSkillAvgs();
-			mylog("fa", fratAvgs);
 			var diff = this.skills.getDifference(fratAvgs);
 			//Finally we put this in an exponential decay function
 			var skillprob = Math.pow(3, -50*diff);
