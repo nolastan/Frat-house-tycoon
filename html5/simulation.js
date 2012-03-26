@@ -1,9 +1,30 @@
+function relMouseCoords(event){
+    var totalOffsetX = 0;
+    var totalOffsetY = 0;
+    var canvasX = 0;
+    var canvasY = 0;
+    var currentElement = this;
+
+    do{
+        totalOffsetX += currentElement.offsetLeft;
+        totalOffsetY += currentElement.offsetTop;
+    }
+    while(currentElement = currentElement.offsetParent)
+
+    canvasX = event.pageX - totalOffsetX;
+    canvasY = event.pageY - totalOffsetY;
+
+    return {x:canvasX, y:canvasY}
+}
+HTMLCanvasElement.prototype.relMouseCoords = relMouseCoords;
+
+
 var Simulation = function(play, results){
   
   // @TODO how to make these global?
-  Partygoer.prototype = new PersonViz();
-  Rushee.prototype = new PersonViz();
-  Philanthropist.prototype = new PersonViz();
+  //Partygoer.prototype = new PersonViz();
+  //Rushee.prototype = new PersonViz();
+  //Philanthropist.prototype = new PersonViz();
 
   /* game variables */
   var party = play.party;
@@ -51,19 +72,19 @@ var Simulation = function(play, results){
 
     // Generate people
     if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *10){
-      people.push(new Partygoer());
+      people.push(create_party_goer());
 
     }
 
     // Generate rushees
     if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *10){
-    	people.push(new Rushee());
+    	people.push(create_rushee());
 
     }
 
     // Generate philanthropists
     if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *10){
-      people.push(new Philanthropist());
+      people.push(create_philanthropist());
     }
 
 

@@ -17,6 +17,11 @@ $(document).ready(function(){
     sg.ctx = sg.canvas.getContext("2d");
     sg.bg = document.getElementById("background").getContext("2d");
     
+	$("#canvas").click(function(e) {
+		coords = sg.canvas.relMouseCoords(e);
+		console.log(coords);
+	});	
+	
     // Constants:
     sg.scale_x = 3;
     sg.scale_y = 2;
