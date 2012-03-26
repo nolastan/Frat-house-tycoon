@@ -44,7 +44,7 @@ $(document).ready(function(){
 	
 	/** define functions **/
     game.board = new Board(game.frat);
-	game.turns = [create_urn(mardiGrasInfo), 
+	game.turns = [create_turn(mardiGrasInfo), 
 	              create_turn(gloCrackDownInfo),
 	              create_turn(finalsWeekInfo)];
 	              
