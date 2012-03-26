@@ -72,24 +72,30 @@ var Simulation = function(play, results){
 
     // Generate people
     if(Math.floor(Math.random()*101) < party / gameTime.max * 100 *10){
-      people.push(create_party_goer());
+      people.push(create_party_goer_viz());
 
     }
 
     // Generate rushees
     if(Math.floor(Math.random()*101) < rush / gameTime.max * 100 *10){
-    	people.push(create_rushee());
+    	people.push(create_rushee_viz());
 
     }
 
     // Generate philanthropists
     if(Math.floor(Math.random()*101) < philanthropy / gameTime.max * 100 *10){
-      people.push(create_philanthropist());
+      people.push(create_philanthropist_viz());
     }
 
 
     for(i = 0; i < people.length; i++){
-      people[i].step();
+	  var person = people[i];
+	  if (person.alive) {
+		people[i].step();
+	  } else {
+		people.pop(person);
+	  }
+      
     }
 
 
