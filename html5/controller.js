@@ -21,7 +21,7 @@ function simulate(){
 	game.results = turn.run(game.frat);
 	game.sim = new Simulation(game.frat.getPlayValues(), game.results);
 	game.sim.run();
-	updateStatsBar()
+	updateStatsBar();
 	drawSimulationScreen(turn);
 };
 
