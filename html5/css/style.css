@@ -117,10 +117,19 @@ h2 {
 /* Bid Meeting  */
 #bidScreen ul.rushees {
   margin-left: 10px; }
+  #bidScreen ul.rushees li {
+    width: 350px; }
+  #bidScreen ul.rushees canvas {
+    border: 1px solid #2b2623;
+    float: left; }
+  #bidScreen ul.rushees button.bid {
+    clear: both; }
 #bidScreen .name {
   font-size: 150%;
   font-weight: bold;
   padding-top: .5em; }
+#bidScreen ul.skills {
+  float: left; }
 #bidScreen ul.skills li {
   clear: both;
   margin: 10px 0; }
@@ -132,7 +141,8 @@ h2 {
   float: left;
   width: 150px;
   border-width: 1px;
-  border-style: solid; }
+  border-style: solid;
+  margin: 5px 0; }
 #bidScreen .fill {
   height: 1.5em; }
 #bidScreen .rush .bar {
@@ -143,21 +153,21 @@ h2 {
 #bidScreen .rush label {
   color: #4e1a16; }
 #bidScreen .party .bar {
-  border-color: #4e1a16;
+  border-color: #cfd259;
   background-color: white; }
 #bidScreen .party .fill {
   background-color: #e6e8a9; }
 #bidScreen .party label {
   color: #cfd259; }
 #bidScreen .cs .bar {
-  border-color: #4e1a16;
+  border-color: #0c1718;
   background-color: #6db3b6; }
 #bidScreen .cs .fill {
   background-color: #2e5a5c; }
 #bidScreen .cs label {
   color: #0c1718; }
 #bidScreen .study .bar {
-  border-color: #4e1a16;
+  border-color: #5a9850;
   background-color: #f1f7f0; }
 #bidScreen .study .fill {
   background-color: #93c28c; }

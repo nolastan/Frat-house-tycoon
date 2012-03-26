@@ -11,9 +11,7 @@ function drawBidScreen(results){
 	html += '<ul class="rushees">';
 	for(i = 0; i < game.frat.rushees.length; i++){
 		var rushee = game.frat.rushees[i];
-		
-		if(rushee.chanceWillJoin(game.frat) > .8) 
-		
+				
 		html += '<li class="rushee" id="rushee_' +rushee.id + '">';
 		html += '<p class="name">' + rushee.name + '</p>';
 		html += '<ul class="skills">';

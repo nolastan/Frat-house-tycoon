@@ -147,11 +147,24 @@ h2{
 #bidScreen{
 	ul.rushees{
 		margin-left: 10px;
+		li{
+			width: 350px;
+		}
+		canvas{
+			border: 1px solid $black;
+			float:left;
+		}
+		button.bid{
+			clear:both;
+		}
 	}
 	.name{
 		font-size: 150%;
 		font-weight:bold;
 		padding-top: .5em;
+	}
+	ul.skills{
+		float:left;
 	}
 	ul.skills li{
 		clear:both;
@@ -167,6 +180,7 @@ h2{
 		width: 150px;
 		border-width: 1px;
 		border-style: solid;
+		margin: 5px 0;
 	}
 	.fill{
 		height: 1.5em;
@@ -185,7 +199,7 @@ h2{
 	}
 	.party{
 		.bar{
-			border-color: darken($rush_color, 20%);
+			border-color: darken($party_color, 20%);
 			background-color: lighten($party_color, 30%);
 		}
 		.fill{
@@ -197,7 +211,7 @@ h2{
 	}
 	.cs{
 		.bar{
-			border-color: darken($rush_color, 20%);
+			border-color: darken($cs_color, 20%);
 			background-color: lighten($cs_color, 30%);
 		}
 		.fill{
@@ -209,7 +223,7 @@ h2{
 	}
 	.study{
 		.bar{
-			border-color: darken($rush_color, 20%);
+			border-color: darken($study_color, 20%);
 			background-color: lighten($study_color, 30%);
 		}
 		.fill{
