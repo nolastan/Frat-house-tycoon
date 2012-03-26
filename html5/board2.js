@@ -14,12 +14,12 @@ const STAGE_HEIGHT_SCALE_FACTOR = 1.4;
 //********************************************************************************************
 this.update = function() {
 	
-	/*
+	
 	for (var i = 0; i < piecesArray.length; i++) {
 		piecesArray[i].remove();
 		delete piecesArray[i];
 	}
-	*/
+	
 	piecesArray = [];
 	for (var i = 0; i < frat.members.length; i++) {
 		this.AddPiece(frat.members[i]);
