@@ -17,6 +17,11 @@ $(document).ready(function(){
     sg.ctx = sg.canvas.getContext("2d");
     sg.bg = document.getElementById("background").getContext("2d");
     
+	$("#canvas").click(function(e) {
+		coords = sg.canvas.relMouseCoords(e);
+		console.log(coords);
+	});	
+	
     // Constants:
     sg.scale_x = 3;
     sg.scale_y = 2;
@@ -39,11 +44,11 @@ $(document).ready(function(){
 	
 	/** define functions **/
     game.board = new Board(game.frat);
-	game.turns = [new Turn(mardiGrasInfo), 
-	              new Turn(gloCrackDownInfo),
-	              new Turn(finalsWeekInfo)];
+	game.turns = [create_turn(mardiGrasInfo), 
+	              create_turn(gloCrackDownInfo),
+	              create_turn(finalsWeekInfo)];
 	              
-	game.turns.rushTurn = new Turn(rushWeekendInfo);
+	game.turns.rushTurn = create_turn(rushWeekendInfo);
 	game.turns.turnNum = 1;
 	
 	game.turns.getNext = function () {
@@ -53,7 +58,7 @@ $(document).ready(function(){
 	    }
 		var nextTurn = this.pop();
 		if (this.length ==0) {
-			this.push(new Turn());
+			this.push(create_turn());
 		}
 		this.turnNum++;
 		return nextTurn;
