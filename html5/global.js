@@ -44,11 +44,11 @@ $(document).ready(function(){
 	
 	/** define functions **/
     game.board = new Board(game.frat);
-	game.turns = [new Turn(mardiGrasInfo), 
-	              new Turn(gloCrackDownInfo),
-	              new Turn(finalsWeekInfo)];
+	game.turns = [create_urn(mardiGrasInfo), 
+	              create_turn(gloCrackDownInfo),
+	              create_turn(finalsWeekInfo)];
 	              
-	game.turns.rushTurn = new Turn(rushWeekendInfo);
+	game.turns.rushTurn = create_turn(rushWeekendInfo);
 	game.turns.turnNum = 1;
 	
 	game.turns.getNext = function () {
@@ -58,7 +58,7 @@ $(document).ready(function(){
 	    }
 		var nextTurn = this.pop();
 		if (this.length ==0) {
-			this.push(new Turn());
+			this.push(create_turn());
 		}
 		this.turnNum++;
 		return nextTurn;
