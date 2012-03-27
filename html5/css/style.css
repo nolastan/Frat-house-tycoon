@@ -108,60 +108,73 @@ header h1 {
 
 h2 {
   font-size: 300%;
-  font-weight: bold; }
+  font-weight: bold;
+  margin: 20px 0 10px 20px; }
 
 #results p {
   margin: 1em 0;
   font-size: 200%; }
 
 /* Bid Meeting  */
-#bidScreen ul.rushees {
-  margin-left: 10px; }
-  #bidScreen ul.rushees li {
-    width: 350px; }
-  #bidScreen ul.rushees canvas {
-    border: 1px solid #2b2623;
-    float: left; }
-  #bidScreen ul.rushees button.bid {
-    clear: both; }
+#bidScreen ul.rushees li {
+  width: 420px;
+  float: left;
+  margin: 20px; }
+#bidScreen ul.rushees canvas.face {
+  float: left;
+  margin-right: 10px; }
+#bidScreen ul.rushees button.bid {
+  width: 100px;
+  font-size: 1.2em;
+  height: 1.5em;
+  margin-top: 11px; }
+#bidScreen ul.rushees p.interest {
+  /* 			text-transform: uppercase; */
+  font-size: .7em;
+  text-align: center;
+  width: 100px;
+  display: inline-block; }
 #bidScreen .name {
-  font-size: 150%;
+  font-size: 170%;
   font-weight: bold;
-  padding-top: .5em; }
+  margin-bottom: 5px; }
 #bidScreen ul.skills {
-  float: left; }
+  float: left;
+  width: 170px; }
 #bidScreen ul.skills li {
+  width: 100%;
   clear: both;
-  margin: 10px 0; }
+  float: none;
+  margin: 3px 0; }
 #bidScreen label {
   font-size: 1.5em;
-  float: left;
-  width: 1.2em; }
+  width: 1.2em;
+  display: inline-block;
+  font-size: 1em; }
 #bidScreen .bar {
-  float: left;
-  width: 150px;
+  width: 120px;
   border-width: 1px;
   border-style: solid;
-  margin: 5px 0; }
+  display: inline-block; }
 #bidScreen .fill {
-  height: 1.5em; }
+  height: 1.1em; }
 #bidScreen .rush .bar {
   border-color: #4e1a16;
-  background-color: #dd8d86; }
+  background-color: #fbf2f1; }
 #bidScreen .rush .fill {
   background-color: #9e352c; }
 #bidScreen .rush label {
   color: #4e1a16; }
 #bidScreen .party .bar {
-  border-color: #cfd259;
-  background-color: white; }
+  border-color: #989b2a;
+  background-color: #f8f8e5; }
 #bidScreen .party .fill {
   background-color: #e6e8a9; }
 #bidScreen .party label {
-  color: #cfd259; }
+  color: #989b2a; }
 #bidScreen .cs .bar {
   border-color: #0c1718;
-  background-color: #6db3b6; }
+  background-color: #ebf4f5; }
 #bidScreen .cs .fill {
   background-color: #2e5a5c; }
 #bidScreen .cs label {
