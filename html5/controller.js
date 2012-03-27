@@ -5,7 +5,8 @@ $(document).ready(function(){
 });
 
 function initializeScreen(){
-	drawPlanningScreen();
+/* 	drawPlanningScreen(); */
+	plan();
 	updateStatsBar()
 }
 
@@ -34,8 +35,8 @@ function results(){
 };
 
 function bidMeeting(){
-	
-	
+	bidScreen.show();
+  	$("#results").hide();
 	drawBidScreen();
 	updateStatsBar()
 };
