@@ -52,9 +52,6 @@ console.log("here");
 	document.getElementById("rushMessage").innerHTML = results['rush'].string();
 	document.getElementById("partyMessage").innerHTML = results['party'].string();
 	document.getElementById("studyMessage").innerHTML = results['study'].string();
-	document.getElementById('normal').className = 'disabled';
-	document.getElementById('fast').className = 'disabled';
-	document.getElementById('skip').className = 'disabled';
 	document.getElementById('results').style.display = "block";
 	document.getElementById('simulation').style.display = "none";
 
