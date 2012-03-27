@@ -16,7 +16,7 @@ console.log("here");
 */
 
 	for(i = 0; i < game.frat.rushees.length; i++){
-		var rushee = game.frat.rushees[key];
+		var rushee = game.frat.rushees[i];
 		var html = "";
 		var ctx;
 				
