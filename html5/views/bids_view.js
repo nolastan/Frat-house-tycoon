@@ -14,6 +14,8 @@ console.log("here");
 	    2: { name: "Greg Villeneuve", id: 2, skills: {rush: 25, party: 15, study: 7, cs: 32},  chanceWillJoin: .15, skin_color:  "#D38D6F", eye_color: "green", hair_style: "spiked", hair_color: "red"} 
 	    }
 */
+	// clear list
+	$("#bidScreen .rushees").html("");
 
 	for(i = 0; i < game.frat.rushees.length; i++){
 		var rushee = game.frat.rushees[i];

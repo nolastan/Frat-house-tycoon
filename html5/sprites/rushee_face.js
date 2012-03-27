@@ -1,4 +1,5 @@
 function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
+	console.log("Drawing a face with " + eye_color + "eyes, " + hair_style + " " + hair_color + " hair, and " + skin_color + " skin");
 	ctx.scale(.9, .9);
 	ctx.translate(0, 11);
 	
@@ -108,7 +109,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
 		ctx.lineJoin = 'miter';
 		ctx.miterLimit = 4;
 		ctx.save();
-		ctx.fillStyle = "#8b5e3c";
+		ctx.fillStyle = hair_color;
 		ctx.strokeStyle = "#000000";
 		ctx.miterLimit = 10;
 		ctx.beginPath();
