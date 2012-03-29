@@ -54,6 +54,12 @@ function drawBidScreen(){
 			ctx = $("#rushee_"+rushee.id+" .face")[0];
 			drawRusheeFace(ctx.getContext("2d"), rushee.eye_color, rushee.hair_color, rushee.hair_style, rushee.skin_color);
 		}
+		
+		if(game.frat.bids == 0){
+			$("#bidScreen .rushees button").hide();
+		}else{
+			$("#bidScreen .rushees button").show();		
+		}
 	  	
 	  	$("#bidScreen .rushees li button").click(function(){
 			var id = $(this).parent().attr("id");
