@@ -13,11 +13,20 @@
         </style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.8.2.js"></script>
-		<script src="board2.js"></script>
+		<script src="board.js"></script>
 		<script src="playing_piece.js"></script>
         
         <script>
-		    var board;
+            var board;
+            var sg = { height: 500,
+                width: 1000
+            }
+
+            test1 = function ()
+            {
+                board.DrawBoard();
+            }
+
             window.onload = function(){
 			    var member1 = 
 				{
@@ -60,9 +69,9 @@
         </script>
     </head>
     <body onmousedown="return false;">
-		<button id="test" onclick="console.log(board.MembersInsideStudyRect())">Test</button>
+		<button id="test" onclick="test1()">Test</button>
 		<input type="button" id="addMem" value="Add Piece"></input>
-        <div id="planScreen">
+        <div id="board">
         </div>
     </body>
 </html>
