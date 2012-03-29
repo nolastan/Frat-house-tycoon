@@ -76,9 +76,9 @@ var create_member = (function() {
 		}
 		
 		
-		that.chanceWillJoin = function(frat) {
+		that.chanceWillJoin = function() {
 			//First we get the component based solely on rep
-			var repscore = frat.rep / rep_divider;
+			var repscore = game.frat.rep / rep_divider;
 			
 			//This is a logistic decay graph which has the probability of joining
 			//be 75% if the skill average is the same as the rep divided by the repdivider
@@ -90,7 +90,7 @@ var create_member = (function() {
 			
 			//First we get the sum of the frat avg scores
 			var categories = ["party", "cs", "rush", "study"];
-			var fratAvgs = frat.getSkillAvgs();
+			var fratAvgs = game.frat.getSkillAvgs();
 			var diff = this.skills.getDifference(fratAvgs);
 			//Finally we put this in an exponential decay function
 			var skillprob = Math.pow(3, -50*diff);
@@ -111,15 +111,25 @@ var create_member = (function() {
 })();
 
 function bidRushee(id){
+	var rushee = game.frat.rushees[id];
+	var accepted;
 	game.frat.bids--;
-	game.frat.members.push(game.frat.rushees[id]);
-	delete game.frat.rushees[id];
+	
+	if(Math.random() < rushee.chanceWillJoin()){
+		game.frat.members.push(rushee);
+		accepted = true;
+	}else{	
+		accepted = false;
+	}
 	updateStatsBar();
+	delete rushee;
+	
 	if(game.frat.bids == 0 || game.frat.rushees.length == 0){
 		$("nav.main").show();
 		$("nav.bidMeeting").hide();
 		game.frat.bids = 0;  			
 		plan();
 	}
-	return true;
+	
+	return accepted;
 }

@@ -19,13 +19,6 @@ function drawBidScreen(){
   		$("nav.bidMeeting .val").html(game.frat.bids);
   	}
 
-/* // FOR TESTING:
-	var rushees = { 
-	    0: { name: "Paul Carleton", id: 0, skills: {rush: 25, party: 15, study: 7, cs: 32}, chanceWillJoin: .33, skin_color: "#F5DACC", eye_color: "blue", hair_style: "short", hair_color: "yellow"}, 
-	    1: { name: "Stan Rosenthal", id: 1, skills: {rush: 25, party: 15, study: 7, cs: 32}, chanceWillJoin: .50, skin_color: "#EDBFA6", eye_color: "brown", hair_style: "short", hair_color:  "brown"}, 
-	    2: { name: "Greg Villeneuve", id: 2, skills: {rush: 25, party: 15, study: 7, cs: 32},  chanceWillJoin: .15, skin_color:  "#D38D6F", eye_color: "green", hair_style: "spiked", hair_color: "red"} 
-	    }
-*/
 	// clear list
 	$("#bidScreen .rushees").html("");
 	
