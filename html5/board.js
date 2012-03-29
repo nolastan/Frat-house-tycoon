@@ -221,8 +221,8 @@ this.DrawBoard = function()
 			x: partyRect.x + partyRect.width / 3.75,
 			y: partyRect.y + partyRect.height / 2.75,
 			image: partyImageObj,
-			width: partyRect.width / 2,
-			height: partyRect.height / 2.5
+			width: partyRect.width / 5,
+			height: partyRect.height / 2
 		});
 		
 		// add the shape to the layer
@@ -230,7 +230,7 @@ this.DrawBoard = function()
 		
 		stage.add(partyPicLayer);		
     };	
-	partyImageObj.src = "images/party.jpg";
+	partyImageObj.src = "images/party_icon.png";
 	
 	// Add service picture
     var serviceImageObj = new Image();
@@ -241,7 +241,7 @@ this.DrawBoard = function()
 			x: csRect.x + csRect.width / 3.75,
 			y: csRect.y + csRect.height / 2.75,
 			image: serviceImageObj,
-			width: csRect.width / 2,
+			width: csRect.width / 3,
 			height: csRect.height / 2.5
 		});
 		
@@ -250,7 +250,7 @@ this.DrawBoard = function()
 		
 		stage.add(servicePicLayer);		
     };	
-	serviceImageObj.src = "images/service.jpg";
+	serviceImageObj.src = "images/cs_icon.png";
 	
     // Add rush picture
     var rushImageObj = new Image();
@@ -261,7 +261,7 @@ this.DrawBoard = function()
 			x: rushRect.x + rushRect.width / 3.25,
 			y: rushRect.y + rushRect.height / 2.75,
 			image: rushImageObj,
-			width: rushRect.width / 2.5,
+			width: rushRect.width / 3,
 			height: rushRect.height / 2.5
 		});
 		
@@ -270,7 +270,7 @@ this.DrawBoard = function()
 		
 		stage.add(rushPicLayer);		
     };	
-	rushImageObj.src = "images/rush.jpg";
+	rushImageObj.src = "images/rush_icon.png";
 		
 	// Add study picture
     var studyImageObj = new Image();
@@ -281,7 +281,7 @@ this.DrawBoard = function()
 			x: studyRect.x + studyRect.width / 3.25,
 			y: studyRect.y + studyRect.height / 2.75,
 			image: studyImageObj,
-			width: studyRect.width / 2.5,
+			width: studyRect.width / 3,
 			height: studyRect.height / 2.5
 		});
 		
@@ -290,7 +290,7 @@ this.DrawBoard = function()
 		
 		stage.add(studyPicLayer);		
     };	
-	studyImageObj.src = "images/study.jpg";
+	studyImageObj.src = "images/study_icon.png";
 
 	// Draw the text inside of the rectangles
 	stage.add(messageLayer);
