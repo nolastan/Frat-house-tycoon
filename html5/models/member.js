@@ -122,13 +122,13 @@ function bidRushee(id){
 		accepted = false;
 	}
 	delete game.frat.rushees[id];
-	updateStatsBar();
 	
 	if(game.frat.bids == 0 || Object.size(game.frat.rushees) == 0){
 		$("nav.bidMeeting").addClass("over");
 		$("#bidScreen .rushees li button").unbind("click");
 		game.frat.bids = 0;  			
+		game.frat.rushees.length = 0;  			
 	}
-	
+	updateStatsBar();	
 	return accepted;
 }
