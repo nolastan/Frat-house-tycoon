@@ -28,13 +28,10 @@ $(document).ready(function(){
 	game.house = new House();
 	game.sidewalk = new Sidewalk();
 	game.sidewalk.update(); // @TODO: How to call this in constructor??
-<<<<<<< HEAD
 	game.frat.bids = 0;
-	
-=======
+
 	game.sim = {};
 	game.sim.stopped = true;
->>>>>>> paper
 	game.turnNum = 1;
 	//How often you get to extend bids
 	game.bidFrequency = 5;
