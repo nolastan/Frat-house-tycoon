@@ -16,11 +16,6 @@ $(document).ready(function(){
 	sg.canvas = document.getElementById("canvas");  
     sg.ctx = sg.canvas.getContext("2d");
     sg.bg = document.getElementById("background").getContext("2d");
-    
-	$("#canvas").click(function(e) {
-		coords = sg.canvas.relMouseCoords(e);
-		console.log(coords);
-	});	
 	
     // Constants:
     sg.scale_x = 3;
@@ -33,8 +28,13 @@ $(document).ready(function(){
 	game.house = new House();
 	game.sidewalk = new Sidewalk();
 	game.sidewalk.update(); // @TODO: How to call this in constructor??
+<<<<<<< HEAD
 	game.frat.bids = 0;
 	
+=======
+	game.sim = {};
+	game.sim.stopped = true;
+>>>>>>> paper
 	game.turnNum = 1;
 	//How often you get to extend bids
 	game.bidFrequency = 5;

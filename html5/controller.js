@@ -25,10 +25,10 @@ function simulate(){
    	game.board.update_play();
 	var turn = game.nextTurn;
 	game.results = turn.run(game.frat);
-	game.sim = new Simulation(game.frat.getPlayValues(), game.results);
-	game.sim.run();
+	//game.sim = new Simulation(game.frat.getPlayValues(), game.results);
+	//game.sim.run();
 	updateStatsBar();
-	drawSimulationScreen(turn);
+	drawSimulationScreen(turn, game.results);
 };
 
 function results(){
