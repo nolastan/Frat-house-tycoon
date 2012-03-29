@@ -149,22 +149,9 @@ var IsPieceInsideRect = function (piece, quadrant)
 
 this.DrawBoard = function() 
 {	
-	if(stage)
-	{
-       stage.setSize(sg.width, sg.height);
-       stage.remove(boardLayer);
-       stage.remove(messageLayer);
-       stage.remove(partyPicLayer);
-       stage.remove(servicePicLayer);
-       stage.remove(rushPicLayer);
-       stage.remove(studyPicLayer);
-	}
-    else
-    {	
-	   stage = new Kinetic.Stage("board", 
-	                            sg.width, 
-	                            sg.height);
-    } 
+	stage = new Kinetic.Stage("board", 
+	                          sg.width, 
+	                          sg.height);     
 
 	boardLayer   = new Kinetic.Layer();
 	messageLayer = new Kinetic.Layer();			
