@@ -94,6 +94,7 @@ header h1{
 }
 
 nav{
+	overflow: hidden;
 	$nav_height: 50px;
 	padding: 0;
 	height: $nav_height;
@@ -137,6 +138,7 @@ nav{
 			margin-left: 10px;
 		}
 		float:right;
+		li.rep{display:inline; width:90px;}  // safari fix
 	}
 	ul#dev{
 		margin-right: 20px;
