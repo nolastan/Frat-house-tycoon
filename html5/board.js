@@ -10,6 +10,12 @@ var   first_piece_x, first_piece_y;
 const RECT_SCALE_FACTOR = 0.30;
 const STAGE_WIDTH_SCALE_FACTOR = 1.6;
 const STAGE_HEIGHT_SCALE_FACTOR = 1.4;
+var boardLayer;
+var messageLayer;			
+var partyPicLayer;
+var servicePicLayer;
+var rushPicLayer;
+var studyPicLayer;
 
 
 //********************************************************************************************
@@ -145,22 +151,27 @@ this.DrawBoard = function()
 {	
 	if(stage)
 	{
-	   stage.clear();
+       stage.setSize(sg.width, sg.height);
+       stage.remove(boardLayer);
+       stage.remove(messageLayer);
+       stage.remove(partyPicLayer);
+       stage.remove(servicePicLayer);
+       stage.remove(rushPicLayer);
+       stage.remove(studyPicLayer);
 	}
     else
-    {
-	
+    {	
 	   stage = new Kinetic.Stage("board", 
 	                            sg.width, 
 	                            sg.height);
     } 
 
-	var boardLayer   = new Kinetic.Layer();
-	var messageLayer = new Kinetic.Layer();			
-    var partyPicLayer = new Kinetic.Layer();
-	var servicePicLayer = new Kinetic.Layer();
-	var rushPicLayer = new Kinetic.Layer();
-	var studyPicLayer = new Kinetic.Layer();
+	boardLayer   = new Kinetic.Layer();
+	messageLayer = new Kinetic.Layer();			
+    partyPicLayer = new Kinetic.Layer();
+	servicePicLayer = new Kinetic.Layer();
+	rushPicLayer = new Kinetic.Layer();
+	studyPicLayer = new Kinetic.Layer();
 
 	// Make the board layers
     partyRect = new Kinetic.Rect({
