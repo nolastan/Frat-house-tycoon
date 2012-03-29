@@ -5,6 +5,12 @@ function drawResultsScreen(){
 	$("#skip").hide();
 	$("#play").hide();	
 	$("#results").show();
+	console.log(game.results);
+	$("#results .cs .val").html(game.results.cs.string);
+	$("#results .party .val").html(game.results.party.string);
+	$("#results .rush .val").html(game.results.rush.string);
+	$("#results .study .val").html(game.results.study.string);
+	
 
 /*
 	// @TODO change to jQuery
