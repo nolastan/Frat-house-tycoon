@@ -42,9 +42,9 @@ function bidMeeting(){
 };
 
 function updateStatsBar() {
-	$("#repCount").html(game.frat.rep);
-	$("#cashCount").html(game.frat.cash);
-	$("#brothersCount").html(game.frat.members.length);
+	$("#stats .rep .val").html(game.frat.rep);
+	$("#stats .cash .val").html(game.frat.cash);
+	$("#stats .brothers .val").html(game.frat.members.length);
 }
 
 

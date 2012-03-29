@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+.clear {
+  clear: both; }
+
 body {
   font-family: 'PT Sans Narrow', sans-serif; }
 
@@ -15,9 +18,7 @@ button, button.disabled:hover {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  height: 3em;
-  padding: 0 1em;
-  margin-top: .7em; }
+  padding: .2em; }
 
 button:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee');
@@ -44,54 +45,31 @@ header h1 {
   font-size: 1.5em;
   margin: 0 .5ex; }
 
-#status {
-  height: 3em;
-  width: 100%;
-  background-color: #E6E8A9;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5); }
-  #status ul {
-    height: 3em;
-    display: block;
+nav {
+  padding: 0;
+  height: 50px;
+  -moz-box-shadow: 0px 0px 5px black;
+  -webkit-box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px black;
+  font-size: 200%; }
+  nav object {
+    max-width: 30px;
+    height: 30px; }
+  nav ul {
     float: left; }
-    #status ul li {
-      display: inline-block; }
-  #status #controls {
-    width: 50%; }
-  #status #controls li {
-    margin-left: .5em; }
-  #status #stats {
-    width: 50%; }
-  #status #stats li {
-    width: 32%;
-    /* 	height: 3em; */
-    float: right;
-    border-left: 1px solid #666;
-    font-size: 1.7em;
-    line-height: 1.3em;
-    text-align: center;
-    color: #fff;
-    max-width: 150px; }
-  #status #stats li label {
-    display: block;
-    width: 96%;
-    padding-left: 5%;
-    background-color: #fff;
-    opacity: .4;
-    font-size: .5em;
-    line-height: 1em;
-    font-weight: bold;
-    text-align: left;
-    color: #000; }
-  #status #stats .val {
-    /* 	font-size: 2em; */ }
-  #status #stats li#rep {
-    background-color: #93C28C; }
-  #status #stats li#money {
-    background-color: #2E5A5C; }
-  #status #stats li#brothers {
-    background-color: #9E352C; }
+    nav ul li {
+      height: 50px;
+      padding-top: 7px;
+      float: left;
+      margin: 0 .2em; }
+  nav ul#screens {
+    float: right; }
+  nav ul#stats {
+    margin-right: 10px;
+    float: right; }
+    nav ul#stats object {
+      margin-right: 5px;
+      margin-left: 10px; }
 
 /* Canvas stuff */
 #background {

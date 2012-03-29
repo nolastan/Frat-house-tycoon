@@ -43,22 +43,28 @@
    	<link rel="stylesheet" href="css/reset.css" />
    	<link rel="stylesheet" href="css/style.css" />
    	
- </head>  
- <body>
- <header><h1>Frat House Tycoon</h1></header>
- <div id="status">
- 	<ul id="controls">
- 		<li><button id="run">Run</button></li>
+</head>  
+<body>
+<header><h1>Frat House Tycoon</h1></header>
+<nav>
+	<ul id="controls">
+		<li><button id="run">Run</button></li>
 		<li><button id="normal">Normal</button></li>
 		<li><button id="fast">Fast</button></li>
 		<li><button id="skip">Skip</button></li>
- 	</ul>
- 	<ul id="stats">
-		<li id="rep"><label>Reputation</label><span class="val" id="repCount">0</span></li>
-		<li id="money"><label>Money</label><span class="val" id="moneyCount">0</span></li>
-		<li id="brothers"><label>Brothers</label><span class="val" id="brothersCount">0</span> / <span id="bed_val">0</span></li>
- 	</ul>
- </div>
+	</ul>
+	<ul id="stats">
+		<li class="rep" title="Reputation"><object data="sprites/rep_icon.svg" type="image/svg+xml"></object><span class="val">0</span></li>
+		<li class="money" title="Money"><object data="sprites/money_icon.svg" type="image/svg+xml"></object><span class="val">0</span></li>
+		<li class="brothers" title="Brothers"><object data="sprites/brothers_icon.svg" type="image/svg+xml"></object><span class="val">0</span></li>	
+	</ul>
+	<ul id="screens">
+		<li class="rush" title="Rush"><button><object data="sprites/rush_icon.svg" type="image/svg+xml"></object></button></li>
+		<li class="build" title="Build"><button><object data="sprites/build_icon.svg" type="image/svg+xml"></object></button></li>
+		<li class="buy" title="Shop"><button><object data="sprites/buy_icon.svg" type="image/svg+xml"></object></button></li>
+	</ul>
+</nav> 
+ 
    <div id="simulation">
 	   <canvas id="canvas"></canvas>
 	   <canvas id="background"></canvas>

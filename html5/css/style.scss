@@ -11,6 +11,44 @@ $party_color: $yellow;
 $study_color: $green;
 $cs_color: $blue;
 
+@mixin gradient_inverse($color, $amount: 3%) {
+	background-image: linear-gradient(bottom, lighten($color, $amount), darken($color, $amount));
+	background-image: -o-linear-gradient(bottom, lighten($color, $amount), darken($color, $amount));
+	background-image: -moz-linear-gradient(bottom, lighten($color, $amount), darken($color, $amount));
+	background-image: -webkit-linear-gradient(bottom, lighten($color, $amount), darken($color, $amount));
+	background-image: -ms-linear-gradient(bottom, lighten($color, $amount), darken($color, $amount));
+	background-image: -webkit-gradient(linear, left bottom, left top, lighten($color, $amount), darken($color, $amount));
+}
+@mixin gradient($color, $amount: 3%) {
+	background-image: linear-gradient(bottom, darken($color, $amount), lighten($color, $amount));
+	background-image: -o-linear-gradient(bottom, darken($color, $amount), lighten($color, $amount));
+	background-image: -moz-linear-gradient(bottom, darken($color, $amount), lighten($color, $amount));
+	background-image: -webkit-linear-gradient(bottom, darken($color, $amount), lighten($color, $amount));
+	background-image: -ms-linear-gradient(bottom, darken($color, $amount), lighten($color, $amount));
+	background-image: -webkit-gradient(linear, left bottom, left top, darken($color, $amount), lighten($color, $amount));
+}
+
+@mixin shadow($width: 5px, $color: #000, $x: 0px, $y: 0px){
+	-moz-box-shadow: $x $y $width $color;
+	-webkit-box-shadow: $x $y $width $color; 
+	box-shadow: $x $y $width $color;
+}
+
+@mixin inner-shadow($width: 5px, $color: #000, $x: 0px, $y: 0px){
+	-moz-box-shadow: inset $x $y $width $color;
+	-webkit-box-shadow: inset $x $y $width $color; 
+	box-shadow: inset $x $y $width $color;
+}
+
+
+@mixin rounded-corner($radius){
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;	
+}
+.clear{
+	clear:both;
+}
+
 body{
 	font-family: 'PT Sans Narrow', sans-serif;
 }
@@ -27,9 +65,7 @@ button, button.disabled:hover{
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	height: 3em;
-	padding: 0 1em;
-	margin-top:.7em;
+	padding: .2em;
 }
 button:hover{
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee');
@@ -57,68 +93,38 @@ header h1{
 	font-size: 1.5em;
 	margin: 0 .5ex;
 }
-#status{
-	height: 3em;
-	width:100%;
-	background-color: #E6E8A9;
-	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
-	box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+
+nav{
+	$nav_height: 50px;
+	padding: 0;
+	height: $nav_height;
+	@include shadow();
+	font-size: 200%;
+	object{
+		max-width:30px;
+		height:30px;
+	}
 	ul{
-		height: 3em;
-		display:block;
 		float:left;
 		li{
-			display:inline-block;
+			height: $nav_height;
+			padding-top:7px;
+			float:left;
+			margin: 0 .2em;
 		}
 	}
-	#controls{
-		width: 50%;
-	}
-	#controls li{
-		margin-left: .5em;
-	}
-	#stats{
-		width: 50%;
-	}
-	#stats li{
-		width: 32%;
-	/* 	height: 3em; */
+	ul#screens{
 		float:right;
-		border-left: 1px solid #666;
-		font-size: 1.7em;
-		line-height: 1.3em;
-		text-align:center;
-		color: #fff;
-		max-width:150px;
 	}
-	#stats li label{
-		display:block;
-		width:96%;
-		padding-left:5%;
-		background-color: #fff;
-		opacity: .4;
-		font-size: .5em;
-		line-height: 1em;
-		font-weight:bold;
-		text-align:left;
-		color: #000;
-	}
-	#stats .val{
-	/* 	font-size: 2em; */
-	}
-	#stats li#rep{
-		background-color: #93C28C;
-	}
-	#stats li#money{
-		background-color: #2E5A5C;
-	}
-	#stats li#brothers{
-		background-color: #9E352C;
+	ul#stats{
+		margin-right: 10px;
+		object{
+			margin-right: 5px;
+			margin-left: 10px;
+		}
+		float:right;
 	}
 }
-
-
 
 /* Canvas stuff */
 #background{
