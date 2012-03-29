@@ -55,12 +55,26 @@
 				shape.remove();
 			}
 		}
+		
+		shape.die = function() {
+			shape.alive = false;
+			shape.remove();
+		}
 
 		shape.bounce = function() {
-			position.blink
+			position.blink;
+		}
+		
+		shape.clicked = function() {
+			shape.fillColor = "red";
+			game.frat.rep += 1;
+			updateStatsBar();
+			shape.die();
 		}
 
 		return shape;
+		
+		
 
 	}
 	window.globals.createRep = createRep;
@@ -74,7 +88,7 @@
 		shape.fillColor = 'green';
 		var repCount = 3;
 		repDropProb = .99;
-		var stayDuration = 500;
+		var stayDuration = 300;
 		var enterTime;
 		var state = "walking";
 
@@ -166,13 +180,13 @@
 	}
 
 
-	var goers = [];
-	var goersCount = 20;
+	var goers = [create_goer(new Point(600, 500))];
+	game.sim.goersCount = 20;
 	function onFrame(event) {
-		if (!window.globals.stopped) { 
-			if (Math.random() > 0.95 && goersCount > 0) {
+		if (!game.sim.stopped) { 
+			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
 				goers.push(create_goer(new Point(500, 500)));
-				goersCount--;
+				game.sim.goersCount--;
 			}
 			for (var i = 0; i < goers.length; i++) {
 				goers[i].step();
@@ -187,11 +201,22 @@
 					repClicks.splice(i, 1);
 				}
 			}
+			if (goers.length  == 0) {
+				game.sim.stopped = true;
+				results();
+			}
 		}
 	}
-
-	function move(obj) {
-		console.log("WOOO")
+	
+	game.sim.cleanUp = function() {
+		for (var i= 0; i < goers.length; i++) {
+			goers[i].remove;
+			goers[i].die();
+			
+		}
+		goers = [create_goer(new Point(600, 500))];
+		repClicks = [];
+		
 	}
 
 	var hitOptions = {
@@ -204,7 +229,7 @@
 	function onMouseDown(event) {
 		var hitResult = project.hitTest(event.point, hitOptions);
 		if (hitResult && hitResult.item.type == "rep") {
-			hitResult.item.fillColor = 'red';
+			hitResult.item.clicked();
 		}
 	}
 	</script>
