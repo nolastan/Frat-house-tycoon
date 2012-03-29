@@ -145,14 +145,9 @@ this.DrawBoard = function()
 	   stage.clear();
 	}
 	
-	updateScreenSize();
-	
-	console.log("height"+sg.height);
-    console.log("width"+sg.width);
-	
 	stage = new Kinetic.Stage("board", 
-	                          sg.width * STAGE_WIDTH_SCALE_FACTOR, 
-	                          sg.height * STAGE_HEIGHT_SCALE_FACTOR);
+	                          sg.width, 
+	                          sg.height);
 
 	var boardLayer   = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();			
