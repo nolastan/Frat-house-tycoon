@@ -55,6 +55,10 @@ function updateStatsBar() {
 	}else{
 		$("#screens .rush .val").show();	
 	}
+	$("nav #skills .rush .fill").css("width", game.frat.getSkillAvgs().rush + "%");
+	$("nav #skills .party .fill").css("width", game.frat.getSkillAvgs().party + "%");
+	$("nav #skills .cs .fill").css("width", game.frat.getSkillAvgs().cs + "%");
+	$("nav #skills .study .fill").css("width", game.frat.getSkillAvgs().study + "%");
 }
 
 
