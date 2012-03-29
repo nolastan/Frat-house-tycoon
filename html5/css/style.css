@@ -253,8 +253,8 @@ h2 {
   clear: both;
   float: none;
   margin: 3px 0; }
-#bidScreen label {
-  font-size: 1.5em;
+#bidScreen object {
+  height: 1.2em;
   width: 1.2em;
-  display: inline-block;
-  font-size: 1em; }
+  margin-right: .4em;
+  display: inline-block; }
