@@ -1,11 +1,3 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Simulation</title>
-	<script type="text/javascript" src="libraries/paper.js"></script>
-	<script type="text/paperscript" canvas="canvas">
 window.globals = {};
 
 var tr = new Point(0, 0);
@@ -183,16 +175,3 @@ function onMouseDown(event) {
 		hitResult.item.fillColor = 'red';
 	}
 }
-
-	</script>
-<script type="text/javascript">
-	window.onload = function() {
-		console.log("Loaded");
-		window.globals.createRep({x: 600, y:600});
-	}
-</script>
-</head>
-<body>
-	<canvas id="canvas" resize></canvas>
-</body>
-</html>
