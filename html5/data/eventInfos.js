@@ -355,47 +355,134 @@ var mardiGrasInfo = {
 
 
 var  gloCrackDownInfo = {
-    descript : "The GLO Cracks down",
-	categories: {
-		party:  {
-			  rewards:   [[5, 0, 0],
-						 [0, 0, -3],
-						 [-4, 0 ,0]],
-			  msgs: ["The GLO is glad you didn't have any unregeistered events.",
+		"descript": "The GLO Cracks Down",
+		"categories": {
+			"party": {
+				"rewards": [
+					{
+						"rep": {
+							"base": "5",
+							"mult": "0"
+						}
+					},
+					{
+						"rush": {
+							"base": "-2",
+							"mult": "0"
+						}
+					},
+					{
+						"rep": {
+							"base": "-15",
+							"mult": "0"
+						}
+					}
+				],
+				"msgs": [
+					"The GLO is glad you didn't have any unregeistered events.",
 					"The GLO demands you weed out the trouble makers",
-					"Caught hosting an unregistered event"],
-			  cutoffs: [0, 1, 4]
-		},
-
-		cs:  {
-			  rewards:  [[0, 0, 0],
-						[0, 0, 0],
-						[3, 0, 0]],
-			  msgs: ["No change",
+					"Caught hosting an unregistered event"
+				],
+				"cutoffs": [
+					"0",
+					"1",
+					"4"
+				]
+			},
+			"cs": {
+				"rewards": [
+					{
+						"rep": {
+							"base": "0",
+							"mult": "0"
+						}
+					},
+					{
+						"rep": {
+							"base": "5",
+							"mult": "0"
+						}
+					},
+					{
+						"rep": {
+							"base": "15",
+							"mult": "0"
+						}
+					}
+				],
+				"msgs": [
+					"No change",
 					"Good to see you have a few good apples",
-					"This is what Greek Life is all about!"],
-			  cutoffs: [0, 1, 4]
-		},
-
-		rush:  {
-			  rewards:  [[-1, 0, 0],
-						[-2, 0, 0],
-						[2, 0, 2]],
-			  msgs: ["You need to attract decent men.",
+					"This is what Greek Life is all about!"
+				],
+				"cutoffs": [
+					"0",
+					"1",
+					"4"
+				]
+			},
+			"rush": {
+				"rewards": [
+					{
+						"rep": {
+							"base": "-5",
+							"mult": "0"
+						}
+					},
+					{
+						"rep": {
+							"base": "-5",
+							"mult": "0"
+						}
+					},
+					{
+						"rep": {
+							"base": "10",
+							"mult": "0"
+						},
+						"rush": {
+							"base": "3",
+							"mult": "0"
+						}
+					}
+				],
+				"msgs": [
+					"You need to attract decent men.",
 					"Why are random freshmen wandering around your house?",
-					"Well organized rush!"],
-			  cutoffs: [0, 1, 3]
-		},
-
-		study:  {
-			  rewards:  [[-1, 0, 0],
-						[0, 0, 0]],
-			  msgs: ["You are here to study first and foremost",
-					"Of course you're studying. You're students."],
-			  cutoffs: [0, 2]
+					"Well organized rush!"
+				],
+				"cutoffs": [
+					"0",
+					"1",
+					"3"
+				]
+			},
+			"study": {
+				"rewards": [
+					{
+						"rep": {
+							"base": "-10",
+							"mult": "0"
+						}
+					},
+					{
+						"rep": {
+							"base": "0",
+							"mult": "0"
+						}
+					}
+				],
+				"msgs": [
+					"You are here to study first and foremost",
+					"Of course you're studying. You're students!"
+				],
+				"cutoffs": [
+					"0",
+					"2"
+				]
+			}
 		}
-	}
-};
+	};
 
 var rushWeekendInfo = {
 	"descript": "Rush Weekend",
