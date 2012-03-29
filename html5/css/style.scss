@@ -156,8 +156,20 @@ nav.bidMeeting{
 	p{
 		padding-top: 10px;
 	}
+	button{
+		display:none;
+		font-size: 40%;
+		margin-left: 10px;
+		height: 30px;
+		vertical-align:top;
+	}
 }
-
+nav.bidMeeting.over{
+	background-color: darken($green, 40%);
+	button{
+		display:inline-block;
+	}
+}
 /* Canvas stuff */
 #background{
 	position:absolute;
@@ -209,6 +221,15 @@ h2{
 			text-align: center;
 			width:100px;
 			display:inline-block;
+		}
+		button.declined{
+			@include gradient-inverse($red);
+		}
+		button.accepted{
+			@include gradient-inverse($green);
+		}
+		button.declined, button.accepted{
+			cursor: default;
 		}
 	}
 	.name{

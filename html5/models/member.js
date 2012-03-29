@@ -121,14 +121,13 @@ function bidRushee(id){
 	}else{	
 		accepted = false;
 	}
+	delete game.frat.rushees[id];
 	updateStatsBar();
-	delete rushee;
 	
-	if(game.frat.bids == 0 || game.frat.rushees.length == 0){
-		$("nav.main").show();
-		$("nav.bidMeeting").hide();
+	if(game.frat.bids == 0 || Object.size(game.frat.rushees) == 0){
+		$("nav.bidMeeting").addClass("over");
+		$("#bidScreen .rushees li button").unbind("click");
 		game.frat.bids = 0;  			
-		plan();
 	}
 	
 	return accepted;

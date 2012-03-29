@@ -5,7 +5,8 @@ function drawPlanningScreen(){
 	game.board.DrawPieces();
 	game.nextTurn = game.turns.getNext();
 
-
+	$("nav.bidMeeting").hide();
+	$("nav.main").show();
 	$("#bidScreen").hide();
 	$("#planScreen").show();
 	$("#simulation").hide();

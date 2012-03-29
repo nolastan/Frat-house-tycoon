@@ -117,6 +117,17 @@ nav.bidMeeting {
   color: #fff; }
   nav.bidMeeting p {
     padding-top: 10px; }
+  nav.bidMeeting button {
+    display: none;
+    font-size: 40%;
+    margin-left: 10px;
+    height: 30px;
+    vertical-align: top; }
+
+nav.bidMeeting.over {
+  background-color: #32552d; }
+  nav.bidMeeting.over button {
+    display: inline-block; }
 
 /* Canvas stuff */
 #background {
@@ -159,6 +170,22 @@ h2 {
   text-align: center;
   width: 100px;
   display: inline-block; }
+#bidScreen ul.rushees button.declined {
+  background-image: linear-gradient(bottom, #aa392f, #923129);
+  background-image: -o-linear-gradient(bottom, #aa392f, #923129);
+  background-image: -moz-linear-gradient(bottom, #aa392f, #923129);
+  background-image: -webkit-linear-gradient(bottom, #aa392f, #923129);
+  background-image: -ms-linear-gradient(bottom, #aa392f, #923129);
+  background-image: -webkit-gradient(linear, left bottom, left top, #aa392f, #923129); }
+#bidScreen ul.rushees button.accepted {
+  background-image: linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
+#bidScreen ul.rushees button.declined, #bidScreen ul.rushees button.accepted {
+  cursor: default; }
 #bidScreen .name {
   font-size: 170%;
   font-weight: bold;

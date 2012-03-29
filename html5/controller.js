@@ -50,7 +50,7 @@ function updateStatsBar() {
 	$("#stats .brothers .val").html(game.frat.members.length);
 	$("#screens .rush .val").html(Object.size(game.frat.rushees));
 	$("nav.bidMeeting .val").html(game.frat.bids);
-	if(game.frat.rushees.length == 0){
+	if(Object.size(game.frat.rushees) == 0){
 		$("#screens .rush .val").hide();
 	}else{
 		$("#screens .rush .val").show();	
