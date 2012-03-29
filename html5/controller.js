@@ -1,7 +1,10 @@
 $(document).ready(function(){
 
 	initializeScreen();
-
+	$("#screens .rush").click(bidMeeting);
+	$("#screens .board").click(plan);
+	$("nav.bidMeeting").hide();
+	
 });
 
 function initializeScreen(){
@@ -10,9 +13,12 @@ function initializeScreen(){
 }
 
 function plan(){
-	console.log("load plan screen");
-	console.log(game.turns.turnNum);
-	drawPlanningScreen();
+	if(game.frat.bids > 0 && game.frat.rushees.length > 0){
+		console.log("Bid meeting!")
+		bidMeeting();
+	}else{
+		drawPlanningScreen();	
+	}
 };
 
 function simulate(){
@@ -26,7 +32,7 @@ function simulate(){
 };
 
 function results(){
-	drawBidScreen(game.results);
+
 	var msg = "";
 	
 	drawResultsScreen();
@@ -34,8 +40,6 @@ function results(){
 };
 
 function bidMeeting(){
-	bidScreen.show();
-  	$("#results").hide();
 	drawBidScreen();
 	updateStatsBar()
 };
@@ -44,7 +48,13 @@ function updateStatsBar() {
 	$("#stats .rep .val").html(game.frat.rep);
 	$("#stats .cash .val").html(game.frat.cash);
 	$("#stats .brothers .val").html(game.frat.members.length);
-	$("#screens .rush .val").html(game.frat.rushees.length);
+	$("#screens .rush .val").html(Object.size(game.frat.rushees));
+	$("nav.bidMeeting .val").html(game.frat.bids);
+	if(game.frat.rushees.length == 0){
+		$("#screens .rush .val").hide();
+	}else{
+		$("#screens .rush .val").show();	
+	}
 }
 
 

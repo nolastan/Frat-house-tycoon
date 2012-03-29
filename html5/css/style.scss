@@ -79,7 +79,7 @@ button.disabled, button.disabled:hover{
 }
 button.active, button.active:hover{
 	cursor: default;
-	background: blue;
+	@include gradient-inverse(lighten($red, 20%), 5%);
 	color: white;
 }
 header{
@@ -147,6 +147,14 @@ nav{
 		button:hover{
 			@include gradient-inverse(#F7FFBC);
 		}
+	}
+}
+nav.bidMeeting{
+	text-align: center;
+	background-color: $red;
+	color: #fff;
+	p{
+		padding-top: 10px;
 	}
 }
 

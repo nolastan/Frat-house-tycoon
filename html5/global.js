@@ -33,6 +33,7 @@ $(document).ready(function(){
 	game.house = new House();
 	game.sidewalk = new Sidewalk();
 	game.sidewalk.update(); // @TODO: How to call this in constructor??
+	game.frat.bids = 0;
 	
 	game.turnNum = 1;
 	//How often you get to extend bids
@@ -72,3 +73,12 @@ $(document).ready(function(){
 
   
 });
+
+// to get the length of assoc. array
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};

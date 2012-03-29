@@ -54,10 +54,10 @@ var create_member = (function() {
 		that.lastname = name.last || lastnames[Math.floor(Math.random()*lastnames.length)];
 		that.name = that.firstname + " " + that.lastname;
 		
-		that.hair_color = hair_color || hair_color[Math.floor(Math.random()*hair_color.length)];
-		that.eye_color = eye_color || eye_color[Math.floor(Math.random()*eye_color.length)];
-		that.hair_style = hair_style || hair_style[Math.floor(Math.random()*hair_style.length)];
-		that.skin_color = skin_color || skin_color[Math.floor(Math.random()*skin_color.length)];
+		that.hair_color = hair_color[Math.floor(Math.random()*hair_color.length)];
+		that.eye_color = eye_color[Math.floor(Math.random()*eye_color.length)];
+		that.hair_style = hair_style[Math.floor(Math.random()*hair_style.length)];
+		that.skin_color = skin_color[Math.floor(Math.random()*skin_color.length)];
 
 		that.id = count++;
 		
@@ -109,3 +109,17 @@ var create_member = (function() {
 		return that;
 	}
 })();
+
+function bidRushee(id){
+	game.frat.bids--;
+	game.frat.members.push(game.frat.rushees[id]);
+	delete game.frat.rushees[id];
+	updateStatsBar();
+	if(game.frat.bids == 0 || game.frat.rushees.length == 0){
+		$("nav.main").show();
+		$("nav.bidMeeting").hide();
+		game.frat.bids = 0;  			
+		plan();
+	}
+	return true;
+}

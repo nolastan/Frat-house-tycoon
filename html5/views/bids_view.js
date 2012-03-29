@@ -5,8 +5,20 @@ $(document).ready(function(){
   
 });
 
-function drawBidScreen(results){
-console.log("here");
+function drawBidScreen(){
+	bidScreen.show();
+  	$("#results").hide();
+  	$("#planScreen").hide();
+  	$("#simulation").hide();
+  	$("#screens button").removeClass("active");
+  	$("#screens .rush button").addClass("active");
+  	
+  	if(game.frat.bids > 0 && game.frat.rushees.length){
+  		$("nav.main").hide();
+  		$("nav.bidMeeting").show();
+  		$("nav.bidMeeting .val").html(game.frat.bids);
+  	}
+
 /* // FOR TESTING:
 	var rushees = { 
 	    0: { name: "Paul Carleton", id: 0, skills: {rush: 25, party: 15, study: 7, cs: 32}, chanceWillJoin: .33, skin_color: "#F5DACC", eye_color: "blue", hair_style: "short", hair_color: "yellow"}, 
@@ -16,9 +28,10 @@ console.log("here");
 */
 	// clear list
 	$("#bidScreen .rushees").html("");
-
-	for(i = 0; i < game.frat.rushees.length; i++){
-		var rushee = game.frat.rushees[i];
+	
+	for(key in game.frat.rushees){
+		console.log(key);
+		var rushee = game.frat.rushees[key];
 		var html = "";
 		var ctx;
 				
@@ -43,19 +56,16 @@ console.log("here");
 		ctx = $("#rushee_"+rushee.id+" .face")[0];
 		drawRusheeFace(ctx.getContext("2d"), rushee.eye_color, rushee.hair_color, rushee.hair_style, rushee.skin_color);
 	}
-	
-
-	$("#bidScreen .continue").click(plan);  
-	
-	// @TODO change to jQuery
-	document.getElementById("philanthropyMessage").innerHTML = results['cs'].string();
-	document.getElementById("rushMessage").innerHTML = results['rush'].string();
-	document.getElementById("partyMessage").innerHTML = results['party'].string();
-	document.getElementById("studyMessage").innerHTML = results['study'].string();
-	document.getElementById('results').style.display = "block";
-	document.getElementById('simulation').style.display = "none";
-
-	
+  	
+  	$("#bidScreen .rushees li button").click(function(){
+		var id = $(this).parent().attr("id");
+		id = id.replace("rushee_", "");
+  		if(bidRushee(id)){
+  			console.log("accepted");
+  		}else{
+  			console.log("declined");
+  		}
+  	});
 
 }
 

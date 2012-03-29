@@ -48,7 +48,7 @@
 </head>  
 <body>
 <header><h1>Frat House Tycoon</h1></header>
-<nav>
+<nav class="main">
 	<ul id="controls">
 		<li><button id="run">Run</button></li>
 		<li><button id="normal">Normal</button></li>
@@ -61,14 +61,17 @@
 		<li class="brothers" title="Brothers"><object data="sprites/brothers_icon.svg" type="image/svg+xml"></object><span class="val">0</span></li>	
 	</ul>
 	<ul id="screens">
+		<li class="board" title="Board"><button><object data="sprites/board_icon.svg" type="image/svg+xml"></object></button></li>
 		<li class="rush" title="Rush"><button><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><span class="val">0</span></button></li>
 		<li class="build" title="Build"><button><object data="sprites/build_icon.svg" type="image/svg+xml"></object></button></li>
 		<li class="buy" title="Shop"><button><object data="sprites/buy_icon.svg" type="image/svg+xml"></object></button></li>
 	</ul>
 	<ul id="dev">
 		<li><button id="addRushees">+R</button></li>
+		<li><button id="addBids">+B</button></li>
 	</ul>
 </nav> 
+<nav class="bidMeeting"><p>You have <span class="val">0</span> bids remaining.</span></p></nav>
  
    <div id="simulation">
 	   <canvas id="canvas"></canvas>
@@ -90,9 +93,8 @@
 	</div>
 	
 	<div id="bidScreen">
-		<h2>Bid Meeting</h2>
+		<h2>Rushees</h2>
 		<ul class="rushees"></ul>
-		<button class="continue">OK</button>
 	</div>
 	
  </body>  

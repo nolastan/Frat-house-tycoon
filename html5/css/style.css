@@ -31,7 +31,12 @@ button.disabled, button.disabled:hover {
 
 button.active, button.active:hover {
   cursor: default;
-  background: blue;
+  background-image: linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -o-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -moz-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -webkit-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -ms-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -webkit-gradient(linear, left bottom, left top, #d87a72, #cd544a);
   color: white; }
 
 header {
@@ -105,6 +110,13 @@ nav {
       background-image: -webkit-linear-gradient(bottom, #f9ffcb, #f5ffad);
       background-image: -ms-linear-gradient(bottom, #f9ffcb, #f5ffad);
       background-image: -webkit-gradient(linear, left bottom, left top, #f9ffcb, #f5ffad); }
+
+nav.bidMeeting {
+  text-align: center;
+  background-color: #9e352c;
+  color: #fff; }
+  nav.bidMeeting p {
+    padding-top: 10px; }
 
 /* Canvas stuff */
 #background {

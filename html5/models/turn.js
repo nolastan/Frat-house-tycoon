@@ -35,6 +35,11 @@ var create_turn = function (info) {
 			i++;
 		}
 		
+		// Add bids after Rush
+		if(info.descript == "Rush Weekend"){
+			game.frat.bids += 10;
+		}
+		
 		
 		return results;
 	}
@@ -86,7 +91,8 @@ function create_effect(values, msg, score) {
 		frat.rep += that.rep;
 		
 		for (var i = 0; i < that.rush; i++) {
-		    frat.rushees.push(create_member(frat.rep));
+			var rushee = create_member(frat.rep);
+		    frat.rushees[rushee.id] = rushee;
 		}
 	}
 	
