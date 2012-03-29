@@ -65,7 +65,6 @@ button, button.disabled:hover{
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	padding: .2em;
 }
 button:hover{
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee');
@@ -100,6 +99,21 @@ nav{
 	height: $nav_height;
 	@include shadow();
 	font-size: 200%;
+	button{
+		height: 40px;
+		font-size: 70%;
+		.val{
+			position:relative;
+			display:block;
+			right: -20px;
+			top: -6px;
+			@include gradient(lighten($red, 25%), 10%);
+			@include rounded-corner(20px);
+			font-size: 60%;
+			color: #fff;
+			border: 1px solid darken($red, 25%);
+		}
+	}
 	object{
 		max-width:30px;
 		height:30px;
@@ -108,7 +122,7 @@ nav{
 		float:left;
 		li{
 			height: $nav_height;
-			padding-top:7px;
+			padding-top:5px;
 			float:left;
 			margin: 0 .2em;
 		}
@@ -123,6 +137,16 @@ nav{
 			margin-left: 10px;
 		}
 		float:right;
+	}
+	ul#dev{
+		margin-right: 20px;
+		float:right;
+		button{
+			@include gradient(#F7FFBC);
+		}
+		button:hover{
+			@include gradient-inverse(#F7FFBC);
+		}
 	}
 }
 

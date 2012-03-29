@@ -17,8 +17,7 @@ button, button.disabled:hover {
   background: -moz-linear-gradient(top, #eeeeee, #dddddd);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
-  padding: .2em; }
+  border-radius: 4px; }
 
 button:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee');
@@ -52,6 +51,25 @@ nav {
   -webkit-box-shadow: 0px 0px 5px black;
   box-shadow: 0px 0px 5px black;
   font-size: 200%; }
+  nav button {
+    height: 40px;
+    font-size: 70%; }
+    nav button .val {
+      position: relative;
+      display: block;
+      right: -20px;
+      top: -6px;
+      background-image: linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -o-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -moz-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -webkit-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -ms-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -webkit-gradient(linear, left bottom, left top, #cd544a, #e39f9a);
+      -moz-border-radius: 20px;
+      -webkit-border-radius: 20px;
+      font-size: 60%;
+      color: #fff;
+      border: 1px solid #3a1410; }
   nav object {
     max-width: 30px;
     height: 30px; }
@@ -59,7 +77,7 @@ nav {
     float: left; }
     nav ul li {
       height: 50px;
-      padding-top: 7px;
+      padding-top: 5px;
       float: left;
       margin: 0 .2em; }
   nav ul#screens {
@@ -70,6 +88,23 @@ nav {
     nav ul#stats object {
       margin-right: 5px;
       margin-left: 10px; }
+  nav ul#dev {
+    margin-right: 20px;
+    float: right; }
+    nav ul#dev button {
+      background-image: linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -o-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -moz-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -webkit-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -ms-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -webkit-gradient(linear, left bottom, left top, #f5ffad, #f9ffcb); }
+    nav ul#dev button:hover {
+      background-image: linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -o-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -moz-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -webkit-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -ms-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -webkit-gradient(linear, left bottom, left top, #f9ffcb, #f5ffad); }
 
 /* Canvas stuff */
 #background {

@@ -1,5 +1,6 @@
 <html>  
  <head>  
+ 
 	<!-- Libraries -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    	<script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.8.2.js"></script>
@@ -21,7 +22,6 @@
 	<script src="data/eventInfos.js"></script>
 
 	<!-- Scripts -->
-
    	<script src="board.js"></script>
 	<script src="playing_piece.js"></script>
    	<script src="simulation.js"></script>
@@ -37,7 +37,9 @@
    	<script src="models/skills.js"></script>
    	<script src="models/member.js"></script>
 	<script src="models/turn.js"></script>
-
+	
+	<!-- DEV -->
+	<script src="dev.js"></script> 
 
 	<!-- CSS -->
    	<link rel="stylesheet" href="css/reset.css" />
@@ -59,9 +61,12 @@
 		<li class="brothers" title="Brothers"><object data="sprites/brothers_icon.svg" type="image/svg+xml"></object><span class="val">0</span></li>	
 	</ul>
 	<ul id="screens">
-		<li class="rush" title="Rush"><button><object data="sprites/rush_icon.svg" type="image/svg+xml"></object></button></li>
+		<li class="rush" title="Rush"><button><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><span class="val">0</span></button></li>
 		<li class="build" title="Build"><button><object data="sprites/build_icon.svg" type="image/svg+xml"></object></button></li>
 		<li class="buy" title="Shop"><button><object data="sprites/buy_icon.svg" type="image/svg+xml"></object></button></li>
+	</ul>
+	<ul id="dev">
+		<li><button id="addRushees">+R</button></li>
 	</ul>
 </nav> 
  

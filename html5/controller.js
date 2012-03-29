@@ -5,7 +5,6 @@ $(document).ready(function(){
 });
 
 function initializeScreen(){
-/* 	drawPlanningScreen(); */
 	plan();
 	updateStatsBar()
 }
@@ -45,6 +44,7 @@ function updateStatsBar() {
 	$("#stats .rep .val").html(game.frat.rep);
 	$("#stats .cash .val").html(game.frat.cash);
 	$("#stats .brothers .val").html(game.frat.members.length);
+	$("#screens .rush .val").html(game.frat.rushees.length);
 }
 
 
