@@ -37,10 +37,10 @@ function drawBidScreen(){
 			html += '<p class="name">' + rushee.name + '</p>';
 			html += '<canvas height="100" width="100" class="face"></canvas>';
 			html += '<ul class="skills">';
-			html += '<li class="rush"><label>R</label><div class="bar"><div class="fill" style="width:' + rushee.skills.rush + '%"></div></div></li>';
-			html += '<li class="party"><label>P</label><div class="bar"><div class="fill" style="width:' + rushee.skills.party + '%"></div></div></li>';
-			html += '<li class="cs"><label>S</label><div class="bar"><div class="fill" style="width:' + rushee.skills.cs + '%"></div></div></li>';
-			html += '<li class="study"><label>A</label><div class="bar"><div class="fill" style="width:' + rushee.skills.study + '%"></div></div></li>';
+			html += '<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.rush + '%"></div></div></li>';
+			html += '<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.party + '%"></div></div></li>';
+			html += '<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.cs + '%"></div></div></li>';
+			html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.study + '%"></div></div></li>';
 			html += '</ul>';
 			html += '<canvas width="100" height="50" class="gauge"></canvas>';
 			html += '<p class="interest">interest</p>';
