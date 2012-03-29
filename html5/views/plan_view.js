@@ -1,6 +1,6 @@
 function drawPlanningScreen(){
 	// Temporary fix for poor performance of board screen
-	$("#planScreen").html('<div id="board" style="position: absolute;"></div><h3  style="position:absolute; top:95%;">Next Turn: <span id="nextTurn"></span></h3>');
+	//$("#planScreen").html('<div id="board" style="position: absolute;"></div><h3  style="position:absolute; top:95%;">Next //Turn: <span id="nextTurn"></span></h3>');
 	game.board.DrawBoard();
 	game.board.update();
 

@@ -27,6 +27,7 @@ this.update = function() {
 	}
 }
 
+//********************************************************************************************
 
 this.DrawPieces = function ()
 {
@@ -57,6 +58,8 @@ this.AddPiece = function (new_member)
    var piece = new PlayingPiece(stage, new_member);    
    piecesArray.push(piece);   
 }
+
+//********************************************************************************************
 
 this.update_play = function() {
 	var play = {};
@@ -144,10 +147,13 @@ this.DrawBoard = function()
 	{
 	   stage.clear();
 	}
+    else
+    {
 	
-	stage = new Kinetic.Stage("board", 
-	                          sg.width, 
-	                          sg.height);
+	   stage = new Kinetic.Stage("board", 
+	                            sg.width, 
+	                            sg.height);
+    } 
 
 	var boardLayer   = new Kinetic.Layer();
 	var messageLayer = new Kinetic.Layer();			
@@ -298,5 +304,7 @@ this.DrawBoard = function()
 	context.fillText("Study", studyRect.x + studyRect.width / 2, studyRect.y + studyRect.height / 3.5);
 	return this;
 }
+
+//********************************************************************************************
 
 }
