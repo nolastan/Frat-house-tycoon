@@ -210,55 +210,102 @@ h2 {
   margin: 1em 0;
   font-size: 200%; }
 
-/* Bid Meeting  */
-#bidScreen ul.rushees li {
-  width: 420px;
-  float: left;
-  margin: 20px; }
-#bidScreen ul.rushees canvas.face {
+/* Rushees/Members */
+ul.rushees canvas.face, ul.members canvas.face {
   float: left;
   margin-right: 10px; }
-#bidScreen ul.rushees button.bid {
+ul.rushees button.bid, ul.members button.bid {
   width: 100px;
   font-size: 1.2em;
   height: 1.5em;
   margin-top: 11px; }
-#bidScreen ul.rushees p.interest {
-  /* 			text-transform: uppercase; */
+ul.rushees p.interest, ul.members p.interest {
   font-size: .7em;
   text-align: center;
   width: 100px;
   display: inline-block; }
-#bidScreen ul.rushees button.declined {
+ul.rushees button.declined, ul.members button.declined {
   background-image: linear-gradient(bottom, #aa392f, #923129);
   background-image: -o-linear-gradient(bottom, #aa392f, #923129);
   background-image: -moz-linear-gradient(bottom, #aa392f, #923129);
   background-image: -webkit-linear-gradient(bottom, #aa392f, #923129);
   background-image: -ms-linear-gradient(bottom, #aa392f, #923129);
   background-image: -webkit-gradient(linear, left bottom, left top, #aa392f, #923129); }
-#bidScreen ul.rushees button.accepted {
+ul.rushees button.accepted, ul.members button.accepted {
   background-image: linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
-#bidScreen ul.rushees button.declined, #bidScreen ul.rushees button.accepted {
+ul.rushees button.declined, ul.rushees button.accepted, ul.members button.declined, ul.members button.accepted {
   cursor: default; }
-#bidScreen .name {
+ul.rushees .name, ul.members .name {
   font-size: 170%;
   font-weight: bold;
   margin-bottom: 5px; }
-#bidScreen ul.skills {
+ul.rushees ul.skills, ul.members ul.skills {
   float: left;
   width: 170px; }
-#bidScreen ul.skills li {
+ul.rushees ul.skills li, ul.members ul.skills li {
   width: 100%;
   clear: both;
   float: none;
   margin: 3px 0; }
-#bidScreen object {
+ul.rushees object, ul.members object {
   height: 1.2em;
   width: 1.2em;
   margin-right: .4em;
   display: inline-block; }
+
+/* Bid Screen */
+ul.rushees li {
+  width: 420px;
+  float: left;
+  margin: 20px; }
+
+/* Plan Screen */
+#planScreen [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
+#planScreen ul.members {
+  float: right;
+  width: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+  #planScreen ul.members li.member {
+    padding: 10px 10px 10px 10px;
+    cursor: move;
+    width: 100%;
+    clear: both;
+    height: 150px; }
+  #planScreen ul.members li.member:hover {
+    background-color: #eee;
+    border: 1px dashed #ccc; }
+  #planScreen ul.members .name {
+    padding-top: 10px;
+    font-size: 150%; }
+#planScreen ul.quadrants {
+  float: left;
+  width: 50%; }
+  #planScreen ul.quadrants li {
+    text-align: center;
+    width: 50%;
+    float: left;
+    font-size: 300%; }
+    #planScreen ul.quadrants li object {
+      width: 100%;
+      margin-top: .5em;
+      opacity: .9; }
+    #planScreen ul.quadrants li h3 {
+      margin-top: .3em; }
+  #planScreen ul.quadrants li.rush {
+    background-color: #9e352c; }
+  #planScreen ul.quadrants li.party {
+    background-color: #e6e8a9; }
+  #planScreen ul.quadrants li.cs {
+    background-color: #2e5a5c; }
+  #planScreen ul.quadrants li.study {
+    background-color: #93c28c; }

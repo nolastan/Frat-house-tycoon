@@ -23,7 +23,6 @@
 	<script src="data/eventInfos.js"></script>
 
 	<!-- Scripts -->
-   	<script src="board.js"></script>
 	<script src="playing_piece.js"></script>
    	<script src="simulation.js"></script>
    	<script src="global.js"></script> 
@@ -288,9 +287,14 @@
 	   <canvas id="background"></canvas>
    </div>
    
-	<div id="planScreen" class="canvasContainer">
-		<div id="board" style="position: absolute;"></div>
-		<h3  style="position:absolute; top:95%;">Next Turn: <span id="nextTurn"></span></h3>
+	<div id="planScreen">
+		<ul class="quadrants">
+			<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><h3>Rush</h3></li>
+			<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><h3>Party</h3></li>
+			<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><h3>Community Service</h3></li>
+			<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><h3>Academic</h3></li>
+		</ul>
+		<ul class="members"></ul>
 	</div>
 	
 	<div id="results">

@@ -273,43 +273,36 @@ h2{
 	font-size: 200%;
 }
 
-/* Bid Meeting  */
-#bidScreen{
-	ul.rushees{
-		li{
-			width: 420px;
-			float:left;
-			margin: 20px;
-		}
-		canvas.face{
-			float:left;
-			margin-right: 10px;
-		}
-		canvas.gauge{
-		
-		}
-		button.bid{
-			width: 100px;
-			font-size: 1.2em;
-			height: 1.5em;
-			margin-top: 11px;
-		}
-		p.interest{
-/* 			text-transform: uppercase; */
-			font-size:.7em;
-			text-align: center;
-			width:100px;
-			display:inline-block;
-		}
-		button.declined{
-			@include gradient-inverse($red);
-		}
-		button.accepted{
-			@include gradient-inverse($green);
-		}
-		button.declined, button.accepted{
-			cursor: default;
-		}
+/* Rushees/Members */
+ul.rushees, ul.members{
+
+	canvas.face{
+		float:left;
+		margin-right: 10px;
+	}
+	canvas.gauge{
+	
+	}
+	button.bid{
+		width: 100px;
+		font-size: 1.2em;
+		height: 1.5em;
+		margin-top: 11px;
+	}
+	p.interest{
+		font-size:.7em;
+		text-align: center;
+		width:100px;
+		display:inline-block;
+	}
+	button.declined{
+		@include gradient-inverse($red);
+	}
+	button.accepted{
+		@include gradient-inverse($green);
+	}
+	button.declined, button.accepted{
+		cursor: default;
 	}
 	.name{
 		font-size: 170%;
@@ -331,5 +324,76 @@ h2{
 		width: 1.2em;
 		margin-right: .4em;
 		display:inline-block;
+	}
+}
+
+/* Bid Screen */
+ul.rushees{
+	li{
+		width: 420px;
+		float:left;
+		margin: 20px;
+	}
+}
+
+/* Plan Screen */
+#planScreen{
+	[draggable] {
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+
+	ul.members{
+		float:right;
+		width: 300px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		li.member{
+			padding: 10px 10px 10px 10px;
+			cursor:move;
+			width: 100%;
+			clear:both;
+			height: 150px;
+		}
+		li.member:hover{
+			background-color: #eee;
+			border: 1px dashed #ccc;
+		}
+		.name{
+			padding-top: 10px;
+			font-size: 150%;
+		}
+	}
+	ul.quadrants{
+		float:left;
+		width:50%;
+		li{
+			text-align:center;
+			width: 50%;
+			float:left;
+				font-size: 300%;
+			object{
+				width: 100%;
+				margin-top: .5em;
+				opacity: .9;
+			}
+			h3{
+				margin-top: .3em;
+			}
+		}
+		li.rush{
+			background-color: $rush_color;
+		}
+		li.party{
+			background-color: $party_color;
+		}
+		li.cs{
+			background-color: $cs_color;
+		}
+		li.study{
+			background-color: $study_color;
+		}
 	}
 }

@@ -22,7 +22,6 @@ function plan(){
 };
 
 function simulate(){
-   	game.board.update_play();
 	var turn = game.nextTurn;
 	game.results = turn.run(game.frat);
 	//game.sim = new Simulation(game.frat.getPlayValues(), game.results);
