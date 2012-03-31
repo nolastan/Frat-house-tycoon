@@ -7,9 +7,8 @@ var   partyRect, studyRect, csRect, rushRect;
 var   stage;
 var   piecesArray = new Array();
 var   first_piece_x, first_piece_y;
-const RECT_SCALE_FACTOR = 0.30;
-const STAGE_WIDTH_SCALE_FACTOR = 1.6;
-const STAGE_HEIGHT_SCALE_FACTOR = 1.4;
+const RECT_WIDTH_SCALE_FACTOR = 0.30;
+const RECT_HEIGHT_SCALE_FACTOR = 0.40;
 var boardLayer;
 var messageLayer;			
 var partyPicLayer;
@@ -205,8 +204,8 @@ var DrawBoard = function()
     partyRect = new Kinetic.Rect({
 		x: 10,
 		y: 10,
-		width: stage.width * RECT_SCALE_FACTOR,
-		height: stage.height * RECT_SCALE_FACTOR,
+		width: stage.width * RECT_WIDTH_SCALE_FACTOR,
+		height: stage.height * RECT_HEIGHT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -216,8 +215,8 @@ var DrawBoard = function()
 	csRect = new Kinetic.Rect({
 		x: partyRect.x + partyRect.width,
 		y: 10,
-		width: stage.width * RECT_SCALE_FACTOR,
-		height: stage.height * RECT_SCALE_FACTOR,
+		width: stage.width * RECT_WIDTH_SCALE_FACTOR,
+		height: stage.height * RECT_HEIGHT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -230,8 +229,8 @@ var DrawBoard = function()
 	rushRect = new Kinetic.Rect({
 		x: 10,
 		y: partyRect.y + partyRect.height,
-		width: stage.width * RECT_SCALE_FACTOR,
-		height: stage.height * RECT_SCALE_FACTOR,
+		width: stage.width * RECT_WIDTH_SCALE_FACTOR,
+		height: stage.height * RECT_HEIGHT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
@@ -241,8 +240,8 @@ var DrawBoard = function()
 	studyRect = new Kinetic.Rect({
 		x: partyRect.x + partyRect.width,
 		y: partyRect.y + partyRect.height,
-		width: stage.width * RECT_SCALE_FACTOR,
-		height: stage.height * RECT_SCALE_FACTOR,
+		width: stage.width * RECT_WIDTH_SCALE_FACTOR,
+		height: stage.height * RECT_HEIGHT_SCALE_FACTOR,
 		//fill: "#00D2FF",
 		stroke: "black",
 		strokeWidth: 2
