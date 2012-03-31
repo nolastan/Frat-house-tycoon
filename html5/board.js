@@ -100,10 +100,10 @@ this.update = function() {
 this.update_play = function()
  {
 	var play = {};
-	play.party = this.MembersInsidePartyRect();
-	play.rush = this.MembersInsideRushRect();
-	play.cs = this.MembersInsideCsRect();
-	play.study = this.MembersInsideStudyRect();
+	play.party = MembersInsidePartyRect();
+	play.rush = MembersInsideRushRect();
+	play.cs = MembersInsideCsRect();
+	play.study = MembersInsideStudyRect();
 	frat.setPlay(play);
 }   
 
