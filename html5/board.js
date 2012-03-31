@@ -16,58 +16,89 @@ var partyPicLayer;
 var servicePicLayer;
 var rushPicLayer;
 var studyPicLayer;
-
+var initialized = false;
 
 //********************************************************************************************
-this.update = function() {
-	
-	
-	for (var i = 0; i < piecesArray.length; i++) {
-		piecesArray[i].remove();
-		delete piecesArray[i];
-	}
-	
-	piecesArray = [];
-	for (var i = 0; i < frat.members.length; i++) {
-		this.AddPiece(frat.members[i]);
-	}
+// Public Functions
+//********************************************************************************************
+
+this.IsInitialized = function() {
+   return initialized;
 }
 
 //********************************************************************************************
 
-this.DrawPieces = function ()
+this.Initialize = function()
 {
-   var x_inc = 0;
-   var y_inc = 0;
-   var columnCnt = 0;   
-   var rowCnt = 0;
-   const maxRowInCol = 6;
-    
-   for(var i=0; i<piecesArray.length; i++)
-   {
-       y_inc =  rowCnt * (piecesArray[i].height() + 10); 
-	   x_inc =  columnCnt * (piecesArray[i].width() + 10);
-       piecesArray[i].drawPiece(first_piece_x + x_inc, first_piece_y + y_inc);
-	   rowCnt++;
-	   if(rowCnt == maxRowInCol)
-	   {
-	      rowCnt = 0;
-		  columnCnt++; 
-	   }
-   }
+   DrawBoard();
+   initialized = true;
 }
 
 //********************************************************************************************
 
-this.AddPiece = function (new_member)
-{   
-   var piece = new PlayingPiece(stage, new_member);    
-   piecesArray.push(piece);   
+this.update = function() {
+
+	var x_inc = 0;
+    var y_inc = 0;
+    var columnCnt = 0;   
+    var rowCnt = 0;
+    const maxRowInCol = 6;
+	
+	// Add and draw new pieces
+	var pieceFound;	
+	for (var i = 0; i < frat.members.length; i++) 
+	{
+	    pieceFound = false;
+	    for (var j = 0; j < piecesArray.length; j++)
+		{
+		   if(frat.members[i].id == piecesArray[j].member.id)
+		   {
+		      pieceFound = true;
+			  break;
+		   }
+		}
+		
+		if(!pieceFound)
+	    {		   
+		   AddPiece(frat.members[i]);
+		   y_inc =  rowCnt * (piecesArray[i].height() + 10); 
+	       x_inc =  columnCnt * (piecesArray[i].width() + 10);
+		   piecesArray[i].drawPiece(first_piece_x + x_inc, first_piece_y + y_inc);
+		   rowCnt++;
+		   if(rowCnt == maxRowInCol)
+		   {
+			  rowCnt = 0;
+			  columnCnt++; 
+		   }
+		}
+	}
+	
+	// Remove pieces
+	var memberFound;
+	for (var i = 0; i < piecesArray.length; i++) 
+	{
+	    memberFound = false;
+	    for (var j = 0; j < frat.members.length; j++)
+		{
+		   if(piecesArray[i].member.id == frat.members[j].id)
+		   {
+		      memberFound = true;
+			  break;
+		   }
+		}
+		
+		if(!memberFound)
+		{
+		   piecesArray[i].remove();
+		   delete piecesArray[i];
+		}
+	}
 }
 
 //********************************************************************************************
 
-this.update_play = function() {
+this.update_play = function()
+ {
 	var play = {};
 	play.party = this.MembersInsidePartyRect();
 	play.rush = this.MembersInsideRushRect();
@@ -77,36 +108,46 @@ this.update_play = function() {
 }   
 
 //********************************************************************************************
+// Private Functions
+//********************************************************************************************
 
-this.getPiecesArray = function() 
+var AddPiece = function (new_member)
+{   
+   var piece = new PlayingPiece(stage, new_member);    
+   piecesArray.push(piece);   
+}
+
+//********************************************************************************************
+
+var getPiecesArray = function() 
 {
 	return piecesArray;
 }
 
 //********************************************************************************************
 	
-this.MembersInsidePartyRect = function() 
+var MembersInsidePartyRect = function() 
 {
    return MembersInsideRect(partyRect);
 }
 
 //********************************************************************************************
 	
-this.MembersInsideRushRect = function() 
+var MembersInsideRushRect = function() 
 {
    return MembersInsideRect(rushRect);
 }
 
 //********************************************************************************************
 	
-this.MembersInsideCsRect = function() 
+var MembersInsideCsRect = function() 
 {
    return MembersInsideRect(csRect);
 }
 
 //********************************************************************************************
 	
-this.MembersInsideStudyRect = function() 
+var MembersInsideStudyRect = function() 
 {
    return MembersInsideRect(studyRect);
 }
@@ -147,11 +188,11 @@ var IsPieceInsideRect = function (piece, quadrant)
 
 //********************************************************************************************	
 
-this.DrawBoard = function() 
+var DrawBoard = function() 
 {	
 	stage = new Kinetic.Stage("board", 
-	                          sg.width, 
-	                          sg.height);     
+	                          $(window).width() * 0.85, 
+	                          $(window).height() * 0.95);     
 
 	boardLayer   = new Kinetic.Layer();
 	messageLayer = new Kinetic.Layer();			
@@ -300,7 +341,6 @@ this.DrawBoard = function()
 	context.fillText("Community Service", csRect.x + csRect.width / 2, csRect.y + csRect.height / 3.5);
 	context.fillText("Rush", rushRect.x + rushRect.width / 2, rushRect.y + rushRect.height / 3.5);
 	context.fillText("Study", studyRect.x + studyRect.width / 2, studyRect.y + studyRect.height / 3.5);
-	return this;
 }
 
 //********************************************************************************************
