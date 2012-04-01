@@ -262,3 +262,24 @@ h2 {
   width: 1.2em;
   margin-right: .4em;
   display: inline-block; }
+
+  
+/* Buy */
+#buyScreen ul.items li {
+  width: 400px;
+  float: left;
+  margin: 20px; }
+#buyScreen ul.items img.img {
+  float: left;
+  margin-right: 0px; }
+#buyScreen ul.items button.buy {
+  width: 200px;
+  font-size: 1.2em;
+  height: 1.5em;
+  margin-top: 100px; }
+#buyScreen .name {
+  font-size: 200%;
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+  

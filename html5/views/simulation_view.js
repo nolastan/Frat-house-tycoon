@@ -5,6 +5,7 @@ function drawSimulationScreen(turn, results){
 	$("#planScreen").hide();
 	$("#results").hide();
 	$("#simulation").show();
+	$("#buyScreen").hide();
 	$("#normal").show();
 	$("#normal").addClass("active");
 	$("#fast").show();

@@ -4,6 +4,7 @@ function drawResultsScreen(){
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#play").hide();	
+	$("#buyScreen").hide();
 	$("#results").show();
 	console.log(game.results);
 	$("#results .cs .val").html(game.results.cs.string());

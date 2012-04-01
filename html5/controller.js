@@ -3,13 +3,20 @@ $(document).ready(function(){
 	initializeScreen();
 	$("#screens .rush").click(bidMeeting);
 	$("#screens .board").click(plan);
+	$("#screens .buy").click(buy);
 	$("nav.bidMeeting").hide();
+	
 	
 });
 
 function initializeScreen(){
 	plan();
-	updateStatsBar()
+	updateStatsBar();
+}
+
+function buy(){
+	drawBuyScreen();
+	updateStatsBar();
 }
 
 function plan(){
@@ -41,7 +48,7 @@ function results(){
 
 function bidMeeting(){
 	drawBidScreen();
-	updateStatsBar()
+	updateStatsBar();
 };
 
 function updateStatsBar() {
