@@ -59,11 +59,10 @@ $(document).ready(function(){
 	game.turns.rushTurn = create_turn(rushWeekendInfo);
 	game.turns.turnNum = 1;
 	
-	game.turns.getNext = function () {
-	    
+	game.turns.getNext = function () {	    
 	    if (game.turns.turnNum % game.bidFrequency == 0) {
+	        this.turnNum++;
 	        return this.rushTurn;
-	        turnNum++;
 	    }
 		var nextTurn = this.pop();
 		if (this.length ==0) {
