@@ -265,18 +265,18 @@ h2 {
 
   
 /* Buy */
-#buyScreen ul.items li {
-  width: 400px;
+#buyScreen li {
+  width: 150px;
   float: left;
-  margin: 20px; }
-#buyScreen ul.items img.img {
+  margin: 30px; }
+#buyScreen img.img {
   float: left;
-  margin-right: 0px; }
-#buyScreen ul.items button.buy {
-  width: 200px;
-  font-size: 1.2em;
-  height: 1.5em;
-  margin-top: 100px; }
+  margin-right: 50px; }
+#buyScreen button.buy {
+  width: 100px;
+  font-size: 1em;
+  height: 1.6em;
+  margin-top: 0px; }
 #buyScreen .name {
   font-size: 200%;
   font-weight: bold;
