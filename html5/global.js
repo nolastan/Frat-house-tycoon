@@ -63,6 +63,7 @@ $(document).ready(function(){
 	    
 	    if (game.turns.turnNum % game.bidFrequency == 0) {
 	        return this.rushTurn;
+	        turnNum++;
 	    }
 		var nextTurn = this.pop();
 		if (this.length ==0) {
