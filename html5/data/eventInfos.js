@@ -33,8 +33,8 @@ var rushWeekendInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"8",
-				"15"
+				"4",
+				"7"
 			]
 		},
 		"cs": {
@@ -59,8 +59,8 @@ var rushWeekendInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"6",
-				"12"
+				"3",
+				"6"
 			]
 		},
 		"rush": {
@@ -84,7 +84,7 @@ var rushWeekendInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"8"
+				"4"
 			]
 		},
 		"study": {
@@ -116,7 +116,7 @@ var rushWeekendInfo = {
 			"cutoffs": [
 				"0",
 				"1",
-				"7"
+				"4"
 			]
 		}
 	}
@@ -147,7 +147,7 @@ var events = [
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		},
 		"cs": {
@@ -171,7 +171,7 @@ var events = [
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		},
 		"rush": {
@@ -195,7 +195,7 @@ var events = [
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		},
 		"study": {
@@ -219,7 +219,7 @@ var events = [
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		}
 	}
@@ -259,8 +259,8 @@ var events = [
 			],
 			"cutoffs": [
 				"0",
-				"7",
-				"15"
+				"3",
+				"7"
 			]
 		},
 		"cs": {
@@ -284,7 +284,7 @@ var events = [
 			],
 			"cutoffs": [
 				"0",
-				"7"
+				"3"
 			]
 		},
 		"rush": {
@@ -316,7 +316,7 @@ var events = [
 			"cutoffs": [
 				"0",
 				"1",
-				"9"
+				"4"
 			]
 		},
 		"study": {
@@ -348,7 +348,7 @@ var events = [
 			"cutoffs": [
 				"0",
 				"1",
-				"10"
+				"5"
 			]
 		}
 	}
@@ -385,7 +385,7 @@ var events = [
 			"cutoffs": [
 				"0",
 				"1",
-				"9"
+				"4"
 			]
 		},
 		"cs": {
@@ -421,7 +421,7 @@ var events = [
 			"cutoffs": [
 				"0",
 				"1",
-				"10"
+				"5"
 			]
 		},
 		"rush": {
@@ -453,7 +453,7 @@ var events = [
 			"cutoffs": [
 				"0",
 				"1",
-				"10"
+				"5"
 			]
 		},
 		"study": {
@@ -644,7 +644,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"2",
-					"6"
+					"4"
 				]
 			},
 			"cs": {
@@ -728,7 +728,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"6"
+					"3"
 				]
 			}
 		}
@@ -759,13 +759,13 @@ var events = [
 				],
 				"msgs": [
 					"It was too cold anyway, good call.",
-					"¡°I braved the cold for this??¡±",
+					"'I braved the cold for this??'",
 					"Strong effort paid off"
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"cs": {
@@ -857,7 +857,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"2"
 				]
 			}
 		}
@@ -894,7 +894,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"cs": {
@@ -958,7 +958,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"2"
 				]
 			},
 			"study": {
@@ -990,7 +990,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"2"
 				]
 			}
 		}
@@ -1027,7 +1027,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"cs": {
@@ -1059,7 +1059,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"rush": {
@@ -1119,7 +1119,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			}
 		}
@@ -1216,7 +1216,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"3"
 				]
 			},
 			"study": {
@@ -1276,8 +1276,8 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"5",
-					"11"
+					"3",
+					"6"
 				]
 			},
 			"cs": {
@@ -1386,7 +1386,7 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"6"
+					"4"
 				]
 			},
 			"cs": {
@@ -1410,7 +1410,7 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"6"
+					"2"
 				]
 			},
 			"rush": {
@@ -1434,7 +1434,7 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"5"
+					"3"
 				]
 			},
 			"study": {
@@ -1465,8 +1465,8 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"4",
-					"8"
+					"3",
+					"6"
 				]
 			}
 		}
