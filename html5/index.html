@@ -304,7 +304,7 @@
 				clickedMember = shape;
 				console.log(shape.member.id);
 				shape.selected = true;
-				drawFaceCard(member, "#curMember");
+				drawFaceCard(member, "#simulation .members");
 			}
 			return shape;
 			
@@ -483,7 +483,7 @@
    <div id="simulation" class="screens">
 	   <canvas id="canvas"></canvas>
 	   <canvas id="background"></canvas>
-	   <div id="curMember" style="float:right"></div>
+	   <ul class="members" style="float:right"></ul>
    </div>
    
 	<div id="planScreen" class="screens">
