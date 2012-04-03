@@ -66,11 +66,11 @@
 
 		shape.step = function() {
 			age++;
-			if (age % 50 == 0) {
+			if (age % 10 == 0) {
 				shape.opacity = shape.opacity*0.5;
 			}
 			
-			if (age > duration) {
+			if (age > duration || shape.opacity < 0.1) {
 				shape.alive = false;
 				shape.remove();
 			}
@@ -100,8 +100,8 @@
 		destNum = 0;
 		minDist = 5;
 		var repCount = 3;
-		repDropProb = .80;
-		var stayDuration = 500;
+		repDropProb = .40;
+		var stayDuration = 800;
 		var enterTime;
 		var state = "walking";
 		
@@ -188,7 +188,10 @@
 					
 				case 'talking':
 					talk();
-					generateRep();
+					if (shape.talkTarget.type == "member") {
+						generateRep();	
+					}
+					
 					var ktp = Math.pow(keepTalkProb, talkCount);
 					if (Math.random() > ktp) {
 						shape.state = "inside";
@@ -203,9 +206,11 @@
 		function tryTalk() {
 			var hitResult = project.hitTest(shape.position, hitOptions);
 			
-			if (hitResult && hitResult.item && hitResult.item.type == "person" && hitResult.item.state == "inside" || hitResult.item.type == "member") {
+			if (hitResult && hitResult.item && hitResult.item.state == "inside" || hitResult.item.type == "member") {
 				hitResult.item.state = "talking";
 				shape.state = "talking";
+				shape.talkTarget = hitResult.item;
+				hitResult.item.talkTarget = shape;
 			}
 		}
 		
@@ -259,10 +264,10 @@
 
 		function generateRep() {
 			if (Math.random() > repDropProb && repCount > 0) {
-				var pos = shape.position - personHeight/2;
+				var pos = shape.bounds.center - personHeight/2;
 				
 				repClicks.push(createRep(pos));
-				repCount++;
+				repCount--;
 			}
 		}
 
@@ -276,6 +281,9 @@
 		return shape;
 	}
 	
+	/*
+	================ MEMBER SPRITE ============
+	*/
 	var create_organizer = (function () {
 	
 		var posCount = 0;
@@ -287,6 +295,8 @@
 		return function(member) {
 			var position = new Point(0, 0);
 			var shape = create_goer(position);
+			
+			shape.selected = true;
 			if (posCount < startingPositions.length) {
 				shape.position = startingPositions[posCount];
 				posCount++;
@@ -319,7 +329,7 @@
 	game.sim.goersCount = 0;
 	function onFrame(event) {
 		if (!game.sim.stopped) { 
-			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
+			if (Math.random() > 0.85 && game.sim.goersCount > 0) {
 				goers.push(create_goer(new Point(500, 500)));
 				game.sim.goersCount--;
 			}
