@@ -20,8 +20,8 @@ var create_skills = (function() {
 	//Variables for determining distribution of randomly
 	//generated skills
 	var scorediv = 12;
-	var basesd = 2;
-	var skillsd = 2;
+	var basesd = 3;
+	var skillsd = 5;
 	var maxSkillVal = 100;
 	var minSkillVal = 2;
 
