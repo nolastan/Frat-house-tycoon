@@ -1,4 +1,129 @@
-var standardWeekInfo = {
+var rushWeekendInfo = {
+	"descript": "Rush Weekend",
+	"categories": {
+		"party": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-20",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "15",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					},
+					"rush": {
+						"base": "0",
+						"mult": "0.5"
+					}
+				}
+			],
+			"msgs": [
+				"Rushees wondered why you weren't having a party.",
+				"It's a party. Everyone's having a good time.",
+				"Rushees had a great time."
+			],
+			"cutoffs": [
+				"0",
+				"8",
+				"15"
+			]
+		},
+		"cs": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"You couldn't think of anything to do?",
+				"Rushees were impressed by your philanthropy event.",
+				"Sold some sweet rush week shirts."
+			],
+			"cutoffs": [
+				"0",
+				"6",
+				"12"
+			]
+		},
+		"rush": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0.5"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "0.75"
+					}
+				}
+			],
+			"msgs": [
+				"Rushing hard, or hardly rushing?",
+				"Had a good turnout to your events."
+			],
+			"cutoffs": [
+				"0",
+				"8"
+			]
+		},
+		"study": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-10",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "15",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "10",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"You should probably study if you want to stick around.",
+				"Got your work done.",
+				"Work hard, play hard."
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"7"
+			]
+		}
+	}
+}
+
+var events = [
+	{
 	"descript": "Standard Week",
 	"categories": {
 		"party": {
@@ -98,9 +223,8 @@ var standardWeekInfo = {
 			]
 		}
 	}
-};
-
-var finalsWeekInfo = {
+},
+{
 	"descript": "Finals Week",
 	"categories": {
 		"party": {
@@ -228,10 +352,8 @@ var finalsWeekInfo = {
 			]
 		}
 	}
-};
-
-
-var mardiGrasInfo = {
+},
+{
 	"descript": "Mardi Gras",
 	"categories": {
 		"party": {
@@ -351,10 +473,8 @@ var mardiGrasInfo = {
 			]
 		}
 	}
-};
-
-
-var  gloCrackDownInfo = {
+},
+{
 		"descript": "The GLO Cracks Down",
 		"categories": {
 			"party": {
@@ -482,133 +602,9 @@ var  gloCrackDownInfo = {
 				]
 			}
 		}
-	};
+	},
 
-var rushWeekendInfo = {
-	"descript": "Rush Weekend",
-	"categories": {
-		"party": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "-20",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "15",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "0",
-						"mult": "1"
-					},
-					"rush": {
-						"base": "0",
-						"mult": "0.5"
-					}
-				}
-			],
-			"msgs": [
-				"Rushees wondered why you weren't having a party.",
-				"It's a party. Everyone's having a good time.",
-				"Rushees had a great time."
-			],
-			"cutoffs": [
-				"0",
-				"8",
-				"15"
-			]
-		},
-		"cs": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "0",
-						"mult": "1"
-					}
-				},
-				{
-					"rep": {
-						"base": "0",
-						"mult": "1"
-					}
-				}
-			],
-			"msgs": [
-				"You couldn't think of anything to do?",
-				"Rushees were impressed by your philanthropy event.",
-				"Sold some sweet rush week shirts."
-			],
-			"cutoffs": [
-				"0",
-				"6",
-				"12"
-			]
-		},
-		"rush": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "0",
-						"mult": "0.5"
-					}
-				},
-				{
-					"rep": {
-						"base": "0",
-						"mult": "0.75"
-					}
-				}
-			],
-			"msgs": [
-				"Rushing hard, or hardly rushing?",
-				"Had a good turnout to your events."
-			],
-			"cutoffs": [
-				"0",
-				"8"
-			]
-		},
-		"study": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "-10",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "15",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "10",
-						"mult": "1"
-					}
-				}
-			],
-			"msgs": [
-				"You should probably study if you want to stick around.",
-				"Got your work done.",
-				"Work hard, play hard."
-			],
-			"cutoffs": [
-				"0",
-				"1",
-				"7"
-			]
-		}
-	}
-};
-
-var superBowlInfo = {
+	{
 		"descript": "Super Bowl",
 		"categories": {
 			"party": {
@@ -736,9 +732,8 @@ var superBowlInfo = {
 				]
 			}
 		}
-	};
-
-var coldInfo = {
+	},
+	{
 		"descript": "Freezing Cold Outside",
 		"categories": {
 			"party": {
@@ -866,10 +861,8 @@ var coldInfo = {
 				]
 			}
 		}
-	};
-
-
-var firstDayOfSpringInfo = {
+	},
+	{
 		"descript": "First day of Spring",
 		"categories": {
 			"party": {
@@ -1001,9 +994,8 @@ var firstDayOfSpringInfo = {
 				]
 			}
 		}
-	};
-
-var halloweenInfo = {
+	},
+	{
 		"descript": "Halloween",
 		"categories": {
 			"party": {
@@ -1131,9 +1123,8 @@ var halloweenInfo = {
 				]
 			}
 		}
-	};
-
-var forthOfJulyInfo = {
+	},
+	{
 		"descript": "Forth of July",
 		"categories": {
 			"party": {
@@ -1253,9 +1244,8 @@ var forthOfJulyInfo = {
 				]
 			}
 		}
-	};
-
-var parentWeekendInfo = {
+	},
+	{
 		"descript": "Parents Weekend",
 		"categories": {
 			"party": {
@@ -1371,9 +1361,8 @@ var parentWeekendInfo = {
 				]
 			}
 		}
-	};
-
-var midtermsWeekInfo = {
+	},
+	{
 		"descript": "Midterms Week",
 		"categories": {
 			"party": {
@@ -1481,9 +1470,8 @@ var midtermsWeekInfo = {
 				]
 			}
 		}
-	};
-
-var proStudentWeekInfo = {
+	},
+	{
 		"descript": "Prospective Student Weekend",
 		"categories": {
 			"party": {
@@ -1595,9 +1583,8 @@ var proStudentWeekInfo = {
 				]
 			}
 		}
-	};
-
-var stPatricksDay = {
+	},
+	{
 		"descript": "St Patricks Day",
 		"categories": {
 			"party": {
@@ -1709,11 +1696,7 @@ var stPatricksDay = {
 				]
 			}
 		}
-	};
+	}
+]
 
 //**********************************************************************
-var events = [];
-events[0] = mardiGrasInfo;
-events[1] = standardWeekInfo;
-events[2] = finalsWeekInfo;
-events[3] = superBowlInfo;
