@@ -151,6 +151,9 @@ nav{
 			.fill{
 				height: 20px;
 			}
+			background-image: url('../images/vert_line.gif');
+			background-repeat: repeat-y;
+			background-position: -2px, 0;
 		}
 		object{
 			width: .8em;

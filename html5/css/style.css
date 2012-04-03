@@ -103,7 +103,10 @@ nav {
       font-size: 50%;
       text-align: center; }
     nav ul#skills .bar {
-      height: 20px; }
+      height: 20px;
+      background-image: url("../images/vert_line.gif");
+      background-repeat: repeat-y;
+      background-position: -2px, 0; }
       nav ul#skills .bar .fill {
         height: 20px; }
     nav ul#skills object {

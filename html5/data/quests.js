@@ -26,6 +26,7 @@ var quests =
 		},
 		"time": 10
 	},
+/*
 	{
 		"name": "Mu Nu Tau",
 		"nickname": "MuNu",
@@ -78,4 +79,5 @@ var quests =
 		},
 		"time": 10
 	}
+*/
 ]
