@@ -31,8 +31,9 @@ $(document).ready(function(){
 	
 	$("#skip").click(function(){
 		//game.sim.end();
-		game.sim.cleanUp();
 		game.sim.stopped = true;
+		game.sim.cleanUp();
+
 		results();
 	});
 	

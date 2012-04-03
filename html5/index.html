@@ -33,11 +33,20 @@
    	<script type="text/paperscript" canvas="canvas">
 	window.globals = {};
 
+	//Draws house
 	var tr = new Point(0, 0);
 	var bl = new Point(300, 300);
 	var rect = new Path.Rectangle(tr, bl);
-	var rectBounds = new Rectangle(tr, bl);
-	rect.fillColor = 'black';
+	rect.fillColor = 'yellow';
+	
+	//Create bounds for person
+	var size = new Size(game.UNIT*10, game.UNIT*10);
+	var otherRect = new Path.Rectangle(tr, size);
+	
+	//Create person sprite
+
+	//personImage.visible = false;
+	
 	var repClicks = [];
 	function createRep(position) {
 
@@ -78,15 +87,16 @@
 		
 
 	}
-	window.globals.createRep = createRep;
-
 
 	var create_goer = function(start) {
-		var shape = new Path.Circle(start, 10);
+		
+		var shape = new Raster('person');
+		shape.fitBounds(otherRect.bounds);
+		shape.position = start;
+		shape.visible = true;
 		var destVect, inHouse, age, dur, minDist, curDest, speed, destNum, dests = [];
 		destNum = 0;
 		minDist = 5;
-		shape.fillColor = 'green';
 		var repCount = 3;
 		repDropProb = .99;
 		var stayDuration = 300;
@@ -182,7 +192,7 @@
 
 
 	var goers = [create_goer(new Point(600, 500))];
-	game.sim.goersCount = 20;
+	game.sim.goersCount = 500;
 	function onFrame(event) {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
@@ -312,7 +322,7 @@
 		<h2>Buy</h2>
 		<ul class="items"></ul>
 	</div>
-	
+	<img id="person" src="images/person.png" style="display:none"></img>
  </body>  
 </html>
 
