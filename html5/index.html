@@ -60,6 +60,9 @@
 		shape.alive = true;
 		age = 0;
 		duration = 200;
+		
+		game.frat.rep += 1;
+		updateStatsBar();
 
 		shape.step = function() {
 			age++;
@@ -76,17 +79,7 @@
 		shape.die = function() {
 			shape.alive = false;
 			shape.remove();
-		}
 
-		shape.bounce = function() {
-			position.blink;
-		}
-		
-		shape.clicked = function() {
-			shape.fillColor = "red";
-			game.frat.rep += 1;
-			updateStatsBar();
-			shape.die();
 		}
 
 		return shape;
