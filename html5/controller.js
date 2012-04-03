@@ -7,11 +7,26 @@ $(document).ready(function(){
 	$("nav.bidMeeting").hide();
 	
 	
+	
 });
 
 function initializeScreen(){
-	plan();
+	menu();
 	updateStatsBar();
+}
+
+function menu(){
+	drawMenuScreen();
+}
+
+function newGame(quest_key){
+/* 	game.frat = create_frat(quests[quest_key]); */
+	game.frat.members.length = 0;
+	for (var i = 0; i < 5; i++) {	
+		game.frat.addMember(create_member());
+		console.log('f');
+	}
+	plan();
 }
 
 function buy(){

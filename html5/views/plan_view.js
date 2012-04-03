@@ -12,6 +12,7 @@ function drawPlanningScreen(){
 	$("nav.bidMeeting").hide();
 	$("nav.main").show();
 	$("#bidScreen").hide();
+	$("#menu").hide();
 	$("#planScreen").show();
 	$("#simulation").hide();
 	$("#results").hide()

@@ -17,11 +17,13 @@
    	<script src="views/results_view.js"></script> 
    	<script src="views/plan_view.js"></script> 
    	<script src="views/buy_view.js"></script> 
+   	<script src="views/menu_view.js"></script> 
 	
 	<!-- Data -->
 	<script src="data/names.js"></script>
 	<script src="data/physical_attr.js"></script>
 	<script src="data/eventInfos.js"></script>
+	<script src="data/quests.js"></script>
 
 	<!-- Scripts -->
    	<script src="board.js"></script>
@@ -283,7 +285,32 @@
 	</ul>
 </nav> 
 <nav class="bidMeeting"><p>You have <span class="val">0</span> bids remaining.<button class="continue">Continue</button></p></nav>
- 
+	<div id="menu">
+		<h1>Frat House Tycoon</h1>
+		<h2>Build the fraternity of your dreams!</h2>
+		<p class="intro">As president of a fraternity, you must manage its reputation, finance, and membership while balancing academics, parties, rush, and philanthropy.</p>
+		<p class="challenge">What will your house be known for?</p>
+		<div class="options">
+			<button class="sandbox">Sandbox</button>
+			<button class="quest">Quest</button>
+		</div>
+		
+<!--
+		<div class="sandbox">
+			<label>Fraternity Name:</label>
+			<input class="frat_name" type="text" />
+			<button class="start">Begin</button>
+		</div>
+		
+-->
+		<div class="quest">
+			<p>Choose a house to run.</p>
+			<ul class="quests">
+			</ul>
+			<button class="cancel">Back</button>
+		</div>
+	</div> 
+
    <div id="simulation">
 	   <canvas id="canvas"></canvas>
 	   <canvas id="background"></canvas>
