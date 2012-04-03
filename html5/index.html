@@ -63,6 +63,10 @@
 
 		shape.step = function() {
 			age++;
+			if (age % 50 == 0) {
+				shape.opacity = shape.opacity*0.5;
+			}
+			
 			if (age > duration) {
 				shape.alive = false;
 				shape.remove();
