@@ -38,9 +38,16 @@
 	var rectBounds = new Rectangle(tr, bl);
 	rect.fillColor = 'black';
 	var repClicks = [];
+	var circle = new Path.Circle(new Point(500, 500), 10);
+	circle.fillColor = "blue";
+	var circSym = new Symbol(circle);
+	circle.fillColor = "green";
+	
+	var goerSym = new Symbol(circle);
+	
 	function createRep(position) {
 
-		var shape = new Path.Circle(position, 10);
+		var shape = circSym.place(position);
 		shape.fillColor = "blue";
 		shape.type = "rep";
 		var frameCount, age, duration, alive;
@@ -58,7 +65,7 @@
 		
 		shape.die = function() {
 			shape.alive = false;
-			shape.remove();
+			//shape.remove();
 		}
 
 		shape.bounce = function() {
@@ -66,22 +73,17 @@
 		}
 		
 		shape.clicked = function() {
-			shape.fillColor = "red";
+			circleSym.definition.fillColor = "red";
 			game.frat.rep += 1;
 			updateStatsBar();
 			shape.die();
 		}
 
 		return shape;
-		
-		
-
 	}
-	window.globals.createRep = createRep;
-
 
 	var create_goer = function(start) {
-		var shape = new Path.Circle(start, 10);
+		var shape = goerSym.place(start);
 		var destVect, inHouse, age, dur, minDist, curDest, speed, destNum, dests = [];
 		destNum = 0;
 		minDist = 5;
@@ -181,7 +183,7 @@
 
 
 	var goers = [create_goer(new Point(600, 500))];
-	game.sim.goersCount = 20;
+	game.sim.goersCount = 200;
 	function onFrame(event) {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
@@ -228,6 +230,7 @@
 
 	function onMouseDown(event) {
 		var hitResult = project.hitTest(event.point, hitOptions);
+		console.log(hitResult.item);
 		if (hitResult && hitResult.item.type == "rep") {
 			hitResult.item.clicked();
 		}

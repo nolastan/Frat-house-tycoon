@@ -30,6 +30,7 @@ $(document).ready(function(){
 	
 	$("#skip").click(function(){
 		//game.sim.end();
+		console.log(game.sim);
 		game.sim.cleanUp();
 		game.sim.stopped = true;
 		results();
