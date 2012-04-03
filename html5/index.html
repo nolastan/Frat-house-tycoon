@@ -66,13 +66,12 @@
 
 		shape.step = function() {
 			age++;
-			if (age % 50 == 0) {
+			if (age % 20 == 0) {
 				shape.opacity = shape.opacity*0.5;
 			}
 			
-			if (age > duration) {
-				shape.alive = false;
-				shape.remove();
+			if (age > duration || shape.opacity < 0.1) {
+				shape.die();
 			}
 		}
 		
@@ -100,7 +99,7 @@
 		destNum = 0;
 		minDist = 5;
 		var repCount = 3;
-		repDropProb = .80;
+		repDropProb = .30;
 		var stayDuration = 500;
 		var enterTime;
 		var state = "walking";
@@ -203,7 +202,7 @@
 		function tryTalk() {
 			var hitResult = project.hitTest(shape.position, hitOptions);
 			
-			if (hitResult && hitResult.item && hitResult.item.type == "person" && hitResult.item.state == "inside" || hitResult.item.type == "member") {
+			if (hitResult && hitResult.item && hitResult.item.type == "member") {
 				hitResult.item.state = "talking";
 				shape.state = "talking";
 			}
@@ -262,7 +261,7 @@
 				var pos = shape.position - personHeight/2;
 				
 				repClicks.push(createRep(pos));
-				repCount++;
+				repCount--;
 			}
 		}
 
