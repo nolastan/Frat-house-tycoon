@@ -232,6 +232,39 @@
 		}
 	}
 	</script>
+	<script type="text/javascript">
+	function dragStart(ev) {
+    ev.dataTransfer.effectAllowed='move';
+    ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+    ev.dataTransfer.setDragImage(ev.target,0,0);
+    return true;
+	}
+
+	function dragEnd(ev) {
+		ev.dataTransfer.clearData("Text");
+		return true
+	}
+
+
+	function dragEnter(ev) {
+		var idelt = ev.dataTransfer.getData("Text");
+		return true;
+	}
+
+	function dragOver(ev) {
+		var idelt = ev.dataTransfer.getData("Text");
+		var id = ev.target.getAttribute('id');    
+		return false;    
+	}
+
+	function dragDrop(ev) {
+	  console.log('drop');
+		var idelt = ev.dataTransfer.getData("Text");
+		ev.target.appendChild(document.getElementById(idelt));
+		ev.stopPropagation();
+		return false; // return false so the event will not be propagated to the browser
+	}
+	</script>
    	<!-- Models -->
    	<script src="models/House.js"></script> 
    	<script src="models/Sidewalk.js"></script> 
@@ -289,10 +322,15 @@
    
 	<div id="planScreen">
 		<ul class="quadrants">
-			<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><h3>Rush</h3></li>
-			<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><h3>Party</h3></li>
-			<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><h3>Community Service</h3></li>
-			<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><h3>Academic</h3></li>
+			<ul class="rush"
+			    ondragenter="return dragEnter(event)"
+				 ondrop="return dragDrop(event)"
+				 ondragover="return dragOver(event)">
+				<li><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><h3>Rush</h3></li>
+			</ul>
+			<ul class="party"><li><object data="sprites/party_icon.svg" type="image/svg+xml"></object><h3>Party</h3></li></ul>
+			<ul class="cs"><li><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><h3>Community Service</h3></li></ul>
+			<ul class="study"><li><object data="sprites/study_icon.svg" type="image/svg+xml"></object><h3>Academic</h3></li></ul>
 		</ul>
 		<ul class="members"></ul>
 	</div>

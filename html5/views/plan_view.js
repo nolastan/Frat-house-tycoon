@@ -23,7 +23,10 @@ function drawPlanningScreen(){
 		var html = "";
 		var ctx;
 				
-		html += '<li class="member" id="member_' +member.id + '">';
+		html += '<li class="member" id="member_' +member.id + '"';
+		html += ' draggable="true"';
+		html += ' ondragstart="return dragStart(event)"';
+		html += ' ondragend="return dragEnd(event)">';
 		html += '<p class="name">' + member.name + '</p>';
 		html += '<canvas height="100" width="100" class="face"></canvas>';
 		html += '<ul class="skills">';
