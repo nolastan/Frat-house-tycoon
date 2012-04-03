@@ -3,7 +3,7 @@
  
 	<!-- Libraries -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-   	<script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.8.2.js"></script>
+   	<script src="libraries/kinetic-v3.8.2.js"></script>
 	<script type="text/javascript" src="libraries/paper.js"></script>
 
 	<!-- Sprites -->
@@ -36,8 +36,8 @@
 	//Draws house
 	var tr = new Point(0, 0);
 	var bl = new Point(300, 300);
-	var rect = new Path.Rectangle(tr, bl);
-	rect.fillColor = 'yellow';
+	var house = new Path.Rectangle(tr, bl);
+	house.fillColor = 'yellow';
 	
 	//Create bounds for person
 	var size = new Size(game.UNIT*10, game.UNIT*10);
@@ -102,48 +102,128 @@
 		var stayDuration = 300;
 		var enterTime;
 		var state = "walking";
+		
+		//This is arbitrary and should depend on something
+		var enterProb = 1;
+		
+		var entryPath = [ start, new Point(house.bounds.bottomCenter.x, shape.position.y),
+					house.bounds.bottomCenter,
+					house.bounds.center];
+					
+		var exitPath = [house.bounds.center, house.bounds.bottomCenter, 
+					new Point(house.bounds.bottomCenter.x, shape.position.y),
+					new Point(house.bounds.left, start.y)];
+					
+		var passingPath = [start,new Point(house.bounds.bottomCenter.x, shape.position.y), 
+						new Point(house.bounds.left, shape.position.y)];
 
 		var initialize = function() {
-			dests = [ start, new Point(rect.bounds.bottomCenter.x, shape.position.y),
-					rect.bounds.bottomCenter,
-					rect.bounds.center];
-
-			curDest = dests[0];
 			speed = 3;
-			setDestVector();
-			inHouse = false;
-			leaving = false;
 			age = 0;
 			dur = 2000;
 			shape.alive = true;
+			state = 'born';
 		}
 
-		var setDestVector = function() {
-			destVect = curDest - shape.position;
+		var setDestVector = function(destination) {
+			destVect = destination - shape.position;
 			destVect = destVect.normalize()*speed;
-
 		}
 
 
 		shape.step = function() {
-			shape.position += destVect;
-			if (nearTarget()) {
-				getNextDest();
-			}
 			age++;
-			if (age > dur) {
-				shape.die();
+			switch (state) {
+				case 'born':
+					if (true) {
+						state = 'entering';
+						moveAlongPath(entryPath);
+					} else {
+						state = 'passing';
+						moveAlongPath(passingPath);
+					}
+					//shape.position += destVect;
+					break;
+					
+				case 'entering':
+					if (!moveAlongPath(entryPath)) {
+						enterTime = age;
+						state = "inside";
+						speed = speed/3;
+					}
+					break;
+					
+				case 'inside':
+					if (nearTarget()) {
+						curDest = randomTarget(house);
+						setDestVector(curDest);
+					}
+					talk();
+					shape.position += destVect;
+					generateRep();
+					if (age > enterTime + stayDuration) {
+						curDest = 0;
+						moveAlongPath(exitPath)
+						state = 'leaving';
+					}
+					break;
+				case 'leaving':
+					if (!moveAlongPath(exitPath)) {
+						shape.die();
+					}
+					break;
+				
+				case 'passing':
+					if (!moveAlongPath(passingPath)) {
+						shape.die();
+					}
+					break;
+					
+				case 'talking':
+					talk();
+					break;
 			}
-
-			if (!leaving && inHouse && Math.random() > repDropProb && repCount > 0) {
-				generateRep();
-				repCount--;
+		}
+		
+		var talkFrame = 0;
+		function talk() {
+			if (talkFrame < 5) {
+				shape.rotate(1);
+			} else if (talkFrame < 15) {
+				shape.rotate(-1);
+			} else if (talkFrame < 20) {
+				shape.rotate(1);
+			} else {
+				talkFrame = 0;
+				return;
 			}
+			talkFrame++;
+			
+		}
+		
+		function moveAlongPath(path) {
+			if (!curDest) {
+				curDest = path.shift();
+				setDestVector(curDest);
+			}
+			
+			if (nearTarget()) {
+				if (path.length > 0) {
+					curDest = path.shift();
+					setDestVector(curDest);
+				} else {
+					return false;
+				}
+			}
+			
+			shape.position += destVect;
+			return true;
 		}
 
 		shape.die = function() {
 			shape.alive = false;
 			shape.remove();
+			console.log("DEAD!!");
 		}
 
 		function nearTarget() {
@@ -151,37 +231,12 @@
 		}
 
 		function generateRep() {
-			repClicks.push(createRep(shape.position));
-		}
-
-		var getNextDest = function() {
-			if (inHouse) {
-				if (age < enterTime + stayDuration) {
-					curDest = randomTarget(rect);
-				} else {
-					leaving = true;
-					destNum--;
-					if (destNum >= 0) {
-						curDest = dests[destNum];
-					} else {
-						shape.die();
-						return;
-					}
-				}
-
-			} else {
-			destNum++;
-			enterTime = age;
-				if (destNum < dests.length) {
-
-					curDest = dests[destNum];
-				} else {
-					inHouse = true;
-					speed = speed/3;
-				}
+			if (Math.random() > repDropProb && repCount > 0) {
+				repClicks.push(createRep(shape.position));
+				repCount++;
 			}
-			setDestVector();
 		}
+
 
 		function randomTarget(rect) {
 			return rect.bounds.topLeft + shape.bounds.size/2 + Point.random()*(rect.bounds.size -shape.bounds.size);
@@ -190,9 +245,9 @@
 		return shape;
 	}
 
-
-	var goers = [create_goer(new Point(600, 500))];
-	game.sim.goersCount = 500;
+	
+	var goers = [];
+	game.sim.goersCount = 0;
 	function onFrame(event) {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
@@ -212,7 +267,7 @@
 					repClicks.splice(i, 1);
 				}
 			}
-			if (goers.length  == 0) {
+			if (goers.length  == 0 && game.sim.goersCount <= 0) {
 				game.sim.stopped = true;
 				results();
 			}
@@ -221,11 +276,11 @@
 	
 	game.sim.cleanUp = function() {
 		for (var i= 0; i < goers.length; i++) {
-			goers[i].remove;
 			goers[i].die();
 			
 		}
-		goers = [create_goer(new Point(600, 500))];
+		game.sim.goersCount = 0;
+		goers = [];
 		repClicks = [];
 		
 	}

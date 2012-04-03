@@ -10,7 +10,7 @@ function drawSimulationScreen(turn, results){
 	$("#normal").addClass("active");
 	$("#fast").show();
 	$("#skip").show();
-	game.sim.goerCount = results.party;
+	game.sim.goersCount = results.party.rep;
 	game.sim.stopped = false;
 }
 
