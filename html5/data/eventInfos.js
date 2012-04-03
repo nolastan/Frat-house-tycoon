@@ -1700,7 +1700,7 @@ var stPatricksDay = {
 					}
 				],
 				"msgs": [
-					"Tried to use ¡°Leprechauns ate my homework¡± excuse",
+					'Tried to use "Leprechauns ate my homework" excuse',
 					"Luck of the Irish came through on your pop-quiz"
 				],
 				"cutoffs": [
