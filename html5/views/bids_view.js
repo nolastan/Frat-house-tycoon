@@ -72,8 +72,25 @@ function drawBidScreen(){
 	    	$(this).unbind("click");
 	  	});
 	}
-	
+}
 
+function drawFaceCard(member, divId) {
+			var html = "";
+					
+			html += '<li class="rushee" id="rushee_' +member.id + '">';
+			html += '<p class="name">' + member.name + '</p>';
+			html += '<canvas height="100" width="100" class="face"></canvas>';
+			html += '<ul class="skills">';
+			html += '<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + member.skills.rush + '%"></div></div></li>';
+			html += '<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + member.skills.party + '%"></div></div></li>';
+			html += '<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + member.skills.cs + '%"></div></div></li>';
+			html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + member.skills.study + '%"></div></div></li>';
+			html += '</ul>';
+			html += "</li>";
+			$(divId).append(html);
+			
+			ctx = $(divId + " .face")[0];
+			drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);
 
 }
 

@@ -3,7 +3,7 @@
  
 	<!-- Libraries -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-   	<script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.8.2.js"></script>
+   	<script src="libraries/kinetic-v3.8.2.js"></script>
 	<script type="text/javascript" src="libraries/paper.js"></script>
 
 	<!-- Sprites -->
@@ -35,15 +35,25 @@
    	<script type="text/paperscript" canvas="canvas">
 	window.globals = {};
 
+	//Draws house
 	var tr = new Point(0, 0);
 	var bl = new Point(300, 300);
-	var rect = new Path.Rectangle(tr, bl);
-	var rectBounds = new Rectangle(tr, bl);
-	rect.fillColor = 'black';
+	var house = new Path.Rectangle(tr, bl);
+	house.fillColor = 'yellow';
+	
+	//Create bounds for person
+	var personHeight = game.UNIT*10;
+	var size = new Size(game.UNIT*10, game.UNIT*10);
+	var otherRect = new Path.Rectangle(tr, size);
+	
+	//Create person sprite
+	
+	//personImage.visible = false;
+	
 	var repClicks = [];
 	function createRep(position) {
 
-		var shape = new Path.Circle(position, 10);
+		var shape = new Path.Circle(position, game.UNIT);
 		shape.fillColor = "blue";
 		shape.type = "rep";
 		var frameCount, age, duration, alive;
@@ -80,62 +90,170 @@
 		
 
 	}
-	window.globals.createRep = createRep;
-
 
 	var create_goer = function(start) {
-		var shape = new Path.Circle(start, 10);
+		
+		var shape = new Raster('person');
+		shape.fitBounds(otherRect.bounds);
+		shape.position = start;
+		shape.visible = true;
+		
+		shape.type = "person";
 		var destVect, inHouse, age, dur, minDist, curDest, speed, destNum, dests = [];
 		destNum = 0;
 		minDist = 5;
-		shape.fillColor = 'green';
 		var repCount = 3;
-		repDropProb = .99;
-		var stayDuration = 300;
+		repDropProb = .80;
+		var stayDuration = 500;
 		var enterTime;
 		var state = "walking";
+		
+		//This is arbitrary and should depend on something
+		var enterProb = 1;
+		
+		var entryPath = [ start, new Point(house.bounds.bottomCenter.x, shape.position.y),
+					house.bounds.bottomCenter,
+					house.bounds.center];
+					
+		var exitPath = [house.bounds.center, house.bounds.bottomCenter, 
+					new Point(house.bounds.bottomCenter.x, shape.position.y),
+					new Point(house.bounds.left, start.y)];
+					
+		var passingPath = [start,new Point(house.bounds.bottomCenter.x, shape.position.y), 
+						new Point(house.bounds.left, shape.position.y)];
 
 		var initialize = function() {
-			dests = [ start, new Point(rect.bounds.bottomCenter.x, shape.position.y),
-					rect.bounds.bottomCenter,
-					rect.bounds.center];
-
-			curDest = dests[0];
 			speed = 3;
-			setDestVector();
-			inHouse = false;
-			leaving = false;
 			age = 0;
 			dur = 2000;
 			shape.alive = true;
+			shape.state = 'born';
 		}
 
-		var setDestVector = function() {
-			destVect = curDest - shape.position;
+		var setDestVector = function(destination) {
+			destVect = destination - shape.position;
 			destVect = destVect.normalize()*speed;
-
 		}
+		
 
-
+		var talkProb = 0.7;
+		var keepTalkProb = 0.99;
+		var talkCount = 0;
 		shape.step = function() {
-			shape.position += destVect;
-			if (nearTarget()) {
-				getNextDest();
-			}
 			age++;
-			if (age > dur) {
-				shape.die();
+			switch (shape.state) {
+				case 'born':
+					if (true) {
+						shape.state = 'entering';
+						moveAlongPath(entryPath);
+					} else {
+						shape.state = 'passing';
+						moveAlongPath(passingPath);
+					}
+					//shape.position += destVect;
+					break;
+					
+				case 'entering':
+					if (!moveAlongPath(entryPath)) {
+						enterTime = age;
+						shape.state = "inside";
+						speed = speed/3;
+					}
+					break;
+					
+				case 'inside':
+					speed = 1;
+					if (nearTarget()) {
+						curDest = randomTarget(house);
+						setDestVector(curDest);
+					}
+					if (Math.random() < talkProb) {
+						tryTalk();
+					}
+					shape.position += destVect;
+					if (age > enterTime + stayDuration) {
+						curDest = 0;
+						moveAlongPath(exitPath)
+						shape.state = 'leaving';
+					}
+					break;
+				case 'leaving':
+					if (!moveAlongPath(exitPath)) {
+						shape.die();
+					}
+					break;
+				
+				case 'passing':
+					if (!moveAlongPath(passingPath)) {
+						shape.die();
+					}
+					break;
+					
+				case 'talking':
+					talk();
+					generateRep();
+					var ktp = Math.pow(keepTalkProb, talkCount);
+					if (Math.random() > ktp) {
+						shape.state = "inside";
+						talkCount = 0;
+						curDest = randomTarget(house);
+						setDestVector(curDest);
+					}
+					break;
 			}
-
-			if (!leaving && inHouse && Math.random() > repDropProb && repCount > 0) {
-				generateRep();
-				repCount--;
+		}
+		
+		function tryTalk() {
+			var hitResult = project.hitTest(shape.position, hitOptions);
+			
+			if (hitResult && hitResult.item && hitResult.item.type == "person" && hitResult.item.state == "inside" || hitResult.item.type == "member") {
+				hitResult.item.state = "talking";
+				shape.state = "talking";
 			}
+		}
+		
+		shape.tryTalk = tryTalk;
+		
+		var talkFrame = 0;
+		function talk() {
+			if (talkFrame < 5) {
+				shape.rotate(2);
+			} else if (talkFrame < 15) {
+				shape.rotate(-2);
+			} else if (talkFrame < 20) {
+				shape.rotate(2);
+			} else {
+				talkFrame = 0;
+				talkCount++;
+				return;
+			}
+			talkFrame++;
+			
+		}
+		
+		function moveAlongPath(path) {
+			if (!curDest) {
+				curDest = path.shift();
+				setDestVector(curDest);
+			}
+			
+			if (nearTarget()) {
+				if (path.length > 0) {
+					curDest = path.shift();
+					setDestVector(curDest);
+				} else {
+					return false;
+				}
+			}
+			
+			shape.position += destVect;
+			return true;
 		}
 
 		shape.die = function() {
 			shape.alive = false;
 			shape.remove();
+			console.log("DEAD!!");
 		}
 
 		function nearTarget() {
@@ -143,48 +261,65 @@
 		}
 
 		function generateRep() {
-			repClicks.push(createRep(shape.position));
-		}
-
-		var getNextDest = function() {
-			if (inHouse) {
-				if (age < enterTime + stayDuration) {
-					curDest = randomTarget(rect);
-				} else {
-					leaving = true;
-					destNum--;
-					if (destNum >= 0) {
-						curDest = dests[destNum];
-					} else {
-						shape.die();
-						return;
-					}
-				}
-
-			} else {
-			destNum++;
-			enterTime = age;
-				if (destNum < dests.length) {
-
-					curDest = dests[destNum];
-				} else {
-					inHouse = true;
-					speed = speed/3;
-				}
+			if (Math.random() > repDropProb && repCount > 0) {
+				var pos = shape.position - personHeight/2;
+				
+				repClicks.push(createRep(pos));
+				repCount++;
 			}
-			setDestVector();
 		}
+
 
 		function randomTarget(rect) {
 			return rect.bounds.topLeft + shape.bounds.size/2 + Point.random()*(rect.bounds.size -shape.bounds.size);
 		}
+		
+		shape.randomTarget = randomTarget;
 		initialize();
 		return shape;
 	}
+	
+	var create_organizer = (function () {
+	
+		var posCount = 0;
+		
+		var startingPositions = [
+			house.bounds.bottomCenter + new Point(personHeight*-1.5, personHeight*.5), new Point(300, 300)
+		];
+	
+		return function(member) {
+			var position = new Point(0, 0);
+			var shape = create_goer(position);
+			if (posCount < startingPositions.length) {
+				shape.position = startingPositions[posCount];
+				posCount++;
+				
+			} else {
+				shape.position = shape.randomTarget(house);
+			}
+			
+			
+			shape.type = "member";
+			shape.member = member;
+			shape.clicked = function() {
+				if (clickedMember) {
+					clickedMember.selected = false;
+				}
+				clickedMember = shape;
+				console.log(shape.member.id);
+				shape.selected = true;
+				drawFaceCard(member, "#curMember");
+			}
+			return shape;
+			
+		}
+	
+	})();
 
-
-	var goers = [create_goer(new Point(600, 500))];
-	game.sim.goersCount = 20;
+	var clickedMember;
+	var organizers = [];
+	var goers = [];
+	game.sim.goersCount = 0;
 	function onFrame(event) {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
@@ -204,21 +339,39 @@
 					repClicks.splice(i, 1);
 				}
 			}
-			if (goers.length  == 0) {
+			if (goers.length  == 0 && game.sim.goersCount <= 0) {
 				game.sim.stopped = true;
 				results();
 			}
 		}
 	}
 	
+	game.sim.start = function() {
+		
+		partyOrgs = game.frat.getPlay().party;
+		console.log(partyOrgs);
+		for (var i = 0; i < partyOrgs.length; i++) {
+			var curId = partyOrgs[i];
+			var newOrg = create_organizer(game.frat.getMemberById(curId));
+			organizers.push(newOrg);
+		}
+		
+		game.sim.stopped = false;
+	}
+	
 	game.sim.cleanUp = function() {
 		for (var i= 0; i < goers.length; i++) {
-			goers[i].remove;
 			goers[i].die();
 			
 		}
-		goers = [create_goer(new Point(600, 500))];
+		for (var i = 0; i < organizers.length; i++) {
+			organizers[i].remove();
+		}
+		
+		game.sim.goersCount = 0;
+		goers = [];
 		repClicks = [];
+		organizers = [];
 		
 	}
 
@@ -226,14 +379,34 @@
 	    segments: false,
 	    stroke: false,
 	    fill: true,
-	    tolerance: 5
+	    tolerance: 5,
+		bounds: true
 	};
 
 	function onMouseDown(event) {
 		var hitResult = project.hitTest(event.point, hitOptions);
-		if (hitResult && hitResult.item.type == "rep") {
+		if (hitResult && hitResult.item.hasOwnProperty("clicked")) {
 			hitResult.item.clicked();
+			
+			if (hitResult.item.type != "member") {
+				clickedMember = false;
+			}
 		}
+	}
+	
+	function onMouseDrag(event) {
+		if (clickedMember) {
+			clickedMember.position = event.point;
+		}
+	}
+	
+	function onMouseUp(event) {
+	
+		if (clickedMember) {
+			clickedMember.tryTalk();
+		}
+		clickedMember = false;
+		
 	}
 	</script>
    	<!-- Models -->
@@ -314,6 +487,7 @@
    <div id="simulation" class="screens">
 	   <canvas id="canvas"></canvas>
 	   <canvas id="background"></canvas>
+	   <div id="curMember" style="float:right"></div>
    </div>
    
 	<div id="planScreen" class="screens">
@@ -339,7 +513,7 @@
 		<h2>Buy</h2>
 		<ul class="items"></ul>
 	</div>
-	
+	<img id="person" src="images/person.png" style="display:none"></img>
  </body>  
 </html>
 

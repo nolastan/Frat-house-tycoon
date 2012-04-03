@@ -22,8 +22,6 @@ var create_turn = function (info) {
 		var rushCount;
 		var repMult = 0.6;
 		var scoreMult = 0.4;
-		
-		console.log("Running " + this.title);
 		var results = {};
 		var rushScore = 0;
 		for (var cat in this.categories) {

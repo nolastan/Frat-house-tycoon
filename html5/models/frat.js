@@ -55,6 +55,10 @@ var create_frat = function(spec, members) {
 		console.log(that.name + "- Cash: " + that.cash + " Rep: " + that.rep + " Members:" + that.members.length);
 	}
 	
+	that.getPlay= function() {
+		return play;
+	}
+	
 	
 	that.getPlayValues = function() {	
 		//Calculates the play values by adding up the skills of each member in the

@@ -9,8 +9,8 @@ function drawSimulationScreen(turn, results){
 	$("#normal").addClass("active");
 	$("#fast").show();
 	$("#skip").show();
-	game.sim.goerCount = results.party;
-	game.sim.stopped = false;
+	game.sim.goersCount = results.party.rep;
+	game.sim.start();
 }
 
 $(document).ready(function(){
@@ -30,8 +30,9 @@ $(document).ready(function(){
 	
 	$("#skip").click(function(){
 		//game.sim.end();
-		game.sim.cleanUp();
 		game.sim.stopped = true;
+		game.sim.cleanUp();
+
 		results();
 	});
 	
