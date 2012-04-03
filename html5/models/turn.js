@@ -69,14 +69,14 @@ function create_effect(values, msg, score) {
 	var that = {};
 	values = values || {};
 	if (values.cash) {
-		that.cash = parseInt(values.cash.base) + score*parseInt(values.cash.mult);
+		that.cash = parseInt(values.cash.base) + score*parseFloat(values.cash.mult);
 	}
 	if (values.rep) {
-		that.rep = parseInt(values.rep.base) + score*parseInt(values.rep.mult);
+		that.rep = parseInt(values.rep.base) + score*parseFloat(values.rep.mult);
 	}
 	
 	if (values.rush) {
-		that.rush = Math.round(parseInt(values.rush.base) + score*parseInt(values.rush.mult));
+		that.rush = Math.floor(parseInt(values.rush.base) + score*parseFloat(values.rush.mult));
 	}
 	
 	that.cash = that.cash || 0;

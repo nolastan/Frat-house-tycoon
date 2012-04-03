@@ -50,6 +50,12 @@ var rushWeekendInfo = {
 						"base": "0",
 						"mult": "1"
 					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "2"
+					}
 				}
 			],
 			"msgs": [
@@ -66,14 +72,14 @@ var rushWeekendInfo = {
 		"rush": {
 			"rewards": [
 				{
-					"rep": {
+					"rush": {
 						"base": "0",
-						"mult": "0.5"
+						"mult": "0"
 					}
 				},
 				{
-					"rep": {
-						"base": "0",
+					"rush": {
+						"base": "3",
 						"mult": "0.75"
 					}
 				}
@@ -302,7 +308,7 @@ var events = [
 					}
 				},
 				{
-					"rush": {
+					"rep": {
 						"base": "0",
 						"mult": "-0.5"
 					}
@@ -561,7 +567,7 @@ var events = [
 							"mult": "0"
 						},
 						"rush": {
-							"base": "3",
+							"base": "5",
 							"mult": "0"
 						}
 					}
@@ -574,7 +580,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"3"
+					"20"
 				]
 			},
 			"study": {
@@ -675,8 +681,8 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"1",
-					"4"
+					"10",
+					"25"
 				]
 			},
 			"rush": {
@@ -919,14 +925,14 @@ var events = [
 					}
 				],
 				"msgs": [
-					"What¡¯s your fraternity about?",
+					"What's your fraternity about?",
 					"Too busy enjoying the weather to plan event well enough",
 					"Host volleyball tournament for deaf children "
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"3"
+					"18"
 				]
 			},
 			"rush": {
@@ -951,14 +957,14 @@ var events = [
 					}
 				],
 				"msgs": [
-					"It¡¯s sunny, where were you?",
+					"It's sunny, where were you?",
 					"Played lawn games, got your name out there",
-					"Had a great time playing flag football, +2 brothers"
+					"Had a great time playing flag football."
 				],
 				"cutoffs": [
 					"0",
-					"1",
-					"2"
+					"15",
+					"25"
 				]
 			},
 			"study": {
@@ -972,13 +978,13 @@ var events = [
 					{
 						"rep": {
 							"base": "0",
-							"mult": "0"
+							"mult": "2"
 						}
 					},
 					{
 						"rep": {
-							"base": "0",
-							"mult": "1"
+							"base": "5",
+							"mult": "2"
 						}
 					}
 				],
@@ -1021,7 +1027,7 @@ var events = [
 				],
 				"msgs": [
 					"It was too cold anyway, good call.",
-					"¡°I braved the cold for this??¡±",
+					"'I braved the cold for this??'",
 					"Strong effort paid off"
 				],
 				"cutoffs": [
@@ -1059,7 +1065,7 @@ var events = [
 				"cutoffs": [
 					"0",
 					"1",
-					"3"
+					"25"
 				]
 			},
 			"rush": {
@@ -1087,7 +1093,7 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"2"
+					"8"
 				]
 			},
 			"study": {
@@ -1118,8 +1124,8 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"1",
-					"3"
+					"8",
+					"25"
 				]
 			}
 		}
@@ -1148,7 +1154,7 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"3"
+					"10"
 				]
 			},
 			"cs": {
@@ -1276,8 +1282,8 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"3",
-					"6"
+					"8",
+					"25"
 				]
 			},
 			"cs": {
@@ -1303,13 +1309,13 @@ var events = [
 				],
 				"msgs": [
 					"Parents steer their kids away from you",
-					"Misspelled ¡°Noodles¡± on your event flyers",
+					"Misspelled 'Noodles' on your event flyers",
 					"People took their parents to your great Community Service event at the local restaurant"
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"10"
 				]
 			},
 			"rush": {
@@ -1328,7 +1334,7 @@ var events = [
 					}
 				],
 				"msgs": [
-					"Parents don¡¯t join fraternities",
+					"Parents don't join fraternities",
 					"Parents at the house scared off potential rushees"
 				],
 				"cutoffs": [
@@ -1429,7 +1435,7 @@ var events = [
 					}
 				],
 				"msgs": [
-					"It¡¯s okay, rushees were studying too",
+					"It's okay, rushees were studying too",
 					"Bugged rushees trying to study"
 				],
 				"cutoffs": [
@@ -1657,8 +1663,8 @@ var events = [
 					},
 					{
 						"rush": {
-							"base": "3",
-							"mult": "0"
+							"base": "0",
+							"mult": "0.5"
 						}
 					}
 				],
@@ -1692,7 +1698,7 @@ var events = [
 				],
 				"cutoffs": [
 					"0",
-					"3"
+					"14"
 				]
 			}
 		}
