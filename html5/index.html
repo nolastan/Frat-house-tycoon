@@ -87,6 +87,10 @@
 		
 
 	}
+	
+	function rnd_snd() {
+		return (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1);
+	}
 
 	var create_goer = function(start) {
 		
@@ -101,7 +105,7 @@
 		minDist = 5;
 		var repCount = 3;
 		repDropProb = .40;
-		var stayDuration = 800;
+		var stayDuration = Math.floor(600 + rnd_snd()*150);
 		var enterTime;
 		var state = "walking";
 		
@@ -110,7 +114,7 @@
 		
 		var entryPath = [ start, new Point(house.bounds.bottomCenter.x, shape.position.y),
 					house.bounds.bottomCenter,
-					house.bounds.center];
+					randomTarget(house)];
 					
 		var exitPath = [house.bounds.center, house.bounds.bottomCenter, 
 					new Point(house.bounds.bottomCenter.x, shape.position.y),
@@ -329,7 +333,7 @@
 	game.sim.goersCount = 0;
 	function onFrame(event) {
 		if (!game.sim.stopped) { 
-			if (Math.random() > 0.85 && game.sim.goersCount > 0) {
+			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
 				goers.push(create_goer(new Point(500, 500)));
 				game.sim.goersCount--;
 			}
@@ -348,6 +352,7 @@
 			}
 			if (goers.length  == 0 && game.sim.goersCount <= 0) {
 				game.sim.stopped = true;
+				game.sim.cleanUp();
 				results();
 			}
 		}
