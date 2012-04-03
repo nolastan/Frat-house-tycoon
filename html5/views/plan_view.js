@@ -9,18 +9,15 @@ function drawPlanningScreen(){
 	game.board.update();	
 	game.nextTurn = game.turns.getNext();
 
+	$(".screens").hide();
 	$("nav.bidMeeting").hide();
 	$("nav.main").show();
-	$("#bidScreen").hide();
 	$("#menu").hide();
 	$("#planScreen").show();
-	$("#simulation").hide();
-	$("#results").hide()
 	$("#normal").hide();
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#run").show();
-	$("#buyScreen").hide();
 	$("#nextTurn").html(game.nextTurn.title);
   	$("#screens button").removeClass("active");
   	$("#screens .board button").addClass("active");

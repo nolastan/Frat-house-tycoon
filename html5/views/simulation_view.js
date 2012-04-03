@@ -2,10 +2,9 @@ function drawSimulationScreen(turn, results){
 	document.getElementById("currentTurn").innerHTML = turn.title + " results";
 	$(this).hide();
 	$("#run").hide();
-	$("#planScreen").hide();
 	$("#results").hide();
+	$(".screens").hide();
 	$("#simulation").show();
-	$("#buyScreen").hide();
 	$("#normal").show();
 	$("#normal").addClass("active");
 	$("#fast").show();

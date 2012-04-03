@@ -17,15 +17,8 @@ $(document).ready(function(){
 	
 	$("nav.bidMeeting").hide();
 	$("nav.main").hide();
-	$("#bidScreen").hide();
-	$("#planScreen").hide();
-	$("#simulation").hide();
-	$("#results").hide()
-	$("#normal").hide();
-	$("#fast").hide();
-	$("#skip").hide();
-	$("#run").show();
-	$("#buyScreen").hide();
+	$(".screens").hide();
+	$("#menu").show()
   	$("#screens button").removeClass("active");
   	$("#screens .board button").addClass("active");
 	

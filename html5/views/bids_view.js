@@ -6,12 +6,9 @@ $(document).ready(function(){
 });
 
 function drawBidScreen(){
+	$(".screens").hide();
 	bidScreen.show();
  	$("nav.bidMeeting").removeClass("over");
- 	$("#results").hide();
-  	$("#planScreen").hide();
-  	$("#simulation").hide();
-  	$("#buy").hide();
   	$("#screens button").removeClass("active");
   	$("#screens .rush button").addClass("active");
   	

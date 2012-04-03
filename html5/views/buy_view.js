@@ -64,14 +64,11 @@ $(document).ready(function(){
 });
 
 function drawBuyScreen(){
-  	$("#simulation").hide();
   	$("#normal").hide();
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#play").hide();	
-	$("#bidScreen").hide();
-	$("#planScreen").hide();
-	$("#results").hide();
+	$(".screens").hide();
 	$("#buyScreen").show();
   	$("#screens button").removeClass("active");
   	$("#screens .buy button").addClass("active");

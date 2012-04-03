@@ -1,10 +1,9 @@
 function drawResultsScreen(){
-  	$("#simulation").hide();
   	$("#normal").hide();
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#play").hide();	
-	$("#buyScreen").hide();
+	$(".screens").hide();
 	$("#results").show();
 	console.log(game.results);
 	$("#results .cs .val").html(game.results.cs.string());
