@@ -44,9 +44,6 @@
 	var size = new Size(game.UNIT*10, game.UNIT*10);
 	var otherRect = new Path.Rectangle(tr, size);
 	
-	var myPt = house.bounds.bottomCenter + new Point(personHeight*-1.5, personHeight*.5);
-	var testRect = new Path.Rectangle(myPt, size);
-	testRect.fillColor = "blue";
 	//Create person sprite
 	
 	//personImage.visible = false;
@@ -54,7 +51,7 @@
 	var repClicks = [];
 	function createRep(position) {
 
-		var shape = new Path.Circle(position, 10);
+		var shape = new Path.Circle(position, game.UNIT);
 		shape.fillColor = "blue";
 		shape.type = "rep";
 		var frameCount, age, duration, alive;
@@ -135,6 +132,7 @@
 			destVect = destination - shape.position;
 			destVect = destVect.normalize()*speed;
 		}
+		
 
 		var talkProb = 0.7;
 		var keepTalkProb = 0.99;
@@ -206,11 +204,13 @@
 		function tryTalk() {
 			var hitResult = project.hitTest(shape.position, hitOptions);
 			
-			if (hitResult && hitResult.item && hitResult.item.type == "person" && hitResult.item.state == "inside") {
+			if (hitResult && hitResult.item && hitResult.item.type == "person" && hitResult.item.state == "inside" || hitResult.item.type == "member") {
 				hitResult.item.state = "talking";
 				shape.state = "talking";
 			}
 		}
+		
+		shape.tryTalk = tryTalk;
 		
 		var talkFrame = 0;
 		function talk() {
@@ -282,17 +282,39 @@
 		var posCount = 0;
 		
 		var startingPositions = [
-			house.bounds.bottomCenter + new Point(personHeight, -personHeight)
+			house.bounds.bottomCenter + new Point(personHeight*-1.5, personHeight*.5), new Point(300, 300)
 		];
 	
-	return function(position, member) {
-		shape = create_goer(position);
-		return shape;
-		
-	}
+		return function(member) {
+			var position = new Point(0, 0);
+			var shape = create_goer(position);
+			if (posCount < startingPositions.length) {
+				shape.position = startingPositions[posCount];
+				posCount++;
+				
+			} else {
+				shape.position = shape.randomTarget(house);
+			}
+			
+			
+			shape.type = "member";
+			shape.member = member;
+			shape.clicked = function() {
+				if (clickedMember) {
+					clickedMember.selected = false;
+				}
+				clickedMember = shape;
+				console.log(shape.member.id);
+				shape.selected = true;
+				drawFaceCard(member, "#curMember");
+			}
+			return shape;
+			
+		}
 	
 	})();
 
+	var clickedMember;
 	var organizers = [];
 	var goers = [];
 	game.sim.goersCount = 0;
@@ -322,14 +344,32 @@
 		}
 	}
 	
+	game.sim.start = function() {
+		
+		partyOrgs = game.frat.getPlay().party;
+		console.log(partyOrgs);
+		for (var i = 0; i < partyOrgs.length; i++) {
+			var curId = partyOrgs[i];
+			var newOrg = create_organizer(game.frat.getMemberById(curId));
+			organizers.push(newOrg);
+		}
+		
+		game.sim.stopped = false;
+	}
+	
 	game.sim.cleanUp = function() {
 		for (var i= 0; i < goers.length; i++) {
 			goers[i].die();
 			
 		}
+		for (var i = 0; i < organizers.length; i++) {
+			organizers[i].remove();
+		}
+		
 		game.sim.goersCount = 0;
 		goers = [];
 		repClicks = [];
+		organizers = [];
 		
 	}
 
@@ -343,9 +383,28 @@
 
 	function onMouseDown(event) {
 		var hitResult = project.hitTest(event.point, hitOptions);
-		if (hitResult && hitResult.item.type == "rep") {
+		if (hitResult && hitResult.item.hasOwnProperty("clicked")) {
 			hitResult.item.clicked();
+			
+			if (hitResult.item.type != "member") {
+				clickedMember = false;
+			}
 		}
+	}
+	
+	function onMouseDrag(event) {
+		if (clickedMember) {
+			clickedMember.position = event.point;
+		}
+	}
+	
+	function onMouseUp(event) {
+	
+		if (clickedMember) {
+			clickedMember.tryTalk();
+		}
+		clickedMember = false;
+		
 	}
 	</script>
    	<!-- Models -->
@@ -401,6 +460,7 @@
    <div id="simulation">
 	   <canvas id="canvas"></canvas>
 	   <canvas id="background"></canvas>
+	   <div id="curMember" style="float:right"></div>
    </div>
    
 	<div id="planScreen" class="canvasContainer">

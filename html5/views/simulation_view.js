@@ -11,7 +11,7 @@ function drawSimulationScreen(turn, results){
 	$("#fast").show();
 	$("#skip").show();
 	game.sim.goersCount = results.party.rep;
-	game.sim.stopped = false;
+	game.sim.start();
 }
 
 $(document).ready(function(){
