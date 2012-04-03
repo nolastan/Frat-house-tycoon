@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+<g id="Layer_1" display="none">
+</g>
+<g id="Layer_2">
+	<path fill="#000000" d="M44,10H4c-1.104,0-2,0.896-2,2v21c0,1.104,0.896,2,2,2h40c1.104,0,2-0.896,2-2V12   C46,10.896,45.104,10,44,10z M44,28.2c0,1.8,0,1.8-2,1.8H6c-2,0-2,0-2-1.8V13.8C4,12,4,12,6,12h36c2,0,2,0,2,1.8V28.2z"/>
+</g>
+<g id="Layer_3">
+	<rect x="14" y="37" fill="#000000" width="20" height="1"/>
+</g>
+<g id="Layer_7">
+	<rect x="23" y="35" fill="#000000" width="2" height="2"/>
+</g>
+<g id="Layer_6" display="none">
+	<path display="inline" stroke="#FFFFFF" d="M103,75c0,1.104-0.896,2-2,2H61c-1.104,0-2-0.896-2-2V54c0-1.104,0.896-2,2-2h40   c1.104,0,2,0.896,2,2V75z" fill="#000000"/>
+	<path display="inline" fill="#000000" stroke="#000000" d="M101,70.2c0,1.8,0,1.8-2,1.8H63c-2,0-2,0-2-1.8V55.8c0-1.8,0-1.8,2-1.8   h36c2,0,2,0,2,1.8V70.2z"/>
+	<rect x="71" y="79" display="inline" stroke="#000000" width="20" height="1"/>
+	<rect x="80" y="77" display="inline" stroke="#000000" width="2" height="1"/>
+</g>
+</svg>

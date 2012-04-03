@@ -2,28 +2,35 @@
  * Info of the items
  */
 
-var testItem = {
-	"name": 'test',
-	"price": 10,
-	"descript": 'this is a test item 11111 1111111 11111111 1111 1111',
-	"img": 'sprites/buy_icon.svg'
+var tv = {
+	"name": 'Television',
+	"price": 100,
+	"descript": '106 inch 1080P HD 3D LCD TV! Good for parties and rush event!',
+	"img": 'sprites/items/tv.svg'
 };
 
-var testItem2 = {
-		"name": 'test2',
-		"price": 20,
-		"descript": 'this is the test item2',
-		"img": 'sprites/build_icon.svg'
+var dj = {
+		"name": 'DJ Equipments',
+		"price": 150,
+		"descript": 'Premium DJ equipment with high performance sound card! It can rock your party!',
+		"img": 'sprites/items/dj.svg'
 	};
 
-var testItem3 = {
-		"name": 'test3',
-		"price": 300,
-		"descript": 'this is the test item3 333 3 3 3 33 3 33 3 ',
-		"img": 'sprites/build_icon.svg'
+var pc = {
+		"name": 'Computer Workstation',
+		"price": 100,
+		"descript": 'Dual screen workstation with 2*4 core AMD Opteron! This will definitely improve your GPA because you will only use it for studying.',
+		"img": 'sprites/items/computer.svg'
 	};
 
-var items = [testItem, testItem2, testItem3];
+var swim = {
+		"name": 'Swimming Pool',
+		"price": 200,
+		"descript": 'Cool swimming pool with heating system! Great for party and rush events!',
+		"img": 'sprites/items/swim.svg'
+	};
+
+var items = [tv, dj, pc, swim];
 
 /***********************************************************************/
 
@@ -81,7 +88,7 @@ function drawBuyScreen(){
   		  		  		
 		html += '<li class="item" id="' + i + '">';
 		html += '<p class="name">' + item.name + '</p>';
-		html += '<img width="100" src="' + item.img + '"/>';
+		html += '<img src="' + item.img + '"/>';
 		html += '<p class="descript">' + item.descript + '</p>';
 		html += '<p class="price"> $' + item.price + '</p>';
 		html += '<button class="buy">Buy</button>';
