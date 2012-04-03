@@ -40,11 +40,15 @@
 	house.fillColor = 'yellow';
 	
 	//Create bounds for person
+	var personHeight = game.UNIT*10;
 	var size = new Size(game.UNIT*10, game.UNIT*10);
 	var otherRect = new Path.Rectangle(tr, size);
 	
+	var myPt = house.bounds.bottomCenter + new Point(personHeight*-1.5, personHeight*.5);
+	var testRect = new Path.Rectangle(myPt, size);
+	testRect.fillColor = "blue";
 	//Create person sprite
-
+	
 	//personImage.visible = false;
 	
 	var repClicks = [];
@@ -94,12 +98,14 @@
 		shape.fitBounds(otherRect.bounds);
 		shape.position = start;
 		shape.visible = true;
+		
+		shape.type = "person";
 		var destVect, inHouse, age, dur, minDist, curDest, speed, destNum, dests = [];
 		destNum = 0;
 		minDist = 5;
 		var repCount = 3;
-		repDropProb = .99;
-		var stayDuration = 300;
+		repDropProb = .80;
+		var stayDuration = 500;
 		var enterTime;
 		var state = "walking";
 		
@@ -122,7 +128,7 @@
 			age = 0;
 			dur = 2000;
 			shape.alive = true;
-			state = 'born';
+			shape.state = 'born';
 		}
 
 		var setDestVector = function(destination) {
@@ -130,16 +136,18 @@
 			destVect = destVect.normalize()*speed;
 		}
 
-
+		var talkProb = 0.7;
+		var keepTalkProb = 0.99;
+		var talkCount = 0;
 		shape.step = function() {
 			age++;
-			switch (state) {
+			switch (shape.state) {
 				case 'born':
 					if (true) {
-						state = 'entering';
+						shape.state = 'entering';
 						moveAlongPath(entryPath);
 					} else {
-						state = 'passing';
+						shape.state = 'passing';
 						moveAlongPath(passingPath);
 					}
 					//shape.position += destVect;
@@ -148,23 +156,25 @@
 				case 'entering':
 					if (!moveAlongPath(entryPath)) {
 						enterTime = age;
-						state = "inside";
+						shape.state = "inside";
 						speed = speed/3;
 					}
 					break;
 					
 				case 'inside':
+					speed = 1;
 					if (nearTarget()) {
 						curDest = randomTarget(house);
 						setDestVector(curDest);
 					}
-					talk();
+					if (Math.random() < talkProb) {
+						tryTalk();
+					}
 					shape.position += destVect;
-					generateRep();
 					if (age > enterTime + stayDuration) {
 						curDest = 0;
 						moveAlongPath(exitPath)
-						state = 'leaving';
+						shape.state = 'leaving';
 					}
 					break;
 				case 'leaving':
@@ -181,20 +191,38 @@
 					
 				case 'talking':
 					talk();
+					generateRep();
+					var ktp = Math.pow(keepTalkProb, talkCount);
+					if (Math.random() > ktp) {
+						shape.state = "inside";
+						talkCount = 0;
+						curDest = randomTarget(house);
+						setDestVector(curDest);
+					}
 					break;
+			}
+		}
+		
+		function tryTalk() {
+			var hitResult = project.hitTest(shape.position, hitOptions);
+			
+			if (hitResult && hitResult.item && hitResult.item.type == "person" && hitResult.item.state == "inside") {
+				hitResult.item.state = "talking";
+				shape.state = "talking";
 			}
 		}
 		
 		var talkFrame = 0;
 		function talk() {
 			if (talkFrame < 5) {
-				shape.rotate(1);
+				shape.rotate(2);
 			} else if (talkFrame < 15) {
-				shape.rotate(-1);
+				shape.rotate(-2);
 			} else if (talkFrame < 20) {
-				shape.rotate(1);
+				shape.rotate(2);
 			} else {
 				talkFrame = 0;
+				talkCount++;
 				return;
 			}
 			talkFrame++;
@@ -232,7 +260,9 @@
 
 		function generateRep() {
 			if (Math.random() > repDropProb && repCount > 0) {
-				repClicks.push(createRep(shape.position));
+				var pos = shape.position - personHeight/2;
+				
+				repClicks.push(createRep(pos));
 				repCount++;
 			}
 		}
@@ -241,11 +271,29 @@
 		function randomTarget(rect) {
 			return rect.bounds.topLeft + shape.bounds.size/2 + Point.random()*(rect.bounds.size -shape.bounds.size);
 		}
+		
+		shape.randomTarget = randomTarget;
 		initialize();
 		return shape;
 	}
-
 	
+	var create_organizer = (function () {
+	
+		var posCount = 0;
+		
+		var startingPositions = [
+			house.bounds.bottomCenter + new Point(personHeight, -personHeight)
+		];
+	
+	return function(position, member) {
+		shape = create_goer(position);
+		return shape;
+		
+	}
+	
+	})();
+
+	var organizers = [];
 	var goers = [];
 	game.sim.goersCount = 0;
 	function onFrame(event) {
@@ -289,7 +337,8 @@
 	    segments: false,
 	    stroke: false,
 	    fill: true,
-	    tolerance: 5
+	    tolerance: 5,
+		bounds: true
 	};
 
 	function onMouseDown(event) {
