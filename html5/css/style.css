@@ -312,4 +312,7 @@ ul.rushees li {
     background-color: #93c28c; }
   #planScreen ul.quadrants li.rush ul.rushDrop {
     width: 100%;
+	height: 10%;  }
+  #planScreen ul.quadrants li.party ul.partyDrop {
+    width: 100%;
 	height: 100%;  }
