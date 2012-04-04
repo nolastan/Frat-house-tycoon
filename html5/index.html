@@ -322,15 +322,16 @@
    
 	<div id="planScreen">
 		<ul class="quadrants">
-			<ul class="rush"
-			    ondragenter="return dragEnter(event)"
-				 ondrop="return dragDrop(event)"
-				 ondragover="return dragOver(event)">
-				<li><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><h3>Rush</h3></li>
-			</ul>
-			<ul class="party"><li><object data="sprites/party_icon.svg" type="image/svg+xml"></object><h3>Party</h3></li></ul>
-			<ul class="cs"><li><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><h3>Community Service</h3></li></ul>
-			<ul class="study"><li><object data="sprites/study_icon.svg" type="image/svg+xml"></object><h3>Academic</h3></li></ul>
+			<li class="rush">			   
+			   <object data="sprites/rush_icon.svg" type="image/svg+xml"></object> 
+			   <h3>Rush</h3> 
+			   <ul class="rushDrop" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" 
+			       ondragover="return dragOver(event)"></ul>
+			</li>
+			<!--
+			<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><h3>Party</h3></li>
+			<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><h3>Community Service</h3></li>
+			<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><h3>Academic</h3></li> -->
 		</ul>
 		<ul class="members"></ul>
 	</div>

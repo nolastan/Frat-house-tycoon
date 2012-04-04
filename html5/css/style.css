@@ -294,12 +294,13 @@ ul.rushees li {
     text-align: center;
     width: 50%;
     float: left;
-    font-size: 300%; }
-    #planScreen ul.quadrants li object {
+    font-size: 125%; }  
+  #planScreen ul.quadrants li object {
       width: 100%;
+	  height: 50%;
       margin-top: .5em;
       opacity: .9; }
-    #planScreen ul.quadrants li h3 {
+  #planScreen ul.quadrants li h3 {
       margin-top: .3em; }
   #planScreen ul.quadrants li.rush {
     background-color: #9e352c; }
@@ -309,3 +310,6 @@ ul.rushees li {
     background-color: #2e5a5c; }
   #planScreen ul.quadrants li.study {
     background-color: #93c28c; }
+  #planScreen ul.quadrants li.rush ul.rushDrop {
+    width: 100%;
+	height: 100%;  }
