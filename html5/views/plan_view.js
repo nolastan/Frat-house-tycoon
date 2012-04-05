@@ -36,7 +36,7 @@ function drawPlanningScreen(){
 		html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + member.skills.study + '%"></div></div></li>';
 		html += '</ul>';
 		html += "</li>";
-		$("#planScreen .members").append(html);
+		$("#planScreen .members.pool").append(html);
 		
 		ctx = $("#member_"+member.id+" .face")[0];
 		drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);

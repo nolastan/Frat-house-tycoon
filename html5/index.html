@@ -381,7 +381,7 @@
 		<li class="build" title="Build"><button><object data="sprites/build_icon.svg" type="image/svg+xml"></object></button></li>
 		<li class="buy" title="Shop"><button><object data="sprites/buy_icon.svg" type="image/svg+xml"></object></button></li>
 	</ul>	
-	<ul id="skills">
+	<ul id="skills" class="skills">
 		<li class="rush"><h3><object data="sprites/rush_icon.svg" type="image/svg+xml"></object>Rush</h3><div class="bar"><div class="fill"></div></div></li>
 		<li class="party"><h3><object data="sprites/party_icon.svg" type="image/svg+xml"></object>Party</h3><div class="bar"><div class="fill"></div></div></li>
 		<li class="cs"><h3><object data="sprites/cs_icon.svg" type="image/svg+xml"></object>Comm. Service</h3><div class="bar"><div class="fill"></div></div></li>
@@ -401,16 +401,16 @@
    
 	<div id="planScreen">
 		<ul class="quadrants">
-			<li class="rush">			   
-			   <object data="sprites/rush_icon.svg" type="image/svg+xml"></object> 
+			<li class="rush quadrant">			   
+			   <object class="quadrant_icon" data="sprites/rush_icon.svg" type="image/svg+xml"></object> 
 			   <h3>Rush</h3> 
-			   <ul class="rushDrop" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'rushQ')" 
+			   <ul class="members" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'rushQ')" 
 			       ondragover="return dragOver(event)"></ul>
 			</li>
-			<li class="party">
-			   <object data="sprites/party_icon.svg" type="image/svg+xml"></object>
+			<li class="party quadrant">
+			   <object class="quadrant_icon" data="sprites/party_icon.svg" type="image/svg+xml"></object>
 			   <h3>Party</h3>
-			   <ul class="partyDrop" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'partyQ')" 
+			   <ul class="members" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'partyQ')" 
 			       ondragover="return dragOver(event)"></ul>
 			</li>
 <!--			
@@ -428,7 +428,7 @@
 			</li>
 -->
 		</ul>
-		<ul class="members"></ul>
+		<ul class="members pool"></ul>
 	</div>
 	
 	<div id="results">

@@ -1,3 +1,25 @@
+/* 
+
+
+
+
+
+
+******************************************************
+MODIFICATION TO STYLE.CSS WILL BE ERASED
+IF THEY ARE NOT ALSO ADDED TO STYLE.SCSS
+
+SCSS (SASS) compiles into CSS. You can download a compiler
+or just modify both files and Stan will compile it.
+******************************************************
+
+
+
+
+
+
+*/
+
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 
 $red: #9E352C;
@@ -191,62 +213,65 @@ nav.bidMeeting.over{
 	}
 }
 /* Status Bars */
-.bar{
-	width: 120px;
-	border-width: 1px;
-	border-style: solid;
-	display: inline-block;
-}
-.fill{
-	height: 1.1em;
-}
-.rush{
+.skills{
 	.bar{
-		border-color: darken($rush_color, 20%);
-		background-color: lighten($rush_color, 57%);
+		width: 120px;
+		border-width: 1px;
+		border-style: solid;
+		display: inline-block;
 	}
 	.fill{
-		background-color: $rush_color;
+		height: 1.1em;
 	}
-	label{
-		color: darken($rush_color, 20%);
+	.rush{
+		.bar{
+			border-color: darken($rush_color, 20%);
+			background-color: lighten($rush_color, 57%);
+		}
+		.fill{
+			background-color: $rush_color;
+		}
+		label{
+			color: darken($rush_color, 20%);
+		}
 	}
-}
-.party{
-	.bar{
-		border-color: darken($party_color, 40%);
-		background-color: lighten($party_color, 15%);
+	.party{
+		.bar{
+			border-color: darken($party_color, 40%);
+			background-color: lighten($party_color, 15%);
+		}
+		.fill{
+			background-color: $party_color;
+		}
+		label{
+			color: darken($party_color, 40%);
+		}
 	}
-	.fill{
-		background-color: $party_color;
+	.cs{
+		.bar{
+			border-color: darken($cs_color, 20%);
+			background-color: lighten($cs_color, 67%);
+		}
+		.fill{
+			background-color: $cs_color;
+		}
+		label{
+			color: darken($cs_color, 20%);
+		}
 	}
-	label{
-		color: darken($party_color, 40%);
+	.study{
+		.bar{
+			border-color: darken($study_color, 20%);
+			background-color: lighten($study_color, 30%);
+		}
+		.fill{
+			background-color: $study_color;
+		}
+		label{
+			color: darken($study_color, 20%);
+		}
 	}
-}
-.cs{
-	.bar{
-		border-color: darken($cs_color, 20%);
-		background-color: lighten($cs_color, 67%);
-	}
-	.fill{
-		background-color: $cs_color;
-	}
-	label{
-		color: darken($cs_color, 20%);
-	}
-}
-.study{
-	.bar{
-		border-color: darken($study_color, 20%);
-		background-color: lighten($study_color, 30%);
-	}
-	.fill{
-		background-color: $study_color;
-	}
-	label{
-		color: darken($study_color, 20%);
-	}
+
 }
 
 /* Canvas stuff */
@@ -275,7 +300,7 @@ h2{
 
 /* Rushees/Members */
 ul.rushees, ul.members{
-
+	font-size: 1em;
 	canvas.face{
 		float:left;
 		margin-right: 10px;
@@ -369,12 +394,22 @@ ul.rushees{
 	ul.quadrants{
 		float:left;
 		width:50%;
-		li{
+		ul.members{
+			z-index: 100;
+			width: 100%;
+			border: 1px solid red;
+			position: absolute;
+			top:0;
+		}
+		li.quadrant{
+			position: relative;
 			text-align:center;
 			width: 50%;
 			float:left;
+			h3{
 				font-size: 300%;
-			object{
+			}
+			.quadrant_icon{
 				width: 100%;
 				margin-top: .5em;
 				opacity: .9;
@@ -383,16 +418,16 @@ ul.rushees{
 				margin-top: .3em;
 			}
 		}
-		li.rush{
+		li.rush.quadrant{
 			background-color: $rush_color;
 		}
-		li.party{
+		li.party.quadrant{
 			background-color: $party_color;
 		}
-		li.cs{
+		li.cs.quadrant{
 			background-color: $cs_color;
 		}
-		li.study{
+		li.study.quadrant{
 			background-color: $study_color;
 		}
 	}
