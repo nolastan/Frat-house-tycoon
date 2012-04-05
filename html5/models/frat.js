@@ -133,6 +133,7 @@ var create_frat = function(spec, members) {
     }
 	
 	that.setPlay = function(newPlay) {
+	    console.log(newPlay);
 		play = newPlay;
 	}
 	
