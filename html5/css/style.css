@@ -311,16 +311,39 @@ ul.rushees li {
   #planScreen ul.quadrants ul.members {
     z-index: 100;
     width: 100%;
-    border: 1px solid red;
     position: absolute;
-    top: 0; }
+    top: 0;
+    overflow: auto; }
+    #planScreen ul.quadrants ul.members li {
+      width: 80px;
+      height: 70px;
+      float: left;
+      clear: none; }
+      #planScreen ul.quadrants ul.members li p.name {
+        font-size: 80%;
+        font-weight: normal; }
+      #planScreen ul.quadrants ul.members li object {
+        display: none; }
+      #planScreen ul.quadrants ul.members li ul.skills {
+        width: 25px; }
+        #planScreen ul.quadrants ul.members li ul.skills li {
+          float: none;
+          width: 100%;
+          height: .25em; }
+        #planScreen ul.quadrants ul.members li ul.skills .bar {
+          font-size: .2em;
+          width: 100%;
+          display: block; }
+      #planScreen ul.quadrants ul.members li .face {
+        height: 30px;
+        margin-right: 4px; }
   #planScreen ul.quadrants li.quadrant {
     position: relative;
-    text-align: center;
     width: 50%;
     float: left; }
     #planScreen ul.quadrants li.quadrant h3 {
-      font-size: 300%; }
+      font-size: 300%;
+      text-align: center; }
     #planScreen ul.quadrants li.quadrant .quadrant_icon {
       width: 100%;
       margin-top: .5em;

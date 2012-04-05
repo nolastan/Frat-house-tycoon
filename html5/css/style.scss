@@ -397,17 +397,49 @@ ul.rushees{
 		ul.members{
 			z-index: 100;
 			width: 100%;
-			border: 1px solid red;
 			position: absolute;
 			top:0;
+			overflow: auto;
+			li{
+				width: 80px;
+				height: 70px;
+				float:left;
+				clear:none;
+				p.name{
+					font-size: 80%;
+					font-weight: normal;
+				}
+				object{
+					display:none;
+				}
+				ul.skills{
+					width: 25px;
+					li{
+						float:none;
+						width: 100%;
+						height: .25em;
+					}
+					.bar{
+						font-size: .2em;
+						width: 100%;
+						display:block;
+					}
+				}
+	
+				.face{
+					height: 30px;
+					margin-right: 4px;
+				}			
+			}
+
 		}
 		li.quadrant{
 			position: relative;
-			text-align:center;
 			width: 50%;
 			float:left;
 			h3{
 				font-size: 300%;
+				text-align:center;
 			}
 			.quadrant_icon{
 				width: 100%;
