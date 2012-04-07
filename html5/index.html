@@ -233,115 +233,7 @@
 	}
 	</script>
 	<script type="text/javascript">
-	var play = {};
-	play.party = new Array();
-	play.rush = new Array();
-	play.cs = new Array();
-	play.study = new Array();
 	
-	update_play = function()
-	{
-	   game.frat.setPlay(play);
-	}
-	
-	function dragStart(ev) {
-    ev.dataTransfer.effectAllowed='move';
-    ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
-    ev.dataTransfer.setDragImage(ev.target,0,0);
-    return true;
-	}
-
-	function dragEnd(ev) {
-		ev.dataTransfer.clearData("Text");
-		return true
-	}
-
-
-	function dragEnter(ev) {
-		var idelt = ev.dataTransfer.getData("Text");
-		return true;
-	}
-
-	function dragOver(ev) {
-		var idelt = ev.dataTransfer.getData("Text");
-		var id = ev.target.getAttribute('id');    
-		return false;    
-	}
-
-	function dragDrop(ev, quadrant) {
-	
-		var idelt = ev.dataTransfer.getData("Text");
-		var split = idelt.split("_");
-		var id = parseInt(split[1]);
-		removeId(id);
-		if(quadrant == "rushQ")
-		{
-		   play.rush.push(id);		   
-		}
-		else if(quadrant == "partyQ")
-		{
-		   play.party.push(id);
-		}
-		else if(quadrant == "csQ")
-		{
-		   play.cs.push(id);
-		}
-		else if(quadrant == "studyQ")
-		{
-		   play.study.push(id);
-		}
-		
-		console.log(play);
-		   
-		ev.target.appendChild(document.getElementById(idelt));
-		ev.stopPropagation();
-		return false; // return false so the event will not be propagated to the browser
-	}
-	
-	//************************************************************************************
-	
-	removeId = function(id)
-	{
-	   // Remove from party quadrant
-	   for(var i = 0; i < play.party.length; i++)
-	   {
-	      if(play.party[i] == id)
-		  {
-		     play.party.splice(i,1);
-			 return;
-		  }
-	   }
-	   
-	   // Remove from rush quadrant
-	   for(var i = 0; i < play.rush.length; i++)
-	   {
-	      if(play.rush[i] == id)
-		  {
-		     play.rush.splice(i,1);
-			 return;
-		  }
-	   }
-	   
-	   // Remove from cs quadrant
-	   for(var i = 0; i < play.cs.length; i++)
-	   {
-	      if(play.cs[i] == id)
-		  {
-		     play.cs.splice(i,1);
-			 return;
-		  }
-	   }
-	   
-	   // Remove from study quadrant
-	   for(var i = 0; i < play.study.length; i++)
-	   {
-	      if(play.study[i] == id)
-		  {
-		     play.study.splice(i,1);
-			 return;
-		  }
-	   }	   
-	}	
 	
 	</script>
    	<!-- Models -->
@@ -413,20 +305,18 @@
 			   <ul class="members" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'partyQ')" 
 			       ondragover="return dragOver(event)"></ul>
 			</li>
-<!--			
-			<li class="cs">
-			   <object data="sprites/cs_icon.svg" type="image/svg+xml"></object>
+			<li class="cs quadrant">
+			   <object class="quadrant_icon" data="sprites/cs_icon.svg" type="image/svg+xml"></object>
 			   <h3>Community Service</h3>
-			   <ul class="csDrop" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'csQ')" 
+			   <ul class="members" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'csQ')" 
 			       ondragover="return dragOver(event)"></ul>
 			</li>
-			<li class="study">
-			   <object data="sprites/study_icon.svg" type="image/svg+xml"></object>
+			<li class="study quadrant">
+			   <object class="quadrant_icon" data="sprites/study_icon.svg" type="image/svg+xml"></object>
 			   <h3>Academic</h3>
-			   <ul class="studyDrop" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'studyQ')" 
+			   <ul class="members" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event, 'studyQ')" 
 			       ondragover="return dragOver(event)"></ul>
 			</li>
--->
 		</ul>
 		<ul class="members pool"></ul>
 	</div>

@@ -93,6 +93,7 @@ function create_effect(values, msg, score) {
 		for (var i = 0; i < that.rush; i++) {
 			var rushee = create_member(frat.rep);
 		    frat.rushees[rushee.id] = rushee;
+			PlanView_AddPiece(rushee);
 		}
 	}
 	
