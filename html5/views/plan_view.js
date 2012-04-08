@@ -16,7 +16,7 @@ function PlanView_RemovePiece(id)
 
 function PlanView_AddPiece(member)
 {
-   var html = "";
+    var html = "";
 	var ctx;
 			
 	html += '<li class="member" id="member_' +member.id + '"';
@@ -81,9 +81,21 @@ function dragOver(ev) {
 function dragDrop(ev, quadrant) 
 {
 	var idelt = ev.dataTransfer.getData("Text");
+	
+	// Track what quadrant members are dropped in
+	// using the planViewPlay variable 
+	// ***********************************************
+	// Get the member id of playing piece being dropped
 	var split = idelt.split("_");
 	var id = parseInt(split[1]);
+	
+	// If the playing piece is moved from another quadrant
+	// remove the member id from the array of id's for that
+	// quadrant in planViewPlay
 	PlanView_RemoveId(id);
+	
+	// Add the member id of the playing piece being dropped
+	// in the appropriate array in planViewPlay
 	if(quadrant == "rushQ")
 	{
 	   planViewPlay.rush.push(id);		   
@@ -112,7 +124,8 @@ function dragDrop(ev, quadrant)
 
 function PlanView_RemoveId(id)
 {
-    // Remove from party quadrant
+    // If the playing piece was in the Party quadrant
+	// remove the id from the party array of planViewPlay
     for(var i = 0; i < planViewPlay.party.length; i++)
     {
 	    if(planViewPlay.party[i] == id)
@@ -122,7 +135,8 @@ function PlanView_RemoveId(id)
 	    }
     }
    
-    // Remove from rush quadrant
+    // If the playing piece was in the Rush quadrant
+	// remove the id from the rush array of planViewPlay
     for(var i = 0; i < planViewPlay.rush.length; i++)
     {
 	    if(planViewPlay.rush[i] == id)
@@ -132,7 +146,8 @@ function PlanView_RemoveId(id)
 	    }
     }
    
-    // Remove from cs quadrant
+    // If the playing piece was in the service quadrant
+	// remove the id from the cs array of planViewPlay
     for(var i = 0; i < planViewPlay.cs.length; i++)
     {
 	    if(planViewPlay.cs[i] == id)
@@ -142,7 +157,8 @@ function PlanView_RemoveId(id)
 	    }
     }
    
-    // Remove from study quadrant
+    // If the playing piece was in the Academics quadrant
+	// remove the id from the study array of planViewPlay
     for(var i = 0; i < planViewPlay.study.length; i++)
     {
 	    if(planViewPlay.study[i] == id)
@@ -202,6 +218,8 @@ function drawPlanningScreen(){
 		firstDraw = false;
 	}
 }
+
+//************************************************************************************
 
 $(document).ready(function(){
 	$("#run").click(function(){simulate()});	
