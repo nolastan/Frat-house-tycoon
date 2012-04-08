@@ -106,7 +106,9 @@ var create_frat = function(spec, members) {
 				
 	            curMem = getMemberById(catMems[k]);
 	            curMem.skills.improve(category);
+				PlanView_UpdateSkills(curMem);
 	        }
+			
 	    }
     }
     

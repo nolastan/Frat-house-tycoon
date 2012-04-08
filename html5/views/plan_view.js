@@ -7,6 +7,16 @@ var firstDraw = true;
 
 //************************************************************************************
 
+function PlanView_UpdateSkills(member)
+{
+   $("#planScreen #member_" + member.id + " .skills .rush .fill").css("width", member.skills.rush + "%");
+   $("#planScreen #member_" + member.id + " .skills .party .fill").css("width", member.skills.party + "%");
+   $("#planScreen #member_" + member.id + " .skills .cs .fill").css("width", member.skills.cs + "%");
+   $("#planScreen #member_" + member.id + " .skills .study .fill").css("width", member.skills.study + "%");   
+}
+
+//************************************************************************************
+
 function PlanView_RemovePiece(id)
 {
    $("#planScreen #member_"+id).remove();
