@@ -87,7 +87,7 @@ function drawFaceCard(member, divId) {
 			html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + member.skills.study + '%"></div></div></li>';
 			html += '</ul>';
 			html += "</li>";
-			$(divId).append(html);
+			$(divId).html(html);
 			
 			ctx = $(divId + " .face")[0];
 			drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);

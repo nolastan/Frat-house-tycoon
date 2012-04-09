@@ -42,19 +42,10 @@ $(document).ready(function(){
 	
 	/** define functions **/
     game.board = new Board(game.frat);	
-	game.turns = [create_turn(mardiGrasInfo), 
-	              create_turn(gloCrackDownInfo),
-	              create_turn(finalsWeekInfo),
-	              create_turn(superBowlInfo),
-	              create_turn(coldInfo),
-	              create_turn(firstDayOfSpringInfo),
-	              create_turn(halloweenInfo),
-	              create_turn(forthOfJulyInfo),
-	              create_turn(parentWeekendInfo),
-	              create_turn(midtermsWeekInfo),
-	              create_turn(proStudentWeekInfo),
-	              create_turn(stPatricksDay)
-	              ];
+    game.turns = Array();
+    for(key in events){
+    	game.turns[key] = create_turn(events[key]);
+    }
 	              
 	game.turns.rushTurn = create_turn(rushWeekendInfo);
 	game.turns.turnNum = 1;

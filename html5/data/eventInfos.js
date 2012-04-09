@@ -1,4 +1,135 @@
-var standardWeekInfo = {
+var rushWeekendInfo = {
+	"descript": "Rush Weekend",
+	"categories": {
+		"party": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-20",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "15",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					},
+					"rush": {
+						"base": "0",
+						"mult": "0.5"
+					}
+				}
+			],
+			"msgs": [
+				"Rushees wondered why you weren't having a party.",
+				"It's a party. Everyone's having a good time.",
+				"Rushees had a great time."
+			],
+			"cutoffs": [
+				"0",
+				"4",
+				"7"
+			]
+		},
+		"cs": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "1"
+					}
+				},
+				{
+					"rep": {
+						"base": "0",
+						"mult": "2"
+					}
+				}
+			],
+			"msgs": [
+				"You couldn't think of anything to do?",
+				"Rushees were impressed by your philanthropy event.",
+				"Sold some sweet rush week shirts."
+			],
+			"cutoffs": [
+				"0",
+				"3",
+				"6"
+			]
+		},
+		"rush": {
+			"rewards": [
+				{
+					"rush": {
+						"base": "0",
+						"mult": "0"
+					}
+				},
+				{
+					"rush": {
+						"base": "3",
+						"mult": "0.75"
+					}
+				}
+			],
+			"msgs": [
+				"Rushing hard, or hardly rushing?",
+				"Had a good turnout to your events."
+			],
+			"cutoffs": [
+				"0",
+				"4"
+			]
+		},
+		"study": {
+			"rewards": [
+				{
+					"rep": {
+						"base": "-10",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "15",
+						"mult": "0"
+					}
+				},
+				{
+					"rep": {
+						"base": "10",
+						"mult": "1"
+					}
+				}
+			],
+			"msgs": [
+				"You should probably study if you want to stick around.",
+				"Got your work done.",
+				"Work hard, play hard."
+			],
+			"cutoffs": [
+				"0",
+				"1",
+				"4"
+			]
+		}
+	}
+}
+
+var events = [
+	{
 	"descript": "Standard Week",
 	"categories": {
 		"party": {
@@ -22,7 +153,7 @@ var standardWeekInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		},
 		"cs": {
@@ -46,7 +177,7 @@ var standardWeekInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		},
 		"rush": {
@@ -70,7 +201,7 @@ var standardWeekInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		},
 		"study": {
@@ -94,13 +225,12 @@ var standardWeekInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"5"
+				"3"
 			]
 		}
 	}
-};
-
-var finalsWeekInfo = {
+},
+{
 	"descript": "Finals Week",
 	"categories": {
 		"party": {
@@ -135,8 +265,8 @@ var finalsWeekInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"7",
-				"15"
+				"3",
+				"7"
 			]
 		},
 		"cs": {
@@ -160,7 +290,7 @@ var finalsWeekInfo = {
 			],
 			"cutoffs": [
 				"0",
-				"7"
+				"3"
 			]
 		},
 		"rush": {
@@ -178,7 +308,7 @@ var finalsWeekInfo = {
 					}
 				},
 				{
-					"rush": {
+					"rep": {
 						"base": "0",
 						"mult": "-0.5"
 					}
@@ -192,7 +322,7 @@ var finalsWeekInfo = {
 			"cutoffs": [
 				"0",
 				"1",
-				"9"
+				"4"
 			]
 		},
 		"study": {
@@ -224,14 +354,12 @@ var finalsWeekInfo = {
 			"cutoffs": [
 				"0",
 				"1",
-				"10"
+				"5"
 			]
 		}
 	}
-};
-
-
-var mardiGrasInfo = {
+},
+{
 	"descript": "Mardi Gras",
 	"categories": {
 		"party": {
@@ -263,7 +391,7 @@ var mardiGrasInfo = {
 			"cutoffs": [
 				"0",
 				"1",
-				"9"
+				"4"
 			]
 		},
 		"cs": {
@@ -299,7 +427,7 @@ var mardiGrasInfo = {
 			"cutoffs": [
 				"0",
 				"1",
-				"10"
+				"5"
 			]
 		},
 		"rush": {
@@ -331,7 +459,7 @@ var mardiGrasInfo = {
 			"cutoffs": [
 				"0",
 				"1",
-				"10"
+				"5"
 			]
 		},
 		"study": {
@@ -351,10 +479,8 @@ var mardiGrasInfo = {
 			]
 		}
 	}
-};
-
-
-var  gloCrackDownInfo = {
+},
+{
 		"descript": "The GLO Cracks Down",
 		"categories": {
 			"party": {
@@ -441,7 +567,7 @@ var  gloCrackDownInfo = {
 							"mult": "0"
 						},
 						"rush": {
-							"base": "3",
+							"base": "5",
 							"mult": "0"
 						}
 					}
@@ -454,7 +580,7 @@ var  gloCrackDownInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"3"
+					"20"
 				]
 			},
 			"study": {
@@ -482,133 +608,9 @@ var  gloCrackDownInfo = {
 				]
 			}
 		}
-	};
+	},
 
-var rushWeekendInfo = {
-	"descript": "Rush Weekend",
-	"categories": {
-		"party": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "-20",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "15",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "0",
-						"mult": "1"
-					},
-					"rush": {
-						"base": "0",
-						"mult": "0.5"
-					}
-				}
-			],
-			"msgs": [
-				"Rushees wondered why you weren't having a party.",
-				"It's a party. Everyone's having a good time.",
-				"Rushees had a great time."
-			],
-			"cutoffs": [
-				"0",
-				"8",
-				"15"
-			]
-		},
-		"cs": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "0",
-						"mult": "1"
-					}
-				},
-				{
-					"rep": {
-						"base": "0",
-						"mult": "1"
-					}
-				}
-			],
-			"msgs": [
-				"You couldn't think of anything to do?",
-				"Rushees were impressed by your philanthropy event.",
-				"Sold some sweet rush week shirts."
-			],
-			"cutoffs": [
-				"0",
-				"6",
-				"12"
-			]
-		},
-		"rush": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "0",
-						"mult": "0.5"
-					}
-				},
-				{
-					"rep": {
-						"base": "0",
-						"mult": "0.75"
-					}
-				}
-			],
-			"msgs": [
-				"Rushing hard, or hardly rushing?",
-				"Had a good turnout to your events."
-			],
-			"cutoffs": [
-				"0",
-				"8"
-			]
-		},
-		"study": {
-			"rewards": [
-				{
-					"rep": {
-						"base": "-10",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "15",
-						"mult": "0"
-					}
-				},
-				{
-					"rep": {
-						"base": "10",
-						"mult": "1"
-					}
-				}
-			],
-			"msgs": [
-				"You should probably study if you want to stick around.",
-				"Got your work done.",
-				"Work hard, play hard."
-			],
-			"cutoffs": [
-				"0",
-				"1",
-				"7"
-			]
-		}
-	}
-};
-
-var superBowlInfo = {
+	{
 		"descript": "Super Bowl",
 		"categories": {
 			"party": {
@@ -648,7 +650,7 @@ var superBowlInfo = {
 				"cutoffs": [
 					"0",
 					"2",
-					"6"
+					"4"
 				]
 			},
 			"cs": {
@@ -679,8 +681,8 @@ var superBowlInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"1",
-					"4"
+					"10",
+					"25"
 				]
 			},
 			"rush": {
@@ -732,13 +734,12 @@ var superBowlInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"6"
+					"3"
 				]
 			}
 		}
-	};
-
-var coldInfo = {
+	},
+	{
 		"descript": "Freezing Cold Outside",
 		"categories": {
 			"party": {
@@ -764,13 +765,13 @@ var coldInfo = {
 				],
 				"msgs": [
 					"It was too cold anyway, good call.",
-					"¡°I braved the cold for this??¡±",
+					"'I braved the cold for this??'",
 					"Strong effort paid off"
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"cs": {
@@ -862,14 +863,12 @@ var coldInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"2"
 				]
 			}
 		}
-	};
-
-
-var firstDayOfSpringInfo = {
+	},
+	{
 		"descript": "First day of Spring",
 		"categories": {
 			"party": {
@@ -901,7 +900,7 @@ var firstDayOfSpringInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"cs": {
@@ -926,14 +925,14 @@ var firstDayOfSpringInfo = {
 					}
 				],
 				"msgs": [
-					"What¡¯s your fraternity about?",
+					"What's your fraternity about?",
 					"Too busy enjoying the weather to plan event well enough",
 					"Host volleyball tournament for deaf children "
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"3"
+					"18"
 				]
 			},
 			"rush": {
@@ -958,14 +957,14 @@ var firstDayOfSpringInfo = {
 					}
 				],
 				"msgs": [
-					"It¡¯s sunny, where were you?",
+					"It's sunny, where were you?",
 					"Played lawn games, got your name out there",
-					"Had a great time playing flag football, +2 brothers"
+					"Had a great time playing flag football."
 				],
 				"cutoffs": [
 					"0",
-					"1",
-					"4"
+					"15",
+					"25"
 				]
 			},
 			"study": {
@@ -979,13 +978,13 @@ var firstDayOfSpringInfo = {
 					{
 						"rep": {
 							"base": "0",
-							"mult": "0"
+							"mult": "2"
 						}
 					},
 					{
 						"rep": {
-							"base": "0",
-							"mult": "1"
+							"base": "5",
+							"mult": "2"
 						}
 					}
 				],
@@ -997,13 +996,12 @@ var firstDayOfSpringInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"2"
 				]
 			}
 		}
-	};
-
-var halloweenInfo = {
+	},
+	{
 		"descript": "Halloween",
 		"categories": {
 			"party": {
@@ -1029,13 +1027,13 @@ var halloweenInfo = {
 				],
 				"msgs": [
 					"It was too cold anyway, good call.",
-					"¡°I braved the cold for this??¡±",
+					"'I braved the cold for this??'",
 					"Strong effort paid off"
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"3"
 				]
 			},
 			"cs": {
@@ -1067,7 +1065,7 @@ var halloweenInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"5"
+					"25"
 				]
 			},
 			"rush": {
@@ -1095,7 +1093,7 @@ var halloweenInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"2"
+					"8"
 				]
 			},
 			"study": {
@@ -1126,14 +1124,13 @@ var halloweenInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"1",
-					"5"
+					"8",
+					"25"
 				]
 			}
 		}
-	};
-
-var forthOfJulyInfo = {
+	},
+	{
 		"descript": "Forth of July",
 		"categories": {
 			"party": {
@@ -1157,7 +1154,7 @@ var forthOfJulyInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"3"
+					"10"
 				]
 			},
 			"cs": {
@@ -1225,7 +1222,7 @@ var forthOfJulyInfo = {
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"3"
 				]
 			},
 			"study": {
@@ -1253,9 +1250,8 @@ var forthOfJulyInfo = {
 				]
 			}
 		}
-	};
-
-var parentWeekendInfo = {
+	},
+	{
 		"descript": "Parents Weekend",
 		"categories": {
 			"party": {
@@ -1286,8 +1282,8 @@ var parentWeekendInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"5",
-					"11"
+					"8",
+					"25"
 				]
 			},
 			"cs": {
@@ -1313,13 +1309,13 @@ var parentWeekendInfo = {
 				],
 				"msgs": [
 					"Parents steer their kids away from you",
-					"Misspelled ¡°Noodles¡± on your event flyers",
+					"Misspelled 'Noodles' on your event flyers",
 					"People took their parents to your great Community Service event at the local restaurant"
 				],
 				"cutoffs": [
 					"0",
 					"1",
-					"4"
+					"10"
 				]
 			},
 			"rush": {
@@ -1338,7 +1334,7 @@ var parentWeekendInfo = {
 					}
 				],
 				"msgs": [
-					"Parents don¡¯t join fraternities",
+					"Parents don't join fraternities",
 					"Parents at the house scared off potential rushees"
 				],
 				"cutoffs": [
@@ -1371,9 +1367,8 @@ var parentWeekendInfo = {
 				]
 			}
 		}
-	};
-
-var midtermsWeekInfo = {
+	},
+	{
 		"descript": "Midterms Week",
 		"categories": {
 			"party": {
@@ -1397,7 +1392,7 @@ var midtermsWeekInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"6"
+					"4"
 				]
 			},
 			"cs": {
@@ -1421,7 +1416,7 @@ var midtermsWeekInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"6"
+					"2"
 				]
 			},
 			"rush": {
@@ -1440,12 +1435,12 @@ var midtermsWeekInfo = {
 					}
 				],
 				"msgs": [
-					"It¡¯s okay, rushees were studying too",
+					"It's okay, rushees were studying too",
 					"Bugged rushees trying to study"
 				],
 				"cutoffs": [
 					"0",
-					"5"
+					"3"
 				]
 			},
 			"study": {
@@ -1476,14 +1471,13 @@ var midtermsWeekInfo = {
 				],
 				"cutoffs": [
 					"0",
-					"4",
-					"8"
+					"3",
+					"6"
 				]
 			}
 		}
-	};
-
-var proStudentWeekInfo = {
+	},
+	{
 		"descript": "Prospective Student Weekend",
 		"categories": {
 			"party": {
@@ -1595,9 +1589,8 @@ var proStudentWeekInfo = {
 				]
 			}
 		}
-	};
-
-var stPatricksDay = {
+	},
+	{
 		"descript": "St Patricks Day",
 		"categories": {
 			"party": {
@@ -1670,8 +1663,8 @@ var stPatricksDay = {
 					},
 					{
 						"rush": {
-							"base": "3",
-							"mult": "0"
+							"base": "0",
+							"mult": "0.5"
 						}
 					}
 				],
@@ -1705,15 +1698,11 @@ var stPatricksDay = {
 				],
 				"cutoffs": [
 					"0",
-					"3"
+					"14"
 				]
 			}
 		}
-	};
+	}
+]
 
 //**********************************************************************
-var events = [];
-events[0] = mardiGrasInfo;
-events[1] = standardWeekInfo;
-events[2] = finalsWeekInfo;
-events[3] = superBowlInfo;
