@@ -40,6 +40,9 @@ var create_frat = function(spec, members) {
 	that.members = members || [];
 	that.rushees = [];
 	that.items = [];
+	
+	// item multipliers
+	that.itemMult = {'party':1, 'cs':1, 'rush':1, 'study':1};
 
 	
 	//**This needs to be changed, play should have arrays of brothers

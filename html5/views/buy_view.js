@@ -3,31 +3,35 @@
  */
 
 var tv = {
-	"name": 'Television',
-	"price": 100,
-	"descript": '106 inch 1080P HD 3D LCD TV! Good for parties and rush event!',
-	"img": 'sprites/items/tv.svg'
+		"name": 'Television',
+		"price": 100,
+		"descript": '106 inch 1080P HD 3D LCD TV! Good for parties and rush event!',
+		"img": 'sprites/items/tv.svg',
+		"mult": {'party':0.1, 'rush':0.1, 'cs':0, 'study':0}
 };
 
 var dj = {
 		"name": 'DJ Equipments',
 		"price": 150,
 		"descript": 'Premium DJ equipment with high performance sound card! It can rock your party!',
-		"img": 'sprites/items/dj.svg'
+		"img": 'sprites/items/dj.svg',
+		"mult": {'party':0.2, 'rush':0, 'cs':0, 'study':0}
 	};
 
 var pc = {
 		"name": 'Computer Workstation',
 		"price": 100,
 		"descript": 'Dual screen workstation with 2*4 core AMD Opteron! This will definitely improve your GPA because you will only use it for studying.',
-		"img": 'sprites/items/computer.svg'
+		"img": 'sprites/items/computer.svg',
+		"mult": {'party':0, 'rush':0, 'cs':0, 'study':0.2}
 	};
 
 var swim = {
 		"name": 'Swimming Pool',
 		"price": 200,
 		"descript": 'Cool swimming pool with heating system! Great for party and rush events!',
-		"img": 'sprites/items/swim.svg'
+		"img": 'sprites/items/swim.svg',
+		"mult": {'party':0.2, 'rush':0.2, 'cs':0, 'study':0}
 	};
 
 var items = [tv, dj, pc, swim];
@@ -52,8 +56,16 @@ function buyItem(id) {
 	else {
 		game.frat.cash -= item.price;
 		game.frat.items.push(item.name);
+		
+		game.frat.itemMult.party += item.mult.party;
+		game.frat.itemMult.cs += item.mult.cs;
+		game.frat.itemMult.rush += item.mult.rush;
+		game.frat.itemMult.study += item.mult.study;
+		
 		console.log('Item ' + item.name + ' is bought');
 		console.log('now you have: '+ game.frat.items);
+		console.log('the new itemMult is '+ game.frat.itemMult);
+		
 		return true;
 	}
 }
@@ -88,7 +100,7 @@ function drawBuyScreen(){
   		  		  		
 		html += '<li class="item" id="' + i + '">';
 		html += '<p class="name">' + item.name + '</p>';
-		html += '<img src="' + item.img + '"/>';
+		html += '<img src="' + item.img + '"/img>';
 		html += '<p class="descript">' + item.descript + '</p>';
 		html += '<p class="price"> $' + item.price + '</p>';
 		html += '<button class="buy">Buy</button>';

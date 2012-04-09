@@ -274,11 +274,13 @@ ul.rushees object, ul.members object {
   float: left;
   margin: 30px; }
 
-#buyScreen img.img {
+#buyScreen img {
   float: left;
   margin-right: 50px; 
   width: 150px; 
-  height: 150px; }
+  height: 130px; 
+  margin-bottom: 10px;
+  }
 
 #buyScreen button.buy {
   width: 100px;
@@ -297,17 +299,19 @@ ul.rushees object, ul.members object {
 #buyScreen .name {
   font-size: 200%;
   font-weight: bold;
-  height: 30px;
+  height: 60px;
   margin-bottom: 5px; }
   
 #buyScreen .descript {
-  height: 60px;
-  margin-bottom: 5px; }
+  height: 200px;
+  margin-bottom: 5px;
+  }
   
 #buyScreen .price {
   font-size: 150%;
   font-weight: bold;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  }
 
 
 
