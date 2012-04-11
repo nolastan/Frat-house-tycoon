@@ -7,7 +7,7 @@ function updateScreenSize(){
 	game.UNIT = Math.round(sg.scale / 100);
 	$("#canvas, #background").attr('width', sg.width);
 	$("#canvas, #background").attr('height', sg.height);
-	$("ul.quadrants li.quadrant, ul.quadrants .members").css("height", sg.height/2);
+	$("ul.quadrants li.quadrant, ul.quadrants .members, #menu .logo").css("height", sg.height/2);
 	$("ul.quadrants").css("width", $(window).width()-310);
   	$("ul.quadrants li object.quadrant_icon").css("max-height", sg.height/3);
   	$("ul.quadrants li object.quadrant_icon").css("max-width", $(window).width()/3);

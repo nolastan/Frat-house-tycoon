@@ -305,6 +305,8 @@ ul.rushees, ul.members {
   font-weight: bold;
   text-align: center;
   margin: .5em 0 .2em 0; }
+  #menu h1 .logo {
+    margin-bottom: 20px; }
 #menu h2 {
   font-weight: 100;
   font-size: 200%;
