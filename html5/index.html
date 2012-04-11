@@ -70,8 +70,7 @@
 			}
 			
 			if (age > duration || shape.opacity < 0.1) {
-				shape.alive = false;
-				shape.remove();
+				shape.die();
 			}
 		}
 		
@@ -208,7 +207,6 @@
 		
 		function tryTalk() {
 			var hitResult = project.hitTest(shape.position, hitOptions);
-			
 			if (hitResult && hitResult.item && hitResult.item.state == "inside" || hitResult.item.type == "member") {
 				hitResult.item.state = "talking";
 				shape.state = "talking";
