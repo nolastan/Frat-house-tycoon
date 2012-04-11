@@ -1,3 +1,24 @@
+/* 
+
+
+
+
+
+
+******************************************************
+MODIFICATION TO STYLE.CSS WILL BE ERASED
+IF THEY ARE NOT ALSO ADDED TO STYLE.SCSS
+
+SCSS (SASS) compiles into CSS. You can download a compiler
+or just modify both files and Stan will compile it.
+******************************************************
+
+
+
+
+
+
+*/
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 .clear {
   clear: both; }
@@ -150,45 +171,40 @@ nav.bidMeeting.over {
     display: inline-block; }
 
 /* Status Bars */
-.bar {
+.skills .bar {
   width: 120px;
   border-width: 1px;
   border-style: solid;
   display: inline-block; }
-
-.fill {
+.skills .fill {
   height: 1.1em; }
-
-.rush .bar {
+.skills .rush .bar {
   border-color: #4e1a16;
   background-color: #fbf2f1; }
-.rush .fill {
+.skills .rush .fill {
   background-color: #9e352c; }
-.rush label {
+.skills .rush label {
   color: #4e1a16; }
-
-.party .bar {
+.skills .party .bar {
   border-color: #989b2a;
   background-color: #f8f8e5; }
-.party .fill {
+.skills .party .fill {
   background-color: #e6e8a9; }
-.party label {
+.skills .party label {
   color: #989b2a; }
-
-.cs .bar {
+.skills .cs .bar {
   border-color: #0c1718;
   background-color: #ebf4f5; }
-.cs .fill {
+.skills .cs .fill {
   background-color: #2e5a5c; }
-.cs label {
+.skills .cs label {
   color: #0c1718; }
-
-.study .bar {
+.skills .study .bar {
   border-color: #5a9850;
   background-color: #f1f7f0; }
-.study .fill {
+.skills .study .fill {
   background-color: #93c28c; }
-.study label {
+.skills .study label {
   color: #5a9850; }
 
 /* Canvas stuff */
@@ -213,104 +229,76 @@ h2 {
   margin: 1em 0;
   font-size: 200%; }
 
-/* Bid Meeting  */
-ul.rushees li, ul.members li {
-  width: 420px;
-  float: left;
-  margin: 20px; }
-ul.rushees canvas.face, ul.members canvas.face {
-  float: left;
-  margin-right: 10px; }
-ul.rushees button.bid, ul.members button.bid {
-  width: 100px;
-  font-size: 1.2em;
-  height: 1.5em;
-  margin-top: 11px; }
-ul.rushees p.interest, ul.members p.interest {
-  /* 			text-transform: uppercase; */
-  font-size: .7em;
-  text-align: center;
-  width: 100px;
-  display: inline-block; }
-ul.rushees button.declined, ul.members button.declined {
-  background-image: linear-gradient(bottom, #aa392f, #923129);
-  background-image: -o-linear-gradient(bottom, #aa392f, #923129);
-  background-image: -moz-linear-gradient(bottom, #aa392f, #923129);
-  background-image: -webkit-linear-gradient(bottom, #aa392f, #923129);
-  background-image: -ms-linear-gradient(bottom, #aa392f, #923129);
-  background-image: -webkit-gradient(linear, left bottom, left top, #aa392f, #923129); }
-ul.rushees button.accepted, ul.members button.accepted {
-  background-image: linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
-ul.rushees button.declined, ul.rushees button.accepted, ul.members button.declined, ul.members button.accepted {
-  cursor: default; }
-ul.rushees .name, ul.members .name {
-  font-size: 170%;
-  font-weight: bold;
-  margin-bottom: 5px; }
-ul.rushees ul.skills, ul.members ul.skills {
-  float: left;
-  width: 170px; }
-ul.rushees ul.skills li, ul.members ul.skills li {
-  width: 100%;
-  clear: both;
-  float: none;
-  margin: 3px 0; }
-ul.rushees object, ul.members object {
-  height: 1.2em;
-  width: 1.2em;
-  margin-right: .4em;
-  display: inline-block; }
-
-
+/* Rushees/Members */
+ul.rushees, ul.members {
+  font-size: 1em; }
+  ul.rushees canvas.face, ul.members canvas.face {
+    float: left;
+    margin-right: 10px; }
+  ul.rushees button.bid, ul.members button.bid {
+    width: 100px;
+    font-size: 1.2em;
+    height: 1.5em;
+    margin-top: 11px; }
+  ul.rushees p.interest, ul.members p.interest {
+    font-size: .7em;
+    text-align: center;
+    width: 100px;
+    display: inline-block; }
+  ul.rushees button.declined, ul.members button.declined {
+    background-image: linear-gradient(bottom, #aa392f, #923129);
+    background-image: -o-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -moz-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -webkit-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -ms-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -webkit-gradient(linear, left bottom, left top, #aa392f, #923129); }
+  ul.rushees button.accepted, ul.members button.accepted {
+    background-image: linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
+  ul.rushees button.declined, ul.rushees button.accepted, ul.members button.declined, ul.members button.accepted {
+    cursor: default; }
+  ul.rushees .name, ul.members .name {
+    font-size: 170%;
+    font-weight: bold;
+    margin-bottom: 5px; }
+  ul.rushees ul.skills, ul.members ul.skills {
+    float: left;
+    width: 170px; }
+  ul.rushees ul.skills li, ul.members ul.skills li {
+    width: 100%;
+    clear: both;
+    float: none;
+    margin: 3px 0; }
+  ul.rushees object, ul.members object {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: .4em;
+    display: inline-block; }
 
 /* Buy */
 #buyScreen li {
-  width: 200px;
+  width: 150px;
   float: left;
   margin: 30px; }
 
 #buyScreen img.img {
   float: left;
-  margin-right: 50px; 
-  width: 150px; 
-  height: 150px; }
+  margin-right: 50px; }
 
 #buyScreen button.buy {
   width: 100px;
   font-size: 1em;
   height: 1.6em;
   margin-top: 0px; }
-  
-#buyScreen button.buy.bought {
-  background-image: linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }  
 
 #buyScreen .name {
   font-size: 200%;
   font-weight: bold;
-  height: 30px;
   margin-bottom: 5px; }
-  
-#buyScreen .descript {
-  height: 60px;
-  margin-bottom: 5px; }
-  
-#buyScreen .price {
-  font-size: 150%;
-  font-weight: bold;
-  margin-bottom: 5px; }
-
-
-
 
 #menu h1 {
   font-size: 300%;
@@ -343,3 +331,86 @@ ul.rushees object, ul.members object {
     margin: 10px; }
     #menu div.quest ul.quests li h3 {
       font-weight: bold; }
+
+/* Bid Screen */
+ul.rushees li {
+  width: 420px;
+  float: left;
+  margin: 20px; }
+
+/* Plan Screen */
+#planScreen [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
+#planScreen ul.members {
+  float: right;
+  width: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+  #planScreen ul.members li.member {
+    padding: 10px 10px 10px 10px;
+    cursor: move;
+    width: 100%;
+    clear: both;
+    height: 150px; }
+  #planScreen ul.members li.member:hover {
+    background-color: #eee;
+    border: 1px dashed #ccc; }
+  #planScreen ul.members .name {
+    padding-top: 10px;
+    font-size: 150%; }
+#planScreen ul.quadrants {
+  float: left;
+  width: 50%; }
+  #planScreen ul.quadrants ul.members {
+    z-index: 100;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    overflow: auto; }
+    #planScreen ul.quadrants ul.members li {
+      width: 80px;
+      height: 70px;
+      float: left;
+      clear: none; }
+      #planScreen ul.quadrants ul.members li p.name {
+        font-size: 80%;
+        font-weight: normal; }
+      #planScreen ul.quadrants ul.members li object {
+        display: none; }
+      #planScreen ul.quadrants ul.members li ul.skills {
+        width: 25px; }
+        #planScreen ul.quadrants ul.members li ul.skills li {
+          float: none;
+          width: 100%;
+          height: .25em; }
+        #planScreen ul.quadrants ul.members li ul.skills .bar {
+          font-size: .2em;
+          width: 100%;
+          display: block; }
+      #planScreen ul.quadrants ul.members li .face {
+        height: 30px;
+        margin-right: 4px; }
+  #planScreen ul.quadrants li.quadrant {
+    position: relative;
+    width: 50%;
+    float: left; }
+    #planScreen ul.quadrants li.quadrant h3 {
+      font-size: 300%;
+      text-align: center; }
+    #planScreen ul.quadrants li.quadrant .quadrant_icon {
+      width: 100%;
+      margin-top: .5em;
+      opacity: .9; }
+    #planScreen ul.quadrants li.quadrant h3 {
+      margin-top: .3em; }
+  #planScreen ul.quadrants li.rush.quadrant {
+    background-color: #9e352c; }
+  #planScreen ul.quadrants li.party.quadrant {
+    background-color: #e6e8a9; }
+  #planScreen ul.quadrants li.cs.quadrant {
+    background-color: #2e5a5c; }
+  #planScreen ul.quadrants li.study.quadrant {
+    background-color: #93c28c; }

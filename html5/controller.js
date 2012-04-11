@@ -52,7 +52,7 @@ function plan(){
 };
 
 function simulate(){
-   	game.board.update_play();
+    PlanView_UpdatePlay();
 	var turn = game.nextTurn;
 	game.results = turn.run(game.frat);
 	//game.sim = new Simulation(game.frat.getPlayValues(), game.results);

@@ -1,3 +1,25 @@
+/* 
+
+
+
+
+
+
+******************************************************
+MODIFICATION TO STYLE.CSS WILL BE ERASED
+IF THEY ARE NOT ALSO ADDED TO STYLE.SCSS
+
+SCSS (SASS) compiles into CSS. You can download a compiler
+or just modify both files and Stan will compile it.
+******************************************************
+
+
+
+
+
+
+*/
+
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 
 $red: #9E352C;
@@ -194,62 +216,65 @@ nav.bidMeeting.over{
 	}
 }
 /* Status Bars */
-.bar{
-	width: 120px;
-	border-width: 1px;
-	border-style: solid;
-	display: inline-block;
-}
-.fill{
-	height: 1.1em;
-}
-.rush{
+.skills{
 	.bar{
-		border-color: darken($rush_color, 20%);
-		background-color: lighten($rush_color, 57%);
+		width: 120px;
+		border-width: 1px;
+		border-style: solid;
+		display: inline-block;
 	}
 	.fill{
-		background-color: $rush_color;
+		height: 1.1em;
 	}
-	label{
-		color: darken($rush_color, 20%);
+	.rush{
+		.bar{
+			border-color: darken($rush_color, 20%);
+			background-color: lighten($rush_color, 57%);
+		}
+		.fill{
+			background-color: $rush_color;
+		}
+		label{
+			color: darken($rush_color, 20%);
+		}
 	}
-}
-.party{
-	.bar{
-		border-color: darken($party_color, 40%);
-		background-color: lighten($party_color, 15%);
+	.party{
+		.bar{
+			border-color: darken($party_color, 40%);
+			background-color: lighten($party_color, 15%);
+		}
+		.fill{
+			background-color: $party_color;
+		}
+		label{
+			color: darken($party_color, 40%);
+		}
 	}
-	.fill{
-		background-color: $party_color;
+	.cs{
+		.bar{
+			border-color: darken($cs_color, 20%);
+			background-color: lighten($cs_color, 67%);
+		}
+		.fill{
+			background-color: $cs_color;
+		}
+		label{
+			color: darken($cs_color, 20%);
+		}
 	}
-	label{
-		color: darken($party_color, 40%);
+	.study{
+		.bar{
+			border-color: darken($study_color, 20%);
+			background-color: lighten($study_color, 30%);
+		}
+		.fill{
+			background-color: $study_color;
+		}
+		label{
+			color: darken($study_color, 20%);
+		}
 	}
-}
-.cs{
-	.bar{
-		border-color: darken($cs_color, 20%);
-		background-color: lighten($cs_color, 67%);
-	}
-	.fill{
-		background-color: $cs_color;
-	}
-	label{
-		color: darken($cs_color, 20%);
-	}
-}
-.study{
-	.bar{
-		border-color: darken($study_color, 20%);
-		background-color: lighten($study_color, 30%);
-	}
-	.fill{
-		background-color: $study_color;
-	}
-	label{
-		color: darken($study_color, 20%);
-	}
+
 }
 
 /* Canvas stuff */
@@ -276,13 +301,10 @@ h2{
 	font-size: 200%;
 }
 
-/* Bid Meeting  */
+
+/* Rushees/Members */
 ul.rushees, ul.members{
-	li{
-		width: 420px;
-		float:left;
-		margin: 20px;
-	}
+	font-size: 1em;
 	canvas.face{
 		float:left;
 		margin-right: 10px;
@@ -297,7 +319,6 @@ ul.rushees, ul.members{
 		margin-top: 11px;
 	}
 	p.interest{
-/* 			text-transform: uppercase; */
 		font-size:.7em;
 		text-align: center;
 		width:100px;
@@ -395,6 +416,118 @@ ul.rushees, ul.members{
 					font-weight: bold;
 				}
 			}
+		}
+	}
+}
+/* Bid Screen */
+ul.rushees{
+	li{
+		width: 420px;
+		float:left;
+		margin: 20px;
+	}
+}
+
+/* Plan Screen */
+#planScreen{
+	[draggable] {
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+
+	ul.members{
+		float:right;
+		width: 300px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		li.member{
+			padding: 10px 10px 10px 10px;
+			cursor:move;
+			width: 100%;
+			clear:both;
+			height: 150px;
+		}
+		li.member:hover{
+			background-color: #eee;
+			border: 1px dashed #ccc;
+		}
+		.name{
+			padding-top: 10px;
+			font-size: 150%;
+		}
+	}
+	ul.quadrants{
+		float:left;
+		width:50%;
+		ul.members{
+			z-index: 100;
+			width: 100%;
+			position: absolute;
+			top:0;
+			overflow: auto;
+			li{
+				width: 80px;
+				height: 70px;
+				float:left;
+				clear:none;
+				p.name{
+					font-size: 80%;
+					font-weight: normal;
+				}
+				object{
+					display:none;
+				}
+				ul.skills{
+					width: 25px;
+					li{
+						float:none;
+						width: 100%;
+						height: .25em;
+					}
+					.bar{
+						font-size: .2em;
+						width: 100%;
+						display:block;
+					}
+				}
+	
+				.face{
+					height: 30px;
+					margin-right: 4px;
+				}			
+			}
+
+		}
+		li.quadrant{
+			position: relative;
+			width: 50%;
+			float:left;
+			h3{
+				font-size: 300%;
+				text-align:center;
+			}
+			.quadrant_icon{
+				width: 100%;
+				margin-top: .5em;
+				opacity: .9;
+			}
+			h3{
+				margin-top: .3em;
+			}
+		}
+		li.rush.quadrant{
+			background-color: $rush_color;
+		}
+		li.party.quadrant{
+			background-color: $party_color;
+		}
+		li.cs.quadrant{
+			background-color: $cs_color;
+		}
+		li.study.quadrant{
+			background-color: $study_color;
 		}
 	}
 }
