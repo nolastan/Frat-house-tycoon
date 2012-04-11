@@ -1,0 +1,416 @@
+/* 
+
+
+
+
+
+
+******************************************************
+MODIFICATION TO STYLE.CSS WILL BE ERASED
+IF THEY ARE NOT ALSO ADDED TO STYLE.SCSS
+
+SCSS (SASS) compiles into CSS. You can download a compiler
+or just modify both files and Stan will compile it.
+******************************************************
+
+
+
+
+
+
+*/
+@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+.clear {
+  clear: both; }
+
+body {
+  font-family: 'PT Sans Narrow', sans-serif; }
+
+strong {
+  font-weight: bold; }
+
+button, button.disabled:hover {
+  cursor: pointer;
+  border: 1px solid #aaa;
+  background: #eee;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee', endColorstr='#ddd');
+  background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#dddddd));
+  background: -moz-linear-gradient(top, #eeeeee, #dddddd);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px; }
+
+button:hover {
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee');
+  background: -webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#eeeeee));
+  background: -moz-linear-gradient(top, #dddddd, #eeeeee); }
+
+button.disabled, button.disabled:hover {
+  cursor: default;
+  background: #ddd;
+  color: #888; }
+
+button.active, button.active:hover {
+  cursor: default;
+  background-image: linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -o-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -moz-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -webkit-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -ms-linear-gradient(bottom, #d87a72, #cd544a);
+  background-image: -webkit-gradient(linear, left bottom, left top, #d87a72, #cd544a);
+  color: white; }
+
+header {
+  width: 100%;
+  line-height: 2.5em;
+  background-color: #2B2623;
+  color: #f0f0f0; }
+
+header h1 {
+  font-size: 1.5em;
+  margin: 0 .5ex; }
+
+nav {
+  overflow: hidden;
+  padding: 0;
+  height: 50px;
+  -moz-box-shadow: 0px 0px 5px black;
+  -webkit-box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px black;
+  font-size: 200%; }
+  nav button {
+    height: 40px;
+    font-size: 70%; }
+    nav button .val {
+      position: relative;
+      display: block;
+      right: -20px;
+      top: -6px;
+      background-image: linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -o-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -moz-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -webkit-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -ms-linear-gradient(bottom, #cd544a, #e39f9a);
+      background-image: -webkit-gradient(linear, left bottom, left top, #cd544a, #e39f9a);
+      -moz-border-radius: 20px;
+      -webkit-border-radius: 20px;
+      font-size: 60%;
+      color: #fff;
+      border: 1px solid #3a1410; }
+  nav object {
+    max-width: 30px;
+    height: 30px; }
+  nav ul {
+    float: left; }
+    nav ul li {
+      height: 50px;
+      padding-top: 5px;
+      float: left;
+      margin: 0 .2em; }
+  nav ul#screens {
+    float: right; }
+  nav ul#stats {
+    margin-right: 10px;
+    float: right; }
+    nav ul#stats object {
+      margin-right: 5px;
+      margin-left: 10px; }
+    nav ul#stats li.rep {
+      display: inline;
+      width: 90px; }
+  nav ul#skills {
+    float: right; }
+    nav ul#skills h3 {
+      font-size: 50%;
+      text-align: center; }
+    nav ul#skills .bar {
+      height: 20px;
+      background-image: url("../images/vert_line.gif");
+      background-repeat: repeat-y;
+      background-position: -2px, 0; }
+      nav ul#skills .bar .fill {
+        height: 20px; }
+    nav ul#skills object {
+      width: .8em;
+      height: .8em;
+      margin-right: .2em; }
+  nav ul#dev {
+    margin-right: 20px;
+    float: right; }
+    nav ul#dev button {
+      background-image: linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -o-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -moz-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -webkit-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -ms-linear-gradient(bottom, #f5ffad, #f9ffcb);
+      background-image: -webkit-gradient(linear, left bottom, left top, #f5ffad, #f9ffcb); }
+    nav ul#dev button:hover {
+      background-image: linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -o-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -moz-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -webkit-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -ms-linear-gradient(bottom, #f9ffcb, #f5ffad);
+      background-image: -webkit-gradient(linear, left bottom, left top, #f9ffcb, #f5ffad); }
+
+nav.bidMeeting {
+  text-align: center;
+  background-color: #9e352c;
+  color: #fff; }
+  nav.bidMeeting p {
+    padding-top: 10px; }
+  nav.bidMeeting button {
+    display: none;
+    font-size: 40%;
+    margin-left: 10px;
+    height: 30px;
+    vertical-align: top; }
+
+nav.bidMeeting.over {
+  background-color: #32552d; }
+  nav.bidMeeting.over button {
+    display: inline-block; }
+
+/* Status Bars */
+.skills .bar {
+  width: 120px;
+  border-width: 1px;
+  border-style: solid;
+  display: inline-block; }
+.skills .fill {
+  height: 1.1em; }
+.skills .rush .bar {
+  border-color: #4e1a16;
+  background-color: #fbf2f1; }
+.skills .rush .fill {
+  background-color: #9e352c; }
+.skills .rush label {
+  color: #4e1a16; }
+.skills .party .bar {
+  border-color: #989b2a;
+  background-color: #f8f8e5; }
+.skills .party .fill {
+  background-color: #e6e8a9; }
+.skills .party label {
+  color: #989b2a; }
+.skills .cs .bar {
+  border-color: #0c1718;
+  background-color: #ebf4f5; }
+.skills .cs .fill {
+  background-color: #2e5a5c; }
+.skills .cs label {
+  color: #0c1718; }
+.skills .study .bar {
+  border-color: #5a9850;
+  background-color: #f1f7f0; }
+.skills .study .fill {
+  background-color: #93c28c; }
+.skills .study label {
+  color: #5a9850; }
+
+/* Canvas stuff */
+#background {
+  position: absolute;
+  z-index: 0; }
+
+#canvas {
+  position: absolute;
+  z-index: 10; }
+
+/* Results */
+#results {
+  margin: 10px; }
+
+h2 {
+  font-size: 300%;
+  font-weight: bold;
+  margin: 20px 0 10px 20px; }
+
+#results p {
+  margin: 1em 0;
+  font-size: 200%; }
+
+/* Rushees/Members */
+ul.rushees, ul.members {
+  font-size: 1em; }
+  ul.rushees canvas.face, ul.members canvas.face {
+    float: left;
+    margin-right: 10px; }
+  ul.rushees button.bid, ul.members button.bid {
+    width: 100px;
+    font-size: 1.2em;
+    height: 1.5em;
+    margin-top: 11px; }
+  ul.rushees p.interest, ul.members p.interest {
+    font-size: .7em;
+    text-align: center;
+    width: 100px;
+    display: inline-block; }
+  ul.rushees button.declined, ul.members button.declined {
+    background-image: linear-gradient(bottom, #aa392f, #923129);
+    background-image: -o-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -moz-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -webkit-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -ms-linear-gradient(bottom, #aa392f, #923129);
+    background-image: -webkit-gradient(linear, left bottom, left top, #aa392f, #923129); }
+  ul.rushees button.accepted, ul.members button.accepted {
+    background-image: linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+    background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
+  ul.rushees button.declined, ul.rushees button.accepted, ul.members button.declined, ul.members button.accepted {
+    cursor: default; }
+  ul.rushees .name, ul.members .name {
+    font-size: 170%;
+    font-weight: bold;
+    margin-bottom: 5px; }
+  ul.rushees ul.skills, ul.members ul.skills {
+    float: left;
+    width: 170px; }
+  ul.rushees ul.skills li, ul.members ul.skills li {
+    width: 100%;
+    clear: both;
+    float: none;
+    margin: 3px 0; }
+  ul.rushees object, ul.members object {
+    height: 1.2em;
+    width: 1.2em;
+    margin-right: .4em;
+    display: inline-block; }
+
+/* Buy */
+#buyScreen li {
+  width: 150px;
+  float: left;
+  margin: 30px; }
+
+#buyScreen img.img {
+  float: left;
+  margin-right: 50px; }
+
+#buyScreen button.buy {
+  width: 100px;
+  font-size: 1em;
+  height: 1.6em;
+  margin-top: 0px; }
+
+#buyScreen .name {
+  font-size: 200%;
+  font-weight: bold;
+  margin-bottom: 5px; }
+
+#menu h1 {
+  font-size: 300%;
+  font-weight: bold;
+  text-align: center;
+  margin: .5em 0 .2em 0; }
+#menu h2 {
+  font-weight: 100;
+  font-size: 200%;
+  text-align: center;
+  margin: .2em 0 .5em 0; }
+#menu p.intro, #menu p.challenge {
+  margin: 1em auto;
+  width: 80%;
+  max-width: 500px;
+  font-size: 110%;
+  text-align: center; }
+#menu p.challenge {
+  font-weight: bold; }
+#menu .options {
+  text-align: center; }
+  #menu .options button {
+    font-size: 200%;
+    margin: .5em; }
+#menu div.quest {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 500px; }
+  #menu div.quest ul.quests li {
+    margin: 10px; }
+    #menu div.quest ul.quests li h3 {
+      font-weight: bold; }
+
+/* Bid Screen */
+ul.rushees li {
+  width: 420px;
+  float: left;
+  margin: 20px; }
+
+/* Plan Screen */
+#planScreen [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
+#planScreen ul.members {
+  float: right;
+  width: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+  #planScreen ul.members li.member {
+    padding: 10px 10px 10px 10px;
+    cursor: move;
+    width: 100%;
+    clear: both;
+    height: 150px; }
+  #planScreen ul.members li.member:hover {
+    background-color: #eee;
+    border: 1px dashed #ccc; }
+  #planScreen ul.members .name {
+    padding-top: 10px;
+    font-size: 150%; }
+#planScreen ul.quadrants {
+  float: left;
+  width: 50%; }
+  #planScreen ul.quadrants ul.members {
+    z-index: 100;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    overflow: auto; }
+    #planScreen ul.quadrants ul.members li {
+      width: 80px;
+      height: 70px;
+      float: left;
+      clear: none; }
+      #planScreen ul.quadrants ul.members li p.name {
+        font-size: 80%;
+        font-weight: normal; }
+      #planScreen ul.quadrants ul.members li object {
+        display: none; }
+      #planScreen ul.quadrants ul.members li ul.skills {
+        width: 25px; }
+        #planScreen ul.quadrants ul.members li ul.skills li {
+          float: none;
+          width: 100%;
+          height: .25em; }
+        #planScreen ul.quadrants ul.members li ul.skills .bar {
+          font-size: .2em;
+          width: 100%;
+          display: block; }
+      #planScreen ul.quadrants ul.members li .face {
+        height: 30px;
+        margin-right: 4px; }
+  #planScreen ul.quadrants li.quadrant {
+    position: relative;
+    width: 50%;
+    float: left; }
+    #planScreen ul.quadrants li.quadrant h3 {
+      font-size: 300%;
+      text-align: center; }
+    #planScreen ul.quadrants li.quadrant .quadrant_icon {
+      width: 100%;
+      margin-top: .5em;
+      opacity: .9; }
+    #planScreen ul.quadrants li.quadrant h3 {
+      margin-top: .3em; }
+  #planScreen ul.quadrants li.rush.quadrant {
+    background-color: #9e352c; }
+  #planScreen ul.quadrants li.party.quadrant {
+    background-color: #e6e8a9; }
+  #planScreen ul.quadrants li.cs.quadrant {
+    background-color: #2e5a5c; }
+  #planScreen ul.quadrants li.study.quadrant {
+    background-color: #93c28c; }
