@@ -81,9 +81,21 @@ function dragEnter(ev) {
 //************************************************************************************
 
 function dragOver(ev) {
-	var idelt = ev.dataTransfer.getData("Text");
-	var id = ev.target.getAttribute('id');    
-	return false;    
+    var idelt = ev.dataTransfer.getData("Text");
+    var id = ev.target.getAttribute('id');    
+
+    if(id == "partyQuad" ||
+       id == "rushQuad" ||
+       id == "csQuad" ||
+       id == "studyQuad")
+    {
+       console.log(id);
+       return false;  
+    }
+    else
+    {
+      return true;
+    }
 }
 
 //************************************************************************************
