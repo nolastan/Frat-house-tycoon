@@ -173,7 +173,6 @@ nav.bidMeeting.over {
   border-width: 1px;
   border-style: solid;
   display: inline-block;
-  background-image: url("../images/vert_line.gif");
   background-repeat: repeat-y;
   background-position: -2px, 0; }
 .skills .fill {
@@ -282,24 +281,49 @@ ul.rushees, ul.members {
 
 /* Buy */
 #buyScreen li {
-  width: 150px;
+  width: 200px;
   float: left;
   margin: 30px; }
 
-#buyScreen img.img {
+#buyScreen img {
   float: left;
-  margin-right: 50px; }
+  margin-right: 50px; 
+  width: 150px; 
+  height: 130px; 
+  margin-bottom: 10px;
+  }
 
 #buyScreen button.buy {
   width: 100px;
   font-size: 1em;
   height: 1.6em;
   margin-top: 0px; }
+  
+#buyScreen button.buy.bought {
+  background-image: linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }  
 
 #buyScreen .name {
   font-size: 200%;
   font-weight: bold;
+  height: 60px;
   margin-bottom: 5px; }
+  
+#buyScreen .descript {
+  height: 200px;
+  margin-bottom: 5px;
+  }
+  
+#buyScreen .price {
+  font-size: 150%;
+  font-weight: bold;
+  margin-bottom: 5px;
+  }
+  
 
 #menu h1 {
   font-size: 300%;
@@ -347,6 +371,18 @@ ul.rushees li {
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none; }
+#planScreen .nextEvent {
+  float: left;
+  line-height: 35px;
+  font-size: 150%;
+  background-color: #eee;
+  border-width: 1px 0;
+  border-color: #999;
+  border-style: solid; }
+  #planScreen .nextEvent p {
+    margin-left: 10px; }
+  #planScreen .nextEvent .val {
+    font-weight: bold; }
 #planScreen ul.members {
   float: right;
   width: 300px;
