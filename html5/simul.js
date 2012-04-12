@@ -189,9 +189,7 @@ var create_cash_box = function() {
 	
 	that.box = box;
 	
-	box.clicked = function() {
-	    that.collectMoney();
-	}
+	box.clicked = that.collectMoney;
 	var cashTl = tl.add({x:0, y:box.bounds.height})
 	//moneyLevel = new Path.Rectangle(cashTl, {width:maxWidth, height:0});
 	
@@ -199,7 +197,6 @@ var create_cash_box = function() {
 	    var yChange = maxHeight - maxHeight*(deposited/maxCapacity);
 	    
 	    var newTop = tl.add({x:0, y:yChange});
-	    
 	    return newTop;
 	    
 	}
@@ -229,6 +226,7 @@ var create_cash_box = function() {
 		moneyLevel.remove();
 		moneyLevel = new Path.Rectangle(calc_cash_tl(), box.bounds.bottomRight);
 		moneyLevel.fillColor = 'green';
+		moneyLevel.clicked = that.collectMoney;
 	}
 	
 	return that;
@@ -313,10 +311,11 @@ var create_goer = function(start) {
 					curDest = this.randomTarget(house);
 					setDestVector(curDest);
 				}
+				shape.position = shape.position.add(destVect);
 				if (Math.random() < talkProb) {
 					shape.tryTalk();
 				}
-				shape.position = shape.position.add(destVect);
+				
 				if (age > enterTime + stayDuration) {
 					curDest = 0;
 					moveAlongPath(exitPath)
@@ -415,7 +414,7 @@ var create_person = function(start, imageName) {
 	
 	function tryTalk() {
 		var hitResult = project.hitTest(shape.position, hitOptions);
-		if (hitResult && hitResult.item && hitResult.item.state == "inside" || hitResult.item.type == "member") {
+		if (hitResult && hitResult.item && hitResult.item != shape && (hitResult.item.state == "inside" || hitResult.item.type == "member")) {
 			hitResult.item.state = "talking";
 			shape.state = "talking";
 			shape.talkTarget = hitResult.item;
