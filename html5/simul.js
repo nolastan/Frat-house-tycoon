@@ -219,6 +219,7 @@ var create_cash_box = function() {
 	    game.frat.cash += deposited;
 	    deposited = 0;
 	    update();
+	    updateStatsBar();
 	    return that;
 	}
 	
