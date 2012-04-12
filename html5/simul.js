@@ -20,7 +20,6 @@ var tr = new Point(0, 0);
 	var bl = new Point(300, 300);
 	house = new Path.Rectangle(tr, bl);
 	house.fillColor = 'yellow';
-	cling = new Audio("sounds/cling_1.wav");
 	//Create bounds for person
 	personHeight = game.UNIT*10;
 	var size = new Size(game.UNIT*10, game.UNIT*10);
@@ -164,8 +163,24 @@ var create_organizer = (function () {
 	}
 
 })();
+
+	create_cash_box();
 });
 
+
+var create_cash_box = function() {
+	var that = {};
+	var tl = house.bounds.bottomCenter.add({x:-20, y:10});
+	box = new Path.Rectangle(tl, {width:personHeight/4, height:personHeight/2});
+	box.fillColor = 'black';
+	
+	that.box = box;
+	var cashTl = tl.add({x:0, y:box.bounds.height})
+	that.moneyLevel = new Path.Rectangle(cashTl, {width:personHeight/4, height:personHeight/2});
+	that.moneyLevel.fillColor = 'green';
+	
+	return box;
+}
 	
 
 	
