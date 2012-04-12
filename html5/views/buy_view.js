@@ -120,8 +120,6 @@ function drawBuyScreen(){
   	
 	$("#buyScreen .items").html("");
 	
-	game.frat.items.push("Television");
-
   	for(i in items){
   		var item = items[i];
   		var html = "";
