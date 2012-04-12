@@ -124,10 +124,7 @@ nav {
       font-size: 50%;
       text-align: center; }
     nav ul#skills .bar {
-      height: 20px;
-      background-image: url("../images/vert_line.gif");
-      background-repeat: repeat-y;
-      background-position: -2px, 0; }
+      height: 20px; }
       nav ul#skills .bar .fill {
         height: 20px; }
     nav ul#skills object {
@@ -175,9 +172,13 @@ nav.bidMeeting.over {
   width: 120px;
   border-width: 1px;
   border-style: solid;
-  display: inline-block; }
+  display: inline-block;
+  background-image: url("../images/vert_line.gif");
+  background-repeat: repeat-y;
+  background-position: -2px, 0; }
 .skills .fill {
-  height: 1.1em; }
+  height: 1.1em;
+  opacity: .8; }
 .skills .rush .bar {
   border-color: #4e1a16;
   background-color: #fbf2f1; }

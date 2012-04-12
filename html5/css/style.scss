@@ -173,9 +173,6 @@ nav{
 			.fill{
 				height: 20px;
 			}
-			background-image: url('../images/vert_line.gif');
-			background-repeat: repeat-y;
-			background-position: -2px, 0;
 		}
 		object{
 			width: .8em;
@@ -222,9 +219,13 @@ nav.bidMeeting.over{
 		border-width: 1px;
 		border-style: solid;
 		display: inline-block;
+		background-image: url('../images/vert_line.gif');
+		background-repeat: repeat-y;
+		background-position: -2px, 0;	
 	}
 	.fill{
 		height: 1.1em;
+		opacity: .8;
 	}
 	.rush{
 		.bar{

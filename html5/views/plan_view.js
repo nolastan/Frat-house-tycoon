@@ -46,6 +46,7 @@ function PlanView_AddPiece(member)
 	
 	ctx = $("#member_"+member.id+" .face")[0];
 	drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);
+	updateStatsBar();
 }
 
 //************************************************************************************
@@ -225,6 +226,7 @@ function drawPlanningScreen(){
 		}
 		
 		firstDraw = false;
+		updateStatsBar();
 	}
 }
 
