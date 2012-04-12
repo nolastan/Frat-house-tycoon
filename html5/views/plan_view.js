@@ -210,7 +210,7 @@ function drawPlanningScreen(){
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#run").show();
-	$("#nextTurn").html(game.nextTurn.title);
+	$("#planScreen .nextEvent .val").html(game.nextTurn.title);
   	$("#screens button").removeClass("active");
   	$("#screens .board button").addClass("active"); 
 
@@ -243,6 +243,7 @@ function drawPlanningScreen(){
 		
 		firstDraw = false;
 		updateStatsBar();
+  		updateScreenSize();
 	}
 }
 

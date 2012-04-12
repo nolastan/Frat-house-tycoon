@@ -440,7 +440,21 @@ ul.rushees{
 		-webkit-user-select: none;
 		user-select: none;
 	}
-
+	.nextEvent{
+		float: left;
+		line-height: 35px;
+		font-size: 150%;
+		background-color: #eee;
+		border-width: 1px 0;
+		border-color: #999;
+		border-style: solid;
+		p{
+			margin-left: 10px;
+		}
+		.val{
+			font-weight: bold;
+		}
+	}
 	ul.members{
 		float:right;
 		width: 300px;

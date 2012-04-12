@@ -76,21 +76,24 @@
 		<li class="cs"><h3><object data="sprites/cs_icon.svg" type="image/svg+xml"></object>Comm. Service</h3><div class="bar"><div class="fill"></div></div></li>
 		<li class="study"><h3><object data="sprites/study_icon.svg" type="image/svg+xml"></object>Academic</h3><div class="bar"><div class="fill"></div></div></li>
 	</ul>
+<!--
 	<ul id="dev">
 		<li><button id="addRushees">+R</button></li>
 		<li><button id="addBids">+B</button></li>
 	</ul>
+-->
 </nav> 
 <nav class="bidMeeting"><p>You have <span class="val">0</span> bids remaining.<button class="continue">Continue</button></p></nav>
 	<div id="menu" class="screens">
 		<h1><object class="logo" data="sprites/logo.svg" type="image/svg+xml"></object> </h1>
-		<h2>Build the fraternity of your dreams!</h2>
-		<p class="intro">As president of a fraternity, you must manage its reputation, finance, and membership while balancing academics, parties, rush, and philanthropy.</p>
-		<p class="challenge">What will your house be known for?</p>
 		<div class="options">
 			<button class="sandbox">Sandbox</button>
 			<button class="quest">Quest</button>
 		</div>
+		<h2>Build the fraternity of your dreams!</h2>
+		<p class="intro">As president of a fraternity, you must manage its reputation, finance, and membership while balancing academics, parties, rush, and philanthropy.</p>
+		<p class="challenge">What will your house be known for?</p>
+
 		
 <!--
 		<div class="sandbox">
@@ -114,6 +117,7 @@
 	   <ul class="members" style="float:right"></ul>
    </div>
 	<div id="planScreen" class="screens">
+		<ul class="members pool"></ul>
 		<ul class="quadrants">
 			<li class="rush quadrant">			   
 			   <object class="quadrant_icon" data="sprites/rush_icon.svg" type="image/svg+xml"></object> 
@@ -140,7 +144,7 @@
 			       ondragover="return dragOver(event)"></ul>
 			</li>
 		</ul>
-		<ul class="members pool"></ul>
+		<div class="nextEvent"><p>Plan for <span class="val"></span> by dragging brothers into roles.</p></div>
 	</div>
 	
 	<div id="results" class="screens">
