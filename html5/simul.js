@@ -94,8 +94,11 @@ var tr = new Point(0, 0);
 
 
 	var tool = new Tool();
-
+	var cbox = create_cash_box();
+	
+	
 	tool.onMouseDown = function(event) {
+		cbox.addMoney();
 		var hitResult = project.hitTest(event.point, hitOptions);
 		if (hitResult && hitResult.item.hasOwnProperty("clicked")) {
 			hitResult.item.clicked();
@@ -116,8 +119,9 @@ var tr = new Point(0, 0);
 	
 		if (clickedMember) {
 			clickedMember.tryTalk();
+			clickedMember.dragging = false;
 		}
-		clickedMember.dragging = false;
+		
 		
 	};
 	
@@ -164,22 +168,43 @@ var create_organizer = (function () {
 
 })();
 
-	create_cash_box();
+	
 });
 
 
 var create_cash_box = function() {
 	var that = {};
+	
+	var maxHeight = personHeight/2;
+	var maxWidth = personHeight/4;
+	var maxCapacity = 30;
+	var deposited = 0;
+	
 	var tl = house.bounds.bottomCenter.add({x:-20, y:10});
-	box = new Path.Rectangle(tl, {width:personHeight/4, height:personHeight/2});
+	box = new Path.Rectangle(tl, {width:maxWidth, height:maxHeight});
 	box.fillColor = 'black';
 	
 	that.box = box;
 	var cashTl = tl.add({x:0, y:box.bounds.height})
-	that.moneyLevel = new Path.Rectangle(cashTl, {width:personHeight/4, height:personHeight/2});
-	that.moneyLevel.fillColor = 'green';
+	//moneyLevel = new Path.Rectangle(cashTl, {width:maxWidth, height:0});
 	
-	return box;
+	moneyLevel = box.clone()
+	moneyLevel.fillColor = 'green';
+	moneyLevel.scale(1, deposited/maxCapacity);
+	that.addMoney = function() {
+		deposited += 10;
+		update();
+	}
+	
+	var update = function() {
+		moneyLevel.remove();
+		moneyLevel = box.clone();
+		moneyLevel.fillColor = 'green';
+		moneyLevel.scale(1, deposited/maxCapacity);
+		moneyLevel.fitBounds(box.bounds);
+	}
+	
+	return that;
 }
 	
 
