@@ -114,7 +114,9 @@ var create_frat = function(spec, members) {
 				
 	            curMem = getMemberById(catMems[k]);
 	            curMem.skills.improve(category);
+				PlanView_UpdateSkills(curMem);
 	        }
+			
 	    }
     }
     
@@ -141,6 +143,7 @@ var create_frat = function(spec, members) {
     }
 	
 	that.setPlay = function(newPlay) {
+	    console.log(newPlay);
 		play = newPlay;
 	}
 	

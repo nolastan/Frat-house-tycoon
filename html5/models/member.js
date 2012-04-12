@@ -117,6 +117,7 @@ function bidRushee(id){
 	
 	if(Math.random() < rushee.chanceWillJoin()){
 		game.frat.members.push(rushee);
+		PlanView_AddPiece(rushee);
 		accepted = true;
 	}else{	
 		accepted = false;

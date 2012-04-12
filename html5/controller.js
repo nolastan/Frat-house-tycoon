@@ -52,7 +52,7 @@ function plan(){
 };
 
 function simulate(){
-   	game.board.update_play();
+    PlanView_UpdatePlay();
 	var turn = game.nextTurn;
 	game.results = turn.run(game.frat);
 	//game.sim = new Simulation(game.frat.getPlayValues(), game.results);
@@ -75,6 +75,10 @@ function bidMeeting(){
 };
 
 function updateStatsBar() {
+	// show indicators on status bars
+	$(".rush .bar").css("backgroundPosition", game.frat.getSkillAvgs().rush + "%");
+	
+	
 	$("#stats .rep .val").html(game.frat.rep);
 	$("#stats .cash .val").html(game.frat.cash);
 	$("#stats .brothers .val").html(game.frat.members.length);

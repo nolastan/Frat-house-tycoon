@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+<title>HTML5 Drag and drop demonstration</title>
+
+<style type="text/css">
+#boxA, #boxB, #boxC { 
+  float:left; width:200px; height:200px; padding:10px; margin:10px;
+}
+
+#boxA { background-color: blue; }
+#boxB { background-color: green; }
+#boxC { background-color: yellow; }
+
+#drag, #drag2, #drag3 {
+  float: right; width:50px; height:50px; padding:5px; margin:5px;
+  -moz-user-select:none;
+}
+#drag { background-color: red;}
+#drag2 { background-color: orange;}
+#drag3 { background-color: purple; border:3px brown solid;}
+
+</style>
+		<script src="models/frat.js"></script>
+		<script src="models/member.js"></script>
+		<script src="models/skills.js"></script>
+		<script src="data/names.js"></script>
+		<script src="data/physical_attr.js"></script>
+<script type="text/javascript">
+function dragStart(ev) {
+    ev.dataTransfer.effectAllowed='move';
+    ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+    ev.dataTransfer.setDragImage(ev.target,0,0);
+    return true;
+}
+
+function dragEnd(ev) {
+    ev.dataTransfer.clearData("Text");
+    return true
+}
+
+
+function dragEnter(ev) {
+    var idelt = ev.dataTransfer.getData("Text");
+    return true;
+}
+
+function dragOver(ev) {
+    var idelt = ev.dataTransfer.getData("Text");
+    var id = ev.target.getAttribute('id');    
+    return false;    
+}
+
+function dragDrop(ev) {
+  console.log('drop');
+    var idelt = ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(idelt));
+    ev.stopPropagation();
+    return false; // return false so the event will not be propagated to the browser
+}
+
+var game = {};
+
+window.onload = function()
+{
+    game.frat = create_frat();
+				
+	for (var i = 0; i < 10; i++) 
+	{	
+		game.frat.addMember(create_member());
+	}
+	
+	for(key in game.frat.members)
+	{
+		console.log(key);
+		var member = game.frat.members[key];
+		var html = "";
+		var ctx;
+				
+		html += '<div class="member" id="member_' +member.id + '"';
+		html += ' draggable="true"';
+		html += ' ondragstart="return dragStart(event)"';
+		html += ' ondragend="return dragEnd(event)">';
+	}
+}
+
+</script>
+</head>
+<body>
+    <h1>Drag and drop demo in a HTML document, using the HTML5 drag and drop API</h1>    
+
+	<div id="planScreen">
+	
+	</div>
+			
+    <div id="boxA"
+        ondragenter="return dragEnter(event)"
+        ondrop="return dragDrop(event)"
+        ondragover="return dragOver(event)">
+    </div>
+
+    <div id="boxB"
+        ondragenter="return dragEnter(event)"
+        ondrop="return dragDrop(event)"
+        ondragover="return dragOver(event)">
+    </div>
+
+    <div id="boxC"
+        ondragenter="return dragEnter(event)"
+        ondrop="return dragDrop(event)"
+        ondragover="return dragOver(event)">
+    </div>
+	
+
+</body>
+</html>
