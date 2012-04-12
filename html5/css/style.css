@@ -173,7 +173,6 @@ nav.bidMeeting.over {
   border-width: 1px;
   border-style: solid;
   display: inline-block;
-  background-image: url("../images/vert_line.gif");
   background-repeat: repeat-y;
   background-position: -2px, 0; }
 .skills .fill {
