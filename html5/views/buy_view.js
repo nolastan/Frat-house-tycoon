@@ -44,16 +44,19 @@ var items = [tv, dj, pc, swim];
 
 function buyItem(id) {
 	item = items[id];
-	var index = game.frat.items.indexOf(item);
+	var index = game.frat.items.indexOf(item.name);
 	if (index != -1) {
 		alert("You already have this item!");
 		return false;
 	}
 	else if (game.frat.cash < item.price) {
+		console.log('you have: '+ game.frat.items);
 		alert("You don't have enough cash!");
 		return false;
 	}
 	else {
+		console.log('you used to have $' +game.frat.cash);
+		
 		game.frat.cash -= item.price;
 		game.frat.items.push(item.name);
 		
@@ -62,12 +65,35 @@ function buyItem(id) {
 		game.frat.itemMult.rush += item.mult.rush;
 		game.frat.itemMult.study += item.mult.study;
 		
+		console.log('now you have $' +game.frat.cash);
 		console.log('Item ' + item.name + ' is bought');
 		console.log('now you have: '+ game.frat.items);
-		console.log('the new itemMult is '+ game.frat.itemMult);
+		console.log('the new itemMult.party is '+ game.frat.itemMult.party);
 		
 		return true;
 	}
+}
+
+function clickBuy(){
+	var id = $(this).parent().attr("id");
+	if (buyItem(id)){
+		$(this).addClass("bought");
+		$(this).html("Bought");
+		$(this).unbind("click");
+	}
+}
+
+function checkBought(){
+	var id = $(this).parent().attr("id");
+	item = items[id];
+	console.log(id);
+	if (game.frat.items.indexOf(item.name) != -1){
+		console.log("I have it!!!!!"+item.name);
+		$(this).addClass("bought");
+		$(this).html("Bought");
+		$(this).unbind("click");
+	}
+	
 }
 
 /***********************************************************************/
@@ -93,6 +119,8 @@ function drawBuyScreen(){
   	$("#screens .buy button").addClass("active");
   	
 	$("#buyScreen .items").html("");
+	
+	game.frat.items.push("Television");
 
   	for(i in items){
   		var item = items[i];
@@ -108,14 +136,6 @@ function drawBuyScreen(){
 		
 		$("#buyScreen .items").append(html);
   	}
-  	
-	$("#buyScreen .items li button").click(function(){
-		var id = $(this).parent().attr("id");
-		if (buyItem(id)){
-			$(this).addClass("bought");
-			$(this).html("Bought");
-			$(this).unbind("click");
-		}
-  	});
-
+	$("#buyScreen .items li button").click(clickBuy);
+	//$("#buyScreen .items li button").ready(checkBought);
 }
