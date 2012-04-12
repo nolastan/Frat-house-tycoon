@@ -14,7 +14,7 @@ $(function() {
 	var canvas = document.getElementById('canvas');
 	paper.setup(canvas);
 	//Draws house
-	audioContext = new webkitAudioContext();
+/* 	audioContext = new webkitAudioContext(); */
 
 var tr = new Point(0, 0);
 	var bl = new Point(300, 300);
