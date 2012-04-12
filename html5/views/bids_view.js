@@ -30,24 +30,26 @@ function drawBidScreen(){
 			var rushee = game.frat.rushees[key];
 			var html = "";
 			var ctx;
+			
+			var maxSkill = Math.max(rushee.skills.rush, rushee.skills.party, rushee.skills.cs, rushee.skills.study);
 					
 			html += '<li class="rushee" id="rushee_' +rushee.id + '">';
 			html += '<p class="name">' + rushee.name + '</p>';
 			html += '<canvas height="100" width="100" class="face"></canvas>';
 			html += '<ul class="skills">';
-			html += '<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.rush + '%"></div></div></li>';
-			html += '<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.party + '%"></div></div></li>';
-			html += '<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.cs + '%"></div></div></li>';
-			html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.study + '%"></div></div></li>';
+			html += '<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.rush / maxSkill * 100 + '%"></div></div></li>';
+			html += '<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.party / maxSkill * 100 + '%"></div></div></li>';
+			html += '<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.cs / maxSkill* 100 + '%"></div></div></li>';
+			html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.study / maxSkill* 100 + '%"></div></div></li>';
 			html += '</ul>';
 			html += '<canvas width="100" height="50" class="gauge"></canvas>';
-			html += '<p class="interest">interest</p>';
+			html += '<p class="interest">reputation</p>';
 			html += '<button class="bid">Bid</button>';
 			html += "</li>";
 			$("#bidScreen .rushees").append(html);
 	
 			ctx = $("#rushee_"+rushee.id+" .gauge")[0];
-			drawGauge(ctx.getContext("2d"), rushee.chanceWillJoin(game.frat))
+			drawGauge(ctx.getContext("2d"), (rushee.skills.rush + rushee.skills.party + rushee.skills.cs + rushee.skills.study) / 100);
 			
 			ctx = $("#rushee_"+rushee.id+" .face")[0];
 			drawRusheeFace(ctx.getContext("2d"), rushee.eye_color, rushee.hair_color, rushee.hair_style, rushee.skin_color);

@@ -173,7 +173,6 @@ nav.bidMeeting.over {
   border-width: 1px;
   border-style: solid;
   display: inline-block;
-  background-image: url("../images/vert_line.gif");
   background-repeat: repeat-y;
   background-position: -2px, 0; }
 .skills .fill {
@@ -372,6 +371,18 @@ ul.rushees li {
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none; }
+#planScreen .nextEvent {
+  float: left;
+  line-height: 35px;
+  font-size: 150%;
+  background-color: #eee;
+  border-width: 1px 0;
+  border-color: #999;
+  border-style: solid; }
+  #planScreen .nextEvent p {
+    margin-left: 10px; }
+  #planScreen .nextEvent .val {
+    font-weight: bold; }
 #planScreen ul.members {
   float: right;
   width: 300px;
