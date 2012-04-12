@@ -58,7 +58,8 @@ function PlanView_UpdatePlay()
 
 //************************************************************************************
 
-function dragStart(ev) {
+function dragStart(ev) 
+{
 	ev.dataTransfer.effectAllowed='move';
 	ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
 	ev.dataTransfer.setDragImage(ev.target,0,0);
@@ -67,24 +68,39 @@ function dragStart(ev) {
 
 //************************************************************************************
 
-function dragEnd(ev) {
+function dragEnd(ev) 
+{
 	ev.dataTransfer.clearData("Text");
 	return true
 }
 
 //************************************************************************************
 
-function dragEnter(ev) {
+function dragEnter(ev) 
+{
 	var idelt = ev.dataTransfer.getData("Text");
 	return true;
 }
 
 //************************************************************************************
 
-function dragOver(ev) {
-	var idelt = ev.dataTransfer.getData("Text");
-	var id = ev.target.getAttribute('id');    
-	return false;    
+function dragOver(ev) 
+{
+    var idelt = ev.dataTransfer.getData("Text");
+    var id = ev.target.getAttribute('id');    
+
+    if(id == "partyQuad" ||
+       id == "rushQuad" ||
+       id == "csQuad" ||
+       id == "studyQuad")
+    {
+       console.log(id);
+       return false;  
+    }
+    else
+    {
+      return true;
+    }    
 }
 
 //************************************************************************************
