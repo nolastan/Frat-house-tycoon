@@ -2,13 +2,17 @@ window.globals = {};
 paper.install(window);
 var house, personRect, personHeight, repClicks = [];
 
-	var hitOptions = {
-	    segments: false,
-	    stroke: false,
-	    fill: true,
-	    tolerance: 5,
-		bounds: true
-	};
+var hitOptions = {
+    segments: false,
+    stroke: false,
+    fill: true,
+    tolerance: 5,
+	bounds: true
+};
+	
+var cashBox;
+var admissionCost = 5;
+
 $(function() {
 
 	var canvas = document.getElementById('canvas');
@@ -94,11 +98,10 @@ var tr = new Point(0, 0);
 
 
 	var tool = new Tool();
-	var cbox = create_cash_box();
+	cashBox = create_cash_box();
 	
 	
 	tool.onMouseDown = function(event) {
-		cbox.addMoney();
 		var hitResult = project.hitTest(event.point, hitOptions);
 		if (hitResult && hitResult.item.hasOwnProperty("clicked")) {
 			hitResult.item.clicked();
@@ -175,8 +178,8 @@ var create_organizer = (function () {
 var create_cash_box = function() {
 	var that = {};
 	
-	var maxHeight = personHeight/2;
-	var maxWidth = personHeight/4;
+	var maxHeight = personHeight;
+	var maxWidth = personHeight/2;
 	var maxCapacity = 30;
 	var deposited = 0;
 	
@@ -185,23 +188,47 @@ var create_cash_box = function() {
 	box.fillColor = 'black';
 	
 	that.box = box;
+	
+	box.clicked = function() {
+	    that.collectMoney();
+	}
 	var cashTl = tl.add({x:0, y:box.bounds.height})
 	//moneyLevel = new Path.Rectangle(cashTl, {width:maxWidth, height:0});
+	
+	function calc_cash_tl() {
+	    var yChange = maxHeight - maxHeight*(deposited/maxCapacity);
+	    
+	    var newTop = tl.add({x:0, y:yChange});
+	    
+	    return newTop;
+	    
+	}
 	
 	moneyLevel = box.clone()
 	moneyLevel.fillColor = 'green';
 	moneyLevel.scale(1, deposited/maxCapacity);
-	that.addMoney = function() {
-		deposited += 10;
-		update();
+	that.addMoney = function(increment) {
+	    increment = increment || 10;
+	    if (deposited + increment <= maxCapacity) {
+	        deposited += 10;
+	        update();
+	    } else {
+	        moneyLevel.fillColor = 'red';
+	    }
+		return that;
+	}
+	
+	that.collectMoney = function() {
+	    game.frat.cash += deposited;
+	    deposited = 0;
+	    update();
+	    return that;
 	}
 	
 	var update = function() {
 		moneyLevel.remove();
-		moneyLevel = box.clone();
+		moneyLevel = new Path.Rectangle(calc_cash_tl(), box.bounds.bottomRight);
 		moneyLevel.fillColor = 'green';
-		moneyLevel.scale(1, deposited/maxCapacity);
-		moneyLevel.fitBounds(box.bounds);
 	}
 	
 	return that;
@@ -229,8 +256,7 @@ var create_goer = function(start) {
 	var enterProb = 0.8;
 	
 	var entryPath = [ start, new Point(house.bounds.bottomCenter.x, shape.position.y),
-				house.bounds.bottomCenter,
-				shape.randomTarget(house)];
+				house.bounds.bottomCenter];
 
 	var exitPath = [house.bounds.center, house.bounds.bottomCenter, 
 				new Point(house.bounds.bottomCenter.x, shape.position.y),
@@ -265,11 +291,22 @@ var create_goer = function(start) {
 			case 'entering':
 				if (!moveAlongPath(entryPath)) {
 					enterTime = age;
-					shape.state = "inside";
-					speed = speed/3;
+					shape.state = "dispersing";
+					curDest = this.randomTarget(house);
+					setDestVector(curDest);
+					cashBox.addMoney(admissionCost);
 				}
 				break;
-				
+			case 'dispersing':
+			    //Moves the people around so they don't get stuck in the entrance
+			    speed = 1;
+			    if (nearTarget()) {
+			        shape.state = 'inside';
+			        curDest = this.randomTarget(house);
+					setDestVector(curDest);
+			    }
+			    shape.position = shape.position.add(destVect);
+			    break;
 			case 'inside':
 				speed = 1;
 				if (nearTarget()) {
