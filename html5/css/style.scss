@@ -472,19 +472,29 @@ ul.rushees{
 			overflow: auto;
 			li{
 				width: 80px;
-				height: 70px;
+				height: 45px;
 				float:left;
 				clear:none;
+				background-color: #fff;
+				opacity: .8;
+				margin: 5px;
+				border: 1px solid #999;
 				p.name{
 					font-size: 80%;
 					font-weight: normal;
+					width:100%;
+					overflow:hidden;
+					margin:0;
+					padding:0 0 3px 0;
+					height:1em;
 				}
 				object{
 					display:none;
 				}
 				ul.skills{
-					width: 25px;
+					width: 35px;
 					li{
+						margin: 2px 0;
 						float:none;
 						width: 100%;
 						height: .25em;
