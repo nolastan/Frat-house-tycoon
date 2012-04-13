@@ -28,13 +28,21 @@ var pc = {
 
 var swim = {
 		"name": 'Swimming Pool',
-		"price": 200,
+		"price": 250,
 		"descript": 'Cool swimming pool with heating system! Great for party and rush events!',
 		"img": 'sprites/items/swim.svg',
 		"mult": {'party':0.2, 'rush':0.2, 'cs':0, 'study':0}
 	};
 
-var items = [tv, dj, pc, swim];
+var pool = {
+		"name": 'Pool Table',
+		"price": 200,
+		"descript": 'Awesome pool table with automatic pool ball return! Super good for parties and rush event!',
+		"img": 'sprites/items/pooltable.svg',
+		"mult": {'party':0.15, 'rush':0.15, 'cs':0, 'study':0}
+};
+
+var items = [tv, dj, pc, swim, pool];
 
 /***********************************************************************/
 
@@ -109,7 +117,7 @@ function drawBuyScreen(){
   	for(i in items){
   		var item = items[i];
   		var html = "";
-  		  		  		
+  		
 		html += '<li class="item" id="' + i + '">';
 		html += '<p class="name">' + item.name + '</p>';
 		html += '<img src="' + item.img + '"/img>';
@@ -121,6 +129,6 @@ function drawBuyScreen(){
 		
 		$("#buyScreen .items").append(html);
   	}
-
+  	
 	$("#buyScreen .items li button").click(clickBuy);
 }
