@@ -65,11 +65,10 @@ function buyItem(id) {
 		game.frat.itemMult.rush += item.mult.rush;
 		game.frat.itemMult.study += item.mult.study;
 		
-		console.log('now you have $' +game.frat.cash);
 		console.log('Item ' + item.name + ' is bought');
 		console.log('now you have: '+ game.frat.items);
 		console.log('the new itemMult.party is '+ game.frat.itemMult.party);
-		
+
 		return true;
 	}
 }
@@ -81,19 +80,6 @@ function clickBuy(){
 		$(this).html("Bought");
 		$(this).unbind("click");
 	}
-}
-
-function checkBought(){
-	var id = $(this).parent().attr("id");
-	item = items[id];
-	console.log(id);
-	if (game.frat.items.indexOf(item.name) != -1){
-		console.log("I have it!!!!!"+item.name);
-		$(this).addClass("bought");
-		$(this).html("Bought");
-		$(this).unbind("click");
-	}
-	
 }
 
 /***********************************************************************/
@@ -119,7 +105,7 @@ function drawBuyScreen(){
   	$("#screens .buy button").addClass("active");
   	
 	$("#buyScreen .items").html("");
-	
+		
   	for(i in items){
   		var item = items[i];
   		var html = "";
@@ -129,11 +115,12 @@ function drawBuyScreen(){
 		html += '<img src="' + item.img + '"/img>';
 		html += '<p class="descript">' + item.descript + '</p>';
 		html += '<p class="price"> $' + item.price + '</p>';
-		html += '<button class="buy">Buy</button>';
+		if (game.frat.items.indexOf(item.name) == -1){html += '<button class="buy">Buy</button>';}
+		else {html += '<button class="bought" disabled="disabled">Bought</button>';}
 		html += "</li>";
 		
 		$("#buyScreen .items").append(html);
   	}
+
 	$("#buyScreen .items li button").click(clickBuy);
-	//$("#buyScreen .items li button").ready(checkBought);
 }

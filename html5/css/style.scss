@@ -377,6 +377,15 @@ ul.rushees, ul.members{
   margin-top: 0px; }
   
 #buyScreen button.buy.bought {
+  color: DimGray;
+  background-image: linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }  
+  
+#buyScreen button.bought {
   background-image: linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
