@@ -80,7 +80,7 @@ function updateStatsBar() {
 	
 	
 	$("#stats .rep .val").html(game.frat.rep);
-	$("#stats .cash .val").html(game.frat.cash);
+	$("#stats .money .val").html(game.frat.cash);
 	$("#stats .brothers .val").html(game.frat.members.length);
 	$("#screens .rush .val").html(Object.size(game.frat.rushees));
 	$("nav.bidMeeting .val").html(game.frat.bids);
