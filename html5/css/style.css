@@ -383,7 +383,7 @@ ul.rushees li {
 #planScreen .instruct {
   font-size: 135%;  }
 #planScreen .nextEvent {
-  float: left;
+  text-align: center;
   line-height: 35px;
   font-size: 150%;
   background-color: #eee;
