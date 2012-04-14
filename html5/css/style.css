@@ -380,6 +380,8 @@ ul.rushees li {
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none; }
+#planScreen .instruct {
+  font-size: 135%;  }
 #planScreen .nextEvent {
   float: left;
   line-height: 35px;
@@ -402,6 +404,8 @@ ul.rushees li {
     cursor: move;
     width: 100%;
     clear: both;
+	margin: 5px;
+    border: 1px solid #999;
     height: 150px; }
   #planScreen ul.members li.member:hover {
     background-color: #eee;

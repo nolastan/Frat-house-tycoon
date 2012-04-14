@@ -221,7 +221,7 @@ function drawPlanningScreen(){
 			var member = game.frat.members[key];
 			var html = "";
 			var ctx;
-					
+			
 			html += '<li class="member" id="member_' +member.id + '"';
 			html += ' draggable="true"';
 			html += ' ondragstart="return dragStart(event)"';
@@ -244,6 +244,10 @@ function drawPlanningScreen(){
 		firstDraw = false;
 		updateStatsBar();
   		updateScreenSize();
+	}
+	else
+	{
+	   $("#planScreen .instruct").remove();
 	}
 }
 
