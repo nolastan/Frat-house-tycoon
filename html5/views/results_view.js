@@ -9,13 +9,13 @@ function drawResultsScreen(){
 	
 	// Find Social Committee Chair
 	var highest_party = 0;
-	var social_chair;
+	var party_chair;
 	for(key in planViewPlay.party){
 		member_id = planViewPlay.party[key];
 		member = game.frat.members[member_id];
 		if(member.skills.party > highest_party){
 			highest_party = member.skills.party
-			social_chair = member;
+			party_chair = member;
 		}
 	}
 	
@@ -55,6 +55,15 @@ function drawResultsScreen(){
 		}
 	}
 	
+	ctx = $("#results .party canvas.chair")[0];
+	if(highest_party > 0) drawRusheeFace(ctx.getContext("2d"), party_chair);
+	ctx = $("#results .rush canvas.chair")[0];
+	if(highest_rush > 0) drawRusheeFace(ctx.getContext("2d"), rush_chair);
+	ctx = $("#results .cs canvas.chair")[0];
+	if(highest_cs > 0) drawRusheeFace(ctx.getContext("2d"), cs_chair);
+	ctx = $("#results .study canvas.chair")[0];
+	if(highest_study > 0) drawRusheeFace(ctx.getContext("2d"), study_chair);
+			
 	$("#results .cs .val").html(game.results.cs.string());
 	$("#results .party .val").html(game.results.party.string());
 	$("#results .rush .val").html(game.results.rush.string());

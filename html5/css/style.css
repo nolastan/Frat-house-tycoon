@@ -217,9 +217,6 @@ nav.bidMeeting.over {
   z-index: 10; }
 
 /* Results */
-#results {
-  margin: 10px; }
-
 h2 {
   font-size: 300%;
   font-weight: bold;
@@ -287,18 +284,17 @@ ul.rushees, ul.members {
 
 #buyScreen img {
   float: left;
-  margin-right: 50px; 
-  width: 150px; 
-  height: 130px; 
-  margin-bottom: 10px;
-  }
+  margin-right: 50px;
+  width: 150px;
+  height: 130px;
+  margin-bottom: 10px; }
 
-#buyScreen button {
+#buyScreen button.buy {
   width: 100px;
   font-size: 1em;
   height: 1.6em;
   margin-top: 0px; }
-  
+
 #buyScreen button.buy.bought {
   color: DimGray;
   background-image: linear-gradient(bottom, #9cc796, #8abd82);
@@ -306,33 +302,30 @@ ul.rushees, ul.members {
   background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }  
-  
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
+
 #buyScreen button.bought {
   background-image: linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
-  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }  
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
 
 #buyScreen .name {
   font-size: 200%;
   font-weight: bold;
   height: 60px;
   margin-bottom: 5px; }
-  
+
 #buyScreen .descript {
   height: 200px;
-  margin-bottom: 5px;
-  }
-  
+  margin-bottom: 5px; }
+
 #buyScreen .price {
   font-size: 150%;
   font-weight: bold;
-  margin-bottom: 5px;
-  }
-  
+  margin-bottom: 5px; }
 
 #menu h1 {
   font-size: 300%;
@@ -368,6 +361,61 @@ ul.rushees, ul.members {
     #menu div.quest ul.quests li h3 {
       font-weight: bold; }
 
+#planScreen ul.quadrants, #results ul.quadrants {
+  float: left;
+  width: 50%; }
+  #planScreen ul.quadrants ul.members, #results ul.quadrants ul.members {
+    z-index: 100;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    overflow: auto; }
+    #planScreen ul.quadrants ul.members li, #results ul.quadrants ul.members li {
+      width: 80px;
+      height: 45px;
+      float: left;
+      clear: none;
+      background-color: #fff;
+      opacity: .8;
+      margin: 5px;
+      border: 1px solid #999; }
+      #planScreen ul.quadrants ul.members li p.name, #results ul.quadrants ul.members li p.name {
+        font-size: 80%;
+        font-weight: normal;
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0 0 3px 0;
+        height: 1em; }
+      #planScreen ul.quadrants ul.members li object, #results ul.quadrants ul.members li object {
+        display: none; }
+      #planScreen ul.quadrants ul.members li ul.skills, #results ul.quadrants ul.members li ul.skills {
+        width: 35px; }
+        #planScreen ul.quadrants ul.members li ul.skills li, #results ul.quadrants ul.members li ul.skills li {
+          margin: 2px 0;
+          float: none;
+          width: 100%;
+          height: .25em; }
+        #planScreen ul.quadrants ul.members li ul.skills .bar, #results ul.quadrants ul.members li ul.skills .bar {
+          font-size: .2em;
+          width: 100%;
+          display: block; }
+      #planScreen ul.quadrants ul.members li .face, #results ul.quadrants ul.members li .face {
+        height: 30px;
+        margin-right: 4px; }
+  #planScreen ul.quadrants li.quadrant, #results ul.quadrants li.quadrant {
+    position: relative;
+    width: 50%;
+    float: left; }
+  #planScreen ul.quadrants li.rush.quadrant, #results ul.quadrants li.rush.quadrant {
+    background-color: #9e352c; }
+  #planScreen ul.quadrants li.party.quadrant, #results ul.quadrants li.party.quadrant {
+    background-color: #e6e8a9; }
+  #planScreen ul.quadrants li.cs.quadrant, #results ul.quadrants li.cs.quadrant {
+    background-color: #2e5a5c; }
+  #planScreen ul.quadrants li.study.quadrant, #results ul.quadrants li.study.quadrant {
+    background-color: #93c28c; }
+
 /* Bid Screen */
 ul.rushees li {
   width: 420px;
@@ -380,10 +428,8 @@ ul.rushees li {
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none; }
-#planScreen .instruct {
-  font-size: 135%;  }
 #planScreen .nextEvent {
-  text-align: center;
+  float: left;
   line-height: 35px;
   font-size: 150%;
   background-color: #eee;
@@ -394,6 +440,14 @@ ul.rushees li {
     margin-left: 10px; }
   #planScreen .nextEvent .val {
     font-weight: bold; }
+#planScreen h3 {
+  font-size: 300%;
+  text-align: center;
+  margin-top: .3em; }
+#planScreen .quadrant_icon {
+  width: 100%;
+  margin-top: .5em;
+  opacity: .9; }
 #planScreen ul.members {
   float: right;
   width: 300px;
@@ -404,8 +458,6 @@ ul.rushees li {
     cursor: move;
     width: 100%;
     clear: both;
-	margin: 5px;
-    border: 1px solid #999;
     height: 150px; }
   #planScreen ul.members li.member:hover {
     background-color: #eee;
@@ -413,66 +465,3 @@ ul.rushees li {
   #planScreen ul.members .name {
     padding-top: 10px;
     font-size: 150%; }
-#planScreen ul.quadrants {
-  float: left;
-  width: 50%; }
-  #planScreen ul.quadrants ul.members {
-    z-index: 100;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    overflow: auto; }
-    #planScreen ul.quadrants ul.members li {
-      width: 80px;
-      height: 45px;
-      float: left;
-      clear: none;
-      background-color: #fff;
-      opacity: .8;
-      margin: 5px;
-      border: 1px solid #999; }
-      #planScreen ul.quadrants ul.members li p.name {
-        font-size: 80%;
-        font-weight: normal;
-        width: 100%;
-        overflow: hidden;
-        margin: 0;
-        padding: 0 0 3px 0;
-        height: 1em; }
-      #planScreen ul.quadrants ul.members li object {
-        display: none; }
-      #planScreen ul.quadrants ul.members li ul.skills {
-        width: 35px; }
-        #planScreen ul.quadrants ul.members li ul.skills li {
-          margin: 2px 0;
-          float: none;
-          width: 100%;
-          height: .25em; }
-        #planScreen ul.quadrants ul.members li ul.skills .bar {
-          font-size: .2em;
-          width: 100%;
-          display: block; }
-      #planScreen ul.quadrants ul.members li .face {
-        height: 30px;
-        margin-right: 4px; }
-  #planScreen ul.quadrants li.quadrant {
-    position: relative;
-    width: 50%;
-    float: left; }
-    #planScreen ul.quadrants li.quadrant h3 {
-      font-size: 300%;
-      text-align: center; }
-    #planScreen ul.quadrants li.quadrant .quadrant_icon {
-      width: 100%;
-      margin-top: .5em;
-      opacity: .9; }
-    #planScreen ul.quadrants li.quadrant h3 {
-      margin-top: .3em; }
-  #planScreen ul.quadrants li.rush.quadrant {
-    background-color: #9e352c; }
-  #planScreen ul.quadrants li.party.quadrant {
-    background-color: #e6e8a9; }
-  #planScreen ul.quadrants li.cs.quadrant {
-    background-color: #2e5a5c; }
-  #planScreen ul.quadrants li.study.quadrant {
-    background-color: #93c28c; }

@@ -289,7 +289,6 @@ nav.bidMeeting.over{
 
 /* Results */
 #results{
-	margin: 10px;
 }
 h2{
 	font-size: 300%;
@@ -459,59 +458,7 @@ ul.rushees, ul.members{
 		}
 	}
 }
-/* Bid Screen */
-ul.rushees{
-	li{
-		width: 420px;
-		float:left;
-		margin: 20px;
-	}
-}
-
-/* Plan Screen */
-#planScreen{
-	[draggable] {
-		-moz-user-select: none;
-		-khtml-user-select: none;
-		-webkit-user-select: none;
-		user-select: none;
-	}
-	.nextEvent{
-		float: left;
-		line-height: 35px;
-		font-size: 150%;
-		background-color: #eee;
-		border-width: 1px 0;
-		border-color: #999;
-		border-style: solid;
-		p{
-			margin-left: 10px;
-		}
-		.val{
-			font-weight: bold;
-		}
-	}
-	ul.members{
-		float:right;
-		width: 300px;
-		overflow-y: scroll;
-		overflow-x: hidden;
-		li.member{
-			padding: 10px 10px 10px 10px;
-			cursor:move;
-			width: 100%;
-			clear:both;
-			height: 150px;
-		}
-		li.member:hover{
-			background-color: #eee;
-			border: 1px dashed #ccc;
-		}
-		.name{
-			padding-top: 10px;
-			font-size: 150%;
-		}
-	}
+#planScreen, #results{
 	ul.quadrants{
 		float:left;
 		width:50%;
@@ -568,18 +515,6 @@ ul.rushees{
 			position: relative;
 			width: 50%;
 			float:left;
-			h3{
-				font-size: 300%;
-				text-align:center;
-			}
-			.quadrant_icon{
-				width: 100%;
-				margin-top: .5em;
-				opacity: .9;
-			}
-			h3{
-				margin-top: .3em;
-			}
 		}
 		li.rush.quadrant{
 			background-color: $rush_color;
@@ -592,6 +527,70 @@ ul.rushees{
 		}
 		li.study.quadrant{
 			background-color: $study_color;
+		}
+	}
+}	
+/* Bid Screen */
+ul.rushees{
+	li{
+		width: 420px;
+		float:left;
+		margin: 20px;
+	}
+}
+
+/* Plan Screen */
+#planScreen{
+	[draggable] {
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	.nextEvent{
+		float: left;
+		line-height: 35px;
+		font-size: 150%;
+		background-color: #eee;
+		border-width: 1px 0;
+		border-color: #999;
+		border-style: solid;
+		p{
+			margin-left: 10px;
+		}
+		.val{
+			font-weight: bold;
+		}
+	}
+	h3{
+		font-size: 300%;
+		text-align:center;
+		margin-top: .3em;
+	}
+	.quadrant_icon{
+		width: 100%;
+		margin-top: .5em;
+		opacity: .9;
+	}
+	ul.members{
+		float:right;
+		width: 300px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		li.member{
+			padding: 10px 10px 10px 10px;
+			cursor:move;
+			width: 100%;
+			clear:both;
+			height: 150px;
+		}
+		li.member:hover{
+			background-color: #eee;
+			border: 1px dashed #ccc;
+		}
+		.name{
+			padding-top: 10px;
+			font-size: 150%;
 		}
 	}
 }

@@ -217,7 +217,6 @@ function drawPlanningScreen(){
 	if(firstDraw)
 	{
 		for(key in game.frat.members){
-			console.log(key);
 			var member = game.frat.members[key];
 			var html = "";
 			var ctx;

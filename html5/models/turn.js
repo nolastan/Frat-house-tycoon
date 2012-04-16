@@ -95,7 +95,10 @@ function create_effect(values, msg, score) {
 	}
 	
 	that.string = function() {
-		return msg + "&nbsp;&nbsp;&nbsp;&nbsp;Rep: " + this.rep + " Cash : " + this.cash + " Rush: " + this.rush;
+		if(this.rep != 0) msg += "<br />" + this.rep + " reputation";
+		if(this.cash != 0) msg += "<br />" + this.cash + " cash";
+		if(this.rush != 0) msg += "<br />" + this.rush + " rushees";
+		return msg;
 	}
 	
 	return that;
