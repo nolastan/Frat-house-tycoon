@@ -52,7 +52,7 @@ function drawBidScreen(){
 			drawGauge(ctx.getContext("2d"), (rushee.skills.rush + rushee.skills.party + rushee.skills.cs + rushee.skills.study) / 100);
 			
 			ctx = $("#rushee_"+rushee.id+" .face")[0];
-			drawRusheeFace(ctx.getContext("2d"), rushee.eye_color, rushee.hair_color, rushee.hair_style, rushee.skin_color);
+			drawRusheeFace(ctx.getContext("2d"), rushee);
 		}
 		
 		if(game.frat.bids == 0){
@@ -92,7 +92,7 @@ function drawFaceCard(member, divId) {
 			$(divId).html(html);
 			
 			ctx = $(divId + " .face")[0];
-			drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);
+			drawRusheeFace(ctx.getContext("2d"), member);
 
 }
 

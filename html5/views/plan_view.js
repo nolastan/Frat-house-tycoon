@@ -45,7 +45,7 @@ function PlanView_AddPiece(member)
 	$("#planScreen .members.pool").append(html);
 	
 	ctx = $("#member_"+member.id+" .face")[0];
-	drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);
+	drawRusheeFace(ctx.getContext("2d"), member);
 	updateStatsBar();
 }
 
@@ -238,7 +238,7 @@ function drawPlanningScreen(){
 			$("#planScreen .members.pool").append(html);
 			
 			ctx = $("#member_"+member.id+" .face")[0];
-			drawRusheeFace(ctx.getContext("2d"), member.eye_color, member.hair_color, member.hair_style, member.skin_color);
+			drawRusheeFace(ctx.getContext("2d"), member);
 		}
 		
 		firstDraw = false;

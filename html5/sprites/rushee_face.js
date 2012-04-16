@@ -1,12 +1,12 @@
-function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
-	console.log("Drawing a face with " + eye_color + "eyes, " + hair_style + " " + hair_color + " hair, and " + skin_color + " skin");
+function drawRusheeFace(ctx, person) {
+	console.log("Drawing a face with " + person.eye_color + "eyes, " + person.hair_style + " " + person.hair_color + " hair, and " + person.skin_color + " skin");
 	ctx.scale(.9, .9);
 	ctx.translate(0, 11);
 	
 	// head
     ctx.beginPath();
     ctx.arc(50, 50, 50, 0, 2 * Math.PI, false);
-    ctx.fillStyle = skin_color;
+    ctx.fillStyle = person.skin_color;
     ctx.fill();
     ctx.lineWidth = 1;
     ctx.closePath();
@@ -30,7 +30,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
     // left pupil
     ctx.beginPath();
     ctx.arc(32, 35, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = eye_color;
+    ctx.fillStyle = person.eye_color;
     ctx.fill();
     ctx.lineWidth = 1;
     ctx.closePath();   
@@ -38,7 +38,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
  	// right pupil
     ctx.beginPath();
     ctx.arc(68, 35, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = eye_color;
+    ctx.fillStyle = person.eye_color;
     ctx.fill();
     ctx.lineWidth = 1;
     ctx.closePath();   
@@ -52,7 +52,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
     ctx.closePath();
     
     // hair
-    if(hair_style == "short"){
+    if(person.hair_style == "short"){
 		ctx.save();
 		ctx.scale(1.13, 1.1);
 		ctx.translate(7,-1);
@@ -72,7 +72,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
 		ctx.lineJoin = 'miter';
 		ctx.miterLimit = 4;
 		ctx.save();
-		ctx.fillStyle = hair_color;
+		ctx.fillStyle = person.hair_color;
 		ctx.strokeStyle = "#000000";
 		ctx.miterLimit = 10;
 		ctx.beginPath();
@@ -89,7 +89,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
 		ctx.restore();
 		ctx.restore();
 	}
-    else if(hair_style == "spiked"){
+    else if(person.hair_style == "spiked"){
 		ctx.save();
 		ctx.scale(1.11, 1.1);
 		ctx.translate(10,-10);
@@ -109,7 +109,7 @@ function drawRusheeFace(ctx, eye_color, hair_color, hair_style, skin_color) {
 		ctx.lineJoin = 'miter';
 		ctx.miterLimit = 4;
 		ctx.save();
-		ctx.fillStyle = hair_color;
+		ctx.fillStyle = person.hair_color;
 		ctx.strokeStyle = "#000000";
 		ctx.miterLimit = 10;
 		ctx.beginPath();
