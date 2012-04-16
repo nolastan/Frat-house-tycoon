@@ -10,7 +10,7 @@ var hitOptions = {
 	bounds: true
 };
 	
-var cashBox;
+var cashBox, repPlusSym;
 var admissionCost = 5;
 
 $(function() {
@@ -127,6 +127,12 @@ var tr = new Point(0, 0);
 		
 		
 	};
+	/*==== Rep Plus ====*/
+	var repImage = new Raster('rep-plus');
+	repImage.fitBounds({width:5*game.UNIT, height:game.UNIT*5});
+	repPlusSym = new Symbol(repImage);
+	
+	
 	
 	/*
 ================ MEMBER SPRITE ============
@@ -244,7 +250,7 @@ var create_goer = function(start) {
 		stayDuration, enterTime;
 	minDist = 5;
 	repCount = 3;
-	repDropProb = .40;
+	repDropProb = .20;
 	stayDuration = Math.floor(600 + rnd_snd()*150);
 	age = 0;
 	speed = 2;
@@ -448,8 +454,10 @@ var create_person = function(start, imageName) {
 
 function createRep(position) {
 
-	var shape = new Path.Circle(position, game.UNIT);
-	shape.fillColor = "blue";
+	//var shape = new Path.Circle(position, game.UNIT);
+	//shape.fillColor = "blue";
+	
+	var shape = repPlusSym.place(position);
 	shape.type = "rep";
 	var frameCount, age, duration, alive;
 	shape.alive = true;
@@ -460,8 +468,9 @@ function createRep(position) {
 
 	shape.step = function() {
 		age++;
+		
 		if (age % 10 == 0) {
-			shape.opacity = shape.opacity*0.5;
+			shape.opacity = shape.opacity*0.6;
 			shape.position = shape.position.add({x:0, y:-1});
 		}
 		
