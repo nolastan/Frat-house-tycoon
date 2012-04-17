@@ -604,8 +604,11 @@ ul.rushees{
 		-webkit-user-select: none;
 		user-select: none;
 	}
+	.instruct {
+                font-size: 135%;  
+        }
 	.nextEvent{
-		float: left;
+		text-align: center;
 		line-height: 35px;
 		font-size: 150%;
 		background-color: #eee;
@@ -640,6 +643,8 @@ ul.rushees{
 			width: 100%;
 			clear:both;
 			height: 150px;
+			margin: 5px;
+                        border: 1px solid #999;
 		}
 		li.member:hover{
 			background-color: #eee;
