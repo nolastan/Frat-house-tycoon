@@ -55,14 +55,26 @@ function drawResultsScreen(){
 		}
 	}
 	
-	ctx = $("#results .party canvas.chair")[0];
-	if(highest_party > 0) drawRusheeFace(ctx.getContext("2d"), party_chair);
-	ctx = $("#results .rush canvas.chair")[0];
-	if(highest_rush > 0) drawRusheeFace(ctx.getContext("2d"), rush_chair);
-	ctx = $("#results .cs canvas.chair")[0];
-	if(highest_cs > 0) drawRusheeFace(ctx.getContext("2d"), cs_chair);
-	ctx = $("#results .study canvas.chair")[0];
-	if(highest_study > 0) drawRusheeFace(ctx.getContext("2d"), study_chair);
+	if(highest_party > 0){
+		ctx = $("#results .party canvas.chair")[0].getContext("2d");
+		ctx.clearRect(0,0,100,100);
+		drawRusheeFace(ctx, party_chair);
+	} 
+	if(highest_rush > 0){
+		ctx = $("#results .rush canvas.chair")[0].getContext("2d");
+		ctx.clearRect(0,0,100,100);
+		drawRusheeFace(ctx, rush_chair);
+	} 
+	if(highest_cs > 0){
+		ctx = $("#results .cs canvas.chair")[0].getContext("2d");
+		ctx.clearRect(0,0,100,100);
+		drawRusheeFace(ctx, cs_chair);
+	} 
+	if(highest_study > 0){
+		ctx = $("#results .study canvas.chair")[0].getContext("2d");
+		ctx.clearRect(0,0,100,100);
+		drawRusheeFace(ctx, study_chair);
+	} 
 			
 	$("#results .cs .val").html(game.results.cs.string());
 	$("#results .party .val").html(game.results.party.string());

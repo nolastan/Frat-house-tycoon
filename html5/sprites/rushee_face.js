@@ -1,4 +1,5 @@
 function drawRusheeFace(ctx, person) {
+	ctx.save();
 	console.log("Drawing a face with " + person.eye_color + "eyes, " + person.hair_style + " " + person.hair_color + " hair, and " + person.skin_color + " skin");
 	ctx.scale(.9, .9);
 	ctx.translate(0, 11);
@@ -137,4 +138,5 @@ function drawRusheeFace(ctx, person) {
 		ctx.restore();
 		ctx.restore();
 	}    
+	ctx.restore();
 };
