@@ -84,6 +84,7 @@ function buyItem(id) {
 function clickBuy(){
 	var id = $(this).parent().attr("id");
 	if (buyItem(id)){
+		updateStatsBar();
 		$(this).addClass("bought");
 		$(this).html("Bought");
 		$(this).unbind("click");

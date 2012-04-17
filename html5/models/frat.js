@@ -39,7 +39,9 @@ var create_frat = function(spec, members) {
 	that.cash = spec.cash || 0;
 	that.members = members || [];
 	that.rushees = [];
+	
 	that.items = [];
+	that.numOfBedrooms = 0;
 	
 	// item multipliers
 	that.itemMult = {'party':1, 'cs':1, 'rush':1, 'study':1};

@@ -3,6 +3,7 @@ $(document).ready(function(){
 	initializeScreen();
 	$("#screens .rush").click(bidMeeting);
 	$("#screens .board").click(plan);
+	$("#screens .build").click(build);
 	$("#screens .buy").click(buy);
 	$("nav.bidMeeting").hide();
 	
@@ -39,6 +40,11 @@ function newGame(quest_key){
 
 function buy(){
 	drawBuyScreen();
+	updateStatsBar();
+}
+
+function build(){
+	drawBuildScreen();
 	updateStatsBar();
 }
 

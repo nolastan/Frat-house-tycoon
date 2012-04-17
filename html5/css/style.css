@@ -305,6 +305,10 @@ ul.rushees, ul.members {
   background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
 
 #buyScreen button.bought {
+  width: 100px;
+  font-size: 1em;
+  height: 1.6em;
+  margin-top: 0px;
   background-image: linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
@@ -323,6 +327,63 @@ ul.rushees, ul.members {
   margin-bottom: 5px; }
 
 #buyScreen .price {
+  font-size: 150%;
+  font-weight: bold;
+  margin-bottom: 5px; }
+  
+  
+  
+  /* Build */
+#buildScreen li {
+  width: 200px;
+  float: left;
+  margin: 30px; }
+
+#buildScreen img {
+  float: left;
+  margin-right: 50px;
+  width: 150px;
+  height: 130px;
+  margin-bottom: 10px; }
+
+#buildScreen button.buy {
+  width: 100px;
+  font-size: 1em;
+  height: 1.6em;
+  margin-top: 0px; }
+
+#buildScreen button.buy.bought {
+  color: DimGray;
+  background-image: linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
+
+#buildScreen button.bought {
+  width: 100px;
+  font-size: 1em;
+  height: 1.6em;
+  margin-top: 0px;
+  background-image: linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -moz-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
+  background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
+
+#buildScreen .name {
+  font-size: 200%;
+  font-weight: bold;
+  height: 60px;
+  margin-bottom: 5px; }
+
+#buildScreen .descript {
+  height: 200px;
+  margin-bottom: 5px; }
+
+#buildScreen .price {
   font-size: 150%;
   font-weight: bold;
   margin-bottom: 5px; }
