@@ -10,6 +10,7 @@ $(document).ready(function(){
 	}
 	$("ul.quests").html(html);
 	$("ul.quests li button.start").click(function(){
+	    console.log('quest started');	    
 		var id = $(this).parent().attr("id");
 		newGame(id);
 	})
@@ -25,6 +26,7 @@ $(document).ready(function(){
 });
 
 function drawMenuScreen(){
+    
 	$("#menu div.quest").hide();
 	$("#menu button.quest").click(function(){
 		$("#menu div.quest").show();
@@ -32,6 +34,10 @@ function drawMenuScreen(){
 	});
 	$("#menu").show();
 	$("#menu button.sandbox").click(function(){
+	    console.log('sandbox started');
+		for (var i = 0; i < 10; i++) {	
+			game.frat.addMember(create_member());
+		}
 		plan();
 	});
 	$("div.quest button.cancel").click(function(){

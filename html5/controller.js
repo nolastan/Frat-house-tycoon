@@ -26,9 +26,8 @@ function newGame(quest_key){
 	spec.skills = quest.start;
 /* 	game.frat = create_frat(quest); */
 	game.frat.members.length = 0;
-	for (var i = 0; i < 5; i++) {	
-		game.frat.addMember(create_member(spec));
-		console.log('f');
+	for (var i = 0; i < quest.start.membership; i++) {	
+		game.frat.addMember(create_member());		
 	}
 	$("nav #skills .study .bar").css("backgroundPosition", quest.goal.study + "%, 0%");
 	$("nav #skills .party .bar").css("backgroundPosition", quest.goal.party + "%, 0%");

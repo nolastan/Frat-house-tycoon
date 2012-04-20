@@ -39,11 +39,7 @@ $(document).ready(function(){
 	game.sim.stopped = true;
 	game.turnNum = 1;
 	//How often you get to extend bids
-	game.bidFrequency = 5;
-	
-	for (var i = 0; i < 10; i++) {	
-		game.frat.addMember(create_member());
-	}
+	game.bidFrequency = 5;	
 	
 	/** define functions **/
     game.turns = Array();

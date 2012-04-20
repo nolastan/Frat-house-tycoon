@@ -1,5 +1,6 @@
 var quests = 
 [
+/*
 	{
 		"name": "Delta Kappa Theta",
 		"nickname": "Delt-Kap",
@@ -11,7 +12,7 @@ var quests =
 			"study": 0,
 			"rep": 100,
 			"cash": 100,
-			"membership": 40,
+			"membership": 10,
 			"items": null
 		},
 		"goal": {
@@ -26,7 +27,7 @@ var quests =
 		},
 		"time": 10
 	},
-/*
+
 	{
 		"name": "Mu Nu Tau",
 		"nickname": "MuNu",
@@ -53,18 +54,19 @@ var quests =
 		},
 		"time": 10
 	},
+	*/
 	{
 		"name": "Theta Eta Zeta",
 		"nickname": "Eta",
-		"description": "Eta could use a reputation boost",
+		"description": "Accumulate enough reputation point for your fraternity in a school year to achieve the title of Frat House Tycoon",
 		"start": {
 			"rush": 5,
 			"party": 10,
 			"cs": 17,
 			"study": 20,
-			"rep": 5,
+			"rep": 100,
 			"cash": 100,
-			"membership": 27,
+			"membership": 8,
 			"items": null
 		},
 		"goal": {
@@ -72,12 +74,12 @@ var quests =
 			"party": null,
 			"cs": null,
 			"study": null,
-			"rep": 100,
+			"rep": 1200,
 			"cash": null,
 			"membership": null,
 			"items": null
 		},
 		"time": 10
 	}
-*/
+
 ]
