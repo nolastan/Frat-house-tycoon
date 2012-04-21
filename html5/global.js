@@ -28,12 +28,10 @@ $(document).ready(function(){
     sg.fps = 30;
   	updateScreenSize();
 
-	/** Initialize Game Objects **/
-	game.frat = create_frat();
+	/** Initialize Game Objects **/	
 	game.house = new House();
 	game.sidewalk = new Sidewalk();
-	game.sidewalk.update(); // @TODO: How to call this in constructor??
-	game.frat.bids = 0;
+	game.sidewalk.update(); // @TODO: How to call this in constructor??	
 
 	game.sim = {};
 	game.sim.stopped = true;

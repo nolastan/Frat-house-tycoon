@@ -35,9 +35,11 @@ function drawMenuScreen(){
 	$("#menu").show();
 	$("#menu button.sandbox").click(function(){
 	    console.log('sandbox started');
+		game.frat = create_frat();
 		for (var i = 0; i < 10; i++) {	
 			game.frat.addMember(create_member());
 		}
+		game.frat.bids = 0;
 		plan();
 	});
 	$("div.quest button.cancel").click(function(){

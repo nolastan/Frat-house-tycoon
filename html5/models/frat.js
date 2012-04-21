@@ -28,18 +28,26 @@ Methods --
 
 =======================================================================================
 */
-var create_frat = function(spec, members) {
+var create_frat = function(quest) {
     var categories = ["party", "cs", "rush" , "study"];
-    var maxAge = 10;
-    
+    var maxAge = 10;    
 	var that = {};
-	spec = spec || {};
-	that.name = spec.name || "Sigma Phi Nothing";
-	that.rep = spec.rep || 100;
-	that.cash = spec.cash || 0;
-	that.members = members || [];
-	that.rushees = [];
 	
+	if(quest)
+	{
+	    that.name = quest.name;
+	    that.rep = quest.start.rep;
+	    that.cash = quest.start.cash;
+	}
+	else
+	{
+	    that.name = "Sigma Phi Nothing";
+		that.rep = 100;
+		that.cash = 0;
+	}	
+	
+	that.members = [];
+	that.rushees = [];	
 	that.items = [];
 	that.numOfBedrooms = 0;
 	
@@ -50,9 +58,9 @@ var create_frat = function(spec, members) {
 	//**This needs to be changed, play should have arrays of brothers
   //Private play object to store allocation of brothers
 	var play = { party: [],
-								cs: [],
-								rush: [],
-								study: []};
+				 cs: [],
+				 rush: [],
+				 study: []};
 	
 	
 	//Basic display funciton

@@ -12,8 +12,7 @@ $(document).ready(function(){
 });
 
 function initializeScreen(){
-	menu();
-	updateStatsBar();
+	menu();	
 }
 
 function menu(){
@@ -22,18 +21,22 @@ function menu(){
 
 function newGame(quest_key){
 	var quest = quests[quest_key];
-	var spec = Array();
+    var spec = Array();
 	spec.skills = quest.start;
-/* 	game.frat = create_frat(quest); */
-	game.frat.members.length = 0;
+	game.frat = create_frat(quest);
 	for (var i = 0; i < quest.start.membership; i++) {	
-		game.frat.addMember(create_member());		
+	    if(quest.start.random_skills){
+		   game.frat.addMember(create_member());
+        }
+        else {
+		   game.frat.addMember(create_member(spec));
+		}
 	}
 	$("nav #skills .study .bar").css("backgroundPosition", quest.goal.study + "%, 0%");
 	$("nav #skills .party .bar").css("backgroundPosition", quest.goal.party + "%, 0%");
 	$("nav #skills .cs .bar").css("backgroundPosition", quest.goal.cs + "%, 0%");
 	$("nav #skills .rush .bar").css("backgroundPosition", quest.goal.rush + "%, 0%");
-	updateStatsBar();
+	game.frat.bids = 0;	
 	plan();
 }
 
