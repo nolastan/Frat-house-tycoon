@@ -94,23 +94,7 @@ function drawGoalScreen(){
   	$("#screens button").removeClass("active");
   	$("#screens .build button").addClass("active");
   	
-	$("#goalScreen .items").html("");
-		
-  	for(i in builds){
-  		var item = builds[i];
-  		var html = "";
-  		
-		html += '<li class="item" id="' + i + '">';
-		html += '<p class="name">' + item.name + '</p>';
-		html += '<img src="' + item.img + '"/img>';
-		html += '<p class="descript">' + item.descript + '</p>';
-		html += '<p class="price"> $' + item.price + '</p>';
-		if (game.frat.items.indexOf(item.name) == -1){html += '<button class="buy">Build</button>';}
-		else {html += '<button class="bought" disabled="disabled">Built</button>';}
-		html += "</li>";
-		
-		$("#goalScreen .items").append(html);
-  	}
+	$("#goalScreen .items").html("");  	
   	
 	$("#goalScreen .items li button").click(clickBuild);
 }
