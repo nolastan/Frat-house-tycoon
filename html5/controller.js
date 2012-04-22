@@ -3,7 +3,7 @@ $(document).ready(function(){
 	initializeScreen();
 	$("#screens .rush").click(bidMeeting);
 	$("#screens .board").click(plan);
-	$("#screens .build").click(build);
+	$("#screens .goal").click(goal);
 	$("#screens .buy").click(buy);
 	$("nav.bidMeeting").hide();
 	
@@ -20,23 +20,28 @@ function menu(){
 }
 
 function newGame(quest_key){
-	var quest = quests[quest_key];
     var spec = Array();
-	spec.skills = quest.start;
-	game.frat = create_frat(quest);
-	for (var i = 0; i < quest.start.membership; i++) {	
-	    if(quest.start.random_skills){
+	
+	game.quest = quests[quest_key];    
+	spec.skills = game.quest.start;
+	game.isQuest = true;
+	game.frat = create_frat(game.quest);	
+	for (var i = 0; i < game.quest.start.membership; i++) {	
+	    if(game.quest.start.random_skills){
 		   game.frat.addMember(create_member());
         }
         else {
 		   game.frat.addMember(create_member(spec));
 		}
 	}
-	$("nav #skills .study .bar").css("backgroundPosition", quest.goal.study + "%, 0%");
-	$("nav #skills .party .bar").css("backgroundPosition", quest.goal.party + "%, 0%");
-	$("nav #skills .cs .bar").css("backgroundPosition", quest.goal.cs + "%, 0%");
-	$("nav #skills .rush .bar").css("backgroundPosition", quest.goal.rush + "%, 0%");
+	
 	game.frat.bids = 0;	
+	
+	$("nav #skills .rush .bar").css("backgroundPosition", game.quest.goal.rush + "%");
+	$("nav #skills .party .bar").css("backgroundPosition", game.quest.goal.party + "%");
+	$("nav #skills .cs .bar").css("backgroundPosition", game.quest.goal.cs + "%");
+	$("nav #skills .rush .bar").css("backgroundPosition", game.quest.goal.rush + "%");
+	
 	plan();
 }
 
@@ -45,9 +50,8 @@ function buy(){
 	updateStatsBar();
 }
 
-function build(){
-	drawBuildScreen();
-	updateStatsBar();
+function goal(){
+	drawGoalScreen();	
 }
 
 function plan(){
@@ -83,10 +87,6 @@ function bidMeeting(){
 };
 
 function updateStatsBar() {
-	// show indicators on status bars
-	$(".rush .bar").css("backgroundPosition", game.frat.getSkillAvgs().rush + "%");
-	
-	
 	$("#stats .rep .val").html(game.frat.rep);
 	$("#stats .money .val").html(game.frat.cash);
 	$("#stats .brothers .val").html(game.frat.members.length);
@@ -97,6 +97,7 @@ function updateStatsBar() {
 	}else{
 		$("#screens .rush .val").show();	
 	}
+	
 	$("nav #skills .rush .fill").css("width", game.frat.getSkillAvgs().rush + "%");
 	$("nav #skills .party .fill").css("width", game.frat.getSkillAvgs().party + "%");
 	$("nav #skills .cs .fill").css("width", game.frat.getSkillAvgs().cs + "%");

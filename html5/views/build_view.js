@@ -77,24 +77,24 @@ function clickBuild(){
  * the build view
  */
 
-var buildScreen;
+var goalScreen;
 
 $(document).ready(function(){
-	buildScreen = $("#buildScreen");
+	goalScreen = $("#goalScreen");
 });
 
-function drawBuildScreen(){
+function drawGoalScreen(){
   	$("#normal").hide();
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#play").hide();	
 	$(".screens").hide();
-	$("#buildScreen").show();
+	$("#goalScreen").show();
 	$("#buyScreen").hide();
   	$("#screens button").removeClass("active");
   	$("#screens .build button").addClass("active");
   	
-	$("#buildScreen .items").html("");
+	$("#goalScreen .items").html("");
 		
   	for(i in builds){
   		var item = builds[i];
@@ -109,8 +109,8 @@ function drawBuildScreen(){
 		else {html += '<button class="bought" disabled="disabled">Built</button>';}
 		html += "</li>";
 		
-		$("#buildScreen .items").append(html);
+		$("#goalScreen .items").append(html);
   	}
   	
-	$("#buildScreen .items li button").click(clickBuild);
+	$("#goalScreen .items li button").click(clickBuild);
 }

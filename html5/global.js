@@ -29,6 +29,8 @@ $(document).ready(function(){
   	updateScreenSize();
 
 	/** Initialize Game Objects **/	
+	game.quest = {};
+	game.isQuest = false;
 	game.house = new House();
 	game.sidewalk = new Sidewalk();
 	game.sidewalk.update(); // @TODO: How to call this in constructor??	

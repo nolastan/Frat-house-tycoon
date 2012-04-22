@@ -334,25 +334,25 @@ ul.rushees, ul.members {
   
   
   /* Build */
-#buildScreen li {
+#goalScreen li {
   width: 200px;
   float: left;
   margin: 30px; }
 
-#buildScreen img {
+#goalScreen img {
   float: left;
   margin-right: 50px;
   width: 150px;
   height: 130px;
   margin-bottom: 10px; }
 
-#buildScreen button.buy {
+#goalScreen button.buy {
   width: 100px;
   font-size: 1em;
   height: 1.6em;
   margin-top: 0px; }
 
-#buildScreen button.buy.bought {
+#goalScreen button.buy.bought {
   color: DimGray;
   background-image: linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -o-linear-gradient(bottom, #9cc796, #8abd82);
@@ -361,7 +361,7 @@ ul.rushees, ul.members {
   background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
 
-#buildScreen button.bought {
+#goalScreen button.bought {
   width: 100px;
   font-size: 1em;
   height: 1.6em;
@@ -373,17 +373,17 @@ ul.rushees, ul.members {
   background-image: -ms-linear-gradient(bottom, #9cc796, #8abd82);
   background-image: -webkit-gradient(linear, left bottom, left top, #9cc796, #8abd82); }
 
-#buildScreen .name {
+#goalScreen .name {
   font-size: 200%;
   font-weight: bold;
   height: 60px;
   margin-bottom: 5px; }
 
-#buildScreen .descript {
+#goalScreen .descript {
   height: 200px;
   margin-bottom: 5px; }
 
-#buildScreen .price {
+#goalScreen .price {
   font-size: 150%;
   font-weight: bold;
   margin-bottom: 5px; }
