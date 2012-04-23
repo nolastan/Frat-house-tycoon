@@ -10,7 +10,7 @@ function drawSimulationScreen(turn, results){
 	$("#fast").show();
 	$("#skip").show();
 	if (game.frat.getPlayValues().party > 0) {
-		game.sim.goersCount = results.party.rep;
+		game.sim.goersCount = Math.floor(results.party.rep/2);
 	} else {
 		game.sim.goersCount = 0;
 	}
