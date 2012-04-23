@@ -9,7 +9,11 @@ function drawSimulationScreen(turn, results){
 	$("#normal").addClass("active");
 	$("#fast").show();
 	$("#skip").show();
-	game.sim.goersCount = results.party.rep;
+	if (game.frat.getPlayValues().party > 0) {
+		game.sim.goersCount = results.party.rep;
+	} else {
+		game.sim.goersCount = 0;
+	}
 	game.sim.start();
 }
 
