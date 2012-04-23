@@ -67,8 +67,6 @@ function simulate(){
     PlanView_UpdatePlay();
 	var turn = game.nextTurn;
 	game.results = turn.run(game.frat);
-	//game.sim = new Simulation(game.frat.getPlayValues(), game.results);
-	//game.sim.run();
 	updateStatsBar();
 	drawSimulationScreen(turn, game.results);
 };
