@@ -875,13 +875,13 @@ var events = [
 				"rewards": [
 					{
 						"rep": {
-							"base": "0",
+							"base": "-10",
 							"mult": "0"
 						}
 					},
 					{
 						"rep": {
-							"base": "-5",
+							"base": "10",
 							"mult": "0"
 						}
 					},
@@ -893,8 +893,8 @@ var events = [
 					}
 				],
 				"msgs": [
-					"It was too cold anyway, good call.",
-					"¡°I braved the cold for this??¡±",
+					"You have a great porch. Why aren't you using it?",
+					"Nothing like a porch party.",
 					"Strong effort paid off"
 				],
 				"cutoffs": [
