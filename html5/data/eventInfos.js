@@ -1131,7 +1131,7 @@ var events = [
 		}
 	},
 	{
-		"descript": "Forth of July",
+		"descript": "Fourth of July",
 		"categories": {
 			"party": {
 				"rewards": [
