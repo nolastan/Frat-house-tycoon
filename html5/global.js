@@ -32,8 +32,6 @@ $(document).ready(function(){
 	game.quest = {};
 	game.isQuest = false;
 	game.house = new House();
-	game.sidewalk = new Sidewalk();
-	game.sidewalk.update(); // @TODO: How to call this in constructor??	
 
 	game.sim = {};
 	game.sim.stopped = true;
