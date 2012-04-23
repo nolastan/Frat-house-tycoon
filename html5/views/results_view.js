@@ -7,11 +7,13 @@ function drawResultsScreen(){
 	$("#results").show();
 	console.log("RESULTS:");
 	
+	curPlay = game.frat.getPlay();
+	
 	// Find Social Committee Chair
 	var highest_party = 0;
 	var party_chair;
-	for(key in planViewPlay.party){
-		member_id = planViewPlay.party[key];
+	for(key in curPlay.party){
+		member_id = curPlay.party[key];
 		member = game.frat.members[member_id];
 		if(member.skills.party > highest_party){
 			highest_party = member.skills.party
@@ -22,8 +24,8 @@ function drawResultsScreen(){
 	// Find Rush Committee Chair
 	var highest_rush = 0;
 	var rush_chair;
-	for(key in planViewPlay.rush){
-		member_id = planViewPlay.rush[key];
+	for(key in curPlay.rush){
+		member_id = curPlay.rush[key];
 		member = game.frat.members[member_id];
 		if(member.skills.rush > highest_rush){
 			highest_rush = member.skills.rush
@@ -34,8 +36,8 @@ function drawResultsScreen(){
 	// Find Philanthropy Committee Chair
 	var highest_cs = 0;
 	var cs_chair;
-	for(key in planViewPlay.cs){
-		member_id = planViewPlay.cs[key];
+	for(key in curPlay.cs){
+		member_id = curPlay.cs[key];
 		member = game.frat.members[member_id];
 		if(member.skills.cs > highest_cs){
 			highest_cs = member.skills.cs
@@ -46,8 +48,8 @@ function drawResultsScreen(){
 	// Find Academic Committee Chair
 	var highest_study = 0;
 	var study_chair;
-	for(key in planViewPlay.study){
-		member_id = planViewPlay.study[key];
+	for(key in curPlay.study){
+		member_id = curPlay.study[key];
 		member = game.frat.members[member_id];
 		if(member.skills.study > highest_study){
 			highest_study = member.skills.study
@@ -55,24 +57,32 @@ function drawResultsScreen(){
 		}
 	}
 	
+	
+	
+	
+	
+	ctx = $("#results .party canvas.chair")[0].getContext("2d");
+	ctx.clearRect(0,0,100,100);
 	if(highest_party > 0){
-		ctx = $("#results .party canvas.chair")[0].getContext("2d");
-		ctx.clearRect(0,0,100,100);
 		drawRusheeFace(ctx, party_chair);
 	} 
+	
+	ctx = $("#results .rush canvas.chair")[0].getContext("2d");
+	ctx.clearRect(0,0,100,100);
 	if(highest_rush > 0){
-		ctx = $("#results .rush canvas.chair")[0].getContext("2d");
-		ctx.clearRect(0,0,100,100);
 		drawRusheeFace(ctx, rush_chair);
 	} 
+	
+
+	ctx = $("#results .cs canvas.chair")[0].getContext("2d");
+	ctx.clearRect(0,0,100,100);
 	if(highest_cs > 0){
-		ctx = $("#results .cs canvas.chair")[0].getContext("2d");
-		ctx.clearRect(0,0,100,100);
 		drawRusheeFace(ctx, cs_chair);
 	} 
+
+	ctx = $("#results .study canvas.chair")[0].getContext("2d");
+	ctx.clearRect(0,0,100,100);
 	if(highest_study > 0){
-		ctx = $("#results .study canvas.chair")[0].getContext("2d");
-		ctx.clearRect(0,0,100,100);
 		drawRusheeFace(ctx, study_chair);
 	} 
 			
