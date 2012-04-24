@@ -6,8 +6,13 @@ var hitOptions = {
     segments: false,
     stroke: false,
     fill: true,
-    tolerance: 5,
+    tolerance: 10,
 	bounds: true
+};
+
+var talkHitOptions = {
+    bounds: true,
+    tolerance: 35
 };
 	
 var cashBox, repPlusSym;
@@ -52,6 +57,10 @@ var tr = new Point(0, 0);
 					goers.splice(i, 1);
 				}
 			}
+			
+			for (var i = 0; i < organizers.length; i++) {
+				organizers[i].step();
+			}
 
 			for (var i = 0; i < repClicks.length; i++) {
 				repClicks[i].step();
@@ -89,6 +98,9 @@ var tr = new Point(0, 0);
 			organizers[i].remove();
 		}
 		
+		for (var i = 0; i < repClicks.length; i++) {
+			repClicks[i].remove();
+		}
 		game.sim.goersCount = 0;
 		goers = [];
 		repClicks = [];
@@ -104,29 +116,30 @@ var tr = new Point(0, 0);
 	tool.onMouseDown = function(event) {
 		var hitResult = project.hitTest(event.point, hitOptions);
 		if (hitResult && hitResult.item.hasOwnProperty("clicked")) {
-			hitResult.item.clicked();
+			hitResult.item.clicked(event.point);
 			
-			if (hitResult.item.type != "member") {
-				clickedMember = false;
-			}
+		}else if (clickedMember) {
+			console.log(clickedMember);
+			clickedMember.setDestVector(event.point);
 		}
 	};
 	
-	tool.onMouseDrag = function(event) {
-		if (clickedMember && clickedMember.dragging) {
-			clickedMember.position = event.point;
-		}
-	};
+	// tool.onMouseDrag = function(event) {
+		// if (clickedMember && clickedMember.dragging) {
+			// clickedMember.position = event.point;
+		// }
+	// };
 	
-	tool.onMouseUp = function(event) {
 	
-		if (clickedMember) {
-			clickedMember.tryTalk();
-			clickedMember.dragging = false;
-		}
+	// tool.onMouseUp = function(event) {
+	
+		// if (clickedMember) {
+			// clickedMember.tryTalk();
+			// clickedMember.dragging = false;
+		// }
 		
 		
-	};
+	// };
 	/*==== Rep Plus ====*/
 	var repImage = new Raster('rep-plus');
 	repImage.fitBounds({width:5*game.UNIT, height:game.UNIT*5});
@@ -140,7 +153,7 @@ var tr = new Point(0, 0);
 var create_organizer = (function () {
 
 	var posCount = 0;
-	
+	var speed = 2;
 	var startingPositions = [
 		house.bounds.bottomCenter.add(new Point(personHeight*1.5, personHeight*.5)), new Point(300, 300)
 	];
@@ -148,6 +161,8 @@ var create_organizer = (function () {
 	return function(member) {
 		var position = new Point(0, 0);
 		var shape = create_person(position, 'organizer');
+		var moving = false;
+		var destVect, curDest, path;
 		
 		shape.selected = false;
 		if (posCount < startingPositions.length) {
@@ -161,7 +176,7 @@ var create_organizer = (function () {
 		
 		shape.type = "member";
 		shape.member = member;
-		shape.clicked = function() {
+		shape.clicked = function(point) {
 			if (typeof clickedMember !== 'undefined') {
 				clickedMember.selected = false;
 			}
@@ -170,7 +185,33 @@ var create_organizer = (function () {
 			shape.selected = true;
 			shape.dragging = true;
 			drawFaceCard(member, "#simulation .members");
+			shape.setDestVector(point);
+			moving = true;
+			
 		}
+		
+		shape.setDestVector = function(point) {
+			moving = true;
+			curDest = point;
+			destVect = curDest.subtract(shape.position);
+			destVect = destVect.normalize().multiply(speed);
+		}
+		
+		shape.step = function() {
+			if (moving) {
+				shape.position = shape.position.add(destVect);
+				if (shape.selected) {
+					//draw path to dest
+				}
+				
+				
+				if (shape.position.isClose(curDest, 5)) {
+					shape.tryTalk();
+					moving = false;
+				}
+			}
+		}
+		
 		return shape;
 		
 	}
@@ -279,6 +320,7 @@ var create_goer = function(start) {
 	var talkProb = 0.7;
 	var keepTalkProb = 0.8;
 	var talkCount = 0;
+	var pauseCount = 0;
 	shape.step = function() {
 		age++;
 		switch (shape.state) {
@@ -315,12 +357,18 @@ var create_goer = function(start) {
 			case 'inside':
 				speed = 1;
 				if (nearTarget()) {
-					curDest = this.randomTarget(house);
-					setDestVector(curDest);
-				}
-				shape.position = shape.position.add(destVect);
-				if (Math.random() < talkProb) {
-					shape.tryTalk();
+					if (pauseCount < 20) {
+						pauseCount++;
+						if (Math.random() < talkProb) {
+							shape.tryTalk();
+						}
+					} else {
+						pauseCount = 0;
+						curDest = this.randomTarget(house);
+						setDestVector(curDest);
+					}
+				} else {
+					shape.position = shape.position.add(destVect);
 				}
 				
 				if (age > enterTime + stayDuration) {
@@ -420,7 +468,7 @@ var create_person = function(start, imageName) {
 	shape.randomTarget = randomTarget;
 	
 	function tryTalk() {
-		var hitResult = project.hitTest(shape.position, hitOptions);
+		var hitResult = project.hitTest(shape.position, talkHitOptions);
 		if (hitResult && hitResult.item && hitResult.item != shape && (hitResult.item.state == "inside" || hitResult.item.type == "member")) {
 			hitResult.item.state = "talking";
 			shape.state = "talking";
