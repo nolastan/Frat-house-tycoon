@@ -12,6 +12,7 @@ function updateScreenSize(){
   	$("ul.quadrants li object.quadrant_icon").css("max-height", sg.height/3);
   	$("ul.quadrants li object.quadrant_icon").css("max-width", $(window).width()/3);
   	$("#planScreen ul.members.pool").css("height", sg.height-20);
+  	$("#bidScreen").css("height", sg.height-50);
 }
 
 $(document).ready(function(){

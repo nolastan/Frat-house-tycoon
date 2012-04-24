@@ -211,6 +211,7 @@ function drawPlanningScreen(){
 	$("#planScreen .nextEvent .val").html(game.nextTurn.title);
   	$("#screens button").removeClass("active");
   	$("#screens .board button").addClass("active"); 
+  	$("nav.main #screens, nav.main #run").show();
 
 	if(firstDraw)
 	{

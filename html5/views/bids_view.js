@@ -12,9 +12,9 @@ function drawBidScreen(info){
   	$("#screens button").removeClass("active");
   	$("#screens .rush button").addClass("active");
   	
-		console.log(info.bidDay);
+	console.log(info.bidDay);
   	if(info.bidDay){
-  		$("nav.main").hide();
+  		$("nav.main #screens, nav.main #run").hide();
   		$("nav.bidMeeting").show();
   		$("nav.bidMeeting .val").html(game.frat.bids);
   	}

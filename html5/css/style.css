@@ -167,6 +167,9 @@ nav.bidMeeting.over {
   nav.bidMeeting.over button {
     display: inline-block; }
 
+#bidScreen {
+  overflow: scroll; }
+
 /* Status Bars */
 .skills .bar {
   width: 120px;
@@ -330,18 +333,15 @@ ul.rushees, ul.members {
   font-size: 150%;
   font-weight: bold;
   margin-bottom: 5px; }
-  
-  
-  
-  /* Build */
+
+/* Build */
 #goalScreen .name {
   font-size: 200%;
   font-weight: bold;
   margin-top: 10px; }
-  
-#goalScreen .goalStatus {
-  font-size: 125%;}
 
+#goalScreen .goalStatus {
+  font-size: 125%; }
 
 #menu h1 {
   font-size: 300%;
@@ -444,8 +444,10 @@ ul.rushees li {
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none; }
+#planScreen .instruct {
+  font-size: 135%; }
 #planScreen .nextEvent {
-  float: left;
+  text-align: center;
   line-height: 35px;
   font-size: 150%;
   background-color: #eee;
@@ -474,7 +476,9 @@ ul.rushees li {
     cursor: move;
     width: 100%;
     clear: both;
-    height: 150px; }
+    height: 150px;
+    margin: 5px;
+    border: 1px solid #999; }
   #planScreen ul.members li.member:hover {
     background-color: #eee;
     border: 1px dashed #ccc; }
