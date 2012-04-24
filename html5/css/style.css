@@ -111,13 +111,11 @@ nav {
     float: right; }
   nav ul#stats {
     margin-right: 10px;
-    float: right; }
+    float: right;
+    /* 		li.rep{display:inline; width:90px;}  // safari fix */ }
     nav ul#stats object {
       margin-right: 5px;
       margin-left: 10px; }
-    nav ul#stats li.rep {
-      display: inline;
-      width: 90px; }
   nav ul#skills {
     float: right; }
     nav ul#skills h3 {
