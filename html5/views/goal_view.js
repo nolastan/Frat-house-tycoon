@@ -33,7 +33,7 @@ function GoalView_GetPercentageComplete(goalName, currentVal){
    }
 
    if(divisor > 0){   
-      returnVal = (currentVal / divisor) * 100;
+      returnVal = Math.round((currentVal / divisor) * 100);
    }
    
    if(returnVal > 100){
