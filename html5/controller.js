@@ -40,7 +40,7 @@ function newGame(quest_key){
 	$("nav #skills .rush .bar").css("backgroundPosition", game.quest.goal.rush + "%");
 	$("nav #skills .party .bar").css("backgroundPosition", game.quest.goal.party + "%");
 	$("nav #skills .cs .bar").css("backgroundPosition", game.quest.goal.cs + "%");
-	$("nav #skills .rush .bar").css("backgroundPosition", game.quest.goal.rush + "%");
+	$("nav #skills .study .bar").css("backgroundPosition", game.quest.goal.study + "%");
 	
 	plan();
 }
