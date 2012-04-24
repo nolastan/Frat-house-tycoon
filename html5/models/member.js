@@ -110,26 +110,3 @@ var create_member = (function() {
 	}
 })();
 
-function bidRushee(id){
-	var rushee = game.frat.rushees[id];
-	var accepted;
-	game.frat.bids--;
-	
-	if(Math.random() < rushee.chanceWillJoin()){
-		game.frat.members.push(rushee);
-		PlanView_AddPiece(rushee);
-		accepted = true;
-	}else{	
-		accepted = false;
-	}
-	delete game.frat.rushees[id];
-	
-	if(game.frat.bids == 0 || Object.size(game.frat.rushees) == 0){
-		$("nav.bidMeeting").addClass("over");
-		$("#bidScreen .rushees li button").unbind("click");
-		game.frat.bids = 0;  			
-		game.frat.rushees.length = 0;  			
-	}
-	updateStatsBar();	
-	return accepted;
-}

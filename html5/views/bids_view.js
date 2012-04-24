@@ -5,14 +5,15 @@ $(document).ready(function(){
   	$("nav.bidMeeting .continue").click(plan);
 });
 
-function drawBidScreen(){
+function drawBidScreen(info){
 	$(".screens").hide();
 	bidScreen.show();
  	$("nav.bidMeeting").removeClass("over");
   	$("#screens button").removeClass("active");
   	$("#screens .rush button").addClass("active");
   	
-  	if(game.frat.bids > 0 && game.frat.rushees.length){
+		console.log(info.bidDay);
+  	if(info.bidDay){
   		$("nav.main").hide();
   		$("nav.bidMeeting").show();
   		$("nav.bidMeeting .val").html(game.frat.bids);
@@ -23,7 +24,8 @@ function drawBidScreen(){
 	
 	if(Object.size(game.frat.rushees) == 0){
 		var html = "<li>No one is rushing your fraternity.</li>";
-		$("#bidScreen .rushees").html(html);		
+		$("#bidScreen .rushees").html(html);
+		endBidMeeting();
 	}else{
 		for(key in game.frat.rushees){
 			console.log(key);
@@ -96,3 +98,31 @@ function drawFaceCard(member, divId) {
 
 }
 
+
+function endBidMeeting() {
+		$("nav.bidMeeting").addClass("over");
+		$("#bidScreen .rushees li button").unbind("click");
+		game.frat.bids = 0;  			
+		game.frat.rushees.length = 0;  
+}
+
+function bidRushee(id){
+	var rushee = game.frat.rushees[id];
+	var accepted;
+	game.frat.bids--;
+	
+	if(Math.random() < rushee.chanceWillJoin()){
+		game.frat.members.push(rushee);
+		PlanView_AddPiece(rushee);
+		accepted = true;
+	}else{	
+		accepted = false;
+	}
+	delete game.frat.rushees[id];
+	
+	if(game.frat.bids == 0 || Object.size(game.frat.rushees) == 0){
+			endBidMeeting();
+	}
+	updateStatsBar();	
+	return accepted;
+}
