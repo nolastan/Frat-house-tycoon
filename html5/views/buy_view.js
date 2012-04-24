@@ -29,7 +29,7 @@ var dj = {
 var pc = {
 		"name": 'Computer Workstation',
 		"price": 600,
-		"descript": 'Dual screen workstation with 2*4 core AMD Opteron! This will definitely improve your GPA because you will only use it for studying.',
+		"descript": 'Dual screen workstation with 2*4 core AMD Opteron! This will definitely improve your GPA.',
 		"img": 'sprites/items/computer.svg',
 		"mult": {'party':0, 'rush':0, 'cs':0, 'study':0.2}
 	};
