@@ -199,6 +199,7 @@ function PlanView_RemoveId(id)
 //************************************************************************************
 
 function drawPlanningScreen(){
+	$("nav.main #screens").show();
 	$(".screens").hide();
 	$("nav.bidMeeting").hide();
 	$("nav.main").show();
