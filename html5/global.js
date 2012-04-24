@@ -51,6 +51,7 @@ $(document).ready(function(){
 	game.turns.getNext = function () {	    
 	    if (game.turns.turnNum % game.bidFrequency == 0) {
 	        this.turnNum++;
+					game.frat.bids = 10;
 	        return this.rushTurn;
 	    }
 		var nextTurn = this.pop();

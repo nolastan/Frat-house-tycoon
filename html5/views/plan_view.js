@@ -199,8 +199,6 @@ function PlanView_RemoveId(id)
 //************************************************************************************
 
 function drawPlanningScreen(){
-	game.nextTurn = game.turns.getNext();
-
 	$(".screens").hide();
 	$("nav.bidMeeting").hide();
 	$("nav.main").show();

@@ -55,9 +55,12 @@ function goal(){
 }
 
 function plan(){
-	if(game.frat.bids > 0 && game.frat.rushees.length > 0){
+	game.lastTurn = game.nextTurn;
+	game.nextTurn = game.turns.getNext();
+	
+	if(game.lastTurn && game.lastTurn.title == "Rush Weekend"){
 		console.log("Bid meeting!")
-		bidMeeting();
+		bidMeeting({bidDay: true});
 	}else{
 		drawPlanningScreen();	
 	}
@@ -79,8 +82,8 @@ function results(){
 	game.frat.update();
 };
 
-function bidMeeting(){
-	drawBidScreen();
+function bidMeeting(info){
+	drawBidScreen(info);
 	updateStatsBar();
 };
 

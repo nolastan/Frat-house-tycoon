@@ -32,13 +32,6 @@ var create_turn = function (info) {
 			results[cat] = effect;
 			i++;
 		}
-		
-		// Add bids after Rush
-		if(info.descript == "Rush Weekend"){
-			game.frat.bids += 10;
-		}
-		
-		
 		return results;
 	}
 	
