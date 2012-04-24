@@ -241,12 +241,12 @@ function drawPlanningScreen(){
 		
 		firstDraw = false;
 		updateStatsBar();
-  		updateScreenSize();
 	}
 	else
 	{
 	   $("#planScreen .instruct").remove();
 	}
+  	updateScreenSize();
 }
 
 //************************************************************************************
