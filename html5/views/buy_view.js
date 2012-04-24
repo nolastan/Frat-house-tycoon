@@ -2,9 +2,17 @@
  * Info of the items
  */
 
+var kitchen = {
+		"name": 'Kitchen',
+		"price": 900,
+		"descript": 'Kitchen with all stainless steel appliances! Reduces food cost for parties and philanthropy!',
+		"img": 'sprites/items/kitchen.svg',
+		"mult": {'party':0.2, 'rush':0, 'cs': 0.2, 'study':0}
+};
+
 var tv = {
 		"name": 'Television',
-		"price": 100,
+		"price": 250,
 		"descript": '106 inch 1080P HD 3D LCD TV! Good for parties and rush event!',
 		"img": 'sprites/items/tv.svg',
 		"mult": {'party':0.1, 'rush':0.1, 'cs':0, 'study':0}
@@ -12,7 +20,7 @@ var tv = {
 
 var dj = {
 		"name": 'DJ Equipments',
-		"price": 150,
+		"price": 400,
 		"descript": 'Premium DJ equipment with high performance sound card! It can rock your party!',
 		"img": 'sprites/items/dj.svg',
 		"mult": {'party':0.2, 'rush':0, 'cs':0, 'study':0}
@@ -20,7 +28,7 @@ var dj = {
 
 var pc = {
 		"name": 'Computer Workstation',
-		"price": 100,
+		"price": 600,
 		"descript": 'Dual screen workstation with 2*4 core AMD Opteron! This will definitely improve your GPA because you will only use it for studying.',
 		"img": 'sprites/items/computer.svg',
 		"mult": {'party':0, 'rush':0, 'cs':0, 'study':0.2}
@@ -28,7 +36,7 @@ var pc = {
 
 var swim = {
 		"name": 'Swimming Pool',
-		"price": 250,
+		"price": 1500,
 		"descript": 'Cool swimming pool with heating system! Great for party and rush events!',
 		"img": 'sprites/items/swim.svg',
 		"mult": {'party':0.2, 'rush':0.2, 'cs':0, 'study':0}
@@ -36,13 +44,13 @@ var swim = {
 
 var pool = {
 		"name": 'Pool Table',
-		"price": 200,
+		"price": 1000,
 		"descript": 'Awesome pool table with automatic pool ball return! Super good for parties and rush event!',
 		"img": 'sprites/items/pooltable.svg',
 		"mult": {'party':0.15, 'rush':0.15, 'cs':0, 'study':0}
 };
 
-var items = [tv, dj, pc, swim, pool];
+var items = [tv, dj, pc, swim, pool, kitchen];
 
 /***********************************************************************/
 
