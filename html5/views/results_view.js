@@ -94,6 +94,8 @@ function drawResultsScreen(){
 
 $(document).ready(function(){
   $("#results .continue").click(function(){
+    EvaluateGoal();
+	game.nextTurnIsSet = false;
 	plan();
 
   });

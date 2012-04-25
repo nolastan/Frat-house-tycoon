@@ -93,8 +93,7 @@ function dragOver(ev)
        id == "rushQuad" ||
        id == "csQuad" ||
        id == "studyQuad")
-    {
-       console.log(id);
+    {       
        return false;  
     }
     else
