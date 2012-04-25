@@ -78,7 +78,7 @@ $(function() {
 				}
 			}
 			if (goers.length  == 0 && game.sim.goersCount <= 0) {
-				game.sim.end();
+				game.sim.phase = "over";
 			}
 		}
 	}
@@ -129,6 +129,8 @@ $(function() {
 			case "phil":
 				game.sim.philStep();
 				break;
+				
+			case "over":
 			default:
 				game.sim.end();
 		}
