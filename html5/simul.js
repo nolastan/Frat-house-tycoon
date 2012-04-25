@@ -50,9 +50,8 @@ $(function() {
 	fastSpeed = Math.round(personHeight*0.08);
 	slowSpeed = Math.round(personHeight*0.05);
 	
-	game.sim.phase = "party";
+	//================================Party Phase Step===============================
 	
-
 	
 	game.sim.partyStep = function() {
 		if (!game.sim.stopped) { 
@@ -83,12 +82,15 @@ $(function() {
 		}
 	}
 	
+	//=================End the simulation
+	
 	game.sim.end = function() {
 		game.sim.stopped = true;
 		game.sim.cleanUp();
 		results();
 	}
 	
+	//==================Start the simulation
 	game.sim.start = function() {
 		
 		partyOrgs = game.frat.getPlay().party;
@@ -102,6 +104,7 @@ $(function() {
 		game.sim.stopped = false;
 	}
 	
+	//=====================Clean up what is left from a sim
 	game.sim.cleanUp = function() {
 		for (var i= 0; i < goers.length; i++) {
 			goers[i].die();
@@ -121,6 +124,26 @@ $(function() {
 		
 	}
 	
+	//=========================Philanthropy Step
+	
+	game.sim.philStep = (function() {
+		var philDur = 0, philEnd = 50;
+		return function() {
+			if (philDur < philEnd) {
+				philDur++;
+				return;
+			}
+			philDur = 0;
+			game.sim.phase = "party";
+		
+		}
+	})();
+	
+	//========================Fire correct step based on phase
+	
+	game.sim.phase = "phil";
+	
+	
 	view.onFrame = function(event) {
 		switch (game.sim.phase) {
 			case "party":
@@ -135,6 +158,8 @@ $(function() {
 				game.sim.end();
 		}
 	}
+	
+	
 
 
 	var tool = new Tool();
