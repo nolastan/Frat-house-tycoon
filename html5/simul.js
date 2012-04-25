@@ -50,7 +50,11 @@ $(function() {
 	fastSpeed = Math.round(personHeight*0.08);
 	slowSpeed = Math.round(personHeight*0.05);
 	
-	view.onFrame = function(event) {
+	game.sim.phase = "party";
+	
+
+	
+	game.sim.partyStep = function() {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0 && goers.length < 15) {
 				goers.push(create_goer(new Point(sg.width, sg.height-50)));
@@ -74,11 +78,15 @@ $(function() {
 				}
 			}
 			if (goers.length  == 0 && game.sim.goersCount <= 0) {
-				game.sim.stopped = true;
-				game.sim.cleanUp();
-				results();
+				game.sim.end();
 			}
 		}
+	}
+	
+	game.sim.end = function() {
+		game.sim.stopped = true;
+		game.sim.cleanUp();
+		results();
 	}
 	
 	game.sim.start = function() {
@@ -111,6 +119,19 @@ $(function() {
 		repClicks = [];
 		organizers = [];
 		
+	}
+	
+	view.onFrame = function(event) {
+		switch (game.sim.phase) {
+			case "party":
+				game.sim.partyStep();
+				break;
+			case "phil":
+				game.sim.philStep();
+				break;
+			default:
+				game.sim.end();
+		}
 	}
 
 
