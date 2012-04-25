@@ -43,10 +43,84 @@ function GoalView_GetPercentageComplete(goalName, currentVal){
    return returnVal;   
 }
 
+//================================================================
+
+function EvaluateGoal(){
+   var goalsComplete = true;
+   var percentComplete;
+   
+   if(game.isQuest){
+       if(game.quest.goal.rush != null){
+	       percentComplete = GoalView_GetPercentageComplete("rush", game.frat.getSkillAvgs().rush);
+           if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(game.quest.goal.party != null){
+	       percentComplete = GoalView_GetPercentageComplete("party", game.frat.getSkillAvgs().party);
+		   if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(game.quest.goal.cs != null){
+	       percentComplete = GoalView_GetPercentageComplete("cs", game.frat.getSkillAvgs().cs);
+		   if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(game.quest.goal.study != null){
+	       percentComplete = GoalView_GetPercentageComplete("study", game.frat.getSkillAvgs().study);
+		   if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(game.quest.goal.rep != null){
+	       percentComplete = GoalView_GetPercentageComplete("rep", game.frat.rep);
+		   if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(game.quest.goal.cash != null){
+	       percentComplete = GoalView_GetPercentageComplete("cash", game.frat.cash);
+		   if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(game.quest.goal.membership != null){
+	       percentComplete = GoalView_GetPercentageComplete("membership", game.frat.members.length);
+		   if(percentComplete < 100){
+		      goalsComplete = false;
+		   }
+	   }
+	   
+	   if(goalsComplete)
+       {
+          alert("Congratulations!" + '\n' + "You have accomplished the goal(s) of your quest");
+       }
+       else if (game.turns.turnNum - 1 == game.quest.time)
+	   {
+	      alert("Sorry!" + '\n' + "You failed to accomplished the goal(s) of your quest in time");
+	   }
+	   
+	   var t = game.turns.turnNum - 1;
+	   console.log("turn #: " + t);
+	   console.log("quest time: " + game.quest.time);
+	}
+}
+
+//================================================================
 
 $(document).ready(function(){
 	goalScreen = $("#goalScreen");
 });
+
+//================================================================
 
 function drawGoalScreen(){
   	$("#normal").hide();
@@ -60,19 +134,20 @@ function drawGoalScreen(){
 	$("#screens .board button").addClass("active"); 
 	
 	var html = "";
-	if(game.isQuest)
-	{	   
-	   html += '<h2>Quest Goal</h2>';
+	if(game.isQuest){	   
+	   html += '<h2>Goals for ' + game.quest.name + '</h2>';
 	   html += '<ul id="goals">'
 	   html += '<ul class="skills">';
+	   
 	   if(game.quest.goal.rush != null){
 		   html += '  <li class="rush">'
 		   html += '     <p class="name">Rush</p>';
 		   html += '     <div class="bar">'
 		   html += '        <div class="fill" style="width: ' + GoalView_GetPercentageComplete("rush", game.frat.getSkillAvgs().rush) + '%"></div>';
 		   html += '     </div>';
-		   html += '  </li>';
+		   html += '  </li>';		   
 	   }
+	   
 	   if(game.quest.goal.party != null){
 		   html += '  <li class="party">'
 		   html += '     <p class="name">Party</p>';
@@ -81,6 +156,7 @@ function drawGoalScreen(){
 		   html += '     </div>';
 		   html += '  </li>';
 	   }
+	   
 	   if(game.quest.goal.cs != null){
 		   html += '  <li class="cs">'
 		   html += '     <p class="name">Community Service</p>';
@@ -89,6 +165,7 @@ function drawGoalScreen(){
 		   html += '     </div>';
 		   html += '  </li>';
 	   }
+	   
 	   if(game.quest.goal.study != null){
 		   html += '  <li class="study">'
 		   html += '     <p class="name">Academic</p>';
@@ -97,19 +174,22 @@ function drawGoalScreen(){
 		   html += '     </div>';
 		   html += '  </li>';
 	   }
+	   
 	   html += '</ul>';
 	   if(game.quest.goal.rep != null){
 		   html += '  <li id="goal_rep">'
 		   html += '     <p class="name">Reputation</p>';
 		   html += '     <p class="goalStatus">  ' + GoalView_GetPercentageComplete("rep", game.frat.rep) + '% Complete</p>';
-		   html += '  </li>';
+		   html += '  </li>';		   
 	   }
+	   
 	   if(game.quest.goal.cash != null){
 		   html += '  <li id="goal_cash">'
 		   html += '     <p class="name">Financial</p>';
 		   html += '     <p class="goalStatus">  ' + GoalView_GetPercentageComplete("cash", game.frat.cash) + '% Complete</p>';
 		   html += '  </li>';
 	   }
+	   
 	   if(game.quest.goal.membership != null){
 		   html += '  <li id="goal_member">'
 		   html += '     <p class="name">Membership</p>';
@@ -118,8 +198,7 @@ function drawGoalScreen(){
 	   }	   
 	   
 	   html += '</ul>';
-	   $("#goalScreen").html(html);		   
-	   
+	   $("#goalScreen").html(html);       	   
 	}
 	else
 	{

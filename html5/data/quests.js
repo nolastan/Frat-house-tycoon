@@ -81,7 +81,7 @@ var quests =
 			"membership": null,
 			"items": null
 		},
-		"time": 10
+		"time": 2
 	}
 
 ]

@@ -1,5 +1,7 @@
 var game = {};
 var sg = {}; //Simulation Graphics
+var turnFound = false;
+
 function updateScreenSize(){
 	sg.scale = Math.min($(window).width()/sg.scale_x, ($(window).height()-90)/sg.scale_y);
 	sg.width = sg.scale_x * sg.scale;

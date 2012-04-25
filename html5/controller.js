@@ -55,8 +55,13 @@ function goal(){
 }
 
 function plan(){
-	game.lastTurn = game.nextTurn;
-	game.nextTurn = game.turns.getNext();
+
+    if(!turnFound)
+	{
+	   game.lastTurn = game.nextTurn;
+	   game.nextTurn = game.turns.getNext();
+	   turnFound = true;
+	}
 	
 	if(game.lastTurn && game.lastTurn.title == "Rush Weekend"){
 		console.log("Bid meeting!")

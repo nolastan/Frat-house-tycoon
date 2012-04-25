@@ -6,6 +6,7 @@ $(document).ready(function(){
 });
 
 function drawBidScreen(info){
+    turnFound = false;
 	$(".screens").hide();
 	bidScreen.show();
  	$("nav.bidMeeting").removeClass("over");
