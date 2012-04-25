@@ -135,7 +135,7 @@ $(function() {
 			return;
 		}
 		if (clickedMember) {
-			clickedMember.setDestVector(event.point);
+			clickedMember.directTo(event.point);
 		}
 	};
 	
@@ -179,6 +179,8 @@ var create_organizer = (function () {
 		var moving = false;
 		var destVect, curDest, path;
 		
+		var pauseCount = 0, pauseLength = 15;
+		
 		shape.selected = false;
 		if (posCount < startingPositions.length) {
 			shape.position = startingPositions[posCount];
@@ -200,34 +202,59 @@ var create_organizer = (function () {
 			shape.selected = true;
 			shape.dragging = true;
 			drawFaceCard(member, "#simulation .members");
+			speed = fastSpeed;
 			//shape.setDestVector(point);
-			moving = true;
+			//shape.state = "moving";
 			
 		}
 		
+		shape.directTo = function(point) {
+			speed = fastSpeed;
+			shape.setDestVector(point);
+		}
+		
 		shape.setDestVector = function(point) {
-			moving = true;
+			shape.state = "moving";
 			curDest = point;
 			destVect = curDest.subtract(shape.position);
 			destVect = destVect.normalize().multiply(speed);
 		}
 		
 		shape.step = function() {
-			if (moving) {
-				shape.position = shape.position.add(destVect);
-				if (shape.selected) {
-					//draw path to dest
-				}
-				
-				
-				if (shape.position.isClose(curDest, 5)) {
-					shape.tryTalk();
-					moving = false;
-				}
-			}
-		}
 		
-		return shape;
+			switch(shape.state) {
+			
+			case "moving":
+				shape.position = shape.position.add(destVect);
+				if (shape.position.isClose(curDest, 5)) {
+					curDest = false;
+					//shape.tryTalk();
+					shape.state = "pausing";
+				}
+				break;
+			case "pausing":
+				if (pauseCount < pauseLength) {
+					pauseCount++;
+					shape.tryTalk();
+				} else {
+					pauseCount = 0;
+					speed = slowSpeed/2;
+					shape.setDestVector(shape.randomTarget(house));
+					
+
+				}
+				break;
+			case "talking":
+				if (!shape.talk()) {
+					shape.state = "pausing";
+				}
+				break;
+		}
+	}
+	
+	shape.state = "pausing";
+		
+	return shape;
 		
 	}
 
@@ -424,6 +451,10 @@ var create_goer = function(start) {
 	}
 	
 	function moveAlongPath(path) {
+		if (path.length <=0) {
+			return false;
+		}
+	
 		if (!curDest) {
 			curDest = path.shift();
 			setDestVector(curDest);
