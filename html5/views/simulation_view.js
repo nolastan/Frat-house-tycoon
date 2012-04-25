@@ -11,11 +11,15 @@ function drawSimulationScreen(turn, results){
 	$("#fast").show();
 	$("#skip").show();
 	if (game.frat.getPlayValues().party > 0) {
-		game.sim.goersCount = Math.floor(results.party.rep/2);
+		game.sim.goersCount = calcNumGoers(results.party.rep);
 	} else {
 		game.sim.goersCount = 0;
 	}
 	game.sim.start();
+}
+
+function calcNumGoers(skill) {
+	return (-50/(1+Math.pow(2,0.1*(skill-50)))) + 55; 
 }
 
 $(document).ready(function(){

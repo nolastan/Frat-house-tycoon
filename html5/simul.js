@@ -1,23 +1,19 @@
 window.globals = {};
 paper.install(window);
 var house, personRect, personHeight, repClicks = [];
+var goers = [];
+var hitOptions;
 
-var hitOptions = {
-    segments: false,
-    stroke: false,
-    fill: true,
-    tolerance: 10,
-	bounds: true
-};
+var sim = {};
 
 var talkHitOptions = {
     bounds: true,
     tolerance: 35
 };
 	
-var cashBox, repPlusSym;
-var admissionCost = 5;
-
+var repPlusSym;
+sim.admissionCost = 5;
+var fastSpeed, slowSpeed;
 $(function() {
 
 	var canvas = document.getElementById('canvas');
@@ -34,20 +30,29 @@ $(function() {
 	var size = new Size(personHeight, personHeight);
 	personRect = new Path.Rectangle(tr, size);
 	
+	hitOptions = {
+    segments: false,
+    stroke: false,
+    fill: true,
+    tolerance: personHeight,
+	bounds: true
+};
+	
 	//Create person sprite
 	
 	//personImage.visible = false;
 	
-
 	var clickedMember;
 	var organizers = [];
-	var goers = [];
+
 	game.sim.goersCount = 0;
 	
+	fastSpeed = Math.round(personHeight*0.08);
+	slowSpeed = Math.round(personHeight*0.05);
 	
 	view.onFrame = function(event) {
 		if (!game.sim.stopped) { 
-			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
+			if (Math.random() > 0.95 && game.sim.goersCount > 0 && goers.length < 15) {
 				goers.push(create_goer(new Point(sg.width, sg.height-50)));
 				game.sim.goersCount--;
 			}
@@ -110,16 +115,26 @@ $(function() {
 
 
 	var tool = new Tool();
-	cashBox = create_cash_box();
+	sim.cashBox = create_cash_box();
 	
 	
 	tool.onMouseDown = function(event) {
-		var hitResult = project.hitTest(event.point, hitOptions);
-		if (hitResult && hitResult.item.hasOwnProperty("clicked")) {
-			hitResult.item.clicked(event.point);
+		//var hitResult = project.hitTest(event.point, hitOptions);
+		
+		for (var i = 0; i < organizers.length; i++) {
+			var curOrg = organizers[i];
 			
-		}else if (clickedMember) {
-			console.log(clickedMember);
+			if (curOrg.bounds.contains(event.point)) {
+				curOrg.clicked(event.point);
+				return;
+			}
+		}
+		
+		if (sim.cashBox.box.contains(event.point)) {
+			sim.cashBox.collectMoney();
+			return;
+		}
+		if (clickedMember) {
 			clickedMember.setDestVector(event.point);
 		}
 	};
@@ -142,7 +157,7 @@ $(function() {
 	// };
 	/*==== Rep Plus ====*/
 	var repImage = new Raster('rep-plus');
-	repImage.fitBounds({width:5*game.UNIT, height:game.UNIT*5});
+	repImage.fitBounds({width:8*game.UNIT, height:game.UNIT*8});
 	repPlusSym = new Symbol(repImage);
 	
 	
@@ -153,7 +168,7 @@ $(function() {
 var create_organizer = (function () {
 
 	var posCount = 0;
-	var speed = 2;
+	var speed = fastSpeed;
 	var startingPositions = [
 		house.bounds.bottomCenter.add(new Point(personHeight*1.5, personHeight*.5)), new Point(300, 300)
 	];
@@ -185,7 +200,7 @@ var create_organizer = (function () {
 			shape.selected = true;
 			shape.dragging = true;
 			drawFaceCard(member, "#simulation .members");
-			shape.setDestVector(point);
+			//shape.setDestVector(point);
 			moving = true;
 			
 		}
@@ -291,10 +306,10 @@ var create_goer = function(start) {
 		stayDuration, enterTime;
 	minDist = 5;
 	repCount = 3;
-	repDropProb = .20;
+	repDropProb = .10;
 	stayDuration = Math.floor(600 + rnd_snd()*150);
 	age = 0;
-	speed = 2;
+	speed = fastSpeed;
 	shape.alive = true;
 	shape.state = 'born';
 	
@@ -341,12 +356,12 @@ var create_goer = function(start) {
 					shape.state = "dispersing";
 					curDest = this.randomTarget(house);
 					setDestVector(curDest);
-					cashBox.addMoney(admissionCost);
+					sim.cashBox.addMoney(sim.admissionCost);
 				}
 				break;
 			case 'dispersing':
 			    //Moves the people around so they don't get stuck in the entrance
-			    speed = 1;
+			    speed = slowSpeed;
 			    if (nearTarget()) {
 			        shape.state = 'inside';
 			        curDest = this.randomTarget(house);
@@ -355,7 +370,7 @@ var create_goer = function(start) {
 			    shape.position = shape.position.add(destVect);
 			    break;
 			case 'inside':
-				speed = 1;
+				speed = slowSpeed;
 				if (nearTarget()) {
 					if (pauseCount < 20) {
 						pauseCount++;
@@ -468,12 +483,15 @@ var create_person = function(start, imageName) {
 	shape.randomTarget = randomTarget;
 	
 	function tryTalk() {
-		var hitResult = project.hitTest(shape.position, talkHitOptions);
-		if (hitResult && hitResult.item && hitResult.item != shape && (hitResult.item.state == "inside" || hitResult.item.type == "member")) {
-			hitResult.item.state = "talking";
-			shape.state = "talking";
-			shape.talkTarget = hitResult.item;
-			hitResult.item.talkTarget = shape;
+		for (var i = 0; i < goers.length; i++) {
+			var curGoer = goers[i];
+			if (curGoer !== shape && shape.bounds.intersects(curGoer.bounds)) {
+				shape.state = "talking";
+				shape.talkTarget = curGoer;
+				curGoer.state = "talking";
+				curGoer.talkTarget = shape;
+				return;
+			}
 		}
 	}
 	
@@ -510,15 +528,15 @@ function createRep(position) {
 	var frameCount, age, duration, alive;
 	shape.alive = true;
 	age = 0;
-	duration = 200;
+	duration = 40;
 	game.frat.rep += 1;
 	updateStatsBar();
 
 	shape.step = function() {
 		age++;
 		
-		if (age % 10 == 0) {
-			shape.opacity = shape.opacity*0.6;
+		if (age % 5 == 0) {
+			//shape.opacity = shape.opacity*0.6;
 			shape.position = shape.position.add({x:0, y:-1});
 		}
 		
