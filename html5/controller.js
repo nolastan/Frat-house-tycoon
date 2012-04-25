@@ -56,11 +56,11 @@ function goal(){
 
 function plan(){
 
-    if(!turnFound)
+    if(!game.nextTurnIsSet)
 	{
 	   game.lastTurn = game.nextTurn;
 	   game.nextTurn = game.turns.getNext();
-	   turnFound = true;
+	   game.nextTurnIsSet = true;
 	}
 	
 	if(game.lastTurn && game.lastTurn.title == "Rush Weekend"){

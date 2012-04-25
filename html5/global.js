@@ -1,6 +1,5 @@
 var game = {};
 var sg = {}; //Simulation Graphics
-var turnFound = false;
 
 function updateScreenSize(){
 	sg.scale = Math.min($(window).width()/sg.scale_x, ($(window).height()-90)/sg.scale_y);
@@ -39,6 +38,7 @@ $(document).ready(function(){
 	game.sim = {};
 	game.sim.stopped = true;
 	game.turnNum = 1;
+	game.nextTurnIsSet = false;
 	//How often you get to extend bids
 	game.bidFrequency = 5;	
 	
