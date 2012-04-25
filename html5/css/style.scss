@@ -160,7 +160,7 @@ nav{
 			margin-left: 10px;
 		}
 		float:right;
-		li.rep{display:inline; width:90px;}  // safari fix
+/* 		li.rep{display:inline; width:90px;}  // safari fix */
 	}
 	ul#skills{
 		float:right;
@@ -170,6 +170,8 @@ nav{
 		}
 		.bar{
 			height: 20px;
+			background-image: url('../images/vert_line.gif');
+			background-repeat: repeat-y;
 			.fill{
 				height: 20px;
 			}
@@ -212,6 +214,9 @@ nav.bidMeeting.over{
 		display:inline-block;
 	}
 }
+#bidScreen{
+	overflow: scroll;
+}
 /* Status Bars */
 .skills{
 	.bar{
@@ -241,10 +246,10 @@ nav.bidMeeting.over{
 	.party{
 		.bar{
 			border-color: darken($party_color, 40%);
-			background-color: lighten($party_color, 15%);
+			background-color: lighten($party_color, 20%);
 		}
 		.fill{
-			background-color: $party_color;
+			background-color: darken($party_color, 20%);
 		}
 		label{
 			color: darken($party_color, 40%);

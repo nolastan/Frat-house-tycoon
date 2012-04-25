@@ -25,13 +25,13 @@ $(function() {
 	//Draws house
 /* 	audioContext = new webkitAudioContext(); */
 
-var tr = new Point(0, 0);
-	var bl = new Point(300, 300);
+	var tr = new Point(sg.width, 0);
+	var bl = new Point(0, sg.height - 100);
 	house = new Path.Rectangle(tr, bl);
 	house.fillColor = 'yellow';
 	//Create bounds for person
-	personHeight = game.UNIT*10;
-	var size = new Size(game.UNIT*10, game.UNIT*10);
+	personHeight = sg.height / 10;
+	var size = new Size(personHeight, personHeight);
 	personRect = new Path.Rectangle(tr, size);
 	
 	//Create person sprite
@@ -48,7 +48,7 @@ var tr = new Point(0, 0);
 	view.onFrame = function(event) {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0) {
-				goers.push(create_goer(new Point(500, 500)));
+				goers.push(create_goer(new Point(sg.width, sg.height-50)));
 				game.sim.goersCount--;
 			}
 			for (var i = 0; i < goers.length; i++) {

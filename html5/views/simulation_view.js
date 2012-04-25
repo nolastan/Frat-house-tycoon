@@ -1,6 +1,7 @@
 function drawSimulationScreen(turn, results){
 	document.getElementById("currentTurn").innerHTML = turn.title + " results";
 	$(this).hide();
+	$("nav.main #screens").hide();
 	$("#run").hide();
 	$("#results").hide();
 	$(".screens").hide();

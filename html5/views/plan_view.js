@@ -199,6 +199,7 @@ function PlanView_RemoveId(id)
 //************************************************************************************
 
 function drawPlanningScreen(){
+	$("nav.main #screens").show();
 	$(".screens").hide();
 	$("nav.bidMeeting").hide();
 	$("nav.main").show();
@@ -211,6 +212,7 @@ function drawPlanningScreen(){
 	$("#planScreen .nextEvent .val").html(game.nextTurn.title);
   	$("#screens button").removeClass("active");
   	$("#screens .board button").addClass("active"); 
+  	$("nav.main #screens, nav.main #run").show();
 
 	if(firstDraw)
 	{
@@ -240,12 +242,12 @@ function drawPlanningScreen(){
 		
 		firstDraw = false;
 		updateStatsBar();
-  		updateScreenSize();
 	}
 	else
 	{
 	   $("#planScreen .instruct").remove();
 	}
+  	updateScreenSize();
 }
 
 //************************************************************************************

@@ -111,20 +111,20 @@ nav {
     float: right; }
   nav ul#stats {
     margin-right: 10px;
-    float: right; }
+    float: right;
+    /* 		li.rep{display:inline; width:90px;}  // safari fix */ }
     nav ul#stats object {
       margin-right: 5px;
       margin-left: 10px; }
-    nav ul#stats li.rep {
-      display: inline;
-      width: 90px; }
   nav ul#skills {
     float: right; }
     nav ul#skills h3 {
       font-size: 50%;
       text-align: center; }
     nav ul#skills .bar {
-      height: 20px; }
+      height: 20px;
+      background-image: url("../images/vert_line.gif");
+      background-repeat: repeat-y; }
       nav ul#skills .bar .fill {
         height: 20px; }
     nav ul#skills object {
@@ -167,6 +167,9 @@ nav.bidMeeting.over {
   nav.bidMeeting.over button {
     display: inline-block; }
 
+#bidScreen {
+  overflow: scroll; }
+
 /* Status Bars */
 .skills .bar {
   width: 120px;
@@ -187,9 +190,9 @@ nav.bidMeeting.over {
   color: #4e1a16; }
 .skills .party .bar {
   border-color: #989b2a;
-  background-color: #f8f8e5; }
+  background-color: #fdfef9; }
 .skills .party .fill {
-  background-color: #e6e8a9; }
+  background-color: #cfd259; }
 .skills .party label {
   color: #989b2a; }
 .skills .cs .bar {
@@ -330,18 +333,15 @@ ul.rushees, ul.members {
   font-size: 150%;
   font-weight: bold;
   margin-bottom: 5px; }
-  
-  
-  
-  /* Build */
+
+/* Build */
 #goalScreen .name {
   font-size: 200%;
   font-weight: bold;
   margin-top: 10px; }
-  
-#goalScreen .goalStatus {
-  font-size: 125%;}
 
+#goalScreen .goalStatus {
+  font-size: 125%; }
 
 #menu h1 {
   font-size: 300%;
@@ -444,8 +444,10 @@ ul.rushees li {
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none; }
+#planScreen .instruct {
+  font-size: 135%; }
 #planScreen .nextEvent {
-  float: left;
+  text-align: center;
   line-height: 35px;
   font-size: 150%;
   background-color: #eee;
@@ -474,7 +476,9 @@ ul.rushees li {
     cursor: move;
     width: 100%;
     clear: both;
-    height: 150px; }
+    height: 150px;
+    margin: 5px;
+    border: 1px solid #999; }
   #planScreen ul.members li.member:hover {
     background-color: #eee;
     border: 1px dashed #ccc; }
