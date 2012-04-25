@@ -39,15 +39,20 @@ function drawBidScreen(info){
 			html += '<li class="rushee" id="rushee_' +rushee.id + '">';
 			html += '<p class="name">' + rushee.name + '</p>';
 			html += '<canvas height="100" width="100" class="face"></canvas>';
+			html += '<canvas height="80" width="80" class="skills_chart"></canvas>';
+/*
 			html += '<ul class="skills">';
 			html += '<li class="rush"><object data="sprites/rush_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.rush / maxSkill * 100 + '%"></div></div></li>';
 			html += '<li class="party"><object data="sprites/party_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.party / maxSkill * 100 + '%"></div></div></li>';
 			html += '<li class="cs"><object data="sprites/cs_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.cs / maxSkill* 100 + '%"></div></div></li>';
 			html += '<li class="study"><object data="sprites/study_icon.svg" type="image/svg+xml"></object><div class="bar"><div class="fill" style="width:' + rushee.skills.study / maxSkill* 100 + '%"></div></div></li>';
 			html += '</ul>';
+*/
+			html += '<div class="interest">';
 			html += '<canvas width="100" height="50" class="gauge"></canvas>';
-			html += '<p class="interest">reputation</p>';
+			html += '<p>reputation</p>';
 			html += '<button class="bid">Bid</button>';
+			html += '</div>';
 			html += "</li>";
 			$("#bidScreen .rushees").append(html);
 	
@@ -56,6 +61,10 @@ function drawBidScreen(info){
 			
 			ctx = $("#rushee_"+rushee.id+" .face")[0];
 			drawRusheeFace(ctx.getContext("2d"), rushee);
+			
+			ctx = $("#rushee_"+rushee.id+" .skills_chart")[0];
+			drawSkillsChart(ctx.getContext("2d"), rushee);
+			
 		}
 		
 		if(game.frat.bids == 0){
@@ -65,7 +74,7 @@ function drawBidScreen(info){
 		}
 	  	
 	  	$("#bidScreen .rushees li button").click(function(){
-			var id = $(this).parent().attr("id");
+			var id = $(this).parent().parent().attr("id");
 			id = id.replace("rushee_", "");
 	  		if(bidRushee(id)){
 	  			$(this).addClass("accepted");

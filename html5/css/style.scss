@@ -313,21 +313,26 @@ ul.rushees, ul.members{
 		float:left;
 		margin-right: 10px;
 	}
-	canvas.gauge{
-	
-	}
 	button.bid{
 		width: 100px;
 		font-size: 1.2em;
 		height: 1.5em;
 		margin-top: 11px;
 	}
-	p.interest{
-		font-size:.7em;
-		text-align: center;
-		width:100px;
-		display:inline-block;
-	}
+	.interest{
+		width: 100px;
+		margin-left: 20px;
+		float:left;
+		p{
+			font-size:.7em;
+			text-align: center;
+			width:100px;
+			display:inline-block;
+		}
+		.guauge{
+			
+		}
+	} 
 	button.declined{
 		@include gradient-inverse($red);
 	}
@@ -345,6 +350,9 @@ ul.rushees, ul.members{
 	ul.skills{
 		float:left;
 		width: 170px;
+	}
+	.skills_chart{
+		float:left;
 	}
 	ul.skills li{
 		width: 100%;

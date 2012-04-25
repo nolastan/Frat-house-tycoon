@@ -240,11 +240,15 @@ ul.rushees, ul.members {
     font-size: 1.2em;
     height: 1.5em;
     margin-top: 11px; }
-  ul.rushees p.interest, ul.members p.interest {
-    font-size: .7em;
-    text-align: center;
+  ul.rushees .interest, ul.members .interest {
     width: 100px;
-    display: inline-block; }
+    margin-left: 20px;
+    float: left; }
+    ul.rushees .interest p, ul.members .interest p {
+      font-size: .7em;
+      text-align: center;
+      width: 100px;
+      display: inline-block; }
   ul.rushees button.declined, ul.members button.declined {
     background-image: linear-gradient(bottom, #aa392f, #923129);
     background-image: -o-linear-gradient(bottom, #aa392f, #923129);
@@ -268,6 +272,8 @@ ul.rushees, ul.members {
   ul.rushees ul.skills, ul.members ul.skills {
     float: left;
     width: 170px; }
+  ul.rushees .skills_chart, ul.members .skills_chart {
+    float: left; }
   ul.rushees ul.skills li, ul.members ul.skills li {
     width: 100%;
     clear: both;
