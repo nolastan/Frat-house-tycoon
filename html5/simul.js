@@ -56,7 +56,7 @@ $(function() {
 	game.sim.partyStep = function() {
 		if (!game.sim.stopped) { 
 			if (Math.random() > 0.95 && game.sim.goersCount > 0 && goers.length < 15) {
-				goers.push(create_goer(new Point(sg.width, sg.height-50)));
+				goers.push(create_party_goer(new Point(sg.width, sg.height-50)));
 				game.sim.goersCount--;
 			}
 			for (var i = 0; i < goers.length; i++) {
@@ -371,20 +371,69 @@ var create_cash_box = function() {
 }
 	
 
-	
 var create_goer = function(start) {
-
-	var sex = (Math.random() > 0.5) ? 'male' : 'female'
+	var sex = (Math.random() > 0.5) ? 'male' : 'female';
 	var shape = create_person(start, sex);
+  var minDist = 5;
+	shape.speed = fastSpeed;
+	
+	
+	var setDestVector = function(destination) {
+		shape.destVect = destination.subtract(shape.position);
+		shape.destVect = shape.destVect.normalize().multiply(shape.speed);
+	}
+	shape.setDestVector = setDestVector;
+	
+	function moveAlongPath(path) {
+		if (path.length <=0) {
+			return false;
+		}
+	
+		if (!shape.curDest) {
+			shape.curDest = path.shift();
+			setDestVector(shape.curDest);
+		}
+		
+		if (shape.nearTarget()) {
+			if (path.length > 0) {
+				shape.curDest = path.shift();
+				setDestVector(shape.curDest);
+			} else {
+				return false;
+			}
+		}
+		
+		shape.moveToTarget();
+		return true;
+	}
 
-	var destVect, inHouse, age, minDist, curDest, speed, repCount, repDropProb, 
+	shape.moveAlongPath = moveAlongPath;
+
+	shape.nearTarget = function() {
+		return shape.position.isClose(shape.curDest, minDist);
+	}
+	
+	shape.moveToTarget = function() {
+		shape.position = shape.position.add(shape.destVect);
+	
+	}
+	
+	return shape;
+}
+
+//============================Goer class for Party Phase
+var create_party_goer = function(start) {
+
+
+	var shape = create_goer(start);
+
+	var inHouse, age, repCount, repDropProb, 
 		stayDuration, enterTime;
-	minDist = 5;
+
 	repCount = 3;
 	repDropProb = .10;
 	stayDuration = Math.floor(600 + rnd_snd()*150);
 	age = 0;
-	speed = fastSpeed;
 	shape.alive = true;
 	shape.state = 'born';
 	
@@ -401,10 +450,7 @@ var create_goer = function(start) {
 	var passingPath = [start,new Point(house.bounds.bottomCenter.x, shape.position.y), 
 					new Point(house.bounds.left, shape.position.y)];
 
-	var setDestVector = function(destination) {
-		destVect = destination.subtract(shape.position);
-		destVect = destVect.normalize().multiply(speed);
-	}
+	var setDestVector = shape.setDestVector;
 	
 
 	var talkProb = 0.7;
@@ -417,36 +463,36 @@ var create_goer = function(start) {
 			case 'born':
 				if (Math.random() < enterProb) {
 					shape.state = 'entering';
-					moveAlongPath(entryPath);
+					shape.moveAlongPath(entryPath);
 				} else {
 					shape.state = 'passing';
-					moveAlongPath(passingPath);
+					shape.moveAlongPath(passingPath);
 				}
 				//shape.position += destVect;
 				break;
 				
 			case 'entering':
-				if (!moveAlongPath(entryPath)) {
+				if (!shape.moveAlongPath(entryPath)) {
 					enterTime = age;
 					shape.state = "dispersing";
-					curDest = this.randomTarget(house);
-					setDestVector(curDest);
+					shape.curDest = this.randomTarget(house);
+					setDestVector(shape.curDest);
 					sim.cashBox.addMoney(sim.admissionCost);
 				}
 				break;
 			case 'dispersing':
 			    //Moves the people around so they don't get stuck in the entrance
-			    speed = slowSpeed;
-			    if (nearTarget()) {
+			    shape.speed = slowSpeed;
+			    if (shape.nearTarget()) {
 			        shape.state = 'inside';
 			        curDest = this.randomTarget(house);
-					setDestVector(curDest);
+					setDestVector(shape.curDest);
 			    }
-			    shape.position = shape.position.add(destVect);
+			    shape.moveToTarget();
 			    break;
 			case 'inside':
-				speed = slowSpeed;
-				if (nearTarget()) {
+				shape.speed = slowSpeed;
+				if (shape.nearTarget()) {
 					if (pauseCount < 20) {
 						pauseCount++;
 						if (Math.random() < talkProb) {
@@ -454,27 +500,27 @@ var create_goer = function(start) {
 						}
 					} else {
 						pauseCount = 0;
-						curDest = this.randomTarget(house);
-						setDestVector(curDest);
+						shape.curDest = this.randomTarget(house);
+						setDestVector(shape.curDest);
 					}
 				} else {
-					shape.position = shape.position.add(destVect);
+					shape.moveToTarget();
 				}
 				
 				if (age > enterTime + stayDuration) {
 					curDest = 0;
-					moveAlongPath(exitPath)
+					shape.moveAlongPath(exitPath)
 					shape.state = 'leaving';
 				}
 				break;
 			case 'leaving':
-				if (!moveAlongPath(exitPath)) {
+				if (!shape.moveAlongPath(exitPath)) {
 					shape.die();
 				}
 				break;
 			
 			case 'passing':
-				if (!moveAlongPath(passingPath)) {
+				if (!shape.moveAlongPath(passingPath)) {
 					shape.die();
 				}
 				break;
@@ -490,41 +536,15 @@ var create_goer = function(start) {
 					if (Math.random() > ktp) {
 						shape.state = "inside";
 						talkCount = 0;
-						curDest = this.randomTarget(house);
-						setDestVector(curDest);
+						shape.curDest = this.randomTarget(house);
+						setDestVector(shape.curDest);
 					}
 				}
 				break;
 		}
 	}
 	
-	function moveAlongPath(path) {
-		if (path.length <=0) {
-			return false;
-		}
-	
-		if (!curDest) {
-			curDest = path.shift();
-			setDestVector(curDest);
-		}
-		
-		if (nearTarget()) {
-			if (path.length > 0) {
-				curDest = path.shift();
-				setDestVector(curDest);
-			} else {
-				return false;
-			}
-		}
-		
-		shape.position = shape.position.add(destVect);
-		return true;
-	}
 
-
-	function nearTarget() {
-		return shape.position.isClose(curDest, minDist);
-	}
 
 	function generateRep() {
 		if (Math.random() > repDropProb && repCount > 0) {
