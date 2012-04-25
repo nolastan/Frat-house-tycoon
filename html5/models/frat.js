@@ -116,6 +116,7 @@ var create_frat = function(quest) {
         var category, curMem, catMems, increase;
 	    increase = 4;
 		decrease = 1;
+			console.log(play);
 	    for (var i = 0; i < categories.length; i++) {
 	        category  = categories[i];
 	        catMems = play[category];

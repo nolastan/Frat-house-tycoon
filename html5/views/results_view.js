@@ -13,7 +13,7 @@ function drawResultsScreen(){
 	for(key in planViewPlay.party){
 		member_id = planViewPlay.party[key];		
 		member = game.frat.getMemberById(member_id);
-		if(member.skills.party > highest_party){
+		if(member && member.skills.party > highest_party){
 			highest_party = member.skills.party
 			party_chair = member;
 		}
@@ -25,7 +25,7 @@ function drawResultsScreen(){
 	for(key in planViewPlay.rush){
 		member_id = planViewPlay.rush[key];		
 		member = game.frat.getMemberById(member_id);
-		if(member.skills.rush > highest_rush){
+		if(member && member.skills.rush > highest_rush){
 			highest_rush = member.skills.rush
 			rush_chair = member;
 		}
@@ -37,7 +37,7 @@ function drawResultsScreen(){
 	for(key in planViewPlay.cs){
 		member_id = planViewPlay.cs[key];		
 		member = game.frat.getMemberById(member_id);
-		if(member.skills.cs > highest_cs){
+		if(member && member.skills.cs > highest_cs){
 			highest_cs = member.skills.cs
 			cs_chair = member;
 		}
@@ -49,7 +49,7 @@ function drawResultsScreen(){
 	for(key in planViewPlay.study){
 		member_id = planViewPlay.study[key];		
 		member = game.frat.getMemberById(member_id);
-		if(member.skills.study > highest_study){
+		if(member && member.skills.study > highest_study){
 			highest_study = member.skills.study
 			study_chair = member;
 		}

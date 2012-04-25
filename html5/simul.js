@@ -1,6 +1,6 @@
 window.globals = {};
 paper.install(window);
-var house, personRect, personHeight, repClicks = [];
+var house, personRect, personHeight, table, repClicks = [];
 var goers = [];
 var hitOptions;
 
@@ -21,8 +21,8 @@ $(function() {
 	//Draws house
 /* 	audioContext = new webkitAudioContext(); */
 
-	var tr = new Point(sg.width, 0);
-	var bl = new Point(0, sg.height - 100);
+	var tr = new Point(sg.width -100, 0);
+	var bl = new Point(0, sg.height - 200);
 	house = new Path.Rectangle(tr, bl);
 	house.fillColor = 'yellow';
 	//Create bounds for person
@@ -87,6 +87,7 @@ $(function() {
 	game.sim.end = function() {
 		game.sim.stopped = true;
 		game.sim.cleanUp();
+		view.onFrame = false;
 		results();
 	}
 	
@@ -102,6 +103,7 @@ $(function() {
 		}
 		
 		game.sim.stopped = false;
+		view.onFrame = frameFunction;
 	}
 	
 	//=====================Clean up what is left from a sim
@@ -127,15 +129,38 @@ $(function() {
 	//=========================Philanthropy Step
 	
 	game.sim.philStep = (function() {
-		var philDur = 0, philEnd = 50;
-		return function() {
-			if (philDur < philEnd) {
-				philDur++;
-				return;
-			}
-			philDur = 0;
-			game.sim.phase = "party";
 		
+		var philDur = 0, philEnd = 1000;
+		return function() {
+			if (!game.sim.stopped) {
+				var philgoer;
+				if (philDur == 0) {
+
+					var tr = new Point(sg.width/3, 0);
+					var bl = new Point(0, sg.height/15);
+					table = new Path.Rectangle(tr, bl);
+					table.fillColor = 'brown';
+					table.position = {x: house.bounds.width/4, y: house.bounds.height/2};
+					philgoer = create_phil_goer(new Point(sg.width, sg.height-50));
+					console.log("PHILGOER!!");
+					console.log(philgoer);
+				}	
+				if (philDur < philEnd) {
+					philDur++;
+					console.log(philgoer);
+					
+					if (philgoer) {
+						console.log("Step number: " + philDur.toString());
+						philgoer.step();
+					}
+					//game.sim.phase = "party";
+					return;
+				}
+				table.remove();
+				philDur = 0;
+				game.sim.phase = "over";
+			
+			}
 		}
 	})();
 	
@@ -144,7 +169,7 @@ $(function() {
 	game.sim.phase = "phil";
 	
 	
-	view.onFrame = function(event) {
+	var frameFunction = function(event) {
 		switch (game.sim.phase) {
 			case "party":
 				game.sim.partyStep();
@@ -385,9 +410,6 @@ var create_goer = function(start) {
 	shape.setDestVector = setDestVector;
 	
 	function moveAlongPath(path) {
-		if (path.length <=0) {
-			return false;
-		}
 	
 		if (!shape.curDest) {
 			shape.curDest = path.shift();
@@ -416,6 +438,56 @@ var create_goer = function(start) {
 	shape.moveToTarget = function() {
 		shape.position = shape.position.add(shape.destVect);
 	
+	}
+	
+	return shape;
+}
+
+
+//====== Goer class for Phil
+
+var create_phil_goer = function(start) {
+	var shape = create_goer(start);
+
+	var entryPath = [ start, new Point(house.bounds.bottomCenter.x, shape.position.y),
+				house.bounds.bottomCenter];
+	
+	var tablePath = [ table.bounds.bottomLeft, table.bounds.bottomRight];
+	
+	var exitPath = [house.bounds.center, house.bounds.bottomCenter, 
+			new Point(house.bounds.bottomCenter.x, shape.position.y),
+			new Point(house.bounds.left, start.y)];
+		
+
+	shape.state = "entering";
+	
+	shape.step = function() {
+		console.log("Phil step");
+		
+		switch(shape.state) {
+			case "entering":
+				
+				if (!shape.moveAlongPath(entryPath)) {
+					shape.state = "table";
+					console.log("phil now table");
+				}
+				
+				break;
+			case "table":
+				console.log("shape now table");
+				if (!shape.moveAlongPath(tablePath)) {
+					shape.state = "exiting";
+				}
+				break;
+			case "exiting":
+			default:
+				if (!shape.moveAlongPath(exitPath)) {
+					console.log("phil now dead");
+					shape.die();
+				}
+		
+		}
+		console.log(entryPath);
 	}
 	
 	return shape;
@@ -558,6 +630,8 @@ var create_party_goer = function(start) {
 }
 
 var create_person = function(start, imageName) {
+
+						console.log("new person");
 	imageName = imageName || 'male';
 	var shape = new Raster(imageName);
 	shape.fitBounds(personRect.bounds);
