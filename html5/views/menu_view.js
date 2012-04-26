@@ -11,6 +11,8 @@ $(document).ready(function(){
 	$("ul.quests").html(html);
 	$("ul.quests li button.start").click(function(){
 	    console.log('quest started');	    
+		$("#addRushees").hide();
+	    $("#addBids").hide();
 		var id = $(this).parent().attr("id");
 		newGame(id);
 	})
