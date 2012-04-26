@@ -104,7 +104,7 @@ $(function() {
 			var newOrg = create_organizer(game.frat.getMemberById(curId));
 			organizers.push(newOrg);
 		}
-		
+		game.sim.phase = "phil";
 		game.sim.stopped = false;
 		view.onFrame = frameFunction;
 	}
@@ -206,6 +206,8 @@ $(function() {
 				return;
 			}
 		}
+		
+
 		if (clickedMember) {
 			clickedMember.directTo(event.point);
 		}
@@ -558,7 +560,7 @@ var create_party_goer = function(start) {
 					shape.moveToTarget();
 				}
 				
-				if (age > enterTime + stayDuration) {
+				if (age - enterTime > stayDuration) {
 					curDest = 0;
 					shape.moveAlongPath(exitPath)
 					shape.state = 'leaving';

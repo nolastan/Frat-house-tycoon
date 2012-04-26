@@ -54,9 +54,9 @@ $(document).ready(function(){
 	
 	
 	$("#skip").click(function(){
-		//game.sim.end();
-		game.sim.stopped = true;
-		game.sim.cleanUp();
+		game.sim.end();
+		//game.sim.stopped = true;
+		//game.sim.cleanUp();
 
 		results();
 	});
