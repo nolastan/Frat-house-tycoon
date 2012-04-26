@@ -1,11 +1,11 @@
 window.globals = {};
 paper.install(window);
-var house, personRect, personHeight, repClicks = [];
+var house, personRect, personHeight, frontLawn, shirtBox, table, repClicks = [];
 var goers = [];
 var hitOptions;
 
 var sim = {};
-
+var tableShirts;
 var talkHitOptions = {
     bounds: true,
     tolerance: 35
@@ -21,12 +21,46 @@ $(function() {
 	//Draws house
 /* 	audioContext = new webkitAudioContext(); */
 
-	var tr = new Point(sg.width, 0);
-	var bl = new Point(0, sg.height - 100);
+	var tr = new Point(sg.width -100, 0);
+	var bl = new Point(0, sg.height - 200);
 	house = new Path.Rectangle(tr, bl);
 	house.fillColor = 'yellow';
 	//Create bounds for person
 	personHeight = sg.height / 10;
+	
+	//Add grass
+	tr.x = sg.width;
+	bl.y = sg.height;
+	var lawnRect = new Rectangle(tr, bl);
+	var grass = new Raster("grass");
+	grass.fitBounds(lawnRect, true);
+	
+	
+	frontLawn = new Path.Rectangle(house.bounds.bottomRight, {x:0, y:sg.height});
+	frontLawn.fillColor = 'green';
+	frontLawn.visible = false;
+	
+	var wood = new Raster("wood");
+	wood.fitBounds(house.bounds);
+	
+	var woodSym = new Symbol(wood);
+	var wd = woodSym.place(house.position);
+	var delta = wd.position.subtract(house.bounds.leftCenter).multiply(-1).add({x:wd.bounds.width/2, y:0});
+	wd.translate(delta);
+	
+	var woodNeeded = wd.bounds.width/house.bounds.width;
+	var startPos = wd.position.add({x:wd.bounds.width, y:0});
+	for (var i = 0; i < woodNeeded+2; i++) {
+	    woodSym.place(startPos);
+	    startPos = startPos.add({x:wd.bounds.width, y:0});
+	}
+	
+	
+	
+	//var woodSym = new Symbol(wood);
+	//var wd = woodSym.place(wood.position);
+	//wd.position.add({x:wd.bounds.width, y:0});
+
 	var size = new Size(personHeight, personHeight);
 	personRect = new Path.Rectangle(tr, size);
 	
@@ -44,17 +78,24 @@ $(function() {
 	
 	var clickedMember;
 	var organizers = [];
+	var philOrgs = [];
+	var philgoers = [];
+	tableShirts = [];
 
-	game.sim.goersCount = 0;
+	game.sim.partyGoersCount = 0;
 	
 	fastSpeed = Math.round(personHeight*0.08);
 	slowSpeed = Math.round(personHeight*0.05);
 	
-	view.onFrame = function(event) {
+	//================================Party Phase Step===============================
+	
+	
+	game.sim.partyStep = function() {
+
 		if (!game.sim.stopped) { 
-			if (Math.random() > 0.95 && game.sim.goersCount > 0 && goers.length < 15) {
-				goers.push(create_goer(new Point(sg.width, sg.height-50)));
-				game.sim.goersCount--;
+			if (Math.random() > 0.95 && game.sim.partyGoersCount > 0 && goers.length < 15) {
+				goers.push(create_party_goer(new Point(sg.width, sg.height-50)));
+				game.sim.partyGoersCount--;
 			}
 			for (var i = 0; i < goers.length; i++) {
 				goers[i].step();
@@ -73,93 +114,247 @@ $(function() {
 					repClicks.splice(i, 1);
 				}
 			}
-			if (goers.length  == 0 && game.sim.goersCount <= 0) {
-				game.sim.stopped = true;
-				game.sim.cleanUp();
-				results();
+			if (goers.length  == 0 && game.sim.partyGoersCount <= 0) {
+				game.sim.phase = "over";
 			}
 		}
 	}
 	
-	game.sim.start = function() {
-		
-		partyOrgs = game.frat.getPlay().party;
-		console.log(partyOrgs);
-		for (var i = 0; i < partyOrgs.length; i++) {
-			var curId = partyOrgs[i];
-			var newOrg = create_organizer(game.frat.getMemberById(curId));
-			organizers.push(newOrg);
-		}
-		
-		game.sim.stopped = false;
+	//=================End the simulation
+	
+	game.sim.end = function() {
+		game.sim.stopped = true;
+		game.sim.cleanUp();
+		view.onFrame = false;
+		results();
 	}
 	
+	//==================Start the simulation
+	game.sim.start = function() {
+		
+
+		game.sim.phase = "phil";
+		game.sim.stopped = false;
+		view.onFrame = frameFunction;
+	}
+	
+	//=====================Clean up what is left from a sim
 	game.sim.cleanUp = function() {
+
+		
+		for (var i = 0; i < repClicks.length; i++) {
+			repClicks[i].remove();
+		}
+		game.sim.partyGoersCount = 0;
+		game.sim.philGoersCount = 0;
+		philgoers = [];
+
+		
+	}
+	
+	game.sim.cleanUpPhil = function() {
+		for (var i= 0; i < philgoers.length; i++) {
+			philgoers[i].die();
+		}
+		for (var i = 0; i < philOrgs.length; i++) {
+			philOrgs[i].remove();
+		}
+		table.visible = false;
+		shirtBox.visible = false;
+		for (var i = 0; i < tableShirts.length; i++) {
+		    tableShirts[i].remove();
+		}
+	}
+	
+	game.sim.cleanUpParty = function() {
 		for (var i= 0; i < goers.length; i++) {
 			goers[i].die();
-			
 		}
 		for (var i = 0; i < organizers.length; i++) {
 			organizers[i].remove();
 		}
 		
-		for (var i = 0; i < repClicks.length; i++) {
-			repClicks[i].remove();
-		}
-		game.sim.goersCount = 0;
 		goers = [];
 		repClicks = [];
 		organizers = [];
-		
+		sim.cashBox.remove();
 	}
+	
+	game.sim.setupPhil = function() {
+	    table.visible = true;
+	    shirtBox.visible = true;
+		pOrgs = game.frat.getPlay().cs;
+		for (var i = 0; i < pOrgs.length; i++) {
+			var curId = pOrgs[i];
+			var newOrg = create_organizer(game.frat.getMemberById(curId));
+			philOrgs.push(newOrg);
+		}
+		
+		shirtBox.fillTable();
+	}
+	
+
+	
+	game.sim.setupParty = function() {
+		partyOrgs = game.frat.getPlay().party;
+		for (var i = 0; i < partyOrgs.length; i++) {
+			var curId = partyOrgs[i];
+			var newOrg = create_organizer(game.frat.getMemberById(curId));
+			organizers.push(newOrg);
+		}
+		sim.cashBox = create_cash_box();
+	}
+	
+	//=========================Philanthropy Step
+	
+	game.sim.philStep = (function() {
+		var philgoer;
+		var philDur = 0, philEnd = 1000;
+		var tr = new Point(sg.width/3, 0);
+		var bl = new Point(0, sg.height/15);
+		table = new Path.Rectangle(tr, bl);
+		table.fillColor = 'brown';
+		table.position = {x: house.bounds.width/3, y: house.bounds.height/2};
+		table.visible = false;
+		
+		var shirtPoint = table.bounds.topLeft.subtract({x:table.bounds.height*1.1, y:0});
+		shirtBox = new Path.Rectangle(shirtPoint, {width:table.bounds.height, height:table.bounds.height});
+		shirtBox.fillColor = 'black';
+		
+		return function() {
+			if (!game.sim.stopped) {
+
+				
+				if (philDur == 0) {
+					game.sim.setupPhil();
+				}
+				philDur++;
+				if (Math.random() > 0.95 && game.sim.philGoersCount > 0 && philgoers.length < 15) {
+    				philgoers.push(create_phil_goer(new Point(sg.width, sg.height-50)));
+    				game.sim.philGoersCount--;
+    			}
+				
+				for (var k =0; k < philOrgs.length; k++) {
+					philOrgs[k].step();
+				}
+
+				for (var k =0; k < philgoers.length; k++) {
+				    if (philgoers[k].alive) {
+				        philgoers[k].step();
+				    } else {
+				        philgoers.splice(k, 1);
+				    }
+				}
+				
+				for (var i = 0; i < repClicks.length; i++) {
+    				repClicks[i].step();
+    				if (!repClicks[i].alive) {
+    					repClicks.splice(i, 1);
+    				}
+    			}
+				
+                if (philgoers.length <= 0 && game.sim.philGoersCount <= 0) {
+                    
+                    philDur = 0;
+
+    				game.sim.cleanUpPhil();
+    				game.sim.phase = "party";
+    				game.sim.setupParty();
+                }
+
+			}
+		}
+	})();
+	
+	shirtBox.fillTable = function() {
+	    if (tableShirts.length > 0) {
+	        for (var i =0; i < tableShirts.length; i++) {
+	            tableShirts[i].remove();
+	            
+	        }
+	        tableShirts = [];
+	    }
+	    
+		var x = table.bounds.topLeft.x + tshirt.bounds.width/2;
+		var delta = new Point(tshirt.bounds.width*1.1, 0);
+		var y = table.bounds.topLeft.y + tshirt.bounds.height/2;
+		var placePoint = new Point(x, y);
+		while (table.bounds.contains(placePoint.add(delta))) {
+			var tshirtP = tshirtSym.place(placePoint);
+			placePoint = placePoint.add(delta);
+			tableShirts.push(tshirtP);
+		}
+	}
+	//========================Fire correct step based on phase
+	
+	game.sim.phase = "phil";
+	
+	
+	var frameFunction = function(event) {
+		switch (game.sim.phase) {
+			case "party":
+				game.sim.partyStep();
+				break;
+			case "phil":
+				game.sim.philStep();
+				break;
+				
+			case "over":
+			default:
+				game.sim.end();
+		}
+	}
+	
+	
 
 
 	var tool = new Tool();
-	sim.cashBox = create_cash_box();
 	
+	
+	
+	//=====================Mouse Clicks=======================
 	
 	tool.onMouseDown = function(event) {
-		//var hitResult = project.hitTest(event.point, hitOptions);
-		
-		for (var i = 0; i < organizers.length; i++) {
-			var curOrg = organizers[i];
-			
-			if (curOrg.bounds.contains(event.point)) {
-				curOrg.clicked(event.point);
-				return;
+	
+		if (game.sim.phase == "party") {
+			for (var i = 0; i < organizers.length; i++) {
+				var curOrg = organizers[i];
+				
+				if (curOrg.bounds.contains(event.point)) {
+					curOrg.clicked(event.point);
+					return;
+				}
 			}
+		} else {
+			for (var i = 0; i < philOrgs.length; i++) {
+				var curOrg = philOrgs[i];
+				
+				if (curOrg.bounds.contains(event.point)) {
+					curOrg.clicked(event.point);
+					return;
+				}
+			}
+		
 		}
 		
-		if (sim.cashBox.box.contains(event.point)) {
-			sim.cashBox.collectMoney();
-			return;
-		}
+
 		if (clickedMember) {
-			clickedMember.setDestVector(event.point);
+			clickedMember.directTo(event.point);
 		}
+		
 	};
-	
-	// tool.onMouseDrag = function(event) {
-		// if (clickedMember && clickedMember.dragging) {
-			// clickedMember.position = event.point;
-		// }
-	// };
-	
-	
-	// tool.onMouseUp = function(event) {
-	
-		// if (clickedMember) {
-			// clickedMember.tryTalk();
-			// clickedMember.dragging = false;
-		// }
-		
-		
-	// };
+
 	/*==== Rep Plus ====*/
 	var repImage = new Raster('rep-plus');
 	repImage.fitBounds({width:8*game.UNIT, height:game.UNIT*8});
 	repPlusSym = new Symbol(repImage);
 	
+	//Shirt symbol
+	
+	var tshirt = new Raster("tshirt");
+	tshirt.fitBounds(table.bounds);
+	//tshirt.visible = false;
+	var tshirtSym = new Symbol(tshirt);
 	
 	
 	/*
@@ -178,6 +373,8 @@ var create_organizer = (function () {
 		var shape = create_person(position, 'organizer');
 		var moving = false;
 		var destVect, curDest, path;
+		
+		var pauseCount = 0, pauseLength = 15;
 		
 		shape.selected = false;
 		if (posCount < startingPositions.length) {
@@ -200,34 +397,68 @@ var create_organizer = (function () {
 			shape.selected = true;
 			shape.dragging = true;
 			drawFaceCard(member, "#simulation .members");
+			speed = fastSpeed;
 			//shape.setDestVector(point);
-			moving = true;
+			//shape.state = "moving";
 			
 		}
 		
+		shape.directTo = function(point) {
+			speed = fastSpeed;
+			shape.setDestVector(point);
+		}
+		
 		shape.setDestVector = function(point) {
-			moving = true;
+			shape.state = "moving";
 			curDest = point;
 			destVect = curDest.subtract(shape.position);
 			destVect = destVect.normalize().multiply(speed);
 		}
 		
 		shape.step = function() {
-			if (moving) {
-				shape.position = shape.position.add(destVect);
-				if (shape.selected) {
-					//draw path to dest
-				}
-				
-				
-				if (shape.position.isClose(curDest, 5)) {
-					shape.tryTalk();
-					moving = false;
-				}
-			}
-		}
 		
-		return shape;
+			switch(shape.state) {
+			
+			case "moving":
+				shape.position = shape.position.add(destVect);
+				if (shape.position.isClose(curDest, 5)) {
+					curDest = false;
+					//shape.tryTalk();
+					shape.state = "pausing";
+				}
+				break;
+			case "pausing":
+				if (pauseCount < pauseLength) {
+					pauseCount++;
+					if (game.sim.phase == "party"){
+					    shape.tryTalk(goers);
+					} else {
+					    shape.tryTalk(philgoers);
+					}
+					if (sim.cashBox && shape.bounds.intersects(sim.cashBox.box.bounds)) {
+						sim.cashBox.collectMoney();
+					}
+					if (game.sim.phase == "phil" && shirtBox && shape.bounds.intersects(shirtBox.bounds)) {
+					    console.log("Shirts!");
+					    shirtBox.fillTable();
+					}
+				} else {
+					pauseCount = 0;
+					speed = slowSpeed/2;
+					shape.setDestVector(shape.randomTarget(house));
+				}
+				break;
+			case "talking":
+				if (!shape.talk()) {
+					shape.state = "pausing";
+				}
+				break;
+		}
+	}
+	
+	shape.state = "pausing";
+		
+	return shape;
 		
 	}
 
@@ -296,20 +527,142 @@ var create_cash_box = function() {
 }
 	
 
-	
 var create_goer = function(start) {
-
-	var sex = (Math.random() > 0.5) ? 'male' : 'female'
+	var sex = (Math.random() > 0.5) ? 'male' : 'female';
 	var shape = create_person(start, sex);
+  var minDist = 5;
+	shape.speed = fastSpeed;
+	
+	
+	var setDestVector = function(destination) {
+		shape.destVect = destination.subtract(shape.position);
+		shape.destVect = shape.destVect.normalize().multiply(shape.speed);
+	}
+	shape.setDestVector = setDestVector;
+	
+	function moveAlongPath(path) {
+	
+		if (!shape.curDest) {
+			shape.curDest = path.shift();
+			setDestVector(shape.curDest);
+		}
+		
+		if (shape.nearTarget()) {
+			if (path.length > 0) {
+				shape.curDest = path.shift();
+				setDestVector(shape.curDest);
+			} else {
+				return false;
+			}
+		}
+		shape.moveToTarget();
+		return true;
+	}
 
-	var destVect, inHouse, age, minDist, curDest, speed, repCount, repDropProb, 
+	shape.moveAlongPath = moveAlongPath;
+
+	shape.nearTarget = function() {
+		return shape.position.isClose(shape.curDest, minDist);
+	}
+	
+	shape.moveToTarget = function() {
+		shape.position = shape.position.add(shape.destVect);
+	
+	}
+	
+	return shape;
+}
+
+
+//====== Goer class for Phil
+
+var create_phil_goer = function(start) {
+    var age = 0;
+    var stayDur = Math.floor(600 + rnd_snd()*150);
+	var shape = create_goer(start);
+
+	var entryPath = [new Point(house.bounds.bottomCenter.x, shape.position.y),
+				house.bounds.bottomCenter];
+	
+	var tablePath = [ table.bounds.bottomLeft, table.bounds.bottomRight];
+	
+	var exitPath = [house.bounds.bottomCenter, 
+			new Point(house.bounds.bottomCenter.x, shape.position.y),
+			new Point(house.bounds.left, start.y)];
+		
+
+	shape.state = "wandering";
+	
+	shape.step = function() {
+		age++;
+		switch(shape.state) {
+		    case "wandering":
+		        if (!shape.curDest || shape.position.isClose(shape.curDest, 5)) {
+		            shape.curDest = shape.randomTarget(frontLawn);
+		            shape.setDestVector(shape.curDest);
+		        }
+		        
+		        shape.moveToTarget();
+		        
+		        if (age > stayDur) {
+		            shape.state = "exiting";
+		        }
+		        break;
+			case "entering":
+				
+				if (!shape.moveAlongPath(entryPath)) {
+					shape.state = "table";
+				}
+				
+				break;
+			case "table":
+				if (!shape.moveAlongPath(tablePath)) {
+				    
+				    if (tableShirts.length > 0) {
+				        var boughtShirt = tableShirts.pop();
+				        boughtShirt.remove();
+				        generateRep();
+				    }
+					
+					shape.state = "exiting";
+				}
+				break;
+			case "talking":
+				if (!shape.talk()) {
+					shape.state = "entering";
+				}
+				break;
+			case "exiting":
+			default:
+				if (!shape.moveAlongPath(exitPath)) {
+					shape.die();
+				}
+				break;
+		
+		}
+	}
+	
+	function generateRep() {
+		var pos = shape.bounds.center.subtract({x:0, y:personHeight/1.5});
+		repClicks.push(createRep(pos));
+	}
+	
+	return shape;
+}
+
+//============================Goer class for Party Phase
+var create_party_goer = function(start) {
+
+
+	var shape = create_goer(start);
+
+	var inHouse, age, repCount, repDropProb, 
 		stayDuration, enterTime;
-	minDist = 5;
+
 	repCount = 3;
 	repDropProb = .10;
 	stayDuration = Math.floor(600 + rnd_snd()*150);
 	age = 0;
-	speed = fastSpeed;
 	shape.alive = true;
 	shape.state = 'born';
 	
@@ -326,10 +679,7 @@ var create_goer = function(start) {
 	var passingPath = [start,new Point(house.bounds.bottomCenter.x, shape.position.y), 
 					new Point(house.bounds.left, shape.position.y)];
 
-	var setDestVector = function(destination) {
-		destVect = destination.subtract(shape.position);
-		destVect = destVect.normalize().multiply(speed);
-	}
+	var setDestVector = shape.setDestVector;
 	
 
 	var talkProb = 0.7;
@@ -342,64 +692,64 @@ var create_goer = function(start) {
 			case 'born':
 				if (Math.random() < enterProb) {
 					shape.state = 'entering';
-					moveAlongPath(entryPath);
+					shape.moveAlongPath(entryPath);
 				} else {
 					shape.state = 'passing';
-					moveAlongPath(passingPath);
+					shape.moveAlongPath(passingPath);
 				}
 				//shape.position += destVect;
 				break;
 				
 			case 'entering':
-				if (!moveAlongPath(entryPath)) {
+				if (!shape.moveAlongPath(entryPath)) {
 					enterTime = age;
 					shape.state = "dispersing";
-					curDest = this.randomTarget(house);
-					setDestVector(curDest);
+					shape.curDest = this.randomTarget(house);
+					setDestVector(shape.curDest);
 					sim.cashBox.addMoney(sim.admissionCost);
 				}
 				break;
 			case 'dispersing':
 			    //Moves the people around so they don't get stuck in the entrance
-			    speed = slowSpeed;
-			    if (nearTarget()) {
+			    shape.speed = slowSpeed;
+			    if (shape.nearTarget()) {
 			        shape.state = 'inside';
 			        curDest = this.randomTarget(house);
-					setDestVector(curDest);
+					setDestVector(shape.curDest);
 			    }
-			    shape.position = shape.position.add(destVect);
+			    shape.moveToTarget();
 			    break;
 			case 'inside':
-				speed = slowSpeed;
-				if (nearTarget()) {
+				shape.speed = slowSpeed;
+				if (shape.nearTarget()) {
 					if (pauseCount < 20) {
 						pauseCount++;
 						if (Math.random() < talkProb) {
-							shape.tryTalk();
+							shape.tryTalk(goers);
 						}
 					} else {
 						pauseCount = 0;
-						curDest = this.randomTarget(house);
-						setDestVector(curDest);
+						shape.curDest = this.randomTarget(house);
+						setDestVector(shape.curDest);
 					}
 				} else {
-					shape.position = shape.position.add(destVect);
+					shape.moveToTarget();
 				}
 				
-				if (age > enterTime + stayDuration) {
+				if (age - enterTime > stayDuration) {
 					curDest = 0;
-					moveAlongPath(exitPath)
+					shape.moveAlongPath(exitPath)
 					shape.state = 'leaving';
 				}
 				break;
 			case 'leaving':
-				if (!moveAlongPath(exitPath)) {
+				if (!shape.moveAlongPath(exitPath)) {
 					shape.die();
 				}
 				break;
 			
 			case 'passing':
-				if (!moveAlongPath(passingPath)) {
+				if (!shape.moveAlongPath(passingPath)) {
 					shape.die();
 				}
 				break;
@@ -415,37 +765,15 @@ var create_goer = function(start) {
 					if (Math.random() > ktp) {
 						shape.state = "inside";
 						talkCount = 0;
-						curDest = this.randomTarget(house);
-						setDestVector(curDest);
+						shape.curDest = this.randomTarget(house);
+						setDestVector(shape.curDest);
 					}
 				}
 				break;
 		}
 	}
 	
-	function moveAlongPath(path) {
-		if (!curDest) {
-			curDest = path.shift();
-			setDestVector(curDest);
-		}
-		
-		if (nearTarget()) {
-			if (path.length > 0) {
-				curDest = path.shift();
-				setDestVector(curDest);
-			} else {
-				return false;
-			}
-		}
-		
-		shape.position = shape.position.add(destVect);
-		return true;
-	}
 
-
-	function nearTarget() {
-		return shape.position.isClose(curDest, minDist);
-	}
 
 	function generateRep() {
 		if (Math.random() > repDropProb && repCount > 0) {
@@ -459,12 +787,14 @@ var create_goer = function(start) {
 }
 
 var create_person = function(start, imageName) {
+
+						console.log("new person");
 	imageName = imageName || 'male';
 	var shape = new Raster(imageName);
 	shape.fitBounds(personRect.bounds);
 	shape.position = start;
 	shape.visible = true;
-	
+	shape.alive = true;
 	shape.type = "person";
 	
 	shape.die = function() {
@@ -474,17 +804,23 @@ var create_person = function(start, imageName) {
 	}
 
 	function randomTarget(rect) {
-		var temp = rect.bounds.topLeft.add(shape.bounds.size.divide(2));
-		temp = temp.add(Point.random().multiply(rect.bounds.size.subtract(shape.bounds.size)));
+	    
+	    if (typeof rect.bounds !== undefined) {
+	        rect = rect.bounds;
+	    }
+		var temp = rect.topLeft.add(shape.bounds.size.divide(2));
+		temp = temp.add(Point.random().multiply(rect.size.subtract(shape.bounds.size)));
 
 		return temp;
 	}
 	
 	shape.randomTarget = randomTarget;
 	
-	function tryTalk() {
-		for (var i = 0; i < goers.length; i++) {
-			var curGoer = goers[i];
+	function tryTalk(talkGroup) {
+	    
+	    
+		for (var i = 0; i < talkGroup.length; i++) {
+			var curGoer = talkGroup[i];
 			if (curGoer !== shape && shape.bounds.intersects(curGoer.bounds)) {
 				shape.state = "talking";
 				shape.talkTarget = curGoer;
