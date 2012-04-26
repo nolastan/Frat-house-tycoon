@@ -5,7 +5,7 @@ var goers = [];
 var hitOptions;
 
 var sim = {};
-
+var tableShirts;
 var talkHitOptions = {
     bounds: true,
     tolerance: 35
@@ -46,6 +46,7 @@ $(function() {
 	var organizers = [];
 	var philOrgs = [];
 	var philgoers = [];
+	tableShirts = [];
 
 	game.sim.partyGoersCount = 0;
 	
@@ -97,13 +98,7 @@ $(function() {
 	//==================Start the simulation
 	game.sim.start = function() {
 		
-		partyOrgs = game.frat.getPlay().party;
-		console.log(partyOrgs);
-		for (var i = 0; i < partyOrgs.length; i++) {
-			var curId = partyOrgs[i];
-			var newOrg = create_organizer(game.frat.getMemberById(curId));
-			organizers.push(newOrg);
-		}
+
 		game.sim.phase = "phil";
 		game.sim.stopped = false;
 		view.onFrame = frameFunction;
@@ -111,13 +106,7 @@ $(function() {
 	
 	//=====================Clean up what is left from a sim
 	game.sim.cleanUp = function() {
-		for (var i= 0; i < goers.length; i++) {
-			goers[i].die();
-			
-		}
-		for (var i = 0; i < organizers.length; i++) {
-			organizers[i].remove();
-		}
+
 		
 		for (var i = 0; i < repClicks.length; i++) {
 			repClicks[i].remove();
@@ -125,10 +114,61 @@ $(function() {
 		game.sim.partyGoersCount = 0;
 		game.sim.philGoersCount = 0;
 		philgoers = [];
+
+		
+	}
+	
+	game.sim.cleanUpPhil = function() {
+		for (var i= 0; i < philgoers.length; i++) {
+			philgoers[i].die();
+		}
+		for (var i = 0; i < philOrgs.length; i++) {
+			philOrgs[i].remove();
+		}
+	}
+	
+	game.sim.cleanUpParty = function() {
+		for (var i= 0; i < goers.length; i++) {
+			goers[i].die();
+		}
+		for (var i = 0; i < organizers.length; i++) {
+			organizers[i].remove();
+		}
+		
 		goers = [];
 		repClicks = [];
 		organizers = [];
-		
+	}
+	
+	game.sim.setupPhil = function() {
+		pOrgs = game.frat.getPlay().cs;
+		for (var i = 0; i < pOrgs.length; i++) {
+			var curId = pOrgs[i];
+			var newOrg = create_organizer(game.frat.getMemberById(curId));
+			philOrgs.push(newOrg);
+		}
+		fillTable();
+	}
+	
+	var fillTable = function() {
+		var x = table.bounds.topLeft.x + tshirt.bounds.width/2;
+		var delta = new Point(tshirt.bounds.width*1.1, 0);
+		var y = table.bounds.topLeft.y + tshirt.bounds.height/2;
+		var placePoint = new Point(x, y);
+		while (table.bounds.contains(placePoint.add(delta))) {
+			var tshirtP = tshirtSym.place(placePoint);
+			placePoint = placePoint.add(delta);
+			tableShirts.push(tshirtP);
+		}
+	}
+	
+	game.sim.setupParty = function() {
+		partyOrgs = game.frat.getPlay().party;
+		for (var i = 0; i < partyOrgs.length; i++) {
+			var curId = partyOrgs[i];
+			var newOrg = create_organizer(game.frat.getMemberById(curId));
+			organizers.push(newOrg);
+		}
 	}
 	
 	//=========================Philanthropy Step
@@ -152,6 +192,11 @@ $(function() {
 					table.visible = true;
 					philgoer = create_phil_goer(new Point(sg.width, sg.height-50));
 					console.log(philgoer);
+					game.sim.setupPhil();
+				}
+				
+				for (var k =0; k < philOrgs.length; k++) {
+					philOrgs[k].step();
 				}
 
 				if (philgoer.alive) {
@@ -159,11 +204,14 @@ $(function() {
 					philgoer.step();
 					return;
 				}
+				
+
 				console.log("asdfasdfa");
 				philDur = 0;
 				table.visible = false;
+				game.sim.cleanUpPhil();
 				game.sim.phase = "party";
-			
+				game.sim.setupParty();
 			}
 		}
 	})();
@@ -198,19 +246,34 @@ $(function() {
 	//=====================Mouse Clicks=======================
 	
 	tool.onMouseDown = function(event) {
-		for (var i = 0; i < organizers.length; i++) {
-			var curOrg = organizers[i];
-			
-			if (curOrg.bounds.contains(event.point)) {
-				curOrg.clicked(event.point);
-				return;
+	
+		if (game.sim.phase == "party") {
+			for (var i = 0; i < organizers.length; i++) {
+				var curOrg = organizers[i];
+				
+				if (curOrg.bounds.contains(event.point)) {
+					curOrg.clicked(event.point);
+					return;
+				}
 			}
+		} else {
+			for (var i = 0; i < philOrgs.length; i++) {
+				var curOrg = philOrgs[i];
+				
+				if (curOrg.bounds.contains(event.point)) {
+					curOrg.clicked(event.point);
+					return;
+				}
+			}
+		
 		}
 		
 
 		if (clickedMember) {
+			console.log(clickedMember);
 			clickedMember.directTo(event.point);
 		}
+		
 	};
 
 	/*==== Rep Plus ====*/
@@ -218,6 +281,12 @@ $(function() {
 	repImage.fitBounds({width:8*game.UNIT, height:game.UNIT*8});
 	repPlusSym = new Symbol(repImage);
 	
+	//Shirt symbol
+	
+	var tshirt = new Raster("tshirt");
+	tshirt.fitBounds(table.bounds);
+	//tshirt.visible = false;
+	var tshirtSym = new Symbol(tshirt);
 	
 	
 	/*
@@ -458,6 +527,8 @@ var create_phil_goer = function(start) {
 				break;
 			case "table":
 				if (!shape.moveAlongPath(tablePath)) {
+					var boughtShirt = tableShirts.shift();
+					boughtShirt.remove();
 					shape.state = "exiting";
 				}
 				break;
