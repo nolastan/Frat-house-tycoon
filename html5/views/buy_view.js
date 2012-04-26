@@ -119,6 +119,7 @@ function drawBuyScreen(){
 	$(".screens").hide();
 	$("#buyScreen").show();
   	$("#screens button").removeClass("active");
+  	$("#goal button").removeClass("active");
   	$("#screens .buy button").addClass("active");
   	
 	$("#buyScreen .items").html("");

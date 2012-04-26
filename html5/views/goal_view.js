@@ -131,8 +131,8 @@ function drawGoalScreen(){
 	$("#goalScreen").show();
 	$("#buyScreen").hide();
   	$("#screens button").removeClass("active");	  	
-	$("#screens .board button").addClass("active"); 
-	
+	$("#screens .goal button").addClass("active"); 
+
 	var html = "";
 	if(game.isQuest){	   
 	   html += '<h2>Goals for ' + game.quest.name + '</h2>';
