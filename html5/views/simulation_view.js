@@ -10,11 +10,14 @@ function drawSimulationScreen(turn, results){
 	$("#normal").addClass("active");
 	$("#fast").show();
 	$("#skip").show();
+	/*
 	if (game.frat.getPlayValues().party > 0) {
 		game.sim.partyGoersCount = calcNumGoers(results.party.rep);
 	} else {
 		game.sim.partyGoersCount = 0;
-	}
+	}*/
+	
+	setGoers(game.frat.getPlayValues(), results)
 	game.sim.start();
 }
 
