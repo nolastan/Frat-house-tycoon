@@ -44,6 +44,8 @@ $(function() {
 	
 	var clickedMember;
 	var organizers = [];
+	var philOrgs = [];
+	var philgoers = [];
 
 	game.sim.goersCount = 0;
 	
@@ -129,28 +131,34 @@ $(function() {
 	//=========================Philanthropy Step
 	
 	game.sim.philStep = (function() {
-		
+		var philgoer;
 		var philDur = 0, philEnd = 1000;
+		var tr = new Point(sg.width/3, 0);
+		var bl = new Point(0, sg.height/15);
+		table = new Path.Rectangle(tr, bl);
+		table.fillColor = 'brown';
+		table.position = {x: house.bounds.width/4, y: house.bounds.height/2};
+		table.visible = false;
+		
+		
 		return function() {
 			if (!game.sim.stopped) {
-				var philgoer;
+
+				
 				if (philDur == 0) {
 
-					var tr = new Point(sg.width/3, 0);
-					var bl = new Point(0, sg.height/15);
-					table = new Path.Rectangle(tr, bl);
-					table.fillColor = 'brown';
-					table.position = {x: house.bounds.width/4, y: house.bounds.height/2};
+					table.visible = true;
 					philgoer = create_phil_goer(new Point(sg.width, sg.height-50));
-					console.log("PHILGOER!!");
 					console.log(philgoer);
-				}	
+				}
+				
+				
+				
+				
 				if (philDur < philEnd) {
 					philDur++;
-					console.log(philgoer);
 					
 					if (philgoer) {
-						console.log("Step number: " + philDur.toString());
 						philgoer.step();
 					}
 					//game.sim.phase = "party";
@@ -158,7 +166,8 @@ $(function() {
 				}
 				table.remove();
 				philDur = 0;
-				game.sim.phase = "over";
+				table.visible = false;
+				game.sim.phase = "party";
 			
 			}
 		}
@@ -424,7 +433,6 @@ var create_goer = function(start) {
 				return false;
 			}
 		}
-		
 		shape.moveToTarget();
 		return true;
 	}
@@ -462,14 +470,12 @@ var create_phil_goer = function(start) {
 	shape.state = "entering";
 	
 	shape.step = function() {
-		console.log("Phil step");
 		
 		switch(shape.state) {
 			case "entering":
 				
 				if (!shape.moveAlongPath(entryPath)) {
 					shape.state = "table";
-					console.log("phil now table");
 				}
 				
 				break;
@@ -482,12 +488,11 @@ var create_phil_goer = function(start) {
 			case "exiting":
 			default:
 				if (!shape.moveAlongPath(exitPath)) {
-					console.log("phil now dead");
 					shape.die();
 				}
+				break;
 		
 		}
-		console.log(entryPath);
 	}
 	
 	return shape;
