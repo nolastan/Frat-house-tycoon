@@ -11,15 +11,31 @@ function drawSimulationScreen(turn, results){
 	$("#fast").show();
 	$("#skip").show();
 	if (game.frat.getPlayValues().party > 0) {
-		game.sim.goersCount = calcNumGoers(results.party.rep);
+		game.sim.partyGoersCount = calcNumGoers(results.party.rep);
 	} else {
-		game.sim.goersCount = 0;
+		game.sim.partyGoersCount = 0;
 	}
 	game.sim.start();
 }
 
 function calcNumGoers(skill) {
 	return (-50/(1+Math.pow(2,0.1*(skill-50)))) + 55; 
+}
+
+function setGoers(play, results) {
+	//Set how many people will go to the party
+	if (play.party > 0) {
+		game.sim.partyGoersCount = calcNumGoers(results.party.rep);
+	} else {
+		game.sim.partyGoersCount = 0;
+	}
+	
+	//Set how many people will go to the philanthropy event
+	if (play.cs > 0) {
+		game.sim.philGoersCount = calcNumGoers(results.cs.rep);
+	} else {
+		game.sim.philGoersCount = 0;
+	}
 }
 
 $(document).ready(function(){
