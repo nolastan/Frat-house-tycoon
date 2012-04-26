@@ -52,7 +52,7 @@ var create_frat = function(quest) {
 	that.numOfBedrooms = 0;
 	
 	// item multipliers
-	that.itemMult = {'party':1, 'cs':1, 'rush':1, 'study':1};
+	that.itemMult = {'party':0, 'cs':0, 'rush':0, 'study':0};
 
 	
 	//**This needs to be changed, play should have arrays of brothers

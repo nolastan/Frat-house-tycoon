@@ -8,7 +8,7 @@ var create_turn = function (info) {
 	that.categories = {};
 	
 	for (category in info.categories) {
-		that.categories[category] = create_threshold(info.categories[category]);
+		that.categories[category] = create_threshold(info.categories[category], category);
 	}
 	
 	that.getThresholds = function() {
@@ -40,14 +40,14 @@ var create_turn = function (info) {
 }
 
 //Class for determining what reward a play gets
-var create_threshold = function(spec) {
+var create_threshold = function(spec, cat) {
 	var that = {};
 	
 	that.get_effect = function(score) {
 		var i = 0;
 		for (i = spec.cutoffs.length - 1; i >= 0; i--) {
 			if (score >= parseInt(spec.cutoffs[i])) {
-				return create_effect(spec.rewards[i], spec.msgs[i], score);
+				return create_effect(spec.rewards[i], spec.msgs[i], score, cat);
 			}
 		}
 		return create_effect({}, "Nothing happened", score);
@@ -58,7 +58,7 @@ var create_threshold = function(spec) {
 
 
 //Class for storing the effect of a turn
-function create_effect(values, msg, score) {
+function create_effect(values, msg, score, cat) {
 	var that = {};
 	values = values || {};
 	if (values.cash) {
@@ -76,10 +76,21 @@ function create_effect(values, msg, score) {
 	that.rep = that.rep || 0;
 	that.rush = that.rush || 0;
 	
+	var itemrep = 0;
 	
 	that.apply = function(frat) {
 		frat.cash += that.cash;
 		frat.rep += that.rep;
+		
+		
+		
+		if (that.rep >0){
+			itemrep = Math.round(that.rep*frat.itemMult[cat]);
+			frat.rep += itemrep;
+		}
+		
+		console.log("itemrep"+itemrep);
+		
 		
 		for (var i = 0; i < that.rush; i++) {
 			var rushee = create_member(frat.rep);
@@ -89,6 +100,7 @@ function create_effect(values, msg, score) {
 	
 	that.string = function() {
 		if(this.rep != 0) msg += "<br />" + this.rep + " reputation";
+		if(itemrep > 0) msg += " (" + itemrep + " from your items)";
 		if(this.cash != 0) msg += "<br />" + this.cash + " cash";
 		if(this.rush != 0) msg += "<br />" + this.rush + " rushees";
 		return msg;
