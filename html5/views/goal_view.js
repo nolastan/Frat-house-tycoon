@@ -4,6 +4,7 @@ var goalViewFirstDraw = true;
 function GoalView_GetPercentageComplete(goalName, currentVal){
    var divisor = 0;
    var returnVal = 0;
+   var offset = 0;
    
    if(goalName == "rush"){
       divisor = game.quest.goal.rush;
@@ -22,11 +23,25 @@ function GoalView_GetPercentageComplete(goalName, currentVal){
    }
    
    if(goalName == "rep"){
-      divisor = game.quest.goal.rep;
+      if(game.quest.start.rep < 0){	     
+	     offset = game.quest.start.rep * -1;
+	     divisor = game.quest.goal.rep + offset;
+		 currentVal = currentVal + offset;
+	  }
+	  else{	   
+         divisor = game.quest.goal.rep;
+	  }
    }
    
    if(goalName == "cash"){
-      divisor = game.quest.goal.cash;
+      if(game.quest.start.cash < 0){	     
+	     offset = game.quest.start.cash * -1;
+	     divisor = game.quest.goal.cash + offset;
+		 currentVal = currentVal + offset;
+	  }
+	  else{	   
+         divisor = game.quest.goal.cash;
+	  }
    }
    if(goalName == "members"){
       divisor = game.quest.goal.membership;
@@ -131,8 +146,8 @@ function drawGoalScreen(){
 	$("#goalScreen").show();
 	$("#buyScreen").hide();
   	$("#screens button").removeClass("active");	  	
-	$("#screens .goal button").addClass("active"); 
-
+	$("#screens .board button").addClass("active"); 
+	
 	var html = "";
 	if(game.isQuest){	   
 	   html += '<h2>Goals for ' + game.quest.name + '</h2>';
