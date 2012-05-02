@@ -146,7 +146,7 @@ function drawGoalScreen(){
 	$("#goalScreen").show();
 	$("#buyScreen").hide();
   	$("#screens button").removeClass("active");	  	
-	$("#screens .board button").addClass("active"); 
+	$("#screens .goal button").addClass("active"); 
 	
 	var html = "";
 	if(game.isQuest){	   
