@@ -123,10 +123,18 @@ $(function() {
 	//=================End the simulation
 	
 	game.sim.end = function() {
-		game.sim.stopped = true;
-		game.sim.cleanUp();
-		view.onFrame = false;
-		results();
+
+		if (game.sim.phase == "phil") {
+		    game.sim.cleanUpPhil();
+		    game.sim.setupParty();
+		    game.sim.phase = "party";
+		} else {
+		    game.sim.stopped = true;
+		    game.sim.cleanUpParty();
+		    view.onFrame = false;
+		    game.sim.cleanUpParty();
+		    results();
+		}
 	}
 	
 	//==================Start the simulation
@@ -134,6 +142,7 @@ $(function() {
 		
 
 		game.sim.phase = "phil";
+		game.sim.setupPhil();
 		game.sim.stopped = false;
 		view.onFrame = frameFunction;
 	}
@@ -177,7 +186,7 @@ $(function() {
 		goers = [];
 		repClicks = [];
 		organizers = [];
-		sim.cashBox.remove();
+		sim.cashBox.clean();
 	}
 	
 	game.sim.setupPhil = function() {
@@ -224,10 +233,6 @@ $(function() {
 		return function() {
 			if (!game.sim.stopped) {
 
-				
-				if (philDur == 0) {
-					game.sim.setupPhil();
-				}
 				philDur++;
 				if (Math.random() > 0.95 && game.sim.philGoersCount > 0 && philgoers.length < 15) {
     				philgoers.push(create_phil_goer(new Point(sg.width, sg.height-50)));
@@ -255,7 +260,6 @@ $(function() {
 				
                 if (philgoers.length <= 0 && game.sim.philGoersCount <= 0) {
                     
-                    philDur = 0;
 
     				game.sim.cleanUpPhil();
     				game.sim.phase = "party";
@@ -494,6 +498,8 @@ var create_cash_box = function() {
 	    
 	}
 	
+
+	
 	moneyLevel = box.clone()
 	moneyLevel.fillColor = 'green';
 	moneyLevel.scale(1, deposited/maxCapacity);
@@ -507,6 +513,11 @@ var create_cash_box = function() {
 	    }
 		return that;
 	}
+	
+    that.clean = function() {
+        that.collectMoney();
+        that.box.remove();
+    }
 	
 	that.collectMoney = function() {
 	    game.frat.cash += deposited;
@@ -629,6 +640,7 @@ var create_phil_goer = function(start) {
 				break;
 			case "talking":
 				if (!shape.talk()) {
+				    shape.notTalking = true;
 					shape.state = "entering";
 				}
 				break;
@@ -821,7 +833,7 @@ var create_person = function(start, imageName) {
 	    
 		for (var i = 0; i < talkGroup.length; i++) {
 			var curGoer = talkGroup[i];
-			if (curGoer !== shape && shape.bounds.intersects(curGoer.bounds)) {
+			if (curGoer !== shape && shape.bounds.intersects(curGoer.bounds) && !shape.notTalking) {
 				shape.state = "talking";
 				shape.talkTarget = curGoer;
 				curGoer.state = "talking";

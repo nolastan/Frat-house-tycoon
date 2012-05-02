@@ -61,7 +61,7 @@ $(document).ready(function(){
 		//game.sim.stopped = true;
 		//game.sim.cleanUp();
 
-		results();
+		//results();
 	});
 	
 
