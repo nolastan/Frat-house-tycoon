@@ -6,9 +6,9 @@ function drawSimulationScreen(turn, results){
 	$("#results").hide();
 	$(".screens").hide();
 	$("#simulation").show();
-	$("#normal").show();
+/* 	$("#normal").show(); */
 	$("#normal").addClass("active");
-	$("#fast").show();
+/* 	$("#fast").show(); */
 	$("#skip").show();
 	/*
 	if (game.frat.getPlayValues().party > 0) {

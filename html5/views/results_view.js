@@ -3,6 +3,7 @@ function drawResultsScreen(){
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#play").hide();	
+	$("#continue").show();
 	$(".screens").hide();
 	$("#results").show();
 	console.log("RESULTS:");	
@@ -93,7 +94,7 @@ function drawResultsScreen(){
 }
 
 $(document).ready(function(){
-  $("#results .continue").click(function(){
+  $("#continue").click(function(){
     EvaluateGoal();
 	game.nextTurnIsSet = false;
 	plan();

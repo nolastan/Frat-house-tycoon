@@ -208,6 +208,7 @@ function drawPlanningScreen(){
 	$("#fast").hide();
 	$("#skip").hide();
 	$("#run").show();
+	$("#continue").hide();
 	$("#planScreen .nextEvent .val").html(game.nextTurn.title);
   	$("#screens button").removeClass("active");
   	$("#screens .board button").addClass("active"); 

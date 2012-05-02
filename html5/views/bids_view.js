@@ -12,6 +12,7 @@ function drawBidScreen(info){
  	$("nav.bidMeeting").removeClass("over");
   	$("#screens button").removeClass("active");
   	$("#screens .rush button").addClass("active");
+	$("#continue").hide();
   	
 	console.log(info.bidDay);
   	if(info.bidDay){
